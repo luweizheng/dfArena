@@ -1,0 +1,6 @@
+{
+  "task_id": "stockindex_task3",
+  "context": "Use the provided Parquet tables under data/. Dataset-relative file paths and table statistics are listed in metadata.yaml; table schemas and field descriptions are in context/description.md. Additional guidance in context/hints.md is available only when enabled by the experiment configuration.",
+  "query": "If an investor had made regular monthly investments in all indices since 2000, which 5 indices would have produced the highest overall returns, and what countries do they belong to?",
+  "dataset_id": "stockindex"
+}

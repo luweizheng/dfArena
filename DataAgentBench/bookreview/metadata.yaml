@@ -1,0 +1,52 @@
+dataset_id: bookreview
+version: '1.0'
+domain: books and reviews
+source:
+  benchmark: DataAgentBench
+  dataset: query_bookreview
+  task_mapping:
+    bookreview_task1: query1
+    bookreview_task2: query2
+    bookreview_task3: query3
+  files:
+  - path: query_dataset/books_info.sql
+    sha256: 80acb3ece574f26b634107c9c553dc5ab0c95ca11f6b226c9602dff9465393d9
+  - path: query_dataset/review_query.db
+    sha256: 01f07a5894f058613374694a8f46d19341bf1fa316367494d019191e772b3e2c
+  adaptations:
+  - Local tables exported to Parquet; query and evaluator preserved.
+  - Original PostgreSQL dump restored unchanged in PostgreSQL 17.7 (public.ecr.aws/docker/library/postgres:17.7-alpine),
+    then exported to Parquet.
+  export_environment:
+    postgres_version: postgres (PostgreSQL) 17.7
+    image: public.ecr.aws/docker/library/postgres:17.7-alpine
+    image_id: sha256:e19d6e56b4b4e3f48b9624e1d3faca9f7bdfd53bb2b990c7f5b021243a4621e8
+    repo_digests:
+    - public.ecr.aws/docker/library/postgres@sha256:bb377b7239d2774ac8cc76f481596ce96c5a6b5e9d141f6d0a0ee371a6e7c0f2
+format: parquet
+table_count: 2
+data_size_bytes: 973724
+tables:
+- name: books_info
+  path: data/books/books_info.parquet
+  rows: 200
+  columns: 11
+  size_bytes: 395770
+  sha256: b266d693e8f2cfc949952cf79adcfc23911cd6baaa4d726299a78642c4a97567
+- name: review
+  path: data/review/review.parquet
+  rows: 1833
+  columns: 7
+  size_bytes: 577954
+  sha256: 113c3091cddc57ca5a1a5887ded1fb3a4455bf12b2d097be87c33d604c0a9e45
+context:
+  description: context/description.md
+  hints: context/hints.md
+  hints_policy: optional; selected by experiment configuration
+tasks:
+  directory: tasks
+  count: 3
+  ids:
+  - bookreview_task1
+  - bookreview_task2
+  - bookreview_task3
