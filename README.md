@@ -58,7 +58,7 @@ Supported dataframe backends currently include `pandas`, `polars`, and `ibis`.
 
 ## Isolation and validation
 
-The DataAgentBench runner generates code in independent Docker containers with task-specific input mounts and a writable workspace for each run. Agent configuration is isolated from host session history, skills, and MCP servers. Hidden reference solutions, ground truth, and evaluator configuration are not mounted into the generation container.
+The runner generates code in independent Docker containers with task-specific input mounts and a writable workspace for each run. By default, the runner does not import host session history, skills, or MCP server configuration. Selected skills can be supplied explicitly through container mounts or image contents; MCP servers require explicit configuration and connectivity. The current runner CLI does not yet expose options for these additions. Hidden reference solutions, ground truth, and evaluator configuration are not mounted into the generation container.
 
 Evaluation is separate from generation. DataAgentBench runs each task's original `validate.py` in a separate container. A passing result establishes compliance with that validator's checks, not exhaustive correctness of the generated program. For example, some DataAgentBench validators check whether expected answer text is present without rejecting extra answers.
 
