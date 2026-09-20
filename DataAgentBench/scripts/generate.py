@@ -1,25 +1,123 @@
 #!/usr/bin/env python3
-import argparse,json,re,subprocess,time
+"""Generate in an isolated Docker/agent session; retain an independent stage report."""
+import argparse
+import json
 from pathlib import Path
-BACKENDS={"pandas":"Use pandas as the main dataframe backend for loading, transformation, and computation.","polars":"Use Polars as the main dataframe backend for loading, transformation, and computation. Do not use pandas for the main workflow. Pandas may be used only for an explicit final interoperability boundary when required.","ibis":"Use Ibis with DuckDB as the main dataframe backend for loading, filtering, joins, aggregation, sorting, and date handling. Keep relational computation lazy until final materialization where practical. Do not use pandas for the main workflow. A small final boundary conversion is allowed only when required for answer serialization."}
+import shutil
+import subprocess
+import tempfile
+import uuid
+
+from results import save, summarize, token_usage
+from runners.agents import add_agent_options, settings, label_for, prepare_agent, archive_sessions
+
+ROOT = Path(__file__).resolve().parents[2]
+BACKENDS = {
+    'pandas': 'Use pandas as the main dataframe backend for loading, transformation, and computation.',
+    'polars': 'Use Polars as the main dataframe backend for loading, transformation, and computation. Do not use pandas for the main workflow. Pandas may be used only for an explicit final interoperability boundary when required.',
+    'ibis': 'Use Ibis with DuckDB as the main dataframe backend for loading, filtering, joins, aggregation, sorting, and date handling. Keep relational computation lazy until final materialization where practical. Do not use pandas for the main workflow. A small final boundary conversion is allowed only when required for answer serialization.'
+}
+
+
 def main():
- p=argparse.ArgumentParser(); p.add_argument('--dataset',type=Path,required=True); p.add_argument('--task',required=True); p.add_argument('--agent-model',default='codex_gpt-6'); p.add_argument('--backend',choices=BACKENDS,default='pandas'); p.add_argument('--image',default='dfarena-agent-sandbox:latest'); p.add_argument('--model'); p.add_argument('--codex-config-dir',default='~/.codex'); p.add_argument('--run-dir',type=Path,required=True); p.add_argument('--timeout',type=int,default=600); a=p.parse_args()
- ds=a.dataset.resolve(); task=json.loads((ds/'tasks'/a.task/'task.json').read_text()); sol=a.run_dir/'solution'; detail=a.run_dir/'detail'; work=a.run_dir/'work'; sol.mkdir(parents=True,exist_ok=True); detail.mkdir(parents=True,exist_ok=True); work.mkdir(exist_ok=True)
- prompt=f'''Solve this DataAgentBench task. Read only /workspace/data, /workspace/context, and /workspace/task.json. Put code and intermediate files under /workspace/work. Do not modify /workspace/data. Do not read hidden answers, validators, reference solutions, or other runs. Use this backend: {BACKENDS[a.backend]} Generate /workspace/work/solution.py, execute it, repair failures, and write /workspace/work/answer.json with exactly {{"answer": "<concise final answer>"}}. Do not hard-code the answer.\n\nContext: {task.get("context","")}\nQuestion: {task.get("query","")}'''
- cmd=['docker','run','--rm','-e','HOME=/root','-v',f'{(ds/"data").resolve()}:/workspace/data:ro','-v',f'{(ds/"context").resolve()}:/workspace/context:ro','-v',f'{(ds/"tasks"/a.task/"task.json").resolve()}:/workspace/task.json:ro','-v',f'{work.resolve()}:/workspace/work:rw','-v',f'{Path(a.codex_config_dir).expanduser().resolve()}:/root/.codex:rw','-w','/workspace',a.image,'codex','exec','--json','--dangerously-bypass-approvals-and-sandbox','--skip-git-repo-check','--cd','/workspace/work',prompt]
- if a.model: cmd.insert(-1,a.model)
- t=time.perf_counter(); out=[]; proc=subprocess.Popen(cmd,stdout=subprocess.PIPE,text=True,bufsize=1)
- with (detail/'codex_stdout.jsonl').open('w') as f:
-  for line in proc.stdout: f.write(line); f.flush(); out.append(line)
- rc=proc.wait(); elapsed=time.perf_counter()-t
- if (work/'solution.py').exists(): (sol/'solution.py').write_bytes((work/'solution.py').read_bytes())
- if (work/'answer.json').exists(): (sol/'answer.json').write_bytes((work/'answer.json').read_bytes())
- usage=None
- for l in reversed(out):
-  try:
-   x=json.loads(l)
-   if x.get('type')=='turn.completed': usage=x.get('usage'); break
-  except: pass
- result={'status':'success' if rc==0 and (sol/'solution.py').exists() and (sol/'answer.json').exists() else 'failure','returncode':rc,'elapsed_seconds':elapsed,'token_usage':usage}; (detail/'result.json').write_text(json.dumps(result,indent=2))
- return 0 if result['status']=='success' else 1
-if __name__=='__main__': raise SystemExit(main())
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--dataset', type=Path, required=True)
+    p.add_argument('--task', required=True)
+    p.add_argument('--agent-model')
+    p.add_argument('--backend', choices=BACKENDS, default='pandas')
+    p.add_argument('--image', default='dfarena-agent-sandbox:latest')
+    p.add_argument('--model')
+    p.add_argument('--run-dir', type=Path, required=True)
+    p.add_argument('--timeout', type=int, default=600)
+    add_agent_options(p)
+    a = p.parse_args()
+    info = settings(a)
+    label = label_for(a, info)
+    log_name = a.agent + "_stdout.jsonl"
+    if a.timeout <= 0:
+        p.error('--timeout must be positive')
+    ds, run = a.dataset.resolve(), a.run_dir.resolve()
+    # Refuse reuse: stale answers/evaluations must not masquerade as a new run.
+    if any((run / name).exists() for name in ('detail/generation.json', 'detail/evaluation.json', 'work', 'solution')):
+        p.error('Use a fresh run directory; generation artifacts already exist')
+    task = json.loads((ds/'tasks'/a.task/'task.json').read_text())
+    for folder in ('solution', 'detail', 'work', 'logs'):
+        (run/folder).mkdir(parents=True, exist_ok=True)
+    prompt = f'''Solve this DataAgentBench task. Read only /workspace/data, /workspace/context, and /workspace/task.json. Put code and intermediate files under /workspace/work. Do not modify /workspace/data. Do not read hidden answers, validators, reference solutions, or other runs. Use this backend: {BACKENDS[a.backend]} Generate /workspace/work/solution.py, execute it, repair failures, and write /workspace/work/answer.json with exactly {{"answer": "<concise final answer>"}}. Do not hard-code the answer.
+
+Context: {task.get("context", "")}
+Question: {task.get("query", "")}'''
+    (run/'detail/prompt.txt').write_text(prompt)
+    result = {'benchmark': 'DataAgentBench', 'dataset': ds.name, 'task': a.task,
+              'mode': 'direct', 'run_id': run.name, 'backend': a.backend,
+              'agent': {**info, 'label': label},
+              'status': 'running', 'returncode': None, 'started_at': None, 'finished_at': None,
+              'elapsed_seconds': None, 'timing_scope': a.agent + '_process',
+              'artifacts': {'solution': 'solution/solution.py', 'answer': 'solution/answer.json',
+                            'agent_log': 'logs/' + log_name},
+              **token_usage(run/'logs'/log_name, False, agent=a.agent)}
+    save(run/'detail/generation.json', result)
+    summarize(run)
+    container = 'dfarena-dab-' + uuid.uuid4().hex[:12]
+    try:
+        with tempfile.TemporaryDirectory(prefix='dfarena-dab-') as tmp:
+            cfg = Path(tmp)/a.agent; cfg.mkdir()
+            metrics = Path(tmp)/'metrics'; metrics.mkdir()
+            agent_flags, agent_command = prepare_agent(a, cfg, info)
+            save(run/'detail/generation.json', result)
+            cmd = ['docker', 'run', '--rm', '-i', '--name', container,
+                   '-v', f'{ds/"data"}:/workspace/data:ro',
+                   '-v', f'{ds/"context"}:/workspace/context:ro',
+                   '-v', f'{ds/"tasks"/a.task/"task.json"}:/workspace/task.json:ro',
+                   '-v', f'{run/"work"}:/workspace/work:rw',
+                   *agent_flags,
+                   '-v', f'{ROOT/"runners/timed_process.py"}:/runner/timed_process.py:ro',
+                   '-v', f'{metrics}:/runner/metrics:rw', '-w', '/workspace/work', a.image,
+                   'python', '/runner/timed_process.py', '--report', f'/runner/metrics/{a.agent}.json',
+                   '--agent', a.agent, '--timeout', str(a.timeout), '--', *agent_command]
+            save(run/'detail/command.json', cmd)
+            try:
+                with (run/'logs'/log_name).open('w') as out, (run/'logs'/(a.agent+'_stderr.log')).open('w') as err:
+                    cp = subprocess.run(cmd, input=prompt, text=True, stdout=out, stderr=err, timeout=a.timeout+90)
+                result['docker_returncode'] = cp.returncode
+            except subprocess.TimeoutExpired:
+                result['status'] = 'runner_timeout'
+            finally:
+                subprocess.run(['docker', 'rm', '-f', container], capture_output=True, timeout=30)
+                report = metrics/(a.agent+'.json')
+                if report.exists():
+                    timing = json.loads(report.read_text())
+                    save(run/'detail/agent_exec_timing.json', timing)
+                    result.update(timing)
+                elif result['status'] == 'running':
+                    result['status'] = 'runner_error'
+                    result['error_type'] = 'MissingTimingReport'
+                session_archive = archive_sessions(a.agent, cfg, run)
+                if session_archive:
+                    result['artifacts']['sessions'] = session_archive
+    except Exception as exc:
+        result['status'] = 'runner_error'
+        result['error_type'] = type(exc).__name__
+    finally:
+        for name in ('solution.py', 'answer.json'):
+            source = run/'work'/name
+            if source.is_file():
+                shutil.copy2(source, run/'solution'/name)
+        if result['status'] == 'completed':
+            try:
+                answer = json.loads((run/'solution/answer.json').read_text())
+                if not (run/'solution/solution.py').is_file() or not isinstance(answer, dict) or not isinstance(answer.get('answer'), str):
+                    raise ValueError('Missing solution or answer string')
+            except (OSError, ValueError):
+                result['status'] = 'missing_output'
+        result.update(token_usage(run/'logs'/log_name, result.get('returncode') == 0, agent=a.agent))
+        if result.get('agent_errors') and result['status'] == 'completed':
+            result['status'] = 'agent_failed'
+        save(run/'detail/generation.json', result)
+        summarize(run)
+    print(json.dumps(result, indent=2, ensure_ascii=False))
+    return 0 if result['status'] == 'completed' else 1
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

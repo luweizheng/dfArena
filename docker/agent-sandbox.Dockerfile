@@ -24,7 +24,8 @@ RUN ARCH="$(dpkg --print-architecture)" && \
     tar -xJf /tmp/node.tar.xz -C /usr/local --strip-components=1 && \
     rm -f /tmp/node.tar.xz
 
-RUN npm install -g @openai/codex opencode-ai && \
+ARG OPENCODE_VERSION=1.18.29
+RUN npm install -g @openai/codex opencode-ai@${OPENCODE_VERSION} && \
     opencode --version
 
 COPY docker/requirements.txt /tmp/requirements.txt

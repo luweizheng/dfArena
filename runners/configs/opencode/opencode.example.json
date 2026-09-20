@@ -1,0 +1,18 @@
+{
+  "model": "custom/gpt-6-astra",
+  "provider": {
+    "custom": {
+      "npm": "@ai-sdk/openai",
+      "options": {
+        "baseURL": "{env:PROVIDER_BASE_URL}",
+        "apiKey": "{env:PROVIDER_API_KEY}"
+      },
+      "models": {
+        "gpt-6-astra": {
+          "name": "gpt-6-astra",
+          "options": {"reasoningEffort": "medium"}
+        }
+      }
+    }
+  }
+}

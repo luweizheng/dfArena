@@ -1,208 +1,93 @@
-# DataAgentBench Runner
+# DataAgentBench runner
 
-This directory contains the runner for the dataframe-native DataAgentBench tasks in this repository.
+Run commands from the dfArena root with Python 3.11+, Docker, and local agent configuration. See [shared runner configuration](../../runners/README.md#configuration). The default image is `dfarena-agent-sandbox:latest` and must contain the selected agent CLI and dataframe dependencies.
 
-The runner separates solution generation from evaluation:
+## Run a task
 
-```mermaid
-flowchart TD
-    A[run_benchmark.py] --> B[Create output run directory]
-    B --> C[generate.py in agent sandbox]
-    C --> D[Generate solution and answer]
-    D --> E[evaluate.py in agent sandbox]
-    E --> F[Validator passes? Write result.json]
-```
-
-## Prerequisites
-
-We use docker container as the agent sandbox, can mount the files into docker container, some files that we dont want agent change are read-only, others are read-write.
-
-Not sure if it works on Windows:
-
-- Docker Desktop or Docker Engine running Linux containers
-- The `dfarena-agent-sandbox:latest` image
-- A local Codex configuration directory, normally `~/.codex`
-
-Build the sandbox image from the repository root:
+Prefer explicit `--agent` and `--model` arguments so the command identifies the actual agent and model:
 
 ```bash
-docker build \
-  -f docker/agent-sandbox.Dockerfile \
-  -t dfarena-agent-sandbox:latest .
+# Codex
+.venv/bin/python DataAgentBench/scripts/run_benchmark.py \
+  --dataset DataAgentBench/bookreview --task task2 \
+  --agent codex --model gpt-6-astra --backend pandas
+
+# OpenCode: custom must match a provider in the OpenCode configuration.
+.venv/bin/python DataAgentBench/scripts/run_benchmark.py \
+  --dataset DataAgentBench/bookreview --task task2 \
+  --agent opencode --model custom/gpt-6-astra --backend polars
 ```
 
-The image includes both terminal agents:
+Use `--image <your-local-image>` to select another image. Backends are `pandas`, `polars`, and `ibis`.
 
-- `codex`
-- `opencode`
+| Argument | Meaning |
+|---|---|
+| `--agent` | Agent implementation: `codex` (default) or `opencode`. |
+| `--model` | Actual model override; otherwise read from the selected agent's configuration. OpenCode requires `provider/model`. |
+| `--agent-model` | Optional output directory label only. It does not select or change the agent or model. |
+| `--timeout` | Agent process timeout in seconds; default 600. |
+| `--evaluation-timeout` | Evaluation timeout in seconds; default 120. |
 
-The image does not contain API keys. Authentication is provided at runtime by mounting the host agent configuration into the container. For example, the Codex generation flow mounts the host Codex directory into `/root/.codex`:
+The CLI spelling is `--agent-model`, not `--agent_model`; `agent_model` is the internal Python attribute. Normally omit this option: the label is inferred as `codex_gpt-6-astra` or `opencode_gpt-6-astra`, without the OpenCode provider prefix. Explicit labels are sanitized for use as directory names. Reasoning effort comes from agent configuration and is recorded alongside the model.
 
-```bash
-docker run --rm \
-  -v "$HOME/.codex:/root/.codex:rw" \
-  dfarena-agent-sandbox:latest \
-  codex exec ...
-```
+## Pipeline
 
-This means the container uses the host's existing authentication and API configuration. The credentials are not copied into the image or committed to the repository. Keep the host configuration directory outside the repository and never replace it with a path containing credentials in a checked-in command or script.
+- `generate.py` prepares task inputs, runs the agent in Docker, and saves `detail/generation.json`.
+- `evaluate.py` runs the task's original `validate.py` and saves `detail/evaluation.json`. Re-evaluation preserves the generation record.
+- `run_benchmark.py` chains both stages and updates `result.json`. Generation failure skips evaluation; the command exits with 0 only when evaluation passes.
 
-For OpenCode, the same principle applies when it is launched inside the sandbox: mount the host OpenCode configuration read-only when possible, for example:
+The summary can be rebuilt with `runners.results.summarize(run_dir)`. An answer mismatch gives `passed=false`; an evaluation error or timeout gives `passed=null`.
 
-```bash
-docker run --rm \
-  -v "$HOME/.config/opencode:/root/.config/opencode:ro" \
-  -e OPENCODE_CONFIG=/root/.config/opencode/opencode.json \
-  dfarena-agent-sandbox:latest \
-  opencode run ...
-```
-
-Use `:rw` only when the agent must update local authentication state or cache files. For normal benchmark execution, read-only authentication mounts are preferred. The current `generate.py` Codex path uses `--codex-config-dir` and mounts that directory at `/root/.codex`.
-
-## Dataset layout
-
-Each dataset follows the same structure, which contains (data, context, task, answer). 
-
-```text
-DataAgentBench/<dataset>/
-├── context/
-│   ├── description.md
-│   └── hints.md
-├── data/
-├── metadata.yaml
-└── tasks/
-    └── task1/
-        ├── task.json
-        └── answer/
-            ├── ground_truth.csv
-            └── validate.py
-```
-
-The task's `answer/` directory is used only by the evaluation container. It is never mounted into the agent container during generation.
-
-## Run a benchmark task
-
-The simplest command runs generation and evaluation in sequence:
-
-```bash
-python DataAgentBench/scripts/run_benchmark.py \
-  --dataset DataAgentBench/stockindex \
-  --task task1 \
-  --agent-model codex_gpt-6 \
-  --backend pandas
-```
-
-Available backends are:
-
-- `pandas`
-- `polars`
-- `ibis`
-
-For example, run the same task with Polars:
-
-```bash
-python DataAgentBench/scripts/run_benchmark.py \
-  --dataset DataAgentBench/stockindex \
-  --task task1 \
-  --agent-model codex_gpt-6 \
-  --backend polars
-```
-
-Use a different Codex configuration directory when needed:
-
-```bash
-python DataAgentBench/scripts/run_benchmark.py \
-  --dataset DataAgentBench/bookreview \
-  --task task2 \
-  --backend ibis \
-  --codex-config-dir ~/.codex-bench
-```
-
-## Run generation and evaluation separately
-
-Separate execution is useful when debugging a failed solution or inspecting generated code.
-
-```bash
-RUN_DIR=DataAgentBench/stockindex/output/task1/manual/pandas/r001
-mkdir -p "$RUN_DIR"
-
-python DataAgentBench/scripts/generate.py \
-  --dataset DataAgentBench/stockindex \
-  --task task1 \
-  --agent-model manual \
-  --backend pandas \
-  --run-dir "$RUN_DIR"
-
-python DataAgentBench/scripts/evaluate.py \
-  --dataset DataAgentBench/stockindex \
-  --task task1 \
-  --run-dir "$RUN_DIR"
-```
-
-The default sandbox image can be overridden for either script with `--image`.
-
-## Run outputs
-
-`run_benchmark.py` writes output under:
+## Run artifacts
 
 ```text
 DataAgentBench/<dataset>/output/<task>/<agent-model>/<backend>/rNNN/
-├── detail/
-│   ├── codex_stdout.jsonl
-│   └── result.json
-├── solution/
-│   ├── answer.json
-│   └── solution.py
-├── work/
-└── result.json
+  result.json                       # Generation and evaluation summary
+  detail/
+    generation.json
+    evaluation.json
+    agent_exec_timing.json
+    prompt.txt
+    command.json
+    codex_sessions/                  # Codex runs only
+    opencode_sessions/opencode.db    # OpenCode runs only
+  logs/
+    <agent>_stdout.jsonl              # Native CLI event stream
+    <agent>_stderr.log
+    evaluation.log                   # Combined validator stdout/stderr
+  solution/
+    solution.py
+    answer.json
+  work/                              # Agent's writable workspace
 ```
 
-The `output/` directory is local experiment state and is ignored by Git. Do not commit generated solutions, logs, token usage, or run metadata unless a result is intentionally being published as a separate artifact.
+Run numbers increment within each task/label/backend combination. Generation requires a fresh directory; `output/` is Git-ignored. The native session archive and CLI events are both retained; see [session archives](../../runners/README.md#session-archives).
 
-## Docker sandbox and file mounts
+## Timing and usage
 
-Docker is used as the agent sandbox. The runner mounts only the files needed for the current stage. Inputs and instructions that the agent must not modify are mounted read-only (`:ro`); the working directory where the agent writes code and answers is mounted read-write (`:rw`).
+Generation timing covers only the agent process inside Docker; evaluation timing separately covers the validator's Docker invocation. Token counters are extracted from agent events and normalized by the shared adapters. Definitions and coverage limitations, including auxiliary calls missing from CLI events, are documented in [Timing and token usage](../../runners/README.md#timing-and-token-usage).
 
-For example, during generation the runner mounts:
+## Run stages separately
 
-```text
-DataAgentBench/stockindex/data/              -> /workspace/data       (read-only)
-DataAgentBench/stockindex/context/           -> /workspace/context    (read-only)
-DataAgentBench/stockindex/tasks/task1/task.json -> /workspace/task.json (read-only)
-DataAgentBench/stockindex/output/.../work/   -> /workspace/work       (read-write)
-```
-
-In Docker terms, the mounts look like:
+Use a fresh path for generation, then pass the same path to evaluation:
 
 ```bash
-docker run --rm \
-  -v "$DATA_DIR:/workspace/data:ro" \
-  -v "$CONTEXT_DIR:/workspace/context:ro" \
-  -v "$TASK_FILE:/workspace/task.json:ro" \
-  -v "$WORK_DIR:/workspace/work:rw" \
-  dfarena-agent-sandbox:latest ...
+DAB_RUN_DIR=DataAgentBench/bookreview/output/task2/manual/pandas/r001
+
+.venv/bin/python DataAgentBench/scripts/generate.py \
+  --dataset DataAgentBench/bookreview --task task2 \
+  --agent codex --model gpt-6-astra --backend pandas \
+  --run-dir "$DAB_RUN_DIR"
+
+.venv/bin/python DataAgentBench/scripts/evaluate.py \
+  --dataset DataAgentBench/bookreview --task task2 \
+  --run-dir "$DAB_RUN_DIR"
 ```
 
-The agent can read the Parquet inputs and task context, but it cannot overwrite them. It can create or update files such as `/workspace/work/solution.py` and `/workspace/work/answer.json`.
+This runner follows the repository's [isolation and validation conventions](../../README.md#isolation-and-validation). DataAgentBench uses its original task validators, rather than the shared CSV comparator.
 
-Evaluation uses a separate sandbox and adds the generated solution and hidden validator:
+## Tests
 
-```text
-run/solution/  -> /workspace/solution  (read-write)
-tasks/task1/answer/ -> /workspace/answer (read-only)
+```bash
+.venv/bin/python -m unittest discover -s DataAgentBench/scripts/tests -v
 ```
-
-The `answer/` directory is never mounted during generation, so hidden ground truths and validators are not exposed to the agent while it is solving the task.
-
-## Adding a dataset
-
-1. Add the dataset directory under `DataAgentBench/`.
-2. Convert input tables to Parquet under `data/`.
-3. Add documentation under `context/`.
-4. Add one `task.json` and one `answer/validate.py` per task.
-5. Add `metadata.yaml` with table paths, sizes, row counts, and checksums.
-6. Run at least one task with each supported backend that the dataset is intended to support.
-
-PostgreSQL, DuckDB, and SQLite are all databases, and usually contains tabular data tables, and can be converted into Parquet files. For MongoDB, we should discuss how to convert into our benchmark. 
-
-Large datasets should not be committed directly to this repository. Publish them as a versioned Hugging Face dataset and keep the repository metadata, schema, download instructions, and checksums here.

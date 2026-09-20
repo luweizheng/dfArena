@@ -13,6 +13,14 @@ runs/
 .codex/
 .claude/
 .opencode/
+# Local agent settings and credentials; only public examples are shareable.
+/runners/configs/*
+!/runners/configs/opencode/
+/runners/configs/opencode/*
+!/runners/configs/opencode/opencode.example.json
+!/runners/configs/codex/
+/runners/configs/codex/*
+!/runners/configs/codex/config.example.toml
 *.pem
 *.key
 *.log

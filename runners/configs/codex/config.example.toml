@@ -1,0 +1,11 @@
+# Copy to config.toml and set the endpoint/model for your provider.
+# Export PROVIDER_API_KEY before running; do not put real credentials here.
+model = "gpt-6-astra"
+model_provider = "custom"
+model_reasoning_effort = "medium"
+
+[model_providers.custom]
+name = "Custom Provider"
+base_url = "https://your-provider.example/v1"
+wire_api = "responses"
+env_key = "PROVIDER_API_KEY"

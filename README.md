@@ -50,8 +50,16 @@ Run a task:
 python DataAgentBench/scripts/run_benchmark.py \
   --dataset DataAgentBench/stockindex \
   --task task1 \
-  --agent-model codex_gpt-6 \
+  --agent codex --model gpt-6-astra \
   --backend pandas
 ```
 
 Supported dataframe backends currently include `pandas`, `polars`, and `ibis`.
+
+## Isolation and validation
+
+The DataAgentBench runner generates code in independent Docker containers with task-specific input mounts and a writable workspace for each run. Agent configuration is isolated from host session history, skills, and MCP servers. Hidden reference solutions, ground truth, and evaluator configuration are not mounted into the generation container.
+
+Evaluation is separate from generation. DataAgentBench runs each task's original `validate.py` in a separate container. A passing result establishes compliance with that validator's checks, not exhaustive correctness of the generated program. For example, some DataAgentBench validators check whether expected answer text is present without rejecting extra answers.
+
+See the [DataAgentBench runner](DataAgentBench/scripts/README.md) and [shared runner documentation](runners/README.md) for commands, artifacts, timing, and token accounting.
