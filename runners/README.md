@@ -22,6 +22,8 @@ After container shutdown, the runner copies Codex session files or backs up Open
 
 `detail/agent_exec_timing.json` records UTC `started_at` / `finished_at` and monotonic `elapsed_seconds`. It measures the agent process inside Docker, including exploration, tool execution, repairs, and simulator waits. Docker startup, session archiving, and evaluation are excluded.
 
+`runners/timed_process.py` is the in-container execution wrapper, not a test. The runner mounts this script into the container and invokes it as the container command; the wrapper starts Codex or OpenCode, forwards its standard input/output/error, waits for completion, and writes the timing report. On timeout it terminates the agent's process group before recording the final status and exit code.
+
 Generation metrics go to `detail/generation.json`; evaluation has its own timing and status in `detail/evaluation.json`. `result.json` combines both records. When evaluation invokes an external validator, its stdout and stderr are combined in `logs/evaluation.log`.
 
 Codex usage comes from `turn.completed.usage`; OpenCode usage comes from `step_finish.part.tokens`, deduplicated by session ID and part ID. The shared `token_usage` fields use inclusive counts:
@@ -37,7 +39,7 @@ For OpenCode 1.18.29, inclusive input is native `input + cache.read + cache.writ
 
 Missing counters remain `null`. `token_usage_status` describes the completeness of received events, not billing coverage. Simulator usage is excluded, and `reported_cost` is only the CLI's estimate.
 
-**CLI usage can omit auxiliary requests.** In one OpenCode audit, all 10 visible steps matched provider counters, but the provider recorded an additional 4,861-token request consistent with automatic title generation. Neither CLI steps nor archived assistant messages included it. Whole-run accounting therefore requires provider logs filtered by experiment key and time window; do not treat that example's overhead as a fixed correction.
+**Current accounting uses the OpenCode CLI event stream.** In one audit, the provider recorded one additional LLM request beyond the 10 visible steps, likely for automatic title generation. This request was absent from the CLI steps and archived assistant messages. We keep the CLI event total as the reported coding agent usage and apply no inferred correction; the extra request is documented as a known coverage limitation.
 
 ## Agent adapter structure
 
