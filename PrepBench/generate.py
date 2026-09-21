@@ -25,7 +25,7 @@ BACKENDS = {'pandas': 'pandas', 'polars': 'Polars', 'ibis': 'Ibis with DuckDB as
 
 sys.path.insert(0, str(ROOT.parent))
 from runners.results import save, summarize, token_metrics, token_usage
-from runners.agents import add_agent_options, add_model_options, settings, label_for, prepare_agent, archive_sessions
+from runners.agents import add_agent_options, add_model_options, settings, label_for, prepare_agent, archive_sessions, agent_log_paths
 
 
 def prepare(case, run, mode, backend):
@@ -80,8 +80,8 @@ def main(argv=None):
     info = settings(args)
     model = info['model']
     agent_model = label_for(args, info)
-    log_name = 'codex.jsonl' if args.agent == 'codex' else 'opencode.jsonl'
     run = args.run_dir.resolve() if args.run_dir else next_run(case, args.mode, agent_model, args.backend)
+    agent_logs = agent_log_paths(run)
     run.mkdir(parents=True, exist_ok=True)
     if any(run.iterdir()):
         ap.error('Use a fresh empty run directory')
@@ -94,8 +94,8 @@ def main(argv=None):
                'timing_scope': args.agent + '_process',
                'interaction': {'enabled': args.mode == 'interact', 'ask_calls': 0},
                'artifacts': {'solution': 'workspace/solution.py', 'outputs': [],
-                             'agent_log': 'logs/' + log_name},
-               **token_usage(run/'logs'/log_name, completed=False, agent=args.agent)}
+                             'agent_log': str(agent_logs['events'].relative_to(run))},
+               **token_usage(agent_logs['events'], completed=False, agent=args.agent)}
     save(run / 'detail/generation.json', summary)
     summarize(run)
     print(f'RUN={run}', flush=True)
@@ -146,7 +146,7 @@ def main(argv=None):
                    '--agent', args.agent, '--timeout', str(args.timeout), '--', *agent_command]
             save(run / 'detail/command.json', cmd)
             try:
-                with (run / 'logs' / log_name).open('w') as out, (run / 'logs' / (args.agent + '.stderr')).open('w') as err:
+                with (agent_logs['events']).open('w') as out, agent_logs['stderr'].open('w') as err:
                     cp = subprocess.run(cmd, input=prompt, text=True, stdout=out, stderr=err, timeout=args.timeout + 90)
                 summary['docker_returncode'] = cp.returncode
             finally:
@@ -179,15 +179,15 @@ def main(argv=None):
             except subprocess.TimeoutExpired:
                 server.kill(); server.wait()
         events = []
-        if (run / 'logs' / log_name).exists():
-            for line in (run / 'logs' / log_name).read_text().splitlines():
+        if (agent_logs['events']).exists():
+            for line in (agent_logs['events']).read_text().splitlines():
                 try:
                     event = json.loads(line)
                     if isinstance(event, dict):
                         events.append(event)
                 except ValueError:
                     pass
-        summary.update(token_usage(run / 'logs' / log_name, completed=summary.get('returncode') == 0, agent=args.agent))
+        summary.update(token_usage(agent_logs['events'], completed=summary.get('returncode') == 0, agent=args.agent))
         if args.agent == 'codex':
             summary['session_ids'] = [e['thread_id'] for e in events if e.get('type') == 'thread.started' and 'thread_id' in e]
         if summary.get('agent_errors') and summary['status'] == 'completed':

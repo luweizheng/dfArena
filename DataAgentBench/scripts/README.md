@@ -52,8 +52,8 @@ DataAgentBench/<dataset>/output/<task>/<agent-model>/<backend>/rNNN/
     codex_sessions/                  # Codex runs only
     opencode_sessions/opencode.db    # OpenCode runs only
   logs/
-    <agent>_stdout.jsonl              # Native CLI event stream
-    <agent>_stderr.log
+    agent_events.jsonl              # Native CLI event stream
+    agent_stderr.log
     evaluation.log                   # Combined validator stdout/stderr
   solution/
     solution.py

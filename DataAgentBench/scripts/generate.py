@@ -9,7 +9,7 @@ import tempfile
 import uuid
 
 from results import save, summarize, token_usage
-from runners.agents import add_agent_options, add_model_options, settings, label_for, prepare_agent, archive_sessions
+from runners.agents import add_agent_options, add_model_options, settings, label_for, prepare_agent, archive_sessions, agent_log_paths
 
 ROOT = Path(__file__).resolve().parents[2]
 BACKENDS = {
@@ -32,10 +32,10 @@ def main():
     a = p.parse_args()
     info = settings(a)
     label = label_for(a, info)
-    log_name = a.agent + "_stdout.jsonl"
     if a.timeout <= 0:
         p.error('--timeout must be positive')
     ds, run = a.dataset.resolve(), a.run_dir.resolve()
+    agent_logs = agent_log_paths(run)
     # Refuse reuse: stale answers/evaluations must not masquerade as a new run.
     if any((run / name).exists() for name in ('detail/generation.json', 'detail/evaluation.json', 'work', 'solution')):
         p.error('Use a fresh run directory; generation artifacts already exist')
@@ -53,8 +53,8 @@ Question: {task.get("query", "")}'''
               'status': 'running', 'returncode': None, 'started_at': None, 'finished_at': None,
               'elapsed_seconds': None, 'timing_scope': a.agent + '_process',
               'artifacts': {'solution': 'solution/solution.py', 'answer': 'solution/answer.json',
-                            'agent_log': 'logs/' + log_name},
-              **token_usage(run/'logs'/log_name, False, agent=a.agent)}
+                            'agent_log': str(agent_logs['events'].relative_to(run))},
+              **token_usage(agent_logs['events'], False, agent=a.agent)}
     save(run/'detail/generation.json', result)
     summarize(run)
     container = 'dfarena-dab-' + uuid.uuid4().hex[:12]
@@ -76,7 +76,7 @@ Question: {task.get("query", "")}'''
                    '--agent', a.agent, '--timeout', str(a.timeout), '--', *agent_command]
             save(run/'detail/command.json', cmd)
             try:
-                with (run/'logs'/log_name).open('w') as out, (run/'logs'/(a.agent+'_stderr.log')).open('w') as err:
+                with (agent_logs['events']).open('w') as out, agent_logs['stderr'].open('w') as err:
                     cp = subprocess.run(cmd, input=prompt, text=True, stdout=out, stderr=err, timeout=a.timeout+90)
                 result['docker_returncode'] = cp.returncode
             except subprocess.TimeoutExpired:
@@ -109,7 +109,7 @@ Question: {task.get("query", "")}'''
                     raise ValueError('Missing solution or answer string')
             except (OSError, ValueError):
                 result['status'] = 'missing_output'
-        result.update(token_usage(run/'logs'/log_name, result.get('returncode') == 0, agent=a.agent))
+        result.update(token_usage(agent_logs['events'], result.get('returncode') == 0, agent=a.agent))
         if result.get('agent_errors') and result['status'] == 'completed':
             result['status'] = 'agent_failed'
         save(run/'detail/generation.json', result)

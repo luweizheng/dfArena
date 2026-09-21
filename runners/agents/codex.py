@@ -27,7 +27,7 @@ def isolated_codex(source, target):
     return config
 
 
-def token_metrics(events, completed, source='logs/codex.jsonl:turn.completed.usage'):
+def token_metrics(events, completed, source='logs/agent_events.jsonl:turn.completed.usage'):
     events = [e for e in events if isinstance(e, dict) and e.get('type') == 'turn.completed']
     usages = [e['usage'] for e in events if isinstance(e.get('usage'), dict) and
               all(type(e['usage'].get(k)) is int and e['usage'][k] >= 0

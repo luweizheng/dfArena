@@ -1,6 +1,6 @@
 # Shared coding-agent runners
 
-DataAgentBench supports `--agent codex|opencode`. Runs use isolated Docker containers and preserve generation and evaluation records separately.
+Each `<benchmark>` runner supports `--agent codex|opencode`. Runners use isolated Docker runs and preserve generation and evaluation records separately.
 
 ## Session archives
 
@@ -9,7 +9,10 @@ Each run saves both the CLI event stream and the agent's native session archive:
 | Artifact | Codex | OpenCode |
 |---|---|---|
 | Session archive | `detail/codex_sessions/` | `detail/opencode_sessions/opencode.db` |
-| DataAgentBench CLI events | `logs/codex_stdout.jsonl` | `logs/opencode_stdout.jsonl` |
+| CLI events | `logs/agent_events.jsonl` | `logs/agent_events.jsonl` |
+| CLI stderr | `logs/agent_stderr.log` | `logs/agent_stderr.log` |
+
+Paths are relative to a run directory under `<benchmark>`. `agent_log_paths(run_dir)` in `runners/agents/` defines the shared CLI log paths. Historical runs retain their original names; use their recorded `artifacts.agent_log` path.
 
 CLI events support token extraction and execution analysis. Native archives preserve additional session context. Both retain their original formats; paths are recorded in `artifacts.agent_log` and `artifacts.sessions`.
 
@@ -19,7 +22,7 @@ After container shutdown, the runner copies Codex session files or backs up Open
 
 `detail/agent_exec_timing.json` records UTC `started_at` / `finished_at` and monotonic `elapsed_seconds`. It measures the agent process inside Docker, including exploration, tool execution, repairs, and simulator waits. Docker startup, session archiving, and evaluation are excluded.
 
-Generation metrics go to `detail/generation.json`; evaluation has its own timing and status in `detail/evaluation.json`. `result.json` combines both records. DataAgentBench merges validator stdout and stderr into `logs/evaluation.log`.
+Generation metrics go to `detail/generation.json`; evaluation has its own timing and status in `detail/evaluation.json`. `result.json` combines both records. When evaluation invokes an external validator, its stdout and stderr are combined in `logs/evaluation.log`.
 
 Codex usage comes from `turn.completed.usage`; OpenCode usage comes from `step_finish.part.tokens`, deduplicated by session ID and part ID. The shared `token_usage` fields use inclusive counts:
 

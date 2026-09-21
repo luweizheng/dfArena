@@ -3,6 +3,7 @@
 Add an AgentAdapter implementation and register it in AGENTS to add an agent.
 Provider-specific behavior belongs in that adapter, not in this module.
 """
+from pathlib import Path
 import re
 
 from .base import AgentAdapter
@@ -61,3 +62,9 @@ def archive_sessions(agent, config_dir, run):
 
 def forwarded_options(args):
     return ['--agent', args.agent, *get_agent(args.agent).forwarded_options(args)]
+
+
+def agent_log_paths(run_dir):
+    """Shared log locations for new runs; native event schemas remain unchanged."""
+    logs = Path(run_dir) / 'logs'
+    return {'events': logs / 'agent_events.jsonl', 'stderr': logs / 'agent_stderr.log'}
