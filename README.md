@@ -30,13 +30,36 @@ Task / NL intent
     x Dataframe backend
 ```
 
-The benchmark measures more than whether generated code runs. It can evaluate answer correctness, execution validity, repair behavior, agent time, solution runtime, token usage, and cost. The framework also separates different sources of failure, such as ambiguous specifications, agent misunderstandings, backend semantic differences, API friction, and environment failures.
+The current runners record correctness checks, execution status, agent elapsed time, token usage, and session traces. These records support further analysis of repair behavior and failure causes, including ambiguous specifications, agent misunderstandings, backend semantic differences, API friction, and environment failures. Standalone solution runtime, billing cost, and automatic root-cause classification are not yet uniform evaluation metrics.
 
 Pandas is used as a reference dataframe system, while Polars and Ibis represent alternative eager/vectorized and lazy relational execution styles. Cross-backend comparison is an important experimental dimension, but the broader focus is reliable dataframe programming by coding agents.
 
+## Framework overview
+
+dfArena organizes experiments around benchmark tasks, coding agents, and dataframe backends. For each run, a selected agent generates and executes code with the target backend, and the benchmark evaluator checks the resulting outputs. Each benchmark has its own directory so that task assets and benchmark-specific logic remain easy to find. To keep these workflows consistent and avoid maintaining separate copies of the same agent and reporting code, reusable functionality is extracted into shared components.
+
+```text
+runners/          Shared agent adapters, CLI options, timing, and run reports
+DataAgentBench/   Task assets and benchmark-specific generation/evaluation for DataAgentBench
+PrepBench/        Task assets, interactive clarification simulator, and table evaluation for PrepBench
+evaluation/       Shared tabular-output evaluation protocol and code, aim to compare ground truth and candidate solutions
+docker/           Agent execution image
+```
+
+Agent selection and model arguments are defined in `runners/agents/`. The adapters handle agent-specific (Codex/OpenCode) configuration, commands, session archives, and usage parsing. Report format and log conventions apply across benchmarks, while their task and workspace layouts remain benchmark-specific.
+
+Runs execute in independent Docker containers with task-specific input mounts and a writable workspace. Host session history, skills, MCP configuration, hidden reference solutions, ground truth, and evaluator configuration are not imported into the generation container by default. Any additional skills or MCP connectivity must be supplied explicitly by the execution setup. Interactive PrepBench runs use a separate simulator with private task assets to answer clarification requests.
+
+DataAgentBench is the complete runnable entry point in the current commits.
+PrepBench and the shared table evaluator are being integrated: the PrepBench entry scripts are committed, but their supporting assets and modules are not yet fully committed.
+
 ## Quick start
 
-Build the agent sandbox from the repository root:
+Use Python 3.11+ and Docker, and run the following commands from the repository root.
+
+First, create local configuration for the agent you want to use, starting from the [Codex example](runners/configs/codex/config.example.toml) or [OpenCode example](runners/configs/opencode/opencode.example.json). Save it as `runners/configs/codex/config.toml` or `runners/configs/opencode/opencode.json`, respectively. Set the provider endpoint, model, reasoning effort, and required credential environment variables. Local configuration files are Git-ignored. See [Configuration](runners/README.md#configuration) for overrides.
+
+Build the sandbox image, which includes both agent CLIs and the dataframe dependencies:
 
 ```bash
 docker build \
@@ -44,22 +67,60 @@ docker build \
   -t dfarena-agent-sandbox:latest .
 ```
 
-Run a task:
+Run a DataAgentBench task with either agent:
 
 ```bash
+# Codex
 python DataAgentBench/scripts/run_benchmark.py \
-  --dataset DataAgentBench/stockindex \
-  --task task1 \
-  --agent codex --model gpt-6-astra \
-  --backend pandas
+  --dataset DataAgentBench/stockindex --task task1 \
+  --agent codex --model gpt-6-astra --backend pandas
+
+# OpenCode: custom must match a provider in your configuration.
+python DataAgentBench/scripts/run_benchmark.py \
+  --dataset DataAgentBench/stockindex --task task1 \
+  --agent opencode --model custom/gpt-6-astra --backend pandas
 ```
 
-Supported dataframe backends currently include `pandas`, `polars`, and `ibis`.
+Supported dataframe backends are `pandas`, `polars`, and `ibis` (with DuckDB). Prefer `--agent` and `--model` to select the actual agent and model; OpenCode uses `provider/model`. The optional `--agent-model` argument only overrides the output directory label. Reasoning effort comes from agent configuration.
 
-## Isolation and validation
+## Execution and results
 
-The runner generates code in independent Docker containers with task-specific input mounts and a writable workspace for each run. By default, the runner does not import host session history, skills, or MCP server configuration. Selected skills can be supplied explicitly through container mounts or image contents; MCP servers require explicit configuration and connectivity. The current runner CLI does not yet expose options for these additions. Hidden reference solutions, ground truth, and evaluator configuration are not mounted into the generation container.
+Each benchmark's `run_benchmark.py` chains generation and evaluation:
 
-Evaluation is separate from generation. DataAgentBench runs each task's original `validate.py` in a separate container. A passing result establishes compliance with that validator's checks, not exhaustive correctness of the generated program. For example, some DataAgentBench validators check whether expected answer text is present without rejecting extra answers.
+```text
+run_benchmark.py
+  → generate.py: prepare task inputs, execute the agent, collect outputs and records
+  → evaluate.py: check generated outputs with the benchmark's evaluator
+```
 
-See the [DataAgentBench runner](DataAgentBench/scripts/README.md) and [shared runner documentation](runners/README.md) for commands, artifacts, timing, and token accounting.
+Generation checks that required outputs are present and records execution failures and timeouts. Failed generation skips evaluation; a normal end-to-end run exits successfully only when evaluation passes. Generation and evaluation retain independent stage reports, and `runners/results.py` combines them into `result.json`.
+
+The shared result and log conventions are:
+
+```text
+<run_dir>/
+  result.json                       # Generation/evaluation summary
+  detail/
+    generation.json                 # Code generation status, timing, usage, artifact paths
+    evaluation.json                 # Evaluation status and correctness result
+    agent_exec_timing.json           # Agent process timing, when available
+    codex_sessions/                 # Native archive for Codex runs
+    opencode_sessions/opencode.db   # Native archive for OpenCode runs
+  logs/
+    agent_events.jsonl              # Native CLI events; schema depends on the agent
+    agent_stderr.log
+    evaluation.log                  # Combined output when using an external validator
+```
+
+Runs retain both CLI events and native session archives when available. Generated code, answers, and workspace locations are documented by each benchmark. DataAgentBench stores runs under `DataAgentBench/<dataset>/output/<task>/<agent-model>/<backend>/rNNN/`.
+
+Agent timing covers the agent process inside Docker, including its tool execution, and excludes Docker startup, session archiving, and evaluation. Token usage comes from CLI events and is normalized by the adapters. See the [shared runner documentation](runners/README.md) for timing scope, token accounting limitations, and session archives.
+
+## Evaluation
+
+Evaluation is separate from generation and checks two types of output: an answer to an analytical question, or a table produced by data processing. DataAgentBench and PrepBench currently provide tasks for these two output types, respectively.
+
+- **Answer evaluation:** checks the generated answer against task-specific correctness criteria. For DataAgentBench, the runner reads the answer from `answer.json` and invokes the task's original `validate.py` in a separate container. The validator determines whether the answer passes; its coverage depends on the task. For example, some validators check whether expected answer text is present without rejecting extra answers.
+- **Table evaluation:** compares a generated table with a ground-truth table according to an evaluation configuration. For PrepBench, the shared [`evaluation/`](evaluation/README.md) module normalizes field values, aligns rows using configured keys, and compares values using the declared types and numeric tolerances. Row order is ignored by default; when required, order checks allow tied rows to exchange positions according to the configured ordering rules.
+
+See the [DataAgentBench runner documentation](DataAgentBench/scripts/README.md) and [PrepBench runner documentation](PrepBench/README.md) for benchmark-specific commands and evaluator details.
