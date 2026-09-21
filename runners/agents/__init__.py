@@ -27,6 +27,17 @@ def add_agent_options(parser):
         adapter.add_options(parser)
 
 
+def add_model_options(parser):
+    """Register model selection and optional output-label arguments."""
+    parser.add_argument('--model', help='Actual model override; otherwise use agent configuration')
+    parser.add_argument('--agent-model', help='Optional output directory label; does not select the agent or model')
+
+
+def validate_label(label):
+    if not re.fullmatch(r'[A-Za-z0-9_-][A-Za-z0-9_.-]*', label):
+        raise ValueError('--agent-model must be a directory label')
+
+
 def settings(args):
     return get_agent(args.agent).settings(args)
 

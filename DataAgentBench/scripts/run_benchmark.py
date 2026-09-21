@@ -7,26 +7,27 @@ import subprocess
 import sys
 
 from results import save, summarize
-from runners.agents import add_agent_options, settings, label_for, forwarded_options
+from runners.agents import add_agent_options, add_model_options, settings, label_for, validate_label, forwarded_options
 
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--dataset', type=Path, required=True)
     p.add_argument('--task', required=True)
-    p.add_argument('--agent-model')
     p.add_argument('--backend', choices=['pandas','polars','ibis'], default='pandas')
-    p.add_argument('--model')
     p.add_argument('--image', default='dfarena-agent-sandbox:latest')
     p.add_argument('--timeout', type=int, default=600)
     p.add_argument('--evaluation-timeout', type=int, default=120)
     add_agent_options(p)
+    add_model_options(p)
     a = p.parse_args()
     a.agent_model = label_for(a, settings(a))
     if a.timeout <= 0 or a.evaluation_timeout <= 0:
         p.error('Timeouts must be positive')
-    if not re.fullmatch(r'[A-Za-z0-9_-][A-Za-z0-9_.-]*', a.agent_model):
-        p.error('--agent-model must be a directory label')
+    try:
+        validate_label(a.agent_model)
+    except ValueError as exc:
+        p.error(str(exc))
     if not re.fullmatch(r'[A-Za-z0-9_-]+', a.task):
         p.error('--task must be a task directory name')
     root = a.dataset.resolve()/'output'/a.task/a.agent_model/a.backend

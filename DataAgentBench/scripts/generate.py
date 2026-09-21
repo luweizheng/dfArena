@@ -9,7 +9,7 @@ import tempfile
 import uuid
 
 from results import save, summarize, token_usage
-from runners.agents import add_agent_options, settings, label_for, prepare_agent, archive_sessions
+from runners.agents import add_agent_options, add_model_options, settings, label_for, prepare_agent, archive_sessions
 
 ROOT = Path(__file__).resolve().parents[2]
 BACKENDS = {
@@ -23,13 +23,12 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--dataset', type=Path, required=True)
     p.add_argument('--task', required=True)
-    p.add_argument('--agent-model')
     p.add_argument('--backend', choices=BACKENDS, default='pandas')
     p.add_argument('--image', default='dfarena-agent-sandbox:latest')
-    p.add_argument('--model')
     p.add_argument('--run-dir', type=Path, required=True)
     p.add_argument('--timeout', type=int, default=600)
     add_agent_options(p)
+    add_model_options(p)
     a = p.parse_args()
     info = settings(a)
     label = label_for(a, info)
