@@ -75,6 +75,15 @@ def normalize(raw, rule):
         if len(parts) == 3 and len(parts[2]) == 3 and parts[2].isdigit():
             s = '/'.join([parts[0], parts[1], '0' + parts[2]])
     parsed = set()
+    if kind == 'date':
+        # ISO dates are always accepted, independently of task-specific formats.
+        # Only an exactly zero time suffix is representation-equivalent to a date.
+        iso = re.fullmatch(r'(\d{4}-\d{2}-\d{2})(?:[ T]00:00:00(?:\.0+)?)?', s)
+        if iso:
+            try:
+                parsed.add(datetime.strptime(iso[1], '%Y-%m-%d').date())
+            except ValueError:
+                pass
     for fmt in formats:
         try:
             value = datetime.strptime(s, fmt)

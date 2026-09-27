@@ -27,6 +27,24 @@ class Ask(BaseModel):
     questions: list[str] = Field(min_length=1)
     round: int | None = None
 
+
+def _public_reply(reply: dict) -> dict:
+    """Return only the answer content to the coding agent.
+
+    The full simulator decision, budget, and knowledge-base provenance remain
+    in the interaction trace written by ``ask`` below.
+    """
+    answers = [
+        {"question": item["sub_question"], "answer": item["answer"]}
+        for item in reply.get("answers", [])
+    ]
+    if not answers and reply.get("done"):
+        answers = [{
+            "answer": "The clarification quota has been reached. "
+                      "Proceed using the answers already provided."
+        }]
+    return {"answers": answers}
+
 @app.get('/health')
 def health():
     return {'ok': True}
@@ -53,4 +71,4 @@ def ask(req: Ask):
         finally:
             with trace.open('a') as f:
                 f.write(json.dumps(record, ensure_ascii=False) + '\n')
-        return reply
+        return _public_reply(reply)

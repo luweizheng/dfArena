@@ -28,7 +28,7 @@ docker build -f docker/agent-sandbox.Dockerfile -t dfarena-agent-sandbox:latest 
   --model gpt-6-astra --image dfarena-agent-sandbox:latest
 ```
 
-默认镜像为 `dfarena-agent-sandbox:latest`；比较实验应固定镜像。`--mode` 默认 interact，`--backend` 支持 pandas/polars/ibis。`--model` 覆盖模型，`--agent-model` 仅设目录标签（默认 <agent>_<模型名>，OpenCode 去掉 provider/ 前缀）。推理程度来自 `--codex-config-dir` 的配置，默认 `runners/configs/codex`，实际值写入生成记录。
+默认镜像为 `dfarena-agent-sandbox:latest`；比较实验应固定镜像。`--mode` 默认 interact，`--backend` 支持 pandas/polars/ibis/pyspark。PySpark 使用本地 SparkSession，镜像需包含 PySpark 4.x 和 Java 17。`--model` 覆盖模型，`--agent-model` 仅设目录标签（默认 <agent>_<模型名>，OpenCode 去掉 provider/ 前缀）。推理程度来自 `--codex-config-dir` 的配置，默认 `runners/configs/codex`，实际值写入生成记录。
 
 `--timeout` 默认 1800 秒，限制容器内所选 agent 进程；`--dry-run` 仅准备目录、prompt 和资产 hash，不启动 Docker、simulator 或评分，会占用运行编号。
 

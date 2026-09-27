@@ -18,7 +18,7 @@ Prefer explicit `--agent` and `--model` arguments so the command identifies the 
   --agent opencode --model custom/gpt-6-astra --backend polars
 ```
 
-Use `--image <your-local-image>` to select another image. Backends are `pandas`, `polars`, and `ibis`.
+Use `--image <your-local-image>` to select another image. Backends are `pandas`, `polars`, `ibis`, and `pyspark`.
 
 | Argument | Meaning |
 |---|---|

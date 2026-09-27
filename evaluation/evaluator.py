@@ -27,7 +27,7 @@ class Evaluator:
         self.config_path = Path(config_path) if config_path else self.gt_dir / 'config.json'
 
     def run(self):
-        self.report = {'protocol_version': 'dfarena-table-v2', 'passed': False,
+        self.report = {'protocol_version': 'dfarena-table-v3', 'passed': False,
                        'errors': [], 'diff_summary': {}, 'files': {}, 'assets': {}}
         self.current_file = None
         try:

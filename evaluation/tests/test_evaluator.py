@@ -150,7 +150,9 @@ class TableTests(unittest.TestCase):
         cols = {'ID': 'text_exact', 'Value': {'type': 'date'}}
         gt = [['A', '2024-01-02']]
         for key in (['ID'], ['ID', 'Value']):
-            for value in ('2024-01-02 00:00:00', '2024-02-30'):
+            for value in ('2024-01-02 00:00:01', '2024-02-30',
+                          '2024-01-02T00:00:00.000000001', '2024-01-02T00:00:00Z',
+                          '2024-01-02T00:00:00+00:00'):
                 self.error(self.compare(gt, [['A', value]], cols, key), 'TYPE_ERROR', 'candidate')
                 self.error(self.compare([['A', value]], gt, cols, key), 'TYPE_ERROR', 'gt')
         cols['Value']['formats'] = ['%Y-%m-%d %H:%M:%S']
@@ -158,6 +160,29 @@ class TableTests(unittest.TestCase):
         for fmt in ('%Y-%m-%d%z', '%Y-%m-%dZ', '%Y-%m-%d %Q'):
             cols['Value']['formats'] = [fmt]
             self.error(self.compare(gt, gt, cols), 'CONFIG_ERROR')
+
+    def test_date_equivalent_representations(self):
+        for rule in ('date', {'type': 'date', 'formats': ['%d/%m/%Y']}):
+            cols = {'ID': 'text_exact', 'Value': rule}
+            gt = [['A', '02/01/2024']]
+            for key in (['ID'], ['ID', 'Value']):
+                for value in ('2024-01-02', '2024-01-02 00:00:00',
+                              '2024-01-02T00:00:00.000000000'):
+                    self.assertTrue(self.compare(gt, [['A', value]], cols, key)['passed'])
+                    self.assertTrue(self.compare([['A', value]], gt, cols, key)['passed'])
+                code = 'VALUE_MISMATCH' if key == ['ID'] else 'KEY_MISMATCH'
+                self.error(self.compare(gt, [['A', '2024-01-03 00:00:00']], cols, key), code)
+        cols['Value'] = {'type': 'date', 'formats': ['%d/%m/%Y', '%m/%d/%Y']}
+        self.error(self.compare([['A', '2024-01-02']], [['A', '02/01/2024']], cols), 'TYPE_ERROR')
+        # Even an explicit alternative ISO-looking format cannot override ambiguity.
+        cols['Value'] = {'type': 'date', 'formats': ['%Y-%d-%m']}
+        self.error(self.compare([['A', '2024-01-02']], [['A', '2024-01-02']], cols), 'TYPE_ERROR', 'gt')
+        cols['Value'] = {'type': 'date'}
+        gt = [['A', '2024-01-02'], ['B', '2024-01-03']]
+        cand = [['A', '2024-01-02T00:00:00'], ['B', '2024-01-03 00:00:00']]
+        opts = {'ignore_order': False, 'order_by': [self.order(direction='asc')]}
+        self.assertTrue(self.compare(gt, cand, cols, **opts)['passed'])
+        self.error(self.compare(gt, cand[::-1], cols, **opts), 'ROW_ORDER_MISMATCH')
 
     def test_temporal_nulls_and_order(self):
         for kind in ('date', 'datetime'):

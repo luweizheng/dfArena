@@ -26,7 +26,7 @@ class LocalIntegration(unittest.TestCase):
                 self.assertEqual({p.name for p in work.iterdir()}, {'outputs'})
                 self.assertTrue((Path(tmp) / 'assets.json').exists())
                 self.assertIn('/workspace/work/outputs/', prompt)
-                self.assertEqual('session/ask' in prompt, mode == 'interact')
+                self.assertEqual('clarification.ask' in prompt, mode == 'interact')
 
     def test_run_numbering(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -53,7 +53,9 @@ class LocalIntegration(unittest.TestCase):
                 reply=client.post('/session/ask',json={'session_id':sid,'questions':['month?']})
             self.assertEqual(reply.status_code,200)
             self.assertEqual(reply.json()['answers'][0]['answer'],'2019-03-19')
-            self.assertEqual(reply.json()['budget']['used_questions'],1)
+            self.assertEqual(reply.json()['answers'][0]['question'],'month?')
+            self.assertNotIn('budget', reply.json())
+            self.assertNotIn('classification', reply.json()['answers'][0])
 
 if __name__ == '__main__':
     unittest.main()

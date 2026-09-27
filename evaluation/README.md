@@ -89,7 +89,7 @@ report = Evaluator(gt_dir, cand_dir, config_path).run()
 
 ## 日期与时间比较
 
-保留字段名 `formats`，其值为非空字符串列表；显式配置替换默认集合。未配置时使用：
+保留字段名 `formats`，其值为非空字符串列表。对于 `date`，配置声明额外可接受的日期格式，内置 ISO 表示始终可用；对于 `datetime`，显式配置仍替换默认集合。未配置时使用：
 
 | 类型 | 默认格式 |
 | --- | --- |
@@ -98,13 +98,13 @@ report = Evaluator(gt_dir, cand_dir, config_path).run()
 
 query 未指定格式时，比较解析后的日期/时间语义。例如 pandas 的 `2024-01-02 10:30:00` 与 Polars 的 `2024-01-02T10:30:00.000000` 等价。年月日斜线格式、仅到分钟的时间等需要显式加入 `formats`。默认不猜测月日顺序；同一输入解析出多个不同值时报 TYPE_ERROR，多个格式解析成同一个值则通过。
 
-- `date` 返回日历日期，不截断时间；配置中包含时间指令时报 CONFIG_ERROR，输入含未声明的时间部分时报 TYPE_ERROR。
+- `date` 返回日历日期。内置接受 `YYYY-MM-DD`、`YYYY-MM-DD 00:00:00` 和 `YYYY-MM-DDT00:00:00`；零点时间可带任意位全零小数秒。非零时间或时区后缀不截断，报 TYPE_ERROR。额外 `formats` 只解析日期部分的完整字符串，不自动扩展为带时间格式；配置中包含时间指令仍报 CONFIG_ERROR。GT 和 candidate 应用同一规则，收集全部解析结果，不根据 GT 选择 candidate 的解释。
 - `datetime` 精确比较，不使用数值容差，不舍入、不截断。小数秒支持 1–6 位（Python datetime 的微秒精度）；纳秒表示暂不支持。省略秒的格式需显式声明，解析后秒为零。
 - 时区指令及常见时区字面量不允许配置；默认解析也不接受时区后缀。首版不转换时区，不应通过去掉时区来放宽任务。
 - 日期类对象规则的 `null_values` 忽略首尾空白和大小写，但不删除字段内容中的引号。例如 `["", "NA", "null"]` 将 ` NA ` 与 `Null` 都映射为 None。
 - 非法或歧义日期统一报 TYPE_ERROR，并标记 gt/candidate，包括 key 字段。解析成功但值不同，key 报 KEY_MISMATCH，非 key 报 VALUE_MISMATCH。顺序检查按解析后的时间顺序进行。
 
-query 明确格式时，在 `formats` 中仅声明该格式。注意这里使用 strptime 解析，某些指令允许非零填充数字，因此单一格式不保证逐字符格式校验；若 query 严格要求补零等字符串表示，使用 `text_exact` 与符合要求的 GT 比较。当前不新增 `output_format`。
+`date` 验证日期语义，不验证输出字符串格式；`formats` 不是严格输出格式约束。若 query 严格要求字符串表示，可使用 `text_exact` 与符合要求的 GT 比较，但此时不再提供日期语义比较或日期排序。当前不新增 `output_format`。
 
 ## 旧类型字符串兼容
 
@@ -115,7 +115,7 @@ query 明确格式时，在 `formats` 中仅声明该格式。注意这里使用
 | 旧字符串类型 | 保留的行为 |
 | --- | --- |
 | `number` | float 解析，去掉逗号、美元符号和百分号（不做百分比缩放）；非零值使用 `abs(a-b)/max(abs(a),abs(b)) < 0.02`；任一值为零时使用 `abs(a-b) < 0.02` |
-| `date` / `datetime` | 上游明确的格式列表，包括日/月/年；兼容三位年份补零；不是自动猜测月日 |
+| `date` / `datetime` | 上游明确的格式列表，包括日/月/年；兼容三位年份补零；date 额外接受内置 ISO 日期及零点时间表示；不是自动猜测月日 |
 | `text_exact` | 首尾空白及包围引号清理，保留大小写 |
 | `text_norm` | 上述清理后转小写、合并空白 |
 | 旧空值规则 | 数字、文本、布尔将空串、none、nan、null、n/a、na 视为空；日期只使用空串、na、n/a、null；不区分这些 token 的大小写 |
@@ -170,7 +170,7 @@ key 中的 number 同样使用该列的容差规则；非数值字段使用规�
 
 ## 报告与测试
 
-报告使用 `protocol_version: "dfarena-table-v2"`，包含总体 `passed`、`errors`、首个错误摘要 `diff_summary`、逐文件状态 `files` 和已读取资产的哈希 `assets`。因为首个错误即停止，哈希和文件状态只覆盖当次已处理的资产，不保证包含全部文件。
+报告使用 `protocol_version: "dfarena-table-v3"`，包含总体 `passed`、`errors`、首个错误摘要 `diff_summary`、逐文件状态 `files` 和已读取资产的哈希 `assets`。因为首个错误即停止，哈希和文件状态只覆盖当次已处理的资产，不保证包含全部文件。
 
 首版 fail-fast。主要错误包括 CONFIG_ERROR、FILE_COUNT_MISMATCH、MISSING_FILE、READ_ERROR、MISSING_COLUMNS、ROW_COUNT_MISMATCH、TYPE_ERROR、KEY_MISMATCH、GROUP_SIZE_MISMATCH、VALUE_MISMATCH、AMBIGUOUS_MATCH、GT_ORDER_ERROR、ROW_ORDER_MISMATCH。旧版的 `NON_UNIQUE_KEY` 不再用于普通重复 key。未知内部异常标为 EVALUATOR_ERROR。
 
