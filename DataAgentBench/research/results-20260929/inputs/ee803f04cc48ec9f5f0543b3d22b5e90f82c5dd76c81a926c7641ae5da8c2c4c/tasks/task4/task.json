@@ -1,0 +1,6 @@
+{
+  "task_id": "cve_task4",
+  "dataset_id": "cve",
+  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions and reversible JSON encoding. Hints are optional and selected by the experiment configuration.",
+  "query": "For each canonical vendor (using kev_vendor_aliases to resolve KEV vendor_project surface forms) that has at least 10 distinct CVEs which are BOTH listed in CISA's Known Exploited Vulnerabilities (KEV) catalog AND have at least one vulnerable CPE configuration, compute the share of those CVEs whose CVSS v3 base score is 9.0 or higher. Return the canonical vendor (lowercase) with the HIGHEST share. Break ties alphabetically."
+}

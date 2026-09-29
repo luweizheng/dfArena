@@ -1,0 +1,74 @@
+{
+  "dataset": "krama",
+  "files": [
+    {
+      "path": "context/description.md",
+      "sha256": "766568f0b08f9dd64cccd7b5c3c78659cddc71c11dd66ee9e5785d81337e7fe3"
+    },
+    {
+      "path": "context/hints.md",
+      "sha256": "35376c93edcac398a8afcb0c4bf3159c4d17d11f6388591e82b64c16b46545fe"
+    },
+    {
+      "path": "data/domain_assets/files.parquet",
+      "sha256": "356f6ae90a57494b8861a3304c5233e65af8b71779007e117e6d634c391bc062"
+    },
+    {
+      "path": "data/domain_docs/files.parquet",
+      "sha256": "41644542e602d8c51446cac76191321b8e81161596e214d6a9a029290233d229"
+    },
+    {
+      "path": "data/geo/beach_water_temperature.parquet",
+      "sha256": "d6b45a3435ebce0ab61c5af2adee54d30c5efd61ca94f5200c83adf24e381c1c"
+    },
+    {
+      "path": "data/geo/gacc_2025.parquet",
+      "sha256": "8c8c9cc46f4507b9e907ab2a085425f04a455634662e9f65bd04f8d20ae893b6"
+    },
+    {
+      "path": "data/geo/usa_adm2.parquet",
+      "sha256": "20af8a20baf81aa39cf9ca11fce6328600d5afd1efe910cd0a3f9947d6bedec9"
+    },
+    {
+      "path": "tasks/task1/task.json",
+      "sha256": "4d2792c8c889fa9a9d9caaba67db09651fce2c8eb5cc72422ad0ed7feb12c18a"
+    },
+    {
+      "path": "tasks/task10/task.json",
+      "sha256": "94dce462428c7f7514be0484425c1872064e88753ef5a69535eabf96213bf4e4"
+    },
+    {
+      "path": "tasks/task2/task.json",
+      "sha256": "b640b1633b88186b5bfcfbbeda2d64e29a5bac7a88e172758d314ed42cfabbcc"
+    },
+    {
+      "path": "tasks/task3/task.json",
+      "sha256": "ed618036b6ffacffe56fc0a29a98647eaadec93b319b31da45b3532f58a8d231"
+    },
+    {
+      "path": "tasks/task4/task.json",
+      "sha256": "41e6667366268ca774e7407d28c0d0816ae685dbc31f91fa6efc6a3fcaa5d95d"
+    },
+    {
+      "path": "tasks/task5/task.json",
+      "sha256": "afcfb67950d3d417136b687ed93a1691a4305bb04bbd41be7df5826328c28914"
+    },
+    {
+      "path": "tasks/task6/task.json",
+      "sha256": "977c6ee3cbc4e469cf1c37e38f3bafc656e1cf7fc33a58b0c0cc418377382c85"
+    },
+    {
+      "path": "tasks/task7/task.json",
+      "sha256": "aaa72acf9c7f7af62a4d7b815058bc3d1195118d899bb2073b23910d839b463e"
+    },
+    {
+      "path": "tasks/task8/task.json",
+      "sha256": "ec00f873ed50971bc3c900216b0746277be45f68cce2197951b103b58802c685"
+    },
+    {
+      "path": "tasks/task9/task.json",
+      "sha256": "bb4daeef280c09c7c7e4964aa55e1a1216251d6e26067b783f17c1e28f143245"
+    }
+  ],
+  "data_files_included": false
+}

@@ -1,0 +1,187 @@
+dataset_id: GITHUB_REPOS
+version: '1.0'
+domain: software repositories
+source:
+  benchmark: DataAgentBench
+  dataset: query_GITHUB_REPOS
+  task_mapping:
+    GITHUB_REPOS_task1: query1
+    GITHUB_REPOS_task2: query2
+    GITHUB_REPOS_task3: query3
+    GITHUB_REPOS_task4: query4
+  files:
+  - path: db_config.yaml
+    sha256: 528a10e2a1827882af97d47514733cddb8264e81cb4e4d6dd2bcff6d8cab6cd5
+  - path: db_description.txt
+    sha256: 9a14a7a391f729498b51334a52612fa3c7f917d0c18d8f691a807834de63379c
+  - path: db_description_withhint.txt
+    sha256: 6105987c80e9aa6d1690dca00d8bdc770ade5daf9c48f84aa75de8ea6c1353dd
+  - path: query1/ground_truth.csv
+    sha256: 44899c6b8dd5da879dd0c12ea41f1f5218b6327404f3064953d2826e7818c262
+  - path: query1/query.json
+    sha256: c1ec5a8a222f1df528c246e18cc7791cfc5ffd5bdba3cd3da1f6362a526bd40f
+  - path: query1/validate.py
+    sha256: c8e979be70776b67ee32372ac1e77b75f7474946809dc81d4941821bf5683bd5
+  - path: query2/ground_truth.csv
+    sha256: 689b9dfba8e2eb25ac4b38c639986b31668cc9248a03231cf89786093f5f60f4
+  - path: query2/query.json
+    sha256: d643fbf44aef32f8b5f4c24cc5ab9ffc642ac2b5a6a52b6f7bae65b8087b632b
+  - path: query2/validate.py
+    sha256: 782a94fd3f78285d3035fcaa2b9de187c4a8a599b8203c9433f6aaa9ba1c83ef
+  - path: query3/ground_truth.csv
+    sha256: 6a70cf66bae386ff7cd4896ce681c5488bab0c20d69a4615b28b49fb1e805295
+  - path: query3/query.json
+    sha256: be348f0f9207fd049040a6cb3785a2e7d18a24aeb5d75a877e34e28d7916e0f0
+  - path: query3/validate.py
+    sha256: e415c60c301c0376ee0c9b922390efa20500d5e23dd24fc574d2c000603c4f7c
+  - path: query4/ground_truth.csv
+    sha256: 4931116a06cb21d15c4482bece3a8beda131539ef5bdb31a1b9433db2dc15607
+  - path: query4/query.json
+    sha256: e19192b4f504d1c0dd8f61c13b36022f95a0f125fa82a5383d893a6bc0f63f88
+  - path: query4/validate.py
+    sha256: b6d8110867225717a23f9e217f5586f8b32639b80a57d7d4bbd3f05cbc8d8287
+  - path: query_dataset/repo_artifacts.db
+    sha256: d514c66eb07403f79b8da2ff6a79a6c82f2d862cadaf71d536ea58644cd07bbc
+  - path: query_dataset/repo_metadata.db
+    sha256: e9b71beb5d7e2b344f996baf19fb34231c24ab354019d65bd14a1cbfc62c67a1
+  shared_files:
+  - path: common_scaffold/validate/levenshtein.py
+    sha256: 77c2cc868169345908261ad9c14bec48f29f6e25f4b690607c2936fefefa67c1
+    copied_into_answer_for:
+    - task2
+    - task4
+  adaptations:
+  - All database tables exported read-only to Parquet with source physical types and
+    every row preserved.
+  - Questions, hint body, ground truths, and validators preserved. Required shared
+    Levenshtein helper copied byte-identically into evaluation-only answer directories.
+  - Description adapted to paths and measured types; no normalization, joins, or answer
+    recomputation.
+  - Windows-reserved PRN filename, when present, uses PRN__table.parquet; original
+    table name is retained in metadata.
+  export_environment:
+    python: 3.12.8
+    sqlite: 3.47.2
+    duckdb: 1.4.2
+    pyarrow: 15.0.2
+    PyYAML: 6.0.1
+format: parquet
+table_count: 6
+data_size_bytes: 271830309
+tables:
+- name: languages
+  path: data/metadata/languages.parquet
+  rows: 3325634
+  columns: 2
+  size_bytes: 108716411
+  sha256: ef1f105f968bdfb842cda30faf561c55a583b67ca33590321392207ca2f2dda2
+  schema:
+  - name: repo_name
+    type: string
+  - name: language_description
+    type: string
+- name: licenses
+  path: data/metadata/licenses.parquet
+  rows: 3325634
+  columns: 2
+  size_bytes: 57632349
+  sha256: ff3efde687752944ef9461e97f446be04fcaa934388d15c6be3acb8c019079e3
+  schema:
+  - name: repo_name
+    type: string
+  - name: license
+    type: string
+- name: repos
+  path: data/metadata/repos.parquet
+  rows: 400000
+  columns: 2
+  size_bytes: 6930911
+  sha256: b73287ed25a12a3d6f864f0647f75f42003648260db185c2bc87cc5b401ace42
+  schema:
+  - name: repo_name
+    type: string
+  - name: watch_count
+    type: int64
+- name: commits
+  path: data/artifacts/commits.parquet
+  rows: 17976
+  columns: 12
+  size_bytes: 19519944
+  sha256: fd3c4435f2f1b53aa0bb5b17da7963c379e0793a7ef55c656ae361760f69dd53
+  schema:
+  - name: commit
+    type: string
+  - name: tree
+    type: string
+  - name: parent
+    type: string
+  - name: author
+    type: string
+  - name: committer
+    type: string
+  - name: subject
+    type: string
+  - name: message
+    type: string
+  - name: trailer
+    type: string
+  - name: difference
+    type: string
+  - name: difference_truncated
+    type: double
+  - name: repo_name
+    type: string
+  - name: encoding
+    type: string
+- name: contents
+  path: data/artifacts/contents.parquet
+  rows: 24286
+  columns: 7
+  size_bytes: 55334637
+  sha256: 0b03c1c48663729d074d5726101843c8726749f3b73bb6360c6a4413f664c42e
+  schema:
+  - name: id
+    type: string
+  - name: content
+    type: string
+  - name: sample_repo_name
+    type: string
+  - name: sample_ref
+    type: string
+  - name: sample_path
+    type: string
+  - name: sample_symlink_target
+    type: string
+  - name: repo_data_description
+    type: string
+- name: files
+  path: data/artifacts/files.parquet
+  rows: 524077
+  columns: 6
+  size_bytes: 23696057
+  sha256: 5c7abf40d5abcdccd183773b02dda7b839f672e7f449e778bc8a818824030b0e
+  schema:
+  - name: repo_name
+    type: string
+  - name: ref
+    type: string
+  - name: path
+    type: string
+  - name: mode
+    type: int64
+  - name: id
+    type: string
+  - name: symlink_target
+    type: string
+context:
+  description: context/description.md
+  hints: context/hints.md
+  hints_policy: optional; selected by experiment configuration
+tasks:
+  directory: tasks
+  count: 4
+  ids:
+  - GITHUB_REPOS_task1
+  - GITHUB_REPOS_task2
+  - GITHUB_REPOS_task3
+  - GITHUB_REPOS_task4

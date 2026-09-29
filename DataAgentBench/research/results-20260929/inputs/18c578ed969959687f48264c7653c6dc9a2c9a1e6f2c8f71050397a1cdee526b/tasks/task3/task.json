@@ -1,0 +1,6 @@
+{
+  "task_id": "stockmarket_task3",
+  "dataset_id": "stockmarket",
+  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.",
+  "query": "List all company names on the NASDAQ-listed Market that were financially troubled (delinquent, deficient, or both) and have trading volume in 2008, for each, report its exisiting non-null average daily trading volume in 2008."
+}

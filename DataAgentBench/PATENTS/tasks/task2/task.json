@@ -1,0 +1,6 @@
+{
+  "task_id": "PATENTS_task2",
+  "dataset_id": "PATENTS",
+  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.",
+  "query": "Find the CPC technology areas in Germany with the highest exponential moving average of patent filings each year (smoothing factor 0.1) for patents granted in the second half of 2019. Include the full title, CPC group code, and the best year for each CPC group at level 4."
+}

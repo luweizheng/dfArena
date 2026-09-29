@@ -1,0 +1,6 @@
+{
+  "task_id": "music_brainz_20k_task2",
+  "dataset_id": "music_brainz_20k",
+  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.",
+  "query": "Which store earned the most revenue in USD from Brucqe Maginnis' song 'Street Hype' across all countries?"
+}

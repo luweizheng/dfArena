@@ -1,0 +1,6 @@
+{
+  "task_id": "cve_task7",
+  "dataset_id": "cve",
+  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions and reversible JSON encoding. Hints are optional and selected by the experiment configuration.",
+  "query": "Among CPE match entries flagged as vulnerable AND whose CVE is listed in CISA's Known Exploited Vulnerabilities (KEV) catalog, which canonical (vendor, product) pair has the highest count of rows? Return as a single string in the form 'vendor:product' (both lowercase)."
+}

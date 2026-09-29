@@ -1,0 +1,38 @@
+{
+  "dataset": "PANCANCER_ATLAS",
+  "files": [
+    {
+      "path": "context/description.md",
+      "sha256": "a96fbb92583b68775916a20ff50d24495ce5dadb34379111ab95724d95e6893e"
+    },
+    {
+      "path": "context/hints.md",
+      "sha256": "48c4cca7cf78779de9007e922dfa85d0d9e75a7bae6fa1634d9b0fb9e57ac3b1"
+    },
+    {
+      "path": "data/clinical/clinical_info.parquet",
+      "sha256": "42cbba164694bb273b876ae38f844e8bea55b35d6726eb9ba6c9f0adbbdf0b0f"
+    },
+    {
+      "path": "data/molecular/Mutation_Data.parquet",
+      "sha256": "86ca32a33cbd1b5a7f6e4f32f5bfa70bd51ac9e247160c4d651bda7e96cdb0de"
+    },
+    {
+      "path": "data/molecular/RNASeq_Expression.parquet",
+      "sha256": "8d18ce0ab9021ed144ffb957e490c6c5700319a4f4295e7b7499b48cdc640cc7"
+    },
+    {
+      "path": "tasks/task1/task.json",
+      "sha256": "efa1844e5d741d3465268d8ab8da7d83f225009f3e91a2706542303db21a3e31"
+    },
+    {
+      "path": "tasks/task2/task.json",
+      "sha256": "eae07711b68daded31a2cf2d06e15084a05bcb85a411859b08f607b04dbf8d1e"
+    },
+    {
+      "path": "tasks/task3/task.json",
+      "sha256": "07b7f69613000d55a2bc874dc2fc756493f4372618bfa034f1f0f1f10fc7183d"
+    }
+  ],
+  "data_files_included": false
+}

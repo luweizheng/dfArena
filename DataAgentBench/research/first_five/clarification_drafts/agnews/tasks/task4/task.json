@@ -1,0 +1,6 @@
+{
+  "task_id": "agnews_task4",
+  "dataset_id": "agnews",
+  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.",
+  "query": "In 2015, which region published the largest number of articles in the World category? 根据文章标题和描述所表达的主要报道内容判断类别，不因报道涉及多个国家、政府或国际组织就将其归入 World。以贸易制裁、关税或补贴争端等贸易经济事务为主要内容的报道归入 Business；以干细胞或克隆研究是否获准开展为主要内容的许可、禁令及相关讨论归入 Science/Technology。"
+}

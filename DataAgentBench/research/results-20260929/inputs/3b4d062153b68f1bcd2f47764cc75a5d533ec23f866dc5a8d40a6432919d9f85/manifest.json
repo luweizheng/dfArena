@@ -1,0 +1,38 @@
+{
+  "dataset": "googlelocal",
+  "files": [
+    {
+      "path": "context/description.md",
+      "sha256": "8a74f794c81a2d2df0a111e4b2886e7d5c22cf30c34aa4cfa23b8f449d70921c"
+    },
+    {
+      "path": "context/hints.md",
+      "sha256": "3c244e0fa5c5a7cbb23381b7f391c4bd5014f0372355bf9ddd633bc35a07fc2f"
+    },
+    {
+      "path": "data/business/business_description.parquet",
+      "sha256": "84b06fb2cfd98f4a2cfcb2694bfc58c4537ea6b2a1065d65a941113142019d4a"
+    },
+    {
+      "path": "data/review/review.parquet",
+      "sha256": "9de6233cc68e3dd163109eb63999d0a397458a98c5a1d3ea021f02163b8370e2"
+    },
+    {
+      "path": "tasks/task1/task.json",
+      "sha256": "b2bcb26d570235cb4d101a640b5f41090e99f75f9c2850fed2701021ba1e71ca"
+    },
+    {
+      "path": "tasks/task2/task.json",
+      "sha256": "fd531a33c90c157b706ae6ecd79c36ca02fe6a031e332b3f9c57d5aa7ea35ad1"
+    },
+    {
+      "path": "tasks/task3/task.json",
+      "sha256": "028a0de344a4b3a8336e90b1672b9c2ef0e6cafce849578a7ab6e42970cb06b7"
+    },
+    {
+      "path": "tasks/task4/task.json",
+      "sha256": "d10ce06876e9ef508be3cf8546a70311b117e029db3bcdfe58fe4813d3bd39c7"
+    }
+  ],
+  "data_files_included": false
+}

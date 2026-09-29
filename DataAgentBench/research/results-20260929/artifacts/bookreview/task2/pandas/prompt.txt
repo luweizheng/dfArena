@@ -1,0 +1,60 @@
+Solve this DataAgentBench task. Read only /workspace/data, /workspace/context, and /workspace/task.json. Put code and intermediate files under /workspace/work. Do not modify /workspace/data. Do not read hidden answers, validators, reference solutions, or other runs. Use this backend: Use pandas as the main dataframe backend for loading, transformation, and computation. Generate /workspace/work/solution.py, execute it, repair failures, and write /workspace/work/answer.json with exactly {"answer": "<concise final answer>"}. Do not hard-code the answer.
+
+Context: Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.
+Question: Which English-language books in the 'Literature & Fiction' category have a perfect average rating of 5.0? Return all matching books.
+
+Hints are enabled for this run. The data description and hints below, including any task-specific clarifications, are equally binding parts of the task requirements. Read and follow both when solving the task. Both documents are included in full below.
+
+## Data description (context/description.md)
+
+# bookreview
+
+This dataset contains two Parquet tables. Paths below are relative to the dataset root.
+
+## Table: `books_info`
+
+Amazon book information up to 2023, including descriptions, prices, details, and titles.
+
+File: `data/books/books_info.parquet`
+
+| Column | Parquet / Arrow type | Description |
+|---|---|---|
+| `title` | `string` | Book title |
+| `subtitle` | `string` | Book subtitle |
+| `author` | `string` | Book author(s) |
+| `rating_number` | `int64` | Total number of ratings received |
+| `features` | `string` | Book features (stored as string representation of list/dict) |
+| `description` | `string` | Book description (stored as string representation of list/dict) |
+| `price` | `double` | Book price |
+| `store` | `string` | Store information |
+| `categories` | `string` | Book categories (stored as string representation of list/dict) |
+| `details` | `string` | Additional book details |
+| `book_id` | `string` | Unique book identifier |
+
+## Table: `review`
+
+Amazon book reviews up to 2023, including ratings, review text, and helpfulness votes.
+
+File: `data/review/review.parquet`
+
+| Column | Parquet / Arrow type | Description |
+|---|---|---|
+| `rating` | `int64` | Rating given by reviewer (1.0-5.0 scale) |
+| `title` | `string` | Review Title |
+| `text` | `string` | Review text content |
+| `review_time` | `string` | Timestamp when review was posted |
+| `helpful_vote` | `int64` | Number of helpful votes received |
+| `verified_purchase` | `int64` | Whether purchase was verified |
+| `purchase_id` | `string` | Unique identifier linking to book_id in books_info table |
+
+The source describes `verified_purchase` as a boolean. The SQLite values are preserved using their exported physical type; no boolean normalization is applied.
+
+
+## Hints and task-specific clarifications (context/hints.md)
+
+# Hints 
+
+- In books_info, the "description", "categories", and "features" content appears to be in list or dictionary format, but they are actually stored as strings in the Parquet table.
+- The fields "book_id" in books_info and "purchase_id" in review refer to the same book entities across different tables. While the field names are not exact matches, they can be joined using a fuzzy join approach to solve the query.
+- For some queries, you could get needed information from "categories" or "details" columns in books_info.
+

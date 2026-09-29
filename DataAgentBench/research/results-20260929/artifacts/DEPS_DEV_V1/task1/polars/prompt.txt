@@ -1,0 +1,82 @@
+Solve this DataAgentBench task. Read only /workspace/data, /workspace/context, and /workspace/task.json. Put code and intermediate files under /workspace/work. Do not modify /workspace/data. Do not read hidden answers, validators, reference solutions, or other runs. Use this backend: Use Polars as the main dataframe backend for loading, transformation, and computation. Do not use pandas for the main workflow. Pandas may be used only for an explicit final interoperability boundary when required. Generate /workspace/work/solution.py, execute it, repair failures, and write /workspace/work/answer.json with exactly {"answer": "<concise final answer>"}. Do not hard-code the answer.
+
+Context: Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.
+Question: Considering only the latest release versions for each distinct NPM package, which packages are the top 5 most popular based on the Github star number, as well as their versions?
+
+Hints are enabled for this run. The data description and hints below, including any task-specific clarifications, are equally binding parts of the task requirements. Read and follow both when solving the task. Both documents are included in full below.
+
+## Data description (context/description.md)
+
+# DEPS_DEV_V1
+
+Software package metadata, project metadata, and mappings between projects and package versions. All paths below are relative to the dataset root.
+
+## Table: `packageinfo`
+
+File: `data/package/packageinfo.parquet`
+
+Metadata of software packages, including licenses, versions, dependency-processing status, and registry metadata.
+
+| Column | Parquet / Arrow type | Description |
+|---|---|---|
+| `System` | string | Package ecosystem, e.g. NPM or Maven. |
+| `Name` | string | Package name, preserving its original spelling and separators. |
+| `Version` | string | Package version string. |
+| `Licenses` | string | License(s), stored as JSON-like array text. |
+| `Links` | string | JSON-like list of links such as origin, documentation, or source code. |
+| `Advisories` | string | JSON-like list of security advisories. |
+| `VersionInfo` | string | JSON-like object with release metadata, e.g. `IsRelease` and `Ordinal`. |
+| `Hashes` | string | JSON-like list of file hashes. |
+| `DependenciesProcessed` | int64 | Whether dependencies have been processed; original SQLite integers 0/1 are retained. |
+| `DependencyError` | int64 | Whether a dependency-processing error occurred; original SQLite integers 0/1 are retained. |
+| `UpstreamPublishedAt` | double | Upstream publication timestamp as originally stored. The source description labels the unit as milliseconds, but the unit has not been verified; values are not rescaled or converted to dates. |
+| `Registries` | string | JSON-like list of package registries. |
+| `SLSAProvenance` | double | Described by the source as SLSA provenance level, if available. |
+| `UpstreamIdentifiers` | string | JSON-like list of upstream identifiers. |
+| `Purl` | double | Described by the source as package URL, if available. The source declares this column REAL; that physical type is preserved. |
+
+## Table: `project_packageversion`
+
+File: `data/project/project_packageversion.parquet`
+
+Mappings between projects and package versions.
+
+| Column | Parquet / Arrow type | Description |
+|---|---|---|
+| `System` | string | Package ecosystem, e.g. NPM. |
+| `Name` | string | Package name. |
+| `Version` | string | Package version string. |
+| `ProjectType` | string | Project type, e.g. GITHUB. |
+| `ProjectName` | string | Repository path in owner/repo format. |
+| `RelationProvenance` | string | Provenance of the relationship data. |
+| `RelationType` | string | Relationship type, e.g. source repository type. |
+
+## Table: `project_info`
+
+File: `data/project/project_info.parquet`
+
+GitHub project information.
+
+| Column | Parquet / Arrow type | Description |
+|---|---|---|
+| `Project_Information` | string | Textual information about the project, which may include its name, owner, and general purpose. |
+| `Licenses` | string | Project licenses, stored as JSON-like array text. |
+| `Description` | string | Project description, which may differ from Project_Information. |
+| `Homepage` | string | Homepage URL, if available. |
+| `OSSFuzz` | double | OSSFuzz status indicator, if applicable, as described by the source. |
+
+## Representation
+
+Text, empty strings, nulls, duplicate records, column names, and column order are preserved. JSON-like text is not parsed or normalized. Version strings are not sorted or interpreted during migration. The numeric columns SLSAProvenance, Purl, and OSSFuzz are entirely null in this snapshot and retain their source-declared numeric types. No extra project keys, joins, deduplication, or derived metrics have been added.
+
+Additional relationship guidance is available in `context/hints.md` when enabled by the experiment configuration.
+
+
+## Hints and task-specific clarifications (context/hints.md)
+
+# Hints
+
+- To solve this query, you will need to combine information from both the package and project databases. First, match package records in "packageinfo" from "package_database" with records in "project_packageversion" from "project_database" using the shared attributes "System", "Name", and "Version". Then, take the "ProjectName" from "project_packageversion" and use it to find the corresponding record in "project_info".
+- The "Project_Information" field in "project_info" contains the project name as well as important repository metrics such as GitHub stars count and fork count, along with other descriptive details.
+- "Latest release version" means the highest version in version order among the package's release versions.
+

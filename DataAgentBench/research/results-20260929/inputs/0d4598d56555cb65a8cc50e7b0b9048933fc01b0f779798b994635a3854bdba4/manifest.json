@@ -1,0 +1,62 @@
+{
+  "dataset": "civic_unstructured",
+  "files": [
+    {
+      "path": "context/description.md",
+      "sha256": "0cc93b49be77da3bc1ac1556b4579c2fd9ac2a261c983e55a82e9150cffd0859"
+    },
+    {
+      "path": "context/hints.md",
+      "sha256": "db544009b1177fe407d01fcc7de232ad2cfead9a6eb0492ca79a205d9493e1cc"
+    },
+    {
+      "path": "data/civic_docs/civic_docs.parquet",
+      "sha256": "6df4a7ad46601fa0085ec7d9d835d843e134e70c17db2b56f4c3c5250fecdbc2"
+    },
+    {
+      "path": "data/funding/Funding.parquet",
+      "sha256": "34edfd70d9927b7ba9f5d74f55cfa4cdcbc9b95faa889c58392efd36083641a0"
+    },
+    {
+      "path": "tasks/task1/task.json",
+      "sha256": "b5d6f0328d4741d2345471de4d0461e85a4a2836540fab9281bfc4cd06f91f11"
+    },
+    {
+      "path": "tasks/task10/task.json",
+      "sha256": "7dbd9372338006ae6894739f55b8f2cd612955d3f258040487d393ca2169128b"
+    },
+    {
+      "path": "tasks/task2/task.json",
+      "sha256": "9aff2bec791f75514d980240baf4061b9131845bc82fc0ae056063f59e215b89"
+    },
+    {
+      "path": "tasks/task3/task.json",
+      "sha256": "ca1452dee0a32955d403fe1c52ec6c015e8cb325ba992ed6b1bac82e6f2b9ec9"
+    },
+    {
+      "path": "tasks/task4/task.json",
+      "sha256": "0ed39be2bf9b1c1d16ab24089a8124cca84dd4c357a2ea1bd2da0de9c088c701"
+    },
+    {
+      "path": "tasks/task5/task.json",
+      "sha256": "b7a5bfc05cf12f130701d5fe19435b0f57eeb062ab0a50984c3414aa5164a1f5"
+    },
+    {
+      "path": "tasks/task6/task.json",
+      "sha256": "64fc7fc8c18a8fce4b5275dfb5c034da2b5e0bc185e0c093b0a932b23ba951f6"
+    },
+    {
+      "path": "tasks/task7/task.json",
+      "sha256": "1caa36d2b2761c22f9bd31f98475d3f818f591deef0613733f442e8f7f7afa35"
+    },
+    {
+      "path": "tasks/task8/task.json",
+      "sha256": "457ce4dc707f238bc2d2d2c6a67e9977cfb246b83227057adb89f0883f75c8d7"
+    },
+    {
+      "path": "tasks/task9/task.json",
+      "sha256": "f34eadfa166f60d3d977a9659fb40cbe9ab600176ed5d199df9b9e66a9342706"
+    }
+  ],
+  "data_files_included": false
+}

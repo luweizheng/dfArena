@@ -1,0 +1,6 @@
+{
+  "task_id": "imdb_task4",
+  "dataset_id": "imdb",
+  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.",
+  "query": "Among cast and crew members whose name starts with 'Z' and who are credited in movies tagged with the keyword 'character-name-in-title' — indicating the movie's title contains a character's name — that are associated with at least one company, what is the alphabetically first name?"
+}

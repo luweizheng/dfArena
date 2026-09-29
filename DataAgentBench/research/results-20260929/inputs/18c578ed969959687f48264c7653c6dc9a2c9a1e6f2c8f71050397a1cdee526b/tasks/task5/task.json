@@ -1,0 +1,6 @@
+{
+  "task_id": "stockmarket_task5",
+  "dataset_id": "stockmarket",
+  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.",
+  "query": "Which 5 companies listed on the NASDAQ Capital Market had the highest number of days in 2019 where the intraday price range exceeded 20% of the low price, list the company names please?"
+}

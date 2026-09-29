@@ -1,0 +1,333 @@
+dataset_id: PANCANCER_ATLAS
+version: '1.0'
+domain: cancer research data
+source:
+  benchmark: DataAgentBench
+  dataset: query_PANCANCER_ATLAS
+  task_mapping:
+    PANCANCER_ATLAS_task1: query1
+    PANCANCER_ATLAS_task2: query2
+    PANCANCER_ATLAS_task3: query3
+  files:
+  - path: db_config.yaml
+    sha256: 5711035bea1820d94eb5041faa687d5974553004dc993023970d3ed9493f5d13
+  - path: db_description.txt
+    sha256: ff2b6e2989c785eaf5d62d7665d2539d5405f65b53451cfb9921b49724b7dc92
+  - path: db_description_withhint.txt
+    sha256: 6824e704afbd5b3653908e71ba3d8f0a6e901457689021745a340f668c958795
+  - path: query1/ground_truth.csv
+    sha256: 7ee7cbafeaf478ae54c9beddfc70470234ee2eca9a0a7cb77728e45a4ecd4a0b
+  - path: query1/query.json
+    sha256: 7a127ebaa5aadfdd3eabf6a01891eda9211b15fa462f3e03f15e67f3a98ec328
+  - path: query1/validate.py
+    sha256: 3f1b15e3c24c1ce258ba064fcc3f2523ee4b7c8079ab58c5ac215cd90d1d6d7a
+  - path: query2/ground_truth.csv
+    sha256: 2bfe813dbde0db8da2b4fbec782091239d97c3e0a7c1af9fe2d3f04f1ae0610c
+  - path: query2/query.json
+    sha256: 352c6f13e64220ec8cb518ac3411382a66577f98f3c536d9610ea7f5a3e8b628
+  - path: query2/validate.py
+    sha256: e48251d37463258951299880b5784724274aa87fee40583cd3c513fc3ff02312
+  - path: query3/ground_truth.csv
+    sha256: e5e0c096ced1f63b34760d004167b551bcdfd6a642ba219de8c2e35786f6e158
+  - path: query3/query.json
+    sha256: c21bb23a1d4c9e40717b73a55edf04b237a953a5c79a894e44672a5eab36d1b5
+  - path: query3/validate.py
+    sha256: 14b8be8849e25f4ba71b0347589ade0e51dec3e8a51f1273b485244981427520
+  - path: query_dataset/pancancer_clinical.sql
+    sha256: ce57356f7a0f72e1c43a1fc2083d46293991645cbce2f6f237c731bf4035fdd6
+  - path: query_dataset/pancancer_molecular.db
+    sha256: 7e1131c386014ea8bdd528d2fd040a85f6891dd9e46e8dc18947f7a712cf8610
+  shared_files:
+  - path: common_scaffold/validate/levenshtein.py
+    sha256: 77c2cc868169345908261ad9c14bec48f29f6e25f4b690607c2936fefefa67c1
+    copied_into_answer_for:
+    - task2
+  adaptations:
+  - PostgreSQL single-table text COPY snapshots decoded strictly; no PostgreSQL server
+    restore performed.
+  - SQLite and DuckDB tables read directly; all source physical types, values, nulls,
+    and duplicate records retained.
+  - Questions, answer files, validators and hint body preserved. Required original
+    shared helper copied into evaluation-only answer directories.
+  - Description adapted to measured physical schemas without inferring undocumented
+    medical field meanings.
+  copy_format_reference: https://www.postgresql.org/docs/17/sql-copy.html#SQL-COPY-FILE-FORMATS
+  export_environment:
+    python: 3.12.8
+    duckdb: 1.4.2
+    pyarrow: 15.0.2
+    PyYAML: 6.0.1
+format: parquet
+table_count: 3
+data_size_bytes: 205010713
+tables:
+- name: clinical_info
+  path: data/clinical/clinical_info.parquet
+  rows: 10761
+  columns: 99
+  size_bytes: 801119
+  sha256: 42cbba164694bb273b876ae38f844e8bea55b35d6726eb9ba6c9f0adbbdf0b0f
+  schema:
+  - name: Patient_description
+    type: string
+  - name: days_to_birth
+    type: double
+  - name: days_to_death
+    type: string
+  - name: days_to_last_followup
+    type: string
+  - name: days_to_initial_pathologic_diagnosis
+    type: double
+  - name: age_at_initial_pathologic_diagnosis
+    type: double
+  - name: icd_10
+    type: string
+  - name: tissue_retrospective_collection_indicator
+    type: string
+  - name: icd_o_3_histology
+    type: string
+  - name: tissue_prospective_collection_indicator
+    type: string
+  - name: history_of_neoadjuvant_treatment
+    type: string
+  - name: icd_o_3_site
+    type: string
+  - name: tumor_tissue_site
+    type: string
+  - name: new_tumor_event_after_initial_treatment
+    type: string
+  - name: radiation_therapy
+    type: string
+  - name: race
+    type: string
+  - name: prior_dx
+    type: string
+  - name: ethnicity
+    type: string
+  - name: informed_consent_verified
+    type: string
+  - name: person_neoplasm_cancer_status
+    type: string
+  - name: patient_id
+    type: string
+  - name: year_of_initial_pathologic_diagnosis
+    type: double
+  - name: histological_type
+    type: string
+  - name: tissue_source_site
+    type: string
+  - name: form_completion_date
+    type: string
+  - name: pathologic_T
+    type: string
+  - name: pathologic_M
+    type: string
+  - name: clinical_M
+    type: string
+  - name: pathologic_N
+    type: string
+  - name: system_version
+    type: string
+  - name: pathologic_stage
+    type: string
+  - name: clinical_stage
+    type: string
+  - name: clinical_T
+    type: string
+  - name: clinical_N
+    type: string
+  - name: extranodal_involvement
+    type: string
+  - name: postoperative_rx_tx
+    type: string
+  - name: primary_therapy_outcome_success
+    type: string
+  - name: lymph_node_examined_count
+    type: string
+  - name: primary_lymph_node_presentation_assessment
+    type: string
+  - name: initial_pathologic_diagnosis_method
+    type: string
+  - name: number_of_lymphnodes_positive_by_he
+    type: double
+  - name: eastern_cancer_oncology_group
+    type: string
+  - name: anatomic_neoplasm_subdivision
+    type: string
+  - name: residual_tumor
+    type: string
+  - name: histological_type_other
+    type: string
+  - name: init_pathology_dx_method_other
+    type: string
+  - name: karnofsky_performance_score
+    type: string
+  - name: neoplasm_histologic_grade
+    type: string
+  - name: height
+    type: double
+  - name: weight
+    type: double
+  - name: number_of_lymphnodes_positive_by_ihc
+    type: double
+  - name: tobacco_smoking_history
+    type: string
+  - name: number_pack_years_smoked
+    type: double
+  - name: stopped_smoking_year
+    type: double
+  - name: performance_status_scale_timing
+    type: string
+  - name: laterality
+    type: string
+  - name: targeted_molecular_therapy
+    type: string
+  - name: year_of_tobacco_smoking_onset
+    type: double
+  - name: anatomic_neoplasm_subdivision_other
+    type: string
+  - name: patient_death_reason
+    type: string
+  - name: tumor_tissue_site_other
+    type: string
+  - name: menopause_status
+    type: string
+  - name: margin_status
+    type: string
+  - name: kras_gene_analysis_performed
+    type: string
+  - name: venous_invasion
+    type: string
+  - name: lymphatic_invasion
+    type: string
+  - name: perineural_invasion_present
+    type: string
+  - name: her2_immunohistochemistry_level_result
+    type: string
+  - name: breast_carcinoma_progesterone_receptor_status
+    type: string
+  - name: breast_carcinoma_surgical_procedure_name
+    type: string
+  - name: breast_neoplasm_other_surgical_procedure_descriptive_text
+    type: string
+  - name: axillary_lymph_node_stage_method_type
+    type: string
+  - name: breast_carcinoma_estrogen_receptor_status
+    type: string
+  - name: cytokeratin_immunohistochemistry_staining_method_micrometastasi
+    type: string
+  - name: lab_proc_her2_neu_immunohistochemistry_receptor_status
+    type: string
+  - name: lab_procedure_her2_neu_in_situ_hybrid_outcome_type
+    type: string
+  - name: additional_pharmaceutical_therapy
+    type: string
+  - name: additional_radiation_therapy
+    type: string
+  - name: lymphovascular_invasion_present
+    type: string
+  - name: location_in_lung_parenchyma
+    type: string
+  - name: pulmonary_function_test_performed
+    type: string
+  - name: egfr_mutation_performed
+    type: string
+  - name: diagnosis
+    type: string
+  - name: eml4_alk_translocation_performed
+    type: string
+  - name: days_to_new_tumor_event_after_initial_treatment
+    type: string
+  - name: hemoglobin_result
+    type: string
+  - name: serum_calcium_result
+    type: string
+  - name: platelet_qualitative_result
+    type: string
+  - name: number_of_lymphnodes_positive
+    type: string
+  - name: white_cell_count_result
+    type: string
+  - name: alcohol_history_documented
+    type: string
+  - name: family_history_of_cancer
+    type: string
+  - name: braf_gene_analysis_performed
+    type: string
+  - name: city_of_procurement
+    type: string
+  - name: surgical_approach
+    type: string
+  - name: peritoneal_wash
+    type: string
+  - name: total_pelv_lnr
+    type: double
+  - name: total_aor_lnr
+    type: double
+  - name: prior_glioma
+    type: string
+- name: Mutation_Data
+  path: data/molecular/Mutation_Data.parquet
+  rows: 2127885
+  columns: 12
+  size_bytes: 39551354
+  sha256: 86ca32a33cbd1b5a7f6e4f32f5bfa70bd51ac9e247160c4d651bda7e96cdb0de
+  schema:
+  - name: ParticipantBarcode
+    type: string
+  - name: Tumor_SampleBarcode
+    type: string
+  - name: Tumor_AliquotBarcode
+    type: string
+  - name: Normal_SampleBarcode
+    type: string
+  - name: Normal_AliquotBarcode
+    type: string
+  - name: Normal_SampleTypeLetterCode
+    type: string
+  - name: Hugo_Symbol
+    type: string
+  - name: HGVSp_Short
+    type: string
+  - name: Variant_Classification
+    type: string
+  - name: HGVSc
+    type: string
+  - name: CENTERS
+    type: string
+  - name: FILTER
+    type: string
+- name: RNASeq_Expression
+  path: data/molecular/RNASeq_Expression.parquet
+  rows: 9995877
+  columns: 8
+  size_bytes: 164658240
+  sha256: 8d18ce0ab9021ed144ffb957e490c6c5700319a4f4295e7b7499b48cdc640cc7
+  schema:
+  - name: ParticipantBarcode
+    type: string
+  - name: SampleBarcode
+    type: string
+  - name: AliquotBarcode
+    type: string
+  - name: SampleTypeLetterCode
+    type: string
+  - name: SampleType
+    type: string
+  - name: Symbol
+    type: string
+  - name: Entrez
+    type: int64
+  - name: normalized_count
+    type: double
+context:
+  description: context/description.md
+  hints: context/hints.md
+  hints_policy: optional; selected by experiment configuration
+tasks:
+  directory: tasks
+  count: 3
+  ids:
+  - PANCANCER_ATLAS_task1
+  - PANCANCER_ATLAS_task2
+  - PANCANCER_ATLAS_task3

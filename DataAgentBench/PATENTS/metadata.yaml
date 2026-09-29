@@ -1,0 +1,180 @@
+dataset_id: PATENTS
+version: '1.0'
+domain: patent publications and classification
+source:
+  benchmark: DataAgentBench
+  dataset: query_PATENTS
+  task_mapping:
+    PATENTS_task1: query1
+    PATENTS_task2: query2
+    PATENTS_task3: query3
+  files:
+  - path: db_config.yaml
+    sha256: 1989d2c52cc76beae80a62d68ea46d62a5926118cbce8faf02b64de80711074c
+  - path: db_description.txt
+    sha256: 3f85a6d3b5bcf450668938c4828f5c6ca03172623efe2311c3d919bc1be3ca26
+  - path: db_description_withhint.txt
+    sha256: 26a2bd2123730dde9e63d506ad9311c203d7957672fc533d870185be2e6e78f0
+  - path: query1/ground_truth.csv
+    sha256: c82084bcdce5382bdd5e599192b963d3d06909776c39b758342cef7c1f4109dd
+  - path: query1/query.json
+    sha256: b181e9bd7ee711fe45783c7bcdd04cc9c44da38ad96592d5895d90b5a33a5912
+  - path: query1/validate.py
+    sha256: 764c9af0492c15fc12d2ce796fd312717c066af04937aa25c95a6351fe2efee8
+  - path: query2/ground_truth.csv
+    sha256: 2531e2b75186c3393d781eecfe46ecea6212f58d50a35cb04f58eacab9d45631
+  - path: query2/query.json
+    sha256: 85222e70a218b55a186a5be14e3ec047739558afbaf98b21b7f824dc9f6ce7ba
+  - path: query2/validate.py
+    sha256: 28741289c1bb9065924f97981af0b64f19b0415fb110ee8e9d8c536a9f550c28
+  - path: query3/ground_truth.csv
+    sha256: a1b512f919c90e9d372c828f4b3cebcdc6c59c7fc614e8825914dc2ff7a27501
+  - path: query3/query.json
+    sha256: 65a4054537b7662556db4ab5e0d04b290b5103080b8759da3d65573fe6034968
+  - path: query3/validate.py
+    sha256: c34efa6c273789795d3bf52a02e11503924644a665fa81ca752914a0c5577d50
+  - path: query_dataset/patent_CPCDefinition.sql
+    sha256: f888382228bf87538744194ca2ea1be126c316423d6d10e35e7d4ec226da0144
+  - path: query_dataset/patent_publication.db
+    sha256: 1e22b92b9849b3f7a07dcf89075f37787c84feacb0cdbc7b4bd96ae4fa88071c
+  - path: query_dataset/patent_publication.db.part
+    sha256: 97438e1d8f69a4eb228ba68e5779235de0f01aa0bc15ad87956cc145d2772701
+  shared_files:
+  - path: common_scaffold/validate/levenshtein.py
+    sha256: 77c2cc868169345908261ad9c14bec48f29f6e25f4b690607c2936fefefa67c1
+    copied_into_answer_for:
+    - task2
+    - task3
+  unconfigured_files_retained_at_source:
+  - query_dataset/patent_publication.db.part
+  adaptations:
+  - Configured SQLite and PostgreSQL COPY inputs exported without truncation, cleaning,
+    joins, or deduplication.
+  - Source physical types preserved, including int64 family_id, double dateRevised/level,
+    and boolean CPC flags.
+  - PostgreSQL COPY decoded from text; no PostgreSQL server restore performed.
+  - Original questions, ground truths, validators and hint body preserved. Required
+    original helper copied into evaluation-only answer directories.
+  copy_format_reference: https://www.postgresql.org/docs/17/sql-copy.html#SQL-COPY-FILE-FORMATS
+  python: 3.12.8
+format: parquet
+table_count: 2
+data_size_bytes: 1194280259
+tables:
+- name: publicationinfo
+  path: data/publication/publicationinfo.parquet
+  rows: 277813
+  columns: 24
+  schema:
+  - name: Patents_info
+    type: string
+  - name: kind_code
+    type: string
+  - name: application_kind
+    type: string
+  - name: pct_number
+    type: string
+  - name: family_id
+    type: int64
+  - name: title_localized
+    type: string
+  - name: abstract_localized
+    type: string
+  - name: claims_localized_html
+    type: string
+  - name: description_localized_html
+    type: string
+  - name: publication_date
+    type: string
+  - name: filing_date
+    type: string
+  - name: grant_date
+    type: string
+  - name: priority_date
+    type: string
+  - name: priority_claim
+    type: string
+  - name: inventor_harmonized
+    type: string
+  - name: examiner
+    type: string
+  - name: uspc
+    type: string
+  - name: ipc
+    type: string
+  - name: cpc
+    type: string
+  - name: citation
+    type: string
+  - name: parent
+    type: string
+  - name: child
+    type: string
+  - name: entity_status
+    type: string
+  - name: art_unit
+    type: string
+  size_bytes: 1146740837
+  sha256: a636818eff7a0fe195f0da4dc9e94758a98de02584c33baeaefd32a989825452
+- name: cpc_definition
+  path: data/CPCDefinition/cpc_definition.parquet
+  rows: 260808
+  columns: 22
+  schema:
+  - name: applicationReferences
+    type: string
+  - name: breakdownCode
+    type: bool
+  - name: childGroups
+    type: string
+  - name: children
+    type: string
+  - name: dateRevised
+    type: double
+  - name: definition
+    type: string
+  - name: glossary
+    type: string
+  - name: informativeReferences
+    type: string
+  - name: ipcConcordant
+    type: string
+  - name: level
+    type: double
+  - name: limitingReferences
+    type: string
+  - name: notAllocatable
+    type: bool
+  - name: parents
+    type: string
+  - name: precedenceLimitingReferences
+    type: string
+  - name: residualReferences
+    type: string
+  - name: rules
+    type: string
+  - name: scopeLimitingReferences
+    type: string
+  - name: status
+    type: string
+  - name: symbol
+    type: string
+  - name: synonyms
+    type: string
+  - name: titleFull
+    type: string
+  - name: titlePart
+    type: string
+  size_bytes: 47539422
+  sha256: 8fb575dae6ba080d7bdefcc7dee7c82b7afd927117cb9e4eb46823c51908e64e
+context:
+  description: context/description.md
+  hints: context/hints.md
+  hints_policy: optional; selected by experiment configuration
+tasks:
+  directory: tasks
+  count: 3
+  ids:
+  - PATENTS_task1
+  - PATENTS_task2
+  - PATENTS_task3

@@ -1,0 +1,62 @@
+{
+  "dataset": "yelp",
+  "files": [
+    {
+      "path": "context/description.md",
+      "sha256": "8d5a448674ec679cb6e47cad6447f3a5dbb98adaab46a1cce5fe1e8fb18740fb"
+    },
+    {
+      "path": "context/hints.md",
+      "sha256": "3ff8ca07efb45e1a37cecafcbd03c6a6fbb15f5efaab2a93a040bcff9c3a3af5"
+    },
+    {
+      "path": "data/businessinfo/business.parquet",
+      "sha256": "6e159a3c32c11cb0c68ab86092d786f5fb42059267f9db030d0bb29296157f25"
+    },
+    {
+      "path": "data/businessinfo/checkin.parquet",
+      "sha256": "81e47df90a680b0c85370ba94d5e6bace1c075f30c09937a3a7008ff3a619eb0"
+    },
+    {
+      "path": "data/user/review.parquet",
+      "sha256": "acb5d0e9f90caf55eba7f8f2643ba7b56cd4b0505b71af8c79727f6fb54bd3e1"
+    },
+    {
+      "path": "data/user/tip.parquet",
+      "sha256": "ae21781a149e452962a5e9dd65aa3bf271b756b2696bfec4b9af3dcc30091de3"
+    },
+    {
+      "path": "data/user/user.parquet",
+      "sha256": "9f511639b505447e82f3955f31aaf884687ee1bd01b62fc1a9ad0c72db565daf"
+    },
+    {
+      "path": "tasks/task1/task.json",
+      "sha256": "ebc0904a0868e0711768229e713108d314d26aeba051e3248ee6c41742096763"
+    },
+    {
+      "path": "tasks/task2/task.json",
+      "sha256": "3b440a6a3d25b68d87db3af48e1fc5854a95b396ca62eb436d0c3a6d4c4761b6"
+    },
+    {
+      "path": "tasks/task3/task.json",
+      "sha256": "84fb51faa080ab76d0b93bdae2331e1dbe8fd9facc953f3a763e0215f9b44ba3"
+    },
+    {
+      "path": "tasks/task4/task.json",
+      "sha256": "b2755acc0c41be4d05f7ad3acd95465caacea74ce094a11213168d4b8b8b6fe5"
+    },
+    {
+      "path": "tasks/task5/task.json",
+      "sha256": "8f61c3b257fac49d676847c82ce3ef1d1619c4d9bc2fbb90d6da0e60e9a45a58"
+    },
+    {
+      "path": "tasks/task6/task.json",
+      "sha256": "596194b2fe8e9e3aa363a3fc24c6f2f33c2e426e28b8894e91b1f9bb753e9a9e"
+    },
+    {
+      "path": "tasks/task7/task.json",
+      "sha256": "028ab98ab19d0e6dbd4e2f5078c0bb09201748c2ac9cbca52c777dc701c148dc"
+    }
+  ],
+  "data_files_included": false
+}

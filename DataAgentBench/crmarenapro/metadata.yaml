@@ -1,0 +1,793 @@
+dataset_id: crmarenapro
+version: '1.0'
+domain: customer relationship management
+source:
+  benchmark: DataAgentBench
+  dataset: query_crmarenapro
+  task_mapping:
+    crmarenapro_task1: query1
+    crmarenapro_task2: query2
+    crmarenapro_task3: query3
+    crmarenapro_task4: query4
+    crmarenapro_task5: query5
+    crmarenapro_task6: query6
+    crmarenapro_task7: query7
+    crmarenapro_task8: query8
+    crmarenapro_task9: query9
+    crmarenapro_task10: query10
+    crmarenapro_task11: query11
+    crmarenapro_task12: query12
+    crmarenapro_task13: query13
+  files:
+  - path: db_config.yaml
+    sha256: 8440fe2fba1ca42ea5106bb0113c7f3eb4b248f2ea38d63bc432d9e4553b6390
+  - path: db_description.txt
+    sha256: 7a5421cb138f6e4bb0b2d1a7458b9b2a53dfbd1df8d5ebd852b6a2f8d9a9ad18
+  - path: db_description_withhint.txt
+    sha256: 8dd1fc389af715a4af0dae53543c6e996bbb63eaf75e9813c07cb2ce7176d256
+  - path: query1/ground_truth.csv
+    sha256: 36b5edda18b50b864d526ee9d5926061302708cf96574b54de0adc0bd667fafb
+  - path: query1/query.json
+    sha256: 894e6fb92a2c798b3dd29e486a7ec78c5c9f8aa7ff398bef227b8784529d5f66
+  - path: query1/validate.py
+    sha256: 579be6cfae68087cc8efd8e2e9c1ae0a5283e722d2a1d033705d52f28b9f9835
+  - path: query10/ground_truth.csv
+    sha256: 6d935e6f705c93174be6576cdd4467bca849d126a6be8e0b9023f944284ace1c
+  - path: query10/query.json
+    sha256: cad473f5f29c0965ea73e0c136a96034e3436df59c016c2a3549d03beeca2010
+  - path: query10/validate.py
+    sha256: 33e391562f728b4a5d80b7a1a8b046746a8d40a48817db1f379271ed99329193
+  - path: query11/ground_truth.csv
+    sha256: 8eae503568db8e087f4553b80f1acadcba3972fbc09cf4b697a76cbedb5e3f7e
+  - path: query11/query.json
+    sha256: f26f335645c4383dde4f4532c4c84f21f4b01a26f9dd2738be6d151e8116b0f1
+  - path: query11/validate.py
+    sha256: 0a0b8e676ad86e4e90c8c06e0034a04d2b1fb28ef5bf63d097ecbd440d4bb8a7
+  - path: query12/ground_truth.csv
+    sha256: 00fd1d685ab1dba492d8c237367560944efce4283e913cec527ba3ddd1c99384
+  - path: query12/query.json
+    sha256: c4a10a08df2a82e5bbba81c38820f441acc4e69f0e8784b4cd9df76045244a20
+  - path: query12/validate.py
+    sha256: 99476c2b08ba7f07bfbe1fb4fd32938a5a78c7942e88fb57c35da748e6c7d2cc
+  - path: query13/ground_truth.csv
+    sha256: 392ca1513b6b80d358b95124c4f212920d4424d75b5ccfaa70349d4574047ab0
+  - path: query13/query.json
+    sha256: e45a2ab8feb029efd1fdc6dd175053d253ec6a833bec576015ca0fff5bde1044
+  - path: query13/validate.py
+    sha256: cf707902d5ccb87233fbba008ebc70d6e7001d2f77e10ddebeb082575ded4486
+  - path: query2/ground_truth.csv
+    sha256: 6b6a6337891ae7619f92991923a68920a4c4b1eca81e1733463af2bf7ed2d458
+  - path: query2/query.json
+    sha256: 9e4834b6399ed135885379b58092992df72a6abfda6d63289c3c6d632ff7a67b
+  - path: query2/validate.py
+    sha256: a9e852fda1bbda63d3d1940e129e32d5af4a428c75a78424b4495db02a984d1d
+  - path: query3/ground_truth.csv
+    sha256: 3e18e2dab6f2bdb77a8888916f368ab87ad7a23534560f8159744aff0e245aff
+  - path: query3/query.json
+    sha256: 3413c9ccae6924385e20ca4e5683a2b2bb53e988df87cbd40b2154885824d294
+  - path: query3/validate.py
+    sha256: 0b8dda4ccc5958a7ae292ff782329785ac450ac1ccec890484a6ff5a9f774767
+  - path: query4/ground_truth.csv
+    sha256: 9de6fe1d72659daec67e919b0c473a24da5f03d3d096dc44ead1687240975f7c
+  - path: query4/query.json
+    sha256: e7b8341035f0e32bb2dfe08a1112b2e973bf45ebffde77ec42de102d427f0da3
+  - path: query4/validate.py
+    sha256: 44a9efc64699eb0f99703ef0cb1e37d7c11af5bcfb62974a9f3c5d890af27c14
+  - path: query5/ground_truth.csv
+    sha256: 1527ff4fc7764fd9d086de285177637357747e3d583dcc594151607ea0b3409d
+  - path: query5/query.json
+    sha256: 12f4ad0de8c065b851dd9edb53f9003c58ddd02516c73d7b941c7b08ff432962
+  - path: query5/validate.py
+    sha256: 2c9fd2b1cef51e8e00b5cbefb15dfe4cb8261d726519f394ab4b2dc1f2c05797
+  - path: query6/ground_truth.csv
+    sha256: 6dcb146b0c2b9eafa8588e83f10e655a9db823987fb8638a9fc23d5106cd3d84
+  - path: query6/query.json
+    sha256: 366e380fb2873420a22a287a85a3eeea802bc10985709a0b1ded7eb90aa8736f
+  - path: query6/validate.py
+    sha256: 62d23cae1947acf29b02fdc186e25b10b2d11e223965c6f384fbbab6ccf6a7df
+  - path: query7/ground_truth.csv
+    sha256: b673d6904b108ea9c43d1ce5f49bf549de8b09d5773b27cccfd8af6aaafceea7
+  - path: query7/query.json
+    sha256: 82d93f1e5317b087cb59b785270191915f0d1d542779dc1d7035efe99277689a
+  - path: query7/validate.py
+    sha256: 6a3a4ce64de4fe3abbb7c38f50f0bd5c54ef09506445b384fa9f2f537bb0704e
+  - path: query8/ground_truth.csv
+    sha256: d6272a72f0c9f9e38fd138b0eeda6bd4e26c68c72d409f52a373e96bd8f557a7
+  - path: query8/query.json
+    sha256: c0d1d62e8696fc91c2469b719753ba8c6e4273c3cdeade0f4c58b5d9df5a8408
+  - path: query8/validate.py
+    sha256: f5286f8dadbe0c2d0895b6f0fe4085691fdd2e6ae916e79f2f9293a960c30334
+  - path: query9/ground_truth.csv
+    sha256: 4a95385af451dc995120af71db4be91aeb125c541eb70adc65287dbc3f27a09c
+  - path: query9/query.json
+    sha256: ad49f3909ed2da0fd72a99db50de26652f1a4c7b7b35aead6656092918357a71
+  - path: query9/validate.py
+    sha256: fd1b20664e106209005d1d3f8321d935616927f4529d9a9388098481e6799b78
+  - path: query_dataset/activities.duckdb
+    sha256: f3299b9214885f00c71c9af77d89b62ad73f3e545e3cf5baa4861d1265151c60
+  - path: query_dataset/core_crm.db
+    sha256: aa595797e41db401136a0a68bf14bac44707f9f86ed235f61d9f051728e50506
+  - path: query_dataset/products_orders.db
+    sha256: 92ad52f2a624ee5e0cdf7cd4cc64ac60b1e3f7af2c672be27f651f80af4a6bdb
+  - path: query_dataset/sales_pipeline.duckdb
+    sha256: 5b44cc3754820bff20c3f25e50cf09c6be401f86e69df6b9d3ee7a4cf64ac5af
+  - path: query_dataset/support.sql
+    sha256: 5248cd64cddf4936027859c5d6f74b2d32fbeb4e1939d784b2ff26d45d83950c
+  - path: query_dataset/territory.db
+    sha256: 1a9650d4ba3c0a3690b936d294feb31a3227bf6f2ebe886f74cf12e14936366a
+  shared_files: []
+  adaptations:
+  - All rows, duplicates, nulls, strings, trailing whitespace, noisy identifiers,
+    HTML, questions, answers, validators and hint body retained.
+  - SQLite/DuckDB native types retained. Amount and NumberOfEmployees remain float64;
+    fields stored as text stay text even when numeric/date-like.
+  - PostgreSQL TEXT INSERT snapshot parsed without execution using standard_conforming_strings=on.
+    Unquoted SQL identifiers fold to lowercase; quoted Case retains case. Original
+    SQL identifier spellings recorded.
+  - No cleaning, joins, date parsing, amount calculation, business-policy interpretation,
+    answer computation or grading changes.
+  sql_string_interpretation:
+    standard_conforming_strings: 'on'
+    server_setting_verified: false
+    reference: https://www.postgresql.org/docs/current/runtime-config-compatible.html#GUC-STANDARD-CONFORMING-STRINGS
+  export_environment:
+    python: 3.12.8
+    duckdb: 1.4.2
+    pyarrow: 15.0.2
+    PyYAML: 6.0.1
+format: parquet
+table_count: 27
+data_size_bytes: 7731427
+tables:
+- name: Account
+  path: data/core_crm/Account.parquet
+  rows: 101
+  columns: 7
+  size_bytes: 18370
+  sha256: b6f90c96902ef823b3e80f177f5d1abc7e3afae2265acb268c7dd002a452e89b
+  schema:
+  - name: Id
+    type: string
+  - name: Name
+    type: string
+  - name: Phone
+    type: string
+  - name: Industry
+    type: string
+  - name: Description
+    type: string
+  - name: NumberOfEmployees
+    type: double
+  - name: ShippingState
+    type: string
+- name: Contact
+  path: data/core_crm/Contact.parquet
+  rows: 886
+  columns: 5
+  size_bytes: 26703
+  sha256: 5d3c1d81ab7ea6548a64384f63c6c53c9d5111ef99d35b280d7ae75d9bf874a6
+  schema:
+  - name: Id
+    type: string
+  - name: FirstName
+    type: string
+  - name: LastName
+    type: string
+  - name: Email
+    type: string
+  - name: AccountId
+    type: string
+- name: User
+  path: data/core_crm/User.parquet
+  rows: 212
+  columns: 11
+  size_bytes: 15527
+  sha256: b96611860fdedd16e456837e5b411e117b032cbf897e6a54405edfa888052258
+  schema:
+  - name: Id
+    type: string
+  - name: FirstName
+    type: string
+  - name: LastName
+    type: string
+  - name: Email
+    type: string
+  - name: Phone
+    type: string
+  - name: Username
+    type: string
+  - name: Alias
+    type: string
+  - name: LanguageLocaleKey
+    type: string
+  - name: EmailEncodingKey
+    type: string
+  - name: TimeZoneSidKey
+    type: string
+  - name: LocaleSidKey
+    type: string
+- name: Contract
+  path: data/sales_pipeline/Contract.parquet
+  rows: 163
+  columns: 8
+  size_bytes: 17869
+  sha256: 6504a4821030ee2b26f04e90704e35e8cfe900893510734b51d3ebb0171e8299
+  schema:
+  - name: Id
+    type: string
+  - name: AccountId
+    type: string
+  - name: Status
+    type: string
+  - name: StartDate
+    type: string
+  - name: CustomerSignedDate
+    type: string
+  - name: CompanySignedDate
+    type: string
+  - name: Description
+    type: string
+  - name: ContractTerm
+    type: string
+- name: Lead
+  path: data/sales_pipeline/Lead.parquet
+  rows: 1465
+  columns: 14
+  size_bytes: 87066
+  sha256: d5bba97763132713bd0798aa0280f7f52275282f3095b6552d073c2449f5c156
+  schema:
+  - name: Id
+    type: string
+  - name: FirstName
+    type: string
+  - name: LastName
+    type: string
+  - name: Email
+    type: string
+  - name: Phone
+    type: string
+  - name: Company
+    type: string
+  - name: Status
+    type: string
+  - name: ConvertedContactId
+    type: string
+  - name: ConvertedAccountId
+    type: string
+  - name: Title
+    type: string
+  - name: CreatedDate
+    type: string
+  - name: ConvertedDate
+    type: string
+  - name: IsConverted
+    type: int64
+  - name: OwnerId
+    type: string
+- name: Opportunity
+  path: data/sales_pipeline/Opportunity.parquet
+  rows: 1170
+  columns: 12
+  size_bytes: 166256
+  sha256: 5f8872318f65cfc48039d81faccc06ccb35a38207987673be8a318ae2a26ba37
+  schema:
+  - name: Id
+    type: string
+  - name: ContractID__c
+    type: string
+  - name: AccountId
+    type: string
+  - name: ContactId
+    type: string
+  - name: OwnerId
+    type: string
+  - name: Probability
+    type: string
+  - name: Amount
+    type: double
+  - name: StageName
+    type: string
+  - name: Name
+    type: string
+  - name: Description
+    type: string
+  - name: CreatedDate
+    type: string
+  - name: CloseDate
+    type: string
+- name: OpportunityLineItem
+  path: data/sales_pipeline/OpportunityLineItem.parquet
+  rows: 4926
+  columns: 6
+  size_bytes: 57389
+  sha256: 89fe661b1ca3ada1f356eac7303a9cd263bd943ae34ad9eeb2d9df2f04e51a02
+  schema:
+  - name: Id
+    type: string
+  - name: OpportunityId
+    type: string
+  - name: Product2Id
+    type: string
+  - name: PricebookEntryId
+    type: string
+  - name: Quantity
+    type: string
+  - name: TotalPrice
+    type: string
+- name: Quote
+  path: data/sales_pipeline/Quote.parquet
+  rows: 704
+  columns: 9
+  size_bytes: 48358
+  sha256: 9035f8737f6d0496930f76d1261c398e03bfdbd2b3704b208ec74f80f70d2f21
+  schema:
+  - name: Id
+    type: string
+  - name: OpportunityId
+    type: string
+  - name: AccountId
+    type: string
+  - name: ContactId
+    type: string
+  - name: Name
+    type: string
+  - name: Description
+    type: string
+  - name: Status
+    type: string
+  - name: CreatedDate
+    type: string
+  - name: ExpirationDate
+    type: string
+- name: QuoteLineItem
+  path: data/sales_pipeline/QuoteLineItem.parquet
+  rows: 2966
+  columns: 9
+  size_bytes: 54571
+  sha256: d3259344b47bee31bb57eb3097df596e15999b9a65584bd9ac1e28fe0a2f8097
+  schema:
+  - name: Id
+    type: string
+  - name: QuoteId
+    type: string
+  - name: OpportunityLineItemId
+    type: string
+  - name: Product2Id
+    type: string
+  - name: PricebookEntryId
+    type: string
+  - name: Quantity
+    type: string
+  - name: UnitPrice
+    type: string
+  - name: Discount
+    type: string
+  - name: TotalPrice
+    type: string
+- name: Case
+  path: data/support/Case.parquet
+  rows: 153
+  columns: 12
+  size_bytes: 18487
+  sha256: ebb4536cd5e9ee3c09e5690f0b70af1501984e95ef1955fa30655f61e39fe0bb
+  schema:
+  - name: id
+    type: string
+  - name: priority
+    type: string
+  - name: subject
+    type: string
+  - name: description
+    type: string
+  - name: status
+    type: string
+  - name: contactid
+    type: string
+  - name: createddate
+    type: string
+  - name: closeddate
+    type: string
+  - name: orderitemid__c
+    type: string
+  - name: issueid__c
+    type: string
+  - name: accountid
+    type: string
+  - name: ownerid
+    type: string
+  source_constraints:
+    primary_key: []
+  source_sql_identifiers:
+    table: '"Case"'
+    columns:
+    - Id
+    - Priority
+    - Subject
+    - Description
+    - Status
+    - ContactId
+    - CreatedDate
+    - ClosedDate
+    - OrderItemId__c
+    - IssueId__c
+    - AccountId
+    - OwnerId
+- name: knowledge__kav
+  path: data/support/knowledge__kav.parquet
+  rows: 194
+  columns: 5
+  size_bytes: 193835
+  sha256: 9aa26f11e7968076a9a4224ebf29cac401ceeb3e3c51385c5c8c460ae0f5c942
+  schema:
+  - name: id
+    type: string
+  - name: title
+    type: string
+  - name: faq_answer__c
+    type: string
+  - name: summary
+    type: string
+  - name: urlname
+    type: string
+  source_constraints:
+    primary_key: []
+  source_sql_identifiers:
+    table: Knowledge__kav
+    columns:
+    - Id
+    - Title
+    - FAQ_Answer__c
+    - Summary
+    - UrlName
+- name: issue__c
+  path: data/support/issue__c.parquet
+  rows: 15
+  columns: 3
+  size_bytes: 3313
+  sha256: 1fd90b832e3284512c9a4340b2665cecc21be318075af8141272eb639bfa3143
+  schema:
+  - name: id
+    type: string
+  - name: name
+    type: string
+  - name: description__c
+    type: string
+  source_constraints:
+    primary_key: []
+  source_sql_identifiers:
+    table: Issue__c
+    columns:
+    - Id
+    - Name
+    - Description__c
+- name: casehistory__c
+  path: data/support/casehistory__c.parquet
+  rows: 393
+  columns: 6
+  size_bytes: 8133
+  sha256: aff8cba5c5986369130399f6b94e87a6477b4925c6e8acab62ed490eb22c487b
+  schema:
+  - name: id
+    type: string
+  - name: caseid__c
+    type: string
+  - name: oldvalue__c
+    type: string
+  - name: newvalue__c
+    type: string
+  - name: createddate
+    type: string
+  - name: field__c
+    type: string
+  source_constraints:
+    primary_key: []
+  source_sql_identifiers:
+    table: CaseHistory__c
+    columns:
+    - Id
+    - CaseId__c
+    - OldValue__c
+    - NewValue__c
+    - CreatedDate
+    - Field__c
+- name: emailmessage
+  path: data/support/emailmessage.parquet
+  rows: 5686
+  columns: 8
+  size_bytes: 2078437
+  sha256: 88171b87f7a3363a6b06e241e8f34b06faa51bd0e268e5cb8a550a07f15aea6a
+  schema:
+  - name: id
+    type: string
+  - name: subject
+    type: string
+  - name: textbody
+    type: string
+  - name: parentid
+    type: string
+  - name: fromaddress
+    type: string
+  - name: toids
+    type: string
+  - name: messagedate
+    type: string
+  - name: relatedtoid
+    type: string
+  source_constraints:
+    primary_key: []
+  source_sql_identifiers:
+    table: EmailMessage
+    columns:
+    - Id
+    - Subject
+    - TextBody
+    - ParentId
+    - FromAddress
+    - ToIds
+    - MessageDate
+    - RelatedToId
+- name: livechattranscript
+  path: data/support/livechattranscript.parquet
+  rows: 58
+  columns: 8
+  size_bytes: 36991
+  sha256: 348dc78d43403cabbdda32a29fc68062fb65e8f223dcdf1e4061d4cd040a0e83
+  schema:
+  - name: id
+    type: string
+  - name: caseid
+    type: string
+  - name: accountid
+    type: string
+  - name: ownerid
+    type: string
+  - name: body
+    type: string
+  - name: endtime
+    type: string
+  - name: livechatvisitorid
+    type: string
+  - name: contactid
+    type: string
+  source_constraints:
+    primary_key: []
+  source_sql_identifiers:
+    table: LiveChatTranscript
+    columns:
+    - Id
+    - CaseId
+    - AccountId
+    - OwnerId
+    - Body
+    - EndTime
+    - LiveChatVisitorId
+    - ContactId
+- name: Order
+  path: data/products_orders/Order.parquet
+  rows: 163
+  columns: 6
+  size_bytes: 5184
+  sha256: 0a1999642320545c9e0e227bb2257adccdfa60d6246c109317e3d876f7d0a1f6
+  schema:
+  - name: Id
+    type: string
+  - name: AccountId
+    type: string
+  - name: Status
+    type: string
+  - name: EffectiveDate
+    type: string
+  - name: Pricebook2Id
+    type: string
+  - name: OwnerId
+    type: string
+- name: OrderItem
+  path: data/products_orders/OrderItem.parquet
+  rows: 689
+  columns: 6
+  size_bytes: 10589
+  sha256: 9adc46c1dbcc21b0e4bd1cf345b0152a067e382e6828f526afda12f5879d2dd9
+  schema:
+  - name: Id
+    type: string
+  - name: OrderId
+    type: string
+  - name: Product2Id
+    type: string
+  - name: Quantity
+    type: string
+  - name: UnitPrice
+    type: string
+  - name: PriceBookEntryId
+    type: string
+- name: Pricebook2
+  path: data/products_orders/Pricebook2.parquet
+  rows: 2
+  columns: 6
+  size_bytes: 2403
+  sha256: f8a161559c855b6244bba0907189e144aa6e455b320fcef495832e4a3c5e7588
+  schema:
+  - name: Id
+    type: string
+  - name: Name
+    type: string
+  - name: Description
+    type: string
+  - name: IsActive
+    type: int64
+  - name: ValidFrom
+    type: string
+  - name: ValidTo
+    type: string
+- name: PricebookEntry
+  path: data/products_orders/PricebookEntry.parquet
+  rows: 50
+  columns: 4
+  size_bytes: 2479
+  sha256: f0759ef5c9ecd03b27880cd67f9e11c36b343e9f23dc9772249c00d861e0e3fb
+  schema:
+  - name: Id
+    type: string
+  - name: Pricebook2Id
+    type: string
+  - name: Product2Id
+    type: string
+  - name: UnitPrice
+    type: string
+- name: Product2
+  path: data/products_orders/Product2.parquet
+  rows: 51
+  columns: 5
+  size_bytes: 5956
+  sha256: 34b269c597ff0809c8f1685bb95df605ab36f8ed0017ead1da45282b859dc082
+  schema:
+  - name: Id
+    type: string
+  - name: Name
+    type: string
+  - name: Description
+    type: string
+  - name: IsActive
+    type: int64
+  - name: External_ID__c
+    type: string
+- name: ProductCategory
+  path: data/products_orders/ProductCategory.parquet
+  rows: 10
+  columns: 3
+  size_bytes: 1792
+  sha256: 4bb13557a06d12b826ce77320c9529df737f7f7d3dabb7abecd3d83093dd7421
+  schema:
+  - name: Id
+    type: string
+  - name: Name
+    type: string
+  - name: CatalogId
+    type: string
+- name: ProductCategoryProduct
+  path: data/products_orders/ProductCategoryProduct.parquet
+  rows: 100
+  columns: 3
+  size_bytes: 2396
+  sha256: 12a5046ddbd9732abf49cf9ad2dc3bdfb1eefefe3f3a4647cdfe946ab2d0e682
+  schema:
+  - name: Id
+    type: string
+  - name: ProductCategoryId
+    type: string
+  - name: ProductId
+    type: string
+- name: Event
+  path: data/activities/Event.parquet
+  rows: 54
+  columns: 9
+  size_bytes: 7868
+  sha256: 45dc8b9dcde635ec9267e0be3d031df7db8f6af72e7576a919920bc60db9ba62
+  schema:
+  - name: Id
+    type: string
+  - name: WhatId
+    type: string
+  - name: OwnerId
+    type: string
+  - name: StartDateTime
+    type: string
+  - name: Subject
+    type: string
+  - name: Description
+    type: string
+  - name: DurationInMinutes
+    type: string
+  - name: Location
+    type: string
+  - name: IsAllDayEvent
+    type: int64
+- name: Task
+  path: data/activities/Task.parquet
+  rows: 4783
+  columns: 8
+  size_bytes: 201927
+  sha256: fb22900f878c002a4cf70f5368766641140ff65bce3a9bb8e970b8d3ac6d6aca
+  schema:
+  - name: Id
+    type: string
+  - name: WhatId
+    type: string
+  - name: OwnerId
+    type: string
+  - name: Priority
+    type: string
+  - name: Status
+    type: string
+  - name: ActivityDate
+    type: string
+  - name: Subject
+    type: string
+  - name: Description
+    type: string
+- name: VoiceCallTranscript__c
+  path: data/activities/VoiceCallTranscript__c.parquet
+  rows: 4033
+  columns: 6
+  size_bytes: 4654925
+  sha256: 5970859510b7fd76bbbdd451d38c73584ebeb847a792814990f9ffb441d726bc
+  schema:
+  - name: Id
+    type: string
+  - name: OpportunityId__c
+    type: string
+  - name: LeadId__c
+    type: string
+  - name: Body__c
+    type: string
+  - name: CreatedDate
+    type: string
+  - name: EndTime__c
+    type: string
+- name: Territory2
+  path: data/territory/Territory2.parquet
+  rows: 10
+  columns: 3
+  size_bytes: 1531
+  sha256: 1ce6ddf0ec5cb1f51f83b6d8a0044fbc499b7c083eb325aa79280029ff5723db
+  schema:
+  - name: Id
+    type: string
+  - name: Name
+    type: string
+  - name: Description
+    type: string
+- name: UserTerritory2Association
+  path: data/territory/UserTerritory2Association.parquet
+  rows: 184
+  columns: 3
+  size_bytes: 3072
+  sha256: 5085d8b11f72f9a9e268e7412d5cb30043816a6e6bca633bbfa3f4eae6ed4931
+  schema:
+  - name: Id
+    type: string
+  - name: UserId
+    type: string
+  - name: Territory2Id
+    type: string
+context:
+  description: context/description.md
+  hints: context/hints.md
+  hints_policy: optional; selected by experiment configuration
+tasks:
+  directory: tasks
+  count: 13
+  ids:
+  - crmarenapro_task1
+  - crmarenapro_task2
+  - crmarenapro_task3
+  - crmarenapro_task4
+  - crmarenapro_task5
+  - crmarenapro_task6
+  - crmarenapro_task7
+  - crmarenapro_task8
+  - crmarenapro_task9
+  - crmarenapro_task10
+  - crmarenapro_task11
+  - crmarenapro_task12
+  - crmarenapro_task13

@@ -1,0 +1,116 @@
+dataset_id: googlelocal
+version: '1.0'
+domain: local businesses and reviews
+source:
+  benchmark: DataAgentBench
+  dataset: query_googlelocal
+  task_mapping:
+    googlelocal_task1: query1
+    googlelocal_task2: query2
+    googlelocal_task3: query3
+    googlelocal_task4: query4
+  files:
+  - path: db_config.yaml
+    sha256: e4c808ba9f5d0fa01c4497d1ad3f79d0607a18374efa41397c8bc22def0e8eb0
+  - path: db_description.txt
+    sha256: 2d865cf4dbfe9d67eafee802e2dca9d3cbe7937d173458bb8f1cbe839e0278a3
+  - path: db_description_withhint.txt
+    sha256: 231b81dc1f3ff2c708765f65969c9a81afc7dc31d46828c4352a19bca203458f
+  - path: query1/ground_truth.csv
+    sha256: 346dee2e3d1ac957c9f2f8ca18b463e9ef32779f47979b33f1c7cf31fa0e3950
+  - path: query1/query.json
+    sha256: 3f9cae56516b7ae78edb2d96a28634746762b983219b85d995db679c554226be
+  - path: query1/validate.py
+    sha256: 380e9dd0d57319d8c887ebfb5161c38add6bb8d19283265bf9f84e0e4c6323d3
+  - path: query2/ground_truth.csv
+    sha256: df1f004117f74a3a4e0c1fd7ae59a5d22e6375abb24a2a9683d1d691850700ff
+  - path: query2/query.json
+    sha256: d4b527325a39563c28e17bb29a694082677ba6190ecd7d8b232f923de947e2a6
+  - path: query2/validate.py
+    sha256: 0a2db3d2e36578165b3135c309b9e6d7b4f67665b2e3cf025524efcb711e2ad4
+  - path: query3/ground_truth.csv
+    sha256: e0fa0f352948f37245f42661e208511b7c4f1cf85e6a50e7b062f13e8b7929c9
+  - path: query3/query.json
+    sha256: edc69dda56e12bd4b5c1b4ec50d98fef8a1f24a1af951aa3933511dae7cc651d
+  - path: query3/validate.py
+    sha256: 37b5175ce2fe38edf5cf813d1b293ae4b42d22b8b8afe1348e4d56db898096fa
+  - path: query4/ground_truth.csv
+    sha256: 229ae1e1ff0c007363e5e99e6972d7cb7714d49077522bc9ff28f7937fd862ce
+  - path: query4/query.json
+    sha256: 1ffd55d9fca7f959216dc13dda75bfc37c3dddadd939b3fad072b1a1f3e48cae
+  - path: query4/validate.py
+    sha256: 4b9c7096546d5f581c5212e8617caa41b19820f56025ee309abcf7a97ba5f6d9
+  - path: query_dataset/business_description.sql
+    sha256: cac36db1c60ab1fcbc661cc7df46c9980db1c2fcdaedb65b57f7a2618339ddd4
+  - path: query_dataset/review_query.db
+    sha256: 1e9ef561d4edf62ff49bf874253935caf8d404a79c60d21b9b0fc40ee041692c
+  shared_files: []
+  adaptations:
+  - PostgreSQL single-table text COPY snapshots decoded strictly; no PostgreSQL server
+    restore performed.
+  - SQLite and DuckDB tables read directly; all source physical types, values, nulls,
+    and duplicate records retained.
+  - Questions, answer files, validators and hint body preserved. Required original
+    shared helper copied into evaluation-only answer directories.
+  - Description adapted to measured physical schemas without inferring undocumented
+    medical field meanings.
+  copy_format_reference: https://www.postgresql.org/docs/17/sql-copy.html#SQL-COPY-FILE-FORMATS
+  export_environment:
+    python: 3.12.8
+    duckdb: 1.4.2
+    pyarrow: 15.0.2
+    PyYAML: 6.0.1
+format: parquet
+table_count: 2
+data_size_bytes: 200300
+tables:
+- name: business_description
+  path: data/business/business_description.parquet
+  rows: 79
+  columns: 7
+  size_bytes: 15548
+  sha256: 84b06fb2cfd98f4a2cfcb2694bfc58c4537ea6b2a1065d65a941113142019d4a
+  schema:
+  - name: name
+    type: string
+  - name: gmap_id
+    type: string
+  - name: description
+    type: string
+  - name: num_of_reviews
+    type: int64
+  - name: hours
+    type: string
+  - name: MISC
+    type: string
+  - name: state
+    type: string
+- name: review
+  path: data/review/review.parquet
+  rows: 2000
+  columns: 5
+  size_bytes: 184752
+  sha256: 9de6233cc68e3dd163109eb63999d0a397458a98c5a1d3ea021f02163b8370e2
+  schema:
+  - name: name
+    type: string
+  - name: time
+    type: string
+  - name: rating
+    type: int64
+  - name: text
+    type: string
+  - name: gmap_id
+    type: string
+context:
+  description: context/description.md
+  hints: context/hints.md
+  hints_policy: optional; selected by experiment configuration
+tasks:
+  directory: tasks
+  count: 4
+  ids:
+  - googlelocal_task1
+  - googlelocal_task2
+  - googlelocal_task3
+  - googlelocal_task4

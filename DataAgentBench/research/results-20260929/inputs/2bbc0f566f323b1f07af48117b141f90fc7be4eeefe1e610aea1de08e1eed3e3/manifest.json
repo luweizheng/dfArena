@@ -1,0 +1,54 @@
+{
+  "dataset": "GITHUB_REPOS",
+  "files": [
+    {
+      "path": "context/description.md",
+      "sha256": "3831ddc9dbeffeddb5bfce77b14754343aab2bedd2a2193b90eae4b2640ed65b"
+    },
+    {
+      "path": "context/hints.md",
+      "sha256": "57631e52ec62cc2b0231625fb4e843522336d99ee34d855a12c5d4d763f4df2f"
+    },
+    {
+      "path": "data/artifacts/commits.parquet",
+      "sha256": "fd3c4435f2f1b53aa0bb5b17da7963c379e0793a7ef55c656ae361760f69dd53"
+    },
+    {
+      "path": "data/artifacts/contents.parquet",
+      "sha256": "0b03c1c48663729d074d5726101843c8726749f3b73bb6360c6a4413f664c42e"
+    },
+    {
+      "path": "data/artifacts/files.parquet",
+      "sha256": "5c7abf40d5abcdccd183773b02dda7b839f672e7f449e778bc8a818824030b0e"
+    },
+    {
+      "path": "data/metadata/languages.parquet",
+      "sha256": "ef1f105f968bdfb842cda30faf561c55a583b67ca33590321392207ca2f2dda2"
+    },
+    {
+      "path": "data/metadata/licenses.parquet",
+      "sha256": "ff3efde687752944ef9461e97f446be04fcaa934388d15c6be3acb8c019079e3"
+    },
+    {
+      "path": "data/metadata/repos.parquet",
+      "sha256": "b73287ed25a12a3d6f864f0647f75f42003648260db185c2bc87cc5b401ace42"
+    },
+    {
+      "path": "tasks/task1/task.json",
+      "sha256": "32942925f3217d0c3ce80b0cc6b848c1a496da5f61385a29a358b4c3d71f62d1"
+    },
+    {
+      "path": "tasks/task2/task.json",
+      "sha256": "bc4c2d97c0ab6a0486c143eeb198f5e4edea9c9ae23f58b940db6230af386462"
+    },
+    {
+      "path": "tasks/task3/task.json",
+      "sha256": "1a26d5fb1a83799ebbafc7900ba4ab073a82835fbeb5a7589373eb99fa313324"
+    },
+    {
+      "path": "tasks/task4/task.json",
+      "sha256": "806063a2f1728d862f9a2ff58444c721630ab79a26c08fda3ea0c0af0e76dc50"
+    }
+  ],
+  "data_files_included": false
+}

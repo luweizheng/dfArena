@@ -1,0 +1,121 @@
+dataset_id: agnews
+version: '1.0'
+domain: news articles
+source:
+  benchmark: DataAgentBench
+  dataset: query_agnews
+  task_mapping:
+    agnews_task1: query1
+    agnews_task2: query2
+    agnews_task3: query3
+    agnews_task4: query4
+  files:
+  - path: db_config.yaml
+    sha256: 97240184ab0646b66dc5015e10a5884bc673abe70c5a4d0610f5028fe7559d7d
+  - path: db_description.txt
+    sha256: 296c7dabfd0fdc1343d2e3d4b17491f2946b44a8e807619bcda350d1397cba47
+  - path: db_description_withhint.txt
+    sha256: db6e3f29714e7898b8c8e91efa1077b2e120fbe0fb0bede47fb9a75481d7f988
+  - path: query1/ground_truth.csv
+    sha256: 3e183c3ae5c85ec93a91c92eee92e7f0830d05cc1eb9d32bc2ac52b27f4e32b6
+  - path: query1/query.json
+    sha256: bbc94a9e190cc3efe66b92537cb856622c111e52964c9c8bb7c530f3d9e182ce
+  - path: query1/validate.py
+    sha256: f2fd963afb74ae60921613f4662aacc7be39e6fae6d1acc2c121aeec7f61d322
+  - path: query2/ground_truth.csv
+    sha256: 7d6087e1a86ee20b95560423784a8236c63b752e1366854d19e8cc133151b452
+  - path: query2/query.json
+    sha256: 79f736db6659b00b8ce85f03ce0eb9af962ec283404a72ee9e10fb8a477c2ae8
+  - path: query2/validate.py
+    sha256: 4f38f4768db4b5bc392efdc495fe5d98a20d937bed9a773ae876445dd6287145
+  - path: query3/ground_truth.csv
+    sha256: b55c2391cd3c87e8f8626773073ff9fcd76681e9bacd2ffce7c57a9a5b7f3dfd
+  - path: query3/query.json
+    sha256: 2444519816264b71fb76ba72cb641e04daebb340d8232651f2ab04e4d1b5a855
+  - path: query3/validate.py
+    sha256: 809d8d3f011655336e2579577b93681b2f7170eadccf08551de74190e9a61b7f
+  - path: query4/ground_truth.csv
+    sha256: c4a371acd7c3df8bd70e49805e76cb39b1309ccac3d0f4289120079a9ad68bcd
+  - path: query4/query.json
+    sha256: b9e4940960a6376ea3ebec7bbb46e82fb470862ea7cd083c122dddaa1bedf6f1
+  - path: query4/validate.py
+    sha256: a90e70fefb2f2b97c408d9f236d1b1f07037e5bf553162157c6df36b627a8776
+  - path: query_dataset/agnews_articles/articles_db/articles.bson
+    sha256: ad74220284cb2737273f5b6a9e6c2c1e34374a232db1072a5842f82f8a539488
+  - path: query_dataset/metadata.db
+    sha256: 30cfb96d29b4e49c5f6ae6e5cb2c754d98e118a183ddd57ae44ee3564aeb1955
+  shared_files: []
+  adaptations:
+  - Flat BSON decoded with official PyMongo; all present source fields retained, no
+    generated identifiers.
+  - MongoDB ObjectId encoded reversibly as 24-character lowercase hexadecimal text;
+    BSON int32 retained as int32.
+  - SQLite read-only export preserves physical values and types. Every input row remains
+    in original order.
+  - Original questions, ground truths, validators, and hint body preserved. No classification
+    or information extraction performed.
+  export_environment:
+    python: 3.12.8
+    pymongo: 4.16.0
+    pyarrow: 15.0.2
+    PyYAML: 6.0.1
+format: parquet
+table_count: 3
+data_size_bytes: 14986264
+tables:
+- name: articles
+  path: data/articles/articles.parquet
+  rows: 127600
+  columns: 3
+  size_bytes: 13936488
+  sha256: 354564b972a1c42bb7cf42b7dd86ea08a99124c6453f94b5891cfe3eaf0b121e
+  schema:
+  - name: article_id
+    type: int32
+  - name: title
+    type: string
+  - name: description
+    type: string
+  bson_field_encoding:
+    article_id: int32
+    title: string
+    description: string
+  original_bson_path: query_dataset/agnews_articles/articles_db/articles.bson
+- name: article_metadata
+  path: data/metadata/article_metadata.parquet
+  rows: 127600
+  columns: 4
+  size_bytes: 1037464
+  sha256: 6f8d1aafdbb972e4e788599ec1cf096949a10c17c4e0ae1ae8bbb8e80d240a04
+  schema:
+  - name: article_id
+    type: int64
+  - name: author_id
+    type: int64
+  - name: region
+    type: string
+  - name: publication_date
+    type: string
+- name: authors
+  path: data/metadata/authors.parquet
+  rows: 994
+  columns: 2
+  size_bytes: 12312
+  sha256: 85c35fdd8657fd8ebaf1247b7fe5b5e6e25d7baf390962c8e2fdb7d80f53b3da
+  schema:
+  - name: author_id
+    type: int64
+  - name: name
+    type: string
+context:
+  description: context/description.md
+  hints: context/hints.md
+  hints_policy: optional; selected by experiment configuration
+tasks:
+  directory: tasks
+  count: 4
+  ids:
+  - agnews_task1
+  - agnews_task2
+  - agnews_task3
+  - agnews_task4

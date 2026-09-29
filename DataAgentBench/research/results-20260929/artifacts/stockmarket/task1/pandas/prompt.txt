@@ -1,0 +1,83 @@
+Solve this DataAgentBench task. Read only /workspace/data, /workspace/context, and /workspace/task.json. Put code and intermediate files under /workspace/work. Do not modify /workspace/data. Do not read hidden answers, validators, reference solutions, or other runs. Use this backend: Use pandas as the main dataframe backend for loading, transformation, and computation. Generate /workspace/work/solution.py, execute it, repair failures, and write /workspace/work/answer.json with exactly {"answer": "<concise final answer>"}. Do not hard-code the answer.
+
+Context: Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.
+Question: What was the maximum adjusted closing price in 2020 for The RealReal, Inc.?
+
+Hints are enabled for this run. The data description and hints below, including any task-specific clarifications, are equally binding parts of the task requirements. Read and follow both when solving the task. Both documents are included in full below.
+
+## Data description (context/description.md)
+
+# stockmarket
+
+This dataset exposes the original two database groups as local Parquet tables.
+
+Original group names below are retained to interpret the original hints. All file paths are relative to the dataset root.
+
+1. stockinfo_database
+   - This table group is stored in Parquet files and contains metadata about publicly traded stocks and ETFs listed on U.S. exchanges, including ticker symbols, market categories, trading venues, and company descriptions.
+   - This database consists of one table: 
+    - stockinfo:
+      - Fields:
+        - Nasdaq Traded (str): Whether stock is traded on NASDAQ
+        - Symbol (str): Stock ticker symbol
+        - Listing Exchange (str): Exchange where stock is listed
+        - Market Category (str): Market category classification
+        - ETF (str): Whether security is an ETF
+        - Round Lot Size (float): Standard trading unit size
+        - Test Issue (str): Whether this is a test issue
+        - Financial Status (str or null): Financial status (delinquent, deficient, etc.)
+        - NextShares (str): NextShares designation
+        - Company Description (str): Company name and description
+
+2. stocktrade_database
+   - This table group is stored in Parquet files and contains daily price data for 2,753 individual stocks and ETFs listed on U.S. exchanges. Each original table is named after a stock's ticker symbol and contains the historical daily trading data for that stock.
+   - Fields (for each table):
+     - Date (str): Trading date
+     - Open (float): Opening price
+     - High (float): Highest price during the day
+     - Low (float): Lowest price during the day
+     - Close (float): Closing price
+     - Adj Close (float): Adjusted closing price
+     - Volume (int64 or double, depending on table): Number of shares traded
+
+## Files and physical types
+
+The stock metadata table is `data/stockinfo/stockinfo.parquet`. Price tables are `data/stocktrade/<original-table-name>.parquet`. The sole reserved-filename exception is original table `PRN`, stored in `data/stocktrade/PRN__table.parquet` for Windows compatibility. Its original table name remains `PRN` in metadata.yaml.
+
+Each price table retains its original columns and types: Date is string; price columns are double. Volume is double in the following tables and int64 in all other price tables: `ADP`, `BPOPN`, `CAE`, `CMA`, `CMI`, `EDOW`, `EINC`, `EV`, `FTFT`, `FTR`, `GLT`, `GOGL`, `GTY`, `JBHT`, `JKL`, `KLR`, `LB`, `MFSF`, `MS`, `NICK`, `NIU`, `PGR`, `PSM`, `REGL`, `RETL`, `RHS`, `RPV`, `SBR`, `SDOW`, `SHAG`, `SJT`, `SYBT`, `TDV`, `UBOH`, `UHT`, `VHI`, `WOR`, `XRAY`.
+
+The Round Lot Size column in stockinfo is double; its other columns are strings. There are 2,752 metadata rows and 2,753 price tables. The original `CARR#` price table has no matching stockinfo Symbol; it is retained under `data/stocktrade/CARR#.parquet` without guessing a replacement symbol.
+
+## Preservation
+
+All original records, duplicates, nulls, empty strings, and text formatting are retained. Dates remain strings; numeric values are not rounded. No joins, deduplication, missing-value imputation, or ground-truth computation are performed. metadata.yaml lists every table with its original name, exact local path, physical column types, row count, and checksum. Additional original hints are in context/hints.md when enabled by the experiment.
+
+
+## Hints and task-specific clarifications (context/hints.md)
+
+# Hints
+ 
+Below are the definitions of stock market symbols for the relevant columns.  
+- Listing Exchange Codes:
+  - A = NYSE MKT
+  - N = New York Stock Exchange (NYSE)
+  - P = NYSE ARCA
+  - Z = BATS Global Markets (BATS)
+  - V = Investors' Exchange, LLC (IEXG)
+  - Q = NASDAQ Global Select Market (top-tier NASDAQ market)
+- Financial Status Codes:
+  - D = Deficient: Issuer failed to meet NASDAQ continued listing requirements
+  - E = Delinquent: Issuer missed regulatory filing deadline
+  - Q = Bankrupt: Issuer has filed for bankruptcy
+  - N = Normal (default): Issuer is NOT deficient, delinquent, or bankrupt
+  - G = Deficient and bankrupt
+  - H = Deficient and delinquent
+  - J = Delinquent and bankrupt
+  - K = Deficient, delinquent, and bankrupt
+- A company is considered financially troubled if it is deficient, delinquent, or both.
+- Market Category Codes:
+  - Q = NASDAQ Global Select Market
+  - G = NASDAQ Global Market
+  - S = NASDAQ Capital Market
+- When selecting the top five stocks with more up days than down days in 2017, rank them in descending order of the difference between the number of up days and the number of down days.
+

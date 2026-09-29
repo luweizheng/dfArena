@@ -1,0 +1,26 @@
+{
+  "agent": "codex",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "low",
+  "image": "sha256:e07278b576eb7292a3a4e4c0b3c6f8ef795f447928617661cc6a1f8681ef1354",
+  "timeout_seconds": 600,
+  "evaluation_timeout_seconds": 120,
+  "input_delivery": "complete_requirements_v1",
+  "recording_version": "passive-extra-records-v2",
+  "runner_hashes": {
+    "DataAgentBench/scripts/evaluate.py": "89aa96d6e49bc1881d234bfc7479ec4d186fbcbd97f6cebc3afd887af306ed92",
+    "DataAgentBench/scripts/generate.py": "9fc48ed2048ffbf64b54e31d159e3ff4ebc2ffc60b06fe8a06fe2a0caac62322",
+    "DataAgentBench/scripts/results.py": "bb7949f5cec46ee94d052a65587fc067fc34bfa0149c3c36f783ce5cbd8db0f4",
+    "DataAgentBench/scripts/run_benchmark.py": "cf3b45385ca341ba5fb1c88d9af0576b0b4b27e2542c97efbfa65d63c9ff640a",
+    "runners/__init__.py": "53d0bff69fda26cb695c6cf9f90c2a7484e84cf96e2faf7e287e0d8cc5cebd83",
+    "runners/agents/__init__.py": "174160acaac2c74bfabff399fa36b7be18d90d0eb19cd8189174ac0e299613c8",
+    "runners/agents/base.py": "4e4e1ace504943ed29f00ac405773c4e47162065e73413fc5c2aa198fb4b8126",
+    "runners/agents/codex.py": "804ba51abf719988b79cfb03816a9d90a716f473e12929279259e35d302d845e",
+    "runners/agents/opencode.py": "a7d13c353a7a592bbd3033b414504fe229d511a3b20a72638074efea09dbc101",
+    "runners/results.py": "cc49440fe524e1e523181a2fabab095aa862c5b170c8a0392757e290513489d8",
+    "runners/run_codex_test.py": "ecf0d67ed81ba79613fa05829e8d483e1b7651d43512774cf6f150235d40acc1",
+    "runners/run_opencode_test.py": "b1901ed8ed9aea0f21a13e4964c66bf3eb643003722ffcbb45c142c4a5e643c9",
+    "runners/tests/test_agents.py": "c20d913564485e608825a52177415ea89da68fcb3911b47550078947f4dbcd22",
+    "runners/timed_process.py": "70c2cefa3d4d5636c642390042b9b4a41ee97ff9bb9eb7f1498f9df1b7ba5334"
+  }
+}

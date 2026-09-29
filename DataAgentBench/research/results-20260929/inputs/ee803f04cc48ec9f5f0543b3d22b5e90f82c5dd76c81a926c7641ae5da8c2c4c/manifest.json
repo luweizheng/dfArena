@@ -1,0 +1,86 @@
+{
+  "dataset": "cve",
+  "files": [
+    {
+      "path": "context/description.md",
+      "sha256": "4fbbb153378f7398734ebf4d3b83f735892ddfcb0e20e449c4faded98662ef3c"
+    },
+    {
+      "path": "context/hints.md",
+      "sha256": "59a0beafe85c97badc97dcc4d05d812887ce7f4a37520bf3f91d24833d3cafed"
+    },
+    {
+      "path": "data/cpe_db/cpe_matches.parquet",
+      "sha256": "67b4f24d856464395cefd40d2c4f5582cf6cc9c33b77c1c93c5c64363d28e581"
+    },
+    {
+      "path": "data/cpe_db/cpe_version_details.parquet",
+      "sha256": "0edccb81f8ee455b260704ef35b20bede6293874843b77b6b08f8f9b5361270c"
+    },
+    {
+      "path": "data/cpe_db/vendor_aliases.parquet",
+      "sha256": "5225af9ae843f7a0af62320a736cdf03235ccd5e64f72e619cf1ad7fdb117bcb"
+    },
+    {
+      "path": "data/descriptions_db/cve_documents.parquet",
+      "sha256": "b6a3f45eb1c5ce5b40d2b7daacc2c7a58e6b0ebb009c3fb61aa760a12f74929d"
+    },
+    {
+      "path": "data/kev_db/kev_entries.parquet",
+      "sha256": "f68df9776c014a582a10dac7b2997fb2a9237bdeaf054df82382e5c1236a693f"
+    },
+    {
+      "path": "data/kev_db/kev_vendor_aliases.parquet",
+      "sha256": "71f5af1a3b16f3611ecc93d7f7106863bd998d8e4648d6e4cf4b3b30d72f1e33"
+    },
+    {
+      "path": "data/vulns_db/cves.parquet",
+      "sha256": "5a00c51d1315c235533567c547f6adde9016bcf211944172efcdf65819d28af3"
+    },
+    {
+      "path": "data/vulns_db/cvss_metadata.parquet",
+      "sha256": "96257404cded25b6d4a42358c82f924d1d47fe44428f5c6fa814dea2a4df74c7"
+    },
+    {
+      "path": "tasks/task1/task.json",
+      "sha256": "24413c41f4cb6adef423099590d2f24eda922024eb706fdf8650f176d74ea9c9"
+    },
+    {
+      "path": "tasks/task10/task.json",
+      "sha256": "116c0fadbe0b60d4150a55d5e4f276ff6addd500d6166d5c842dd3bc447c96c2"
+    },
+    {
+      "path": "tasks/task2/task.json",
+      "sha256": "5b7ad09ebd88ac99c93893c978c230aa0fb655c119357d5e12d1e14ab043de45"
+    },
+    {
+      "path": "tasks/task3/task.json",
+      "sha256": "3f1013047e9fadf006ef0fa24631645cd68751747c485ed0373d3a4fd42909e4"
+    },
+    {
+      "path": "tasks/task4/task.json",
+      "sha256": "2b2e43ade45faffd7c55b5ce11aa393d0b370f45bdaa377699cfabe3692c5c9c"
+    },
+    {
+      "path": "tasks/task5/task.json",
+      "sha256": "8feda942e1305c4c53106afa3fb5693ac148811e119ab417a716e55a06cb0b61"
+    },
+    {
+      "path": "tasks/task6/task.json",
+      "sha256": "8146cfe3163cdd22289735bb20b4cd5a0d9a4ab672238d2ce4c5268fbf2a66d4"
+    },
+    {
+      "path": "tasks/task7/task.json",
+      "sha256": "2f8367990d0ecbeac54eb427fcd9aaaacb17c92ddc25819767af9424c3c15f0c"
+    },
+    {
+      "path": "tasks/task8/task.json",
+      "sha256": "049421a0a985f0a8d278a00c0ee081c69b69e8b027bce1d2dcbf161c1b93dbf4"
+    },
+    {
+      "path": "tasks/task9/task.json",
+      "sha256": "fd493c858c9968857db649bb3f1b3b31606ad4344150a78382a858495ea14901"
+    }
+  ],
+  "data_files_included": false
+}

@@ -1,0 +1,256 @@
+dataset_id: usaspending
+version: '1.0'
+domain: federal contract awards
+source:
+  benchmark: DataAgentBench
+  dataset: query_usaspending
+  task_mapping:
+    usaspending_task1: query1
+    usaspending_task2: query2
+    usaspending_task3: query3
+    usaspending_task4: query4
+    usaspending_task5: query5
+    usaspending_task6: query6
+    usaspending_task7: query7
+    usaspending_task8: query8
+    usaspending_task9: query9
+    usaspending_task10: query10
+  files:
+  - path: db_config.yaml
+    sha256: 1999cb75f5a7b76a7b3627130c297e12228816c9ffb602d3b38b9f2c6b94a64e
+  - path: db_description.txt
+    sha256: d5f6f598afee05abee4f60b664b5f3e8b1d0ed2dc8eb5774da7d52e50d065c46
+  - path: db_description_withhint.txt
+    sha256: 0d81a4456890fa114781682777c8867d2c54b1e5801f932d4d5cf039f8f0ec46
+  - path: manual_querycode/compute_ground_truth.py
+    sha256: fdcb8c8270099c2a838e418c1334dd09b89eec8977849c1aec98fe2bf5369d36
+  - path: manual_querycode/corrupt.py
+    sha256: f05a892cc0c86ecf6e208d651da04d23dee022f2a3c7e31c69994526d3e08344
+  - path: manual_querycode/fetch_clean.py
+    sha256: f4423e58806b921a4835ce4ca5bfc429931d5771b26cd0729e0395498f47d518
+  - path: manual_querycode/llm_corrupt.py
+    sha256: 08765ec7898922385d591e4b7be0e0aff6d74fdc13b1f15de88d648c237fa62c
+  - path: manual_querycode/PROVENANCE.md
+    sha256: bb405fb90a3acb693e33ae263e3dbbc76d9f30b0d92e75b6cebd2976c44f82f0
+  - path: query1/ground_truth.csv
+    sha256: e39175fa786ac1bf674197873c91e3820954356db81c4db3da1a733ace9a30f2
+  - path: query1/query.json
+    sha256: c9ce8a7b01ede66b1e6d736917f8da591b812a789a159bb27a0675fc81b52df3
+  - path: query1/validate.py
+    sha256: 274c8c28b74c1f485efd7e0d0649948eec0909f36593d96888b52fa7d4c6e52e
+  - path: query10/ground_truth.csv
+    sha256: 85a0e6eb5530a682fa88345a5e7a144248f49e5b71b3eb587a9db5cd2957495a
+  - path: query10/query.json
+    sha256: a78c1bf80b62433db715d637ed3a1e0bbf13aef00479cedb03bd4f5283bd56fa
+  - path: query10/validate.py
+    sha256: 274c8c28b74c1f485efd7e0d0649948eec0909f36593d96888b52fa7d4c6e52e
+  - path: query2/ground_truth.csv
+    sha256: 84b9bb077be0d8a29d0d01ef350d718b77c2ec5f40c3ab90502b1b4b5016c550
+  - path: query2/query.json
+    sha256: a324678b68c40154c9489b667bc1e8c0e7f30231879e3bc3e75b55013a0e6f76
+  - path: query2/validate.py
+    sha256: 274c8c28b74c1f485efd7e0d0649948eec0909f36593d96888b52fa7d4c6e52e
+  - path: query3/ground_truth.csv
+    sha256: 68ef67b35dd79367f8c89133b1d0b1401c0eb795b3c1d8fadd7c0005075df2bc
+  - path: query3/query.json
+    sha256: 9f25bdb74e5cb40dbf4ffe03624d462404544b5295615f908ff7ad3650bb457a
+  - path: query3/validate.py
+    sha256: 274c8c28b74c1f485efd7e0d0649948eec0909f36593d96888b52fa7d4c6e52e
+  - path: query4/ground_truth.csv
+    sha256: 50a9bcd4b0d68c99d6b20d2ce73ca613cba8e4d3d47a482dd972e7118cebb2b6
+  - path: query4/query.json
+    sha256: 9e992a161e72fde2c80596ac78e27efdd7e816a6ed7a803bbb40cc361071b8ec
+  - path: query4/validate.py
+    sha256: 743ef2b83239262036d91e8cb0bf28d2456c3a349770c2ef76bee9993113e17e
+  - path: query5/ground_truth.csv
+    sha256: a1fb50e6c86fae1679ef3351296fd6713411a08cf8dd1790a4fd05fae8688164
+  - path: query5/query.json
+    sha256: 2f3f9ec0206a40eb639d77c2d018a122f2a18c44c3c0c09f6e04b39493fc78fe
+  - path: query5/validate.py
+    sha256: 274c8c28b74c1f485efd7e0d0649948eec0909f36593d96888b52fa7d4c6e52e
+  - path: query6/ground_truth.csv
+    sha256: 2a57042a43991d2ca310938e6802d7283954e38c825a548c4bee89c45238b43b
+  - path: query6/query.json
+    sha256: 5aa03986bb165bac1bc7ad3173bf0f101636255bbda385fe897aa5caaa4a5cef
+  - path: query6/validate.py
+    sha256: 274c8c28b74c1f485efd7e0d0649948eec0909f36593d96888b52fa7d4c6e52e
+  - path: query7/ground_truth.csv
+    sha256: 076320a2a08267b4c026d06573bba408ea68841e73cdc20e62cce59de165ece3
+  - path: query7/query.json
+    sha256: c52c818623e17691d18527d38fd16bb2af214de9aa1bd2653c7c66659314680d
+  - path: query7/validate.py
+    sha256: 017fd5411ba3fc7687b398ff6dcec86afea0c5100f3ba57fb52abe6dfd8a933e
+  - path: query8/ground_truth.csv
+    sha256: 64aeb9975f234becd55bb4635e6e2f2da7a6b7bf0a896f0c07763bdfbfb31420
+  - path: query8/query.json
+    sha256: db6e4abad532e634b350a1b129d05e30ef48410fcc0fab38a492378c152eedcf
+  - path: query8/validate.py
+    sha256: 274c8c28b74c1f485efd7e0d0649948eec0909f36593d96888b52fa7d4c6e52e
+  - path: query9/ground_truth.csv
+    sha256: 5c862790153d23a72dd410bb8b36819d51ac248cbaec4f6742efd8e75f20b175
+  - path: query9/query.json
+    sha256: fa95fb5f9793cc68e7f2f5e942dd315efbcfb317fb86a8e07f07cedb5c18485d
+  - path: query9/validate.py
+    sha256: 274c8c28b74c1f485efd7e0d0649948eec0909f36593d96888b52fa7d4c6e52e
+  - path: query_dataset/agencies.duckdb
+    sha256: 3ec7cb010ad78868358b4a3cffe81a5adc037def483669d11a34bc3452253bb7
+  - path: query_dataset/contracts.sql
+    sha256: 7fdde155670e23568458570bdb17171b36f4789b49c95dde5461b03ca951a861
+  - path: query_dataset/descriptions/usaspending_descriptions/contract_documents.bson
+    sha256: a964552f7bbda8bb608046bae63714b791fcb90294e2956d9f1c8fe29b860518
+  - path: query_dataset/descriptions/usaspending_descriptions/contract_documents.metadata.json
+    sha256: 470f6313ea2dce1a2f72e14665c27d6999e4332d2513b7ddb43dd7acc18c620e
+  - path: query_dataset/recipients.db
+    sha256: 008916d8764ba11e759be1499a78c0c090da2fa8b72ff409ed69623c2f1733b5
+  shared_files: []
+  adaptations:
+  - Literal TEXT-only PostgreSQL INSERT snapshot decoded without SQL execution or
+    PostgreSQL server restore.
+  - Descriptions BSON list of objects encoded as reversible JSON array text with original
+    array and object key order; no generated identifiers.
+  - All source values, nulls, rows, identifier variants, prose amounts, questions,
+    answer files, validators, and hint body retained during the original migration.
+  - Subsequent user-approved clarifications updated context/hints.md and corresponding
+    descriptions in context/description.md; data, questions, and reference answers
+    remain unchanged.
+  - Subsequent validator fixes accept sentence-final punctuation after integer answers
+    and distinguish declared or bold agency answers from unrelated bold headings.
+  - SQLite INTEGER preserved as int64 and DuckDB INTEGER as int32. No normalization,
+    joins, amount inference or grading changes.
+  export_environment:
+    python: 3.12.8
+    pymongo: 4.16.0
+    duckdb: 1.4.2
+    pyarrow: 15.0.2
+    PyYAML: 6.0.1
+format: parquet
+table_count: 7
+data_size_bytes: 1132385
+tables:
+- name: contracts
+  path: data/contracts_db/contracts.parquet
+  rows: 9921
+  columns: 11
+  size_bytes: 248139
+  sha256: 3c90a8a4a3591bc64e945c88faa4830ee9bbd870ed5a1c56bfbac1eca8d711da
+  schema:
+  - name: award_id
+    type: string
+  - name: generated_internal_id
+    type: string
+  - name: recipient_uei
+    type: string
+  - name: awarding_agency
+    type: string
+  - name: awarding_sub_agency
+    type: string
+  - name: funding_agency
+    type: string
+  - name: start_date
+    type: string
+  - name: end_date
+    type: string
+  - name: naics_code
+    type: string
+  - name: psc_code
+    type: string
+  - name: award_type
+    type: string
+- name: contract_amounts
+  path: data/contracts_db/contract_amounts.parquet
+  rows: 10266
+  columns: 2
+  size_bytes: 503759
+  sha256: 75f035001ae550d82ccd35b183907ac5a02b51c38b9eab99e83a5d4249f23385
+  schema:
+  - name: award_id
+    type: string
+  - name: amount_text
+    type: string
+- name: recipients
+  path: data/recipients_db/recipients.parquet
+  rows: 3317
+  columns: 5
+  size_bytes: 114073
+  sha256: 9d58b8457c3dc73048ce0226367e1d6a88697c8112d129c67570c517fc418137
+  schema:
+  - name: uei
+    type: string
+  - name: name
+    type: string
+  - name: state
+    type: string
+  - name: n_contracts
+    type: int64
+  - name: total_amount_text
+    type: string
+- name: agencies
+  path: data/agencies_db/agencies.parquet
+  rows: 47
+  columns: 3
+  size_bytes: 2738
+  sha256: 6ba0638d245f1ed9fa61f9456278db98c7698f27bf26b38d3e4c037b09953b6c
+  schema:
+  - name: name
+    type: string
+  - name: n_contracts
+    type: int32
+  - name: total_amount_text
+    type: string
+- name: agency_aliases
+  path: data/agencies_db/agency_aliases.parquet
+  rows: 90
+  columns: 2
+  size_bytes: 3082
+  sha256: 77e34d1bbc0979e13c2c1fdeb252834419f89d1192c1ac385bf34a411615d23b
+  schema:
+  - name: surface_form
+    type: string
+  - name: canonical_name
+    type: string
+- name: naics_sectors
+  path: data/agencies_db/naics_sectors.parquet
+  rows: 24
+  columns: 3
+  size_bytes: 1840
+  sha256: b05538701793cb367147e5496300d91633908645a4a7a88bd063208deac90bcf
+  schema:
+  - name: code
+    type: string
+  - name: description
+    type: string
+  - name: sector
+    type: string
+- name: contract_documents
+  path: data/descriptions_db/contract_documents.parquet
+  rows: 9921
+  columns: 2
+  size_bytes: 258754
+  sha256: aa66c146a23669146d4e7f0c8187f2420a53df50579f6b2db299f6c922a1e450
+  schema:
+  - name: award_id
+    type: string
+  - name: descriptions
+    type: string
+  bson_field_encoding:
+    award_id: string
+    descriptions: json_array_of_string_objects
+  original_bson_path: query_dataset/descriptions/usaspending_descriptions/contract_documents.bson
+context:
+  description: context/description.md
+  hints: context/hints.md
+  hints_policy: optional; selected by experiment configuration
+tasks:
+  directory: tasks
+  count: 10
+  ids:
+  - usaspending_task1
+  - usaspending_task2
+  - usaspending_task3
+  - usaspending_task4
+  - usaspending_task5
+  - usaspending_task6
+  - usaspending_task7
+  - usaspending_task8
+  - usaspending_task9
+  - usaspending_task10

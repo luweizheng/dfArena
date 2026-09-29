@@ -1,0 +1,82 @@
+{
+  "dataset": "usaspending",
+  "files": [
+    {
+      "path": "context/description.md",
+      "sha256": "9cef712720b5cc6a8777401c9795100b13f76cc895754d90ee4d87e2f2a91256"
+    },
+    {
+      "path": "context/hints.md",
+      "sha256": "5fa22c209b71f09c3ccc09f051d729b015aafdc54e59951e70c3b111e4755a15"
+    },
+    {
+      "path": "data/agencies_db/agencies.parquet",
+      "sha256": "6ba0638d245f1ed9fa61f9456278db98c7698f27bf26b38d3e4c037b09953b6c"
+    },
+    {
+      "path": "data/agencies_db/agency_aliases.parquet",
+      "sha256": "77e34d1bbc0979e13c2c1fdeb252834419f89d1192c1ac385bf34a411615d23b"
+    },
+    {
+      "path": "data/agencies_db/naics_sectors.parquet",
+      "sha256": "b05538701793cb367147e5496300d91633908645a4a7a88bd063208deac90bcf"
+    },
+    {
+      "path": "data/contracts_db/contract_amounts.parquet",
+      "sha256": "75f035001ae550d82ccd35b183907ac5a02b51c38b9eab99e83a5d4249f23385"
+    },
+    {
+      "path": "data/contracts_db/contracts.parquet",
+      "sha256": "3c90a8a4a3591bc64e945c88faa4830ee9bbd870ed5a1c56bfbac1eca8d711da"
+    },
+    {
+      "path": "data/descriptions_db/contract_documents.parquet",
+      "sha256": "aa66c146a23669146d4e7f0c8187f2420a53df50579f6b2db299f6c922a1e450"
+    },
+    {
+      "path": "data/recipients_db/recipients.parquet",
+      "sha256": "9d58b8457c3dc73048ce0226367e1d6a88697c8112d129c67570c517fc418137"
+    },
+    {
+      "path": "tasks/task1/task.json",
+      "sha256": "62c99fcf2ff4aac396ed5eeb398901cb2f53d299eccf96dd60032659cda4672f"
+    },
+    {
+      "path": "tasks/task10/task.json",
+      "sha256": "b3e70583e808b2da77fa8f0c14aa16a4e92b605286142def845092eb85d1194b"
+    },
+    {
+      "path": "tasks/task2/task.json",
+      "sha256": "78194b17e65a68e7fc0728aa359d4266ec25fb634da3ccbb6e0ded4294283fe2"
+    },
+    {
+      "path": "tasks/task3/task.json",
+      "sha256": "2bba5fe3661f2de3a0c17c6db62f9c5864eb7ab55fccd4009bbd73e38edf5a76"
+    },
+    {
+      "path": "tasks/task4/task.json",
+      "sha256": "64b45bb1a19354b927e27c4fb4bcf1dcb3c7e61c02f4d6d9fdbea475da25893d"
+    },
+    {
+      "path": "tasks/task5/task.json",
+      "sha256": "b0b17879413f54ad868675a8af7aca54b8603d96e8436932592f9faee1d1b183"
+    },
+    {
+      "path": "tasks/task6/task.json",
+      "sha256": "2d6c839fe8f38a8cc14a70ef865709eefc0e1213d870602187fe490dbbc99aab"
+    },
+    {
+      "path": "tasks/task7/task.json",
+      "sha256": "1a8037a3e6652e49024cd638e8a79d3d1d12cf306e3a8010568441aacbcb4c42"
+    },
+    {
+      "path": "tasks/task8/task.json",
+      "sha256": "7cad9da1bd6ad922738e4c5491f584e1a46158fdf4343403460e7ae4340acdce"
+    },
+    {
+      "path": "tasks/task9/task.json",
+      "sha256": "02a37fd2b978dd05fa10b50c970fc503eb4c1d1bb4a76ef7080b8c5e0248806b"
+    }
+  ],
+  "data_files_included": false
+}

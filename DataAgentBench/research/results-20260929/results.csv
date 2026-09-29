@@ -1,0 +1,379 @@
+dataset,task,backend,generation_status,evaluation_status,passed,agent_seconds,estimated_api_usd,cost_status,repair_rounds_observed,answer
+DEPS_DEV_V1,task1,ibis,completed,completed,True,103.0667165979994,0.430368,estimated,1,"@dmrvos/infrajs>0.0.5>typescript 2.6.2 (94,931 GitHub stars); @dmrvos/infrajs>0.0.6>typescript 2.6.2 (94,931 GitHub stars); @dylanvann/svelte 3.25.4 (73,499 GitHub stars); @dumc11/tailwindcss 0.4.0 (73,464 GitHub stars); @dollarshaveclub/cli>1.0.0>lodash 4.17.4 (57,779 GitHub stars)."
+DEPS_DEV_V1,task1,pandas,completed,completed,True,106.54841734300135,0.523756,estimated,1,"@dmrvos/infrajs>0.0.5>typescript 2.6.2 (94,931 GitHub stars); @dmrvos/infrajs>0.0.6>typescript 2.6.2 (94,931 GitHub stars); @dylanvann/svelte 3.25.4 (73,499 GitHub stars); @dumc11/tailwindcss 0.4.0 (73,464 GitHub stars); @dollarshaveclub/cli>1.0.0>lodash 4.17.4 (57,779 GitHub stars)."
+DEPS_DEV_V1,task1,polars,completed,completed,True,80.94064530800097,0.417256,estimated,2,"@dmrvos/infrajs>0.0.5>typescript 2.6.2 (94,931 GitHub stars); @dmrvos/infrajs>0.0.6>typescript 2.6.2 (94,931 GitHub stars); @dylanvann/svelte 3.25.4 (73,499 GitHub stars); @dumc11/tailwindcss 0.4.0 (73,464 GitHub stars); @dollarshaveclub/cli>1.0.0>lodash 4.17.4 (57,779 GitHub stars)."
+DEPS_DEV_V1,task2,ibis,completed,completed,True,88.82072193199929,0.31046,estimated,1,"mui-org/material-ui (30,522 forks); moment/moment (7,201 forks); semantic-org/semantic-ui (4,955 forks); react-native-elements/react-native-elements (4,623 forks); sveltejs/svelte (4,091 forks)."
+DEPS_DEV_V1,task2,pandas,completed,completed,True,97.81234745099937,0.435584,estimated,1,"mui-org/material-ui (30,522 forks); moment/moment (7,201 forks); semantic-org/semantic-ui (4,955 forks); react-native-elements/react-native-elements (4,623 forks); sveltejs/svelte (4,091 forks)."
+DEPS_DEV_V1,task2,polars,completed,completed,True,70.96365146300013,0.300556,estimated,0,"mui-org/material-ui (30,522 forks); moment/moment (7,201 forks); semantic-org/semantic-ui (4,955 forks); react-native-elements/react-native-elements (4,623 forks); sveltejs/svelte (4,091 forks)"
+GITHUB_REPOS,task1,ibis,completed,completed,True,71.98128123599963,0.277038,estimated,0,33.33% (1 of 3 README.md files with available contents).
+GITHUB_REPOS,task1,pandas,completed,completed,True,99.93251268800122,0.304432,estimated,0,33.33% (1 of 3 README.md files with available contents).
+GITHUB_REPOS,task1,polars,completed,completed,True,59.68548017899957,0.231874,estimated,0,33.33% (1 of 3 README.md files with available contents).
+GITHUB_REPOS,task2,ibis,completed,completed,True,59.39094555600059,0.302508,estimated,0,SwiftAndroid/swift — validation-test/compiler_crashers_fixed/27485-swift-bracestmt-create.swift (ID: 71a17ce92451858f3eb01aa8082551e48bc5550d; 23 copies).
+GITHUB_REPOS,task2,pandas,completed,completed,True,85.23196887300037,0.247186,estimated,0,"SwiftAndroid/swift: validation-test/compiler_crashers_fixed/27485-swift-bracestmt-create.swift (ID: 71a17ce92451858f3eb01aa8082551e48bc5550d), 23 copies."
+GITHUB_REPOS,task2,polars,completed,completed,True,69.80915922599888,0.271918,estimated,0,SwiftAndroid/swift — validation-test/compiler_crashers_fixed/27485-swift-bracestmt-create.swift (ID: 71a17ce92451858f3eb01aa8082551e48bc5550d; 23 copies).
+GITHUB_REPOS,task3,ibis,completed,completed,True,45.9970361809992,0.169224,estimated,0,"1,077 commit messages."
+GITHUB_REPOS,task3,pandas,completed,completed,True,61.7791423689996,0.253396,estimated,0,"1,077 commit messages."
+GITHUB_REPOS,task3,polars,completed,completed,True,48.402296319000016,0.237304,estimated,0,"1,077 commit messages"
+GITHUB_REPOS,task4,ibis,completed,completed,True,59.58709262999946,0.269788,estimated,1,"apple/swift, twbs/bootstrap, Microsoft/vscode, facebook/react, tensorflow/tensorflow"
+GITHUB_REPOS,task4,pandas,completed,completed,True,83.11785439599953,0.221512,estimated,0,"apple/swift, twbs/bootstrap, Microsoft/vscode, facebook/react, tensorflow/tensorflow"
+GITHUB_REPOS,task4,polars,completed,completed,True,58.92940216699935,0.222708,estimated,0,"apple/swift, twbs/bootstrap, Microsoft/vscode, facebook/react, tensorflow/tensorflow"
+PANCANCER_ATLAS,task1,ibis,completed,completed,True,61.44344572299997,0.279364,estimated,0,Mean log10(IGF2 normalized_count + 1) by ICD-O-3 histology: 9382/3: 2.713571; 9400/3: 2.601416; 9401/3: 2.558390; 9450/3: 2.696718; 9451/3: 2.582635.
+PANCANCER_ATLAS,task1,pandas,completed,completed,True,62.15639981700042,0.222808,estimated,0,Mean log10(IGF2 normalized_count + 1) for LGG by ICD-O-3 histology: 9382/3: 2.713571; 9400/3: 2.601416; 9401/3: 2.558390; 9450/3: 2.696718; 9451/3: 2.582635.
+PANCANCER_ATLAS,task1,polars,completed,completed,True,69.5091324189998,0.266264,estimated,0,Mean log10(IGF2 normalized_count + 1) by ICD-O-3 histology for LGG: 9382/3: 2.713571; 9400/3: 2.601416; 9401/3: 2.558390; 9450/3: 2.696718; 9451/3: 2.582635.
+PANCANCER_ATLAS,task2,ibis,completed,completed,True,62.64591642800042,0.28976,estimated,0,Infiltrating Lobular Carcinoma: 50.56% (90/178 patients); Mixed Histology (please specify): 16.67% (4/24 patients); Other  specify: 8.33% (3/36 patients).
+PANCANCER_ATLAS,task2,pandas,completed,completed,True,55.58106208400022,0.20632,estimated,0,Infiltrating Lobular Carcinoma: 50.56% (90/178 patients); Mixed Histology (please specify): 16.67% (4/24 patients); Other  specify: 8.33% (3/36 patients).
+PANCANCER_ATLAS,task2,polars,completed,completed,True,60.88717573399845,0.248076,estimated,0,Infiltrating Lobular Carcinoma: 50.56% (90/178 patients); Mixed Histology (please specify): 16.67% (4/24 patients); Other  specify: 8.33% (3/36 patients).
+PANCANCER_ATLAS,task3,ibis,completed,completed,True,74.88014979900072,0.275346,estimated,0,The Pearson chi-square statistic is χ² = 305.1239.
+PANCANCER_ATLAS,task3,pandas,completed,completed,True,63.452116931001,0.300358,estimated,0,"Chi-square statistic: 305.123920 (df = 4, N = 1059)."
+PANCANCER_ATLAS,task3,polars,completed,completed,True,68.85440394400212,0.351734,estimated,0,Pearson chi-square statistic: 305.123920 (df = 4; N = 1059).
+PATENTS,task1,ibis,completed,completed,True,110.78964178099886,0.616002,estimated,1,"A22B, A23J, A23P, A24D, A24F, A41G, A47F, A61G, A61H, A61P, A62D, A63H, B04B, B07B, B08B, B09C, B21J, B22F, B24B, B25B, B25D, B27C, B27M, B60D, B60L, B60P, B61H, B63C, B63G, B65G, B66F, C01D, C01G, C21B, C21C, C22C, D21B, E01H, E02B, E02D, E03B, E04B, E04G, E21D, E21F, F02K, F04F, F16M, F25J, F26B, G01H, G01L, G01S, G05D, G06N, G06Q, G06T, G06V, G08G, G09F, G10L, G16B, G16C, G16H, G21F, H01M, H02B, H02G, H02J, H03H, H04K, H05F"
+PATENTS,task1,pandas,completed,completed,True,92.52633642600267,0.532428,estimated,0,"A22B, A23J, A23P, A24D, A24F, A41G, A47F, A61G, A61H, A61P, A62D, A63H, B04B, B07B, B08B, B09C, B21J, B22F, B24B, B25B, B25D, B27C, B27M, B60D, B60L, B60P, B61H, B63C, B63G, B65G, B66F, C01D, C01G, C21B, C21C, C22C, D21B, E01H, E02B, E02D, E03B, E04B, E04G, E21D, E21F, F02K, F04F, F16M, F25J, F26B, G01H, G01L, G01S, G05D, G06N, G06Q, G06T, G06V, G08G, G09F, G10L, G16B, G16C, G16H, G21F, H01M, H02B, H02G, H02J, H03H, H04K, H05F"
+PATENTS,task1,polars,completed,completed,True,87.16397754999707,0.42724,estimated,0,"A22B, A23J, A23P, A24D, A24F, A41G, A47F, A61G, A61H, A61P, A62D, A63H, B04B, B07B, B08B, B09C, B21J, B22F, B24B, B25B, B25D, B27C, B27M, B60D, B60L, B60P, B61H, B63C, B63G, B65G, B66F, C01D, C01G, C21B, C21C, C22C, D21B, E01H, E02B, E02D, E03B, E04B, E04G, E21D, E21F, F02K, F04F, F16M, F25J, F26B, G01H, G01L, G01S, G05D, G06N, G06Q, G06T, G06V, G08G, G09F, G10L, G16B, G16C, G16H, G21F, H01M, H02B, H02G, H02J, H03H, H04K, H05F"
+PATENTS,task2,ibis,completed,completed,True,177.52407268499883,0.76295,estimated,4,"Peak annual EMA (α=0.1; initialized with the first year’s count):
+A61 — MEDICAL OR VETERINARY SCIENCE; HYGIENE — 2016 (EMA 2.000)
+H04 — ELECTRIC COMMUNICATION TECHNIQUE — 2015 (EMA 2.000)
+A21 — BAKING; EDIBLE DOUGHS — 2015 (EMA 1.000)
+B23 — MACHINE TOOLS; METAL-WORKING NOT OTHERWISE PROVIDED FOR — 2015 (EMA 1.000)
+B29 — WORKING OF PLASTICS; WORKING OF SUBSTANCES IN A PLASTIC STATE IN GENERAL — 2007 (EMA 1.000)
+B41 — PRINTING; LINING MACHINES; TYPEWRITERS; STAMPS — 2007 (EMA 1.000)
+B60 — VEHICLES IN GENERAL — 2009 (EMA 1.000)
+B62 — LAND VEHICLES FOR TRAVELLING OTHERWISE THAN ON RAILS — 2010 (EMA 1.000)
+B63 — SHIPS OR OTHER WATERBORNE VESSELS; RELATED EQUIPMENT — 2014 (EMA 1.000)
+C09 — DYES; PAINTS; POLISHES; NATURAL RESINS; ADHESIVES; COMPOSITIONS NOT OTHERWISE PROVIDED FOR; APPLICATIONS OF MATERIALS NOT OTHERWISE PROVIDED FOR — 2015 (EMA 1.000)
+E02 — HYDRAULIC ENGINEERING; FOUNDATIONS; SOIL SHIFTING — 2012 (EMA 1.000)
+E05 — LOCKS; KEYS; WINDOW OR DOOR FITTINGS; SAFES — 2012 (EMA 1.000)
+F02 — COMBUSTION ENGINES; HOT-GAS OR COMBUSTION-PRODUCT ENGINE PLANTS — 2010 (EMA 1.000)
+F16 — ENGINEERING ELEMENTS AND UNITS; GENERAL MEASURES FOR PRODUCING AND MAINTAINING EFFECTIVE FUNCTIONING OF MACHINES OR INSTALLATIONS; THERMAL INSULATION IN GENERAL — 2009 (EMA 1.000)
+F23 — COMBUSTION APPARATUS; COMBUSTION PROCESSES — 2018 (EMA 1.000)
+F24 — HEATING; RANGES; VENTILATING — 2018 (EMA 1.000)
+F41 — WEAPONS — 2012 (EMA 1.000)
+G01 — MEASURING; TESTING — 2008 (EMA 1.000)
+G02 — OPTICS — 2016 (EMA 1.000)
+G08 — SIGNALLING — 2017 (EMA 1.000)
+H01 — ELECTRIC ELEMENTS — 2008 (EMA 1.000)
+H02 — GENERATION; CONVERSION OR DISTRIBUTION OF ELECTRIC POWER — 2009 (EMA 1.000)
+H03 — ELECTRONIC CIRCUITRY — 2015 (EMA 1.000)"
+PATENTS,task2,pandas,completed,completed,True,110.62459914899955,0.418276,estimated,1,Peak filing-year EMA (alpha=0.1; initialized to first annual count): A61 — MEDICAL OR VETERINARY SCIENCE; HYGIENE — 2016; H04 — ELECTRIC COMMUNICATION TECHNIQUE — 2015; A21 — BAKING; EDIBLE DOUGHS — 2015; B23 — MACHINE TOOLS; METAL-WORKING NOT OTHERWISE PROVIDED FOR — 2015; B29 — WORKING OF PLASTICS; WORKING OF SUBSTANCES IN A PLASTIC STATE IN GENERAL — 2007; B41 — PRINTING; LINING MACHINES; TYPEWRITERS; STAMPS — 2007; B60 — VEHICLES IN GENERAL — 2009; B62 — LAND VEHICLES FOR TRAVELLING OTHERWISE THAN ON RAILS — 2010; B63 — SHIPS OR OTHER WATERBORNE VESSELS; RELATED EQUIPMENT — 2014; C09 — DYES; PAINTS; POLISHES; NATURAL RESINS; ADHESIVES; COMPOSITIONS NOT OTHERWISE PROVIDED FOR; APPLICATIONS OF MATERIALS NOT OTHERWISE PROVIDED FOR — 2015; E02 — HYDRAULIC ENGINEERING; FOUNDATIONS; SOIL SHIFTING — 2012; E05 — LOCKS; KEYS; WINDOW OR DOOR FITTINGS; SAFES — 2012; F02 — COMBUSTION ENGINES; HOT-GAS OR COMBUSTION-PRODUCT ENGINE PLANTS — 2010; F16 — ENGINEERING ELEMENTS AND UNITS; GENERAL MEASURES FOR PRODUCING AND MAINTAINING EFFECTIVE FUNCTIONING OF MACHINES OR INSTALLATIONS; THERMAL INSULATION IN GENERAL — 2009; F23 — COMBUSTION APPARATUS; COMBUSTION PROCESSES — 2018; F24 — HEATING; RANGES; VENTILATING — 2018; F41 — WEAPONS — 2012; G01 — MEASURING; TESTING — 2008; G02 — OPTICS — 2016; G08 — SIGNALLING — 2017; H01 — ELECTRIC ELEMENTS — 2008; H02 — GENERATION; CONVERSION OR DISTRIBUTION OF ELECTRIC POWER — 2009; H03 — ELECTRONIC CIRCUITRY — 2015.
+PATENTS,task2,polars,completed,completed,True,74.77555378800025,0.32211,estimated,0,"Best year for each level-4 CPC group (Germany; grants July–December 2019; annual EMA α=0.1, initialized with the first annual count; zero-filing years included):
+A61 — MEDICAL OR VETERINARY SCIENCE; HYGIENE — 2016
+H04 — ELECTRIC COMMUNICATION TECHNIQUE — 2015
+A21 — BAKING; EDIBLE DOUGHS — 2015
+B23 — MACHINE TOOLS; METAL-WORKING NOT OTHERWISE PROVIDED FOR — 2015
+B29 — WORKING OF PLASTICS; WORKING OF SUBSTANCES IN A PLASTIC STATE IN GENERAL — 2007
+B41 — PRINTING; LINING MACHINES; TYPEWRITERS; STAMPS — 2007
+B60 — VEHICLES IN GENERAL — 2009
+B62 — LAND VEHICLES FOR TRAVELLING OTHERWISE THAN ON RAILS — 2010
+B63 — SHIPS OR OTHER WATERBORNE VESSELS; RELATED EQUIPMENT — 2014
+C09 — DYES; PAINTS; POLISHES; NATURAL RESINS; ADHESIVES; COMPOSITIONS NOT OTHERWISE PROVIDED FOR; APPLICATIONS OF MATERIALS NOT OTHERWISE PROVIDED FOR — 2015
+E02 — HYDRAULIC ENGINEERING; FOUNDATIONS; SOIL SHIFTING — 2012
+E05 — LOCKS; KEYS; WINDOW OR DOOR FITTINGS; SAFES — 2012
+F02 — COMBUSTION ENGINES; HOT-GAS OR COMBUSTION-PRODUCT ENGINE PLANTS — 2010
+F16 — ENGINEERING ELEMENTS AND UNITS; GENERAL MEASURES FOR PRODUCING AND MAINTAINING EFFECTIVE FUNCTIONING OF MACHINES OR INSTALLATIONS; THERMAL INSULATION IN GENERAL — 2009
+F23 — COMBUSTION APPARATUS; COMBUSTION PROCESSES — 2018
+F24 — HEATING; RANGES; VENTILATING — 2018
+F41 — WEAPONS — 2012
+G01 — MEASURING; TESTING — 2008
+G02 — OPTICS — 2016
+G08 — SIGNALLING — 2017
+H01 — ELECTRIC ELEMENTS — 2008
+H02 — GENERATION; CONVERSION OR DISTRIBUTION OF ELECTRIC POWER — 2009
+H03 — ELECTRONIC CIRCUITRY — 2015"
+PATENTS,task3,ibis,completed,completed,True,112.34477835000143,0.58129,estimated,1,"BLOOM ENERGY CORP — H01M: PROCESSES OR MEANS, e.g. BATTERIES, FOR THE DIRECT CONVERSION OF CHEMICAL ENERGY INTO ELECTRICAL ENERGY
+CRYSTAL IS INC — C30B: SINGLE-CRYSTAL GROWTH; UNIDIRECTIONAL SOLIDIFICATION OF EUTECTIC MATERIAL OR UNIDIRECTIONAL DEMIXING OF EUTECTOID MATERIAL; REFINING BY ZONE-MELTING OF MATERIAL; PRODUCTION OF A HOMOGENEOUS POLYCRYSTALLINE MATERIAL WITH DEFINED STRUCTURE; SINGLE CRYSTALS OR HOMOGENEOUS POLYCRYSTALLINE MATERIAL WITH DEFINED STRUCTURE; AFTER-TREATMENT OF SINGLE CRYSTALS OR A HOMOGENEOUS POLYCRYSTALLINE MATERIAL WITH DEFINED STRUCTURE; APPARATUS THEREFOR
+SCHOWALTER LEO J — H01L: SEMICONDUCTOR DEVICES NOT COVERED BY CLASS H10"
+PATENTS,task3,pandas,completed,completed,True,84.25182769300227,0.355302,estimated,0,"BLOOM ENERGY CORP — H01M: PROCESSES OR MEANS, e.g. BATTERIES, FOR THE DIRECT CONVERSION OF CHEMICAL ENERGY INTO ELECTRICAL ENERGY
+CRYSTAL IS INC — C30B: SINGLE-CRYSTAL GROWTH; UNIDIRECTIONAL SOLIDIFICATION OF EUTECTIC MATERIAL OR UNIDIRECTIONAL DEMIXING OF EUTECTOID MATERIAL; REFINING BY ZONE-MELTING OF MATERIAL; PRODUCTION OF A HOMOGENEOUS POLYCRYSTALLINE MATERIAL WITH DEFINED STRUCTURE; SINGLE CRYSTALS OR HOMOGENEOUS POLYCRYSTALLINE MATERIAL WITH DEFINED STRUCTURE; AFTER-TREATMENT OF SINGLE CRYSTALS OR A HOMOGENEOUS POLYCRYSTALLINE MATERIAL WITH DEFINED STRUCTURE; APPARATUS THEREFOR
+SCHOWALTER LEO J — H01L: SEMICONDUCTOR DEVICES NOT COVERED BY CLASS H10"
+PATENTS,task3,polars,completed,completed,True,74.5770197109996,0.429146,estimated,0,"BLOOM ENERGY CORP: H01M — PROCESSES OR MEANS, e.g. BATTERIES, FOR THE DIRECT CONVERSION OF CHEMICAL ENERGY INTO ELECTRICAL ENERGY
+CRYSTAL IS INC: C30B — SINGLE-CRYSTAL GROWTH; UNIDIRECTIONAL SOLIDIFICATION OF EUTECTIC MATERIAL OR UNIDIRECTIONAL DEMIXING OF EUTECTOID MATERIAL; REFINING BY ZONE-MELTING OF MATERIAL; PRODUCTION OF A HOMOGENEOUS POLYCRYSTALLINE MATERIAL WITH DEFINED STRUCTURE; SINGLE CRYSTALS OR HOMOGENEOUS POLYCRYSTALLINE MATERIAL WITH DEFINED STRUCTURE; AFTER-TREATMENT OF SINGLE CRYSTALS OR A HOMOGENEOUS POLYCRYSTALLINE MATERIAL WITH DEFINED STRUCTURE; APPARATUS THEREFOR
+SCHOWALTER LEO J: H01L — SEMICONDUCTOR DEVICES NOT COVERED BY CLASS H10"
+agnews,task1,ibis,completed,completed,True,101.35391350300006,0.470724,estimated,0,The Rundown
+agnews,task1,pandas,completed,completed,True,93.36625458400005,0.458342,estimated,0,The Rundown
+agnews,task1,polars,completed,completed,True,97.52162557200018,0.612484,estimated,0,The Rundown
+agnews,task2,ibis,completed,completed,False,106.06291271300006,0.331252,estimated,0,17/111 (approximately 15.32%).
+agnews,task2,pandas,completed,completed,True,108.07417560899995,0.446944,estimated,0,16/111 (approximately 14.41%).
+agnews,task2,polars,completed,completed,True,85.63061414200001,0.31945,estimated,0,16/111 (approximately 14.41%).
+agnews,task3,ibis,completed,completed,False,298.2956651610002,3.077942,estimated,1,Approximately 351.91 business articles per year.
+agnews,task3,pandas,completed,completed,False,588.6795536280001,4.320276,estimated,0,Estimated average: 357.64 business articles per year (2010–2020 inclusive).
+agnews,task3,polars,timeout,skipped,,600.1177988719999,,partial_or_unavailable,,
+agnews,task4,ibis,completed,completed,False,589.7350493250001,6.428578,estimated,0,North America
+agnews,task4,pandas,completed,completed,False,482.81342320299996,4.653276,estimated,0,North America
+agnews,task4,polars,completed,completed,False,537.4033819879996,4.509938,estimated,0,North America
+bookreview,task1,ibis,completed,completed,True,66.20475728000002,0.378382,estimated,0,2020s
+bookreview,task1,pandas,completed,completed,True,76.834170908,0.376698,estimated,0,2020s
+bookreview,task1,polars,completed,completed,True,72.121003857,0.460508,estimated,0,2020s
+bookreview,task2,ibis,completed,completed,True,51.85286796999999,0.213378,estimated,0,"Books with an average rating of 5.0: Child Of The King A Journey of Hope Book 1: Earthly Story With A Heavenly Message; Childe Harold of Dysna; Exits, Desires, & Slow Fires; Fire Cracker; Forged in Blood (Freehold); Hollywood Confessions: Hollywood Headlines Book #3 (Hollywood Headlines Mysteries); Kennebago Moments; Knowing When To Die: Uncollected Stories; Liza of Lambeth; Local Honey; Reunion: The Children of Lauderdale Park; Something That Feels Like Truth (Switchgrass Books); The Melancholy Strumpet Master; The Prophet: With Original 1923 Illustrations by the Author; The Sludge."
+bookreview,task2,pandas,completed,completed,True,49.40476520200002,0.224672,estimated,0,"Child Of The King A Journey of Hope Book 1: Earthly Story With A Heavenly Message; Childe Harold of Dysna; Exits, Desires, & Slow Fires; Fire Cracker; Forged in Blood (Freehold); Hollywood Confessions: Hollywood Headlines Book #3 (Hollywood Headlines Mysteries); Kennebago Moments; Knowing When To Die: Uncollected Stories; Liza of Lambeth; Local Honey; Reunion: The Children of Lauderdale Park; Something That Feels Like Truth (Switchgrass Books); The Melancholy Strumpet Master; The Prophet: With Original 1923 Illustrations by the Author; The Sludge"
+bookreview,task2,polars,completed,completed,True,61.13712121699791,0.417134,estimated,0,"Child Of The King A Journey of Hope Book 1: Earthly Story With A Heavenly Message; Childe Harold of Dysna; Exits, Desires, & Slow Fires; Fire Cracker; Forged in Blood (Freehold); Hollywood Confessions: Hollywood Headlines Book #3 (Hollywood Headlines Mysteries); Kennebago Moments; Knowing When To Die: Uncollected Stories; Liza of Lambeth; Local Honey; Reunion: The Children of Lauderdale Park; Something That Feels Like Truth (Switchgrass Books); The Melancholy Strumpet Master; The Prophet: With Original 1923 Illustrations by the Author; The Sludge"
+bookreview,task3,ibis,completed,completed,True,47.444878871000014,0.16128,estimated,0,"Around the World Mazes (average rating: 5.00); Behind the Wheel (Choose Your Own Adventure #35)(Paperback/Revised) (average rating: 5.00); Benny Goes To The Moon: The great new book from Top Children's entertainer Gerry Ogilvie (1) (average rating: 5.00); Cheer Up, Ben Franklin! (Young Historians) (average rating: 5.00); Clark the Shark: Tooth Trouble, No. 1 (average rating: 4.75); Cleo Porter and the Body Electric (average rating: 4.71); Egypt (Enchantment of the World) (average rating: 5.00); Favorite Thorton W. Burgess Stories: 6 Books (average rating: 5.00); LunaLu the Llamacorn (average rating: 5.00); Monstrous Stories #4: The Day the Mice Stood Still (average rating: 5.00); Pokémon: Sun & Moon, Vol. 8 (8) (average rating: 5.00); The Library Book (average rating: 5.00); The Old Man and the Pirate Princess (average rating: 5.00); Trouble in the CTC!: The Terra Prime Adventures Book 2 (average rating: 4.90)"
+bookreview,task3,pandas,completed,completed,True,50.85730146899999,0.162078,estimated,0,"Around the World Mazes (average rating: 5); Behind the Wheel (Choose Your Own Adventure #35)(Paperback/Revised) (average rating: 5); Benny Goes To The Moon: The great new book from Top Children's entertainer Gerry Ogilvie (1) (average rating: 5); Cheer Up, Ben Franklin! (Young Historians) (average rating: 5); Clark the Shark: Tooth Trouble, No. 1 (average rating: 4.75); Cleo Porter and the Body Electric (average rating: 4.70833); Egypt (Enchantment of the World) (average rating: 5); Favorite Thorton W. Burgess Stories: 6 Books (average rating: 5); LunaLu the Llamacorn (average rating: 5); Monstrous Stories #4: The Day the Mice Stood Still (average rating: 5); Pokémon: Sun & Moon, Vol. 8 (8) (average rating: 5); The Library Book (average rating: 5); The Old Man and the Pirate Princess (average rating: 5); Trouble in the CTC!: The Terra Prime Adventures Book 2 (average rating: 4.9)"
+bookreview,task3,polars,completed,completed,True,50.55746772299972,0.221382,estimated,0,"Around the World Mazes (5.00); Behind the Wheel (Choose Your Own Adventure #35)(Paperback/Revised) (5.00); Benny Goes To The Moon: The great new book from Top Children's entertainer Gerry Ogilvie (1) (5.00); Cheer Up, Ben Franklin! (Young Historians) (5.00); Clark the Shark: Tooth Trouble, No. 1 (4.75); Cleo Porter and the Body Electric (4.71); Egypt (Enchantment of the World) (5.00); Favorite Thorton W. Burgess Stories: 6 Books (5.00); LunaLu the Llamacorn (5.00); Monstrous Stories #4: The Day the Mice Stood Still (5.00); Pokémon: Sun & Moon, Vol. 8 (8) (5.00); The Library Book (5.00); The Old Man and the Pirate Princess (5.00); Trouble in the CTC!: The Terra Prime Adventures Book 2 (4.90)."
+civic_unstructured,task1,ibis,completed,completed,True,148.35645903299974,0.73248,estimated,2,"Annual Street Maintenance ($9,861,000); Civic Center Water Treatment Facility Phase 2 ($4,239,000); Marie Canyon Green Streets ($6,997,000); Michael Landon Center Roof Replacement Project ($6,753,000); PCH at Trancas Canyon Road Right Turn Lane ($6,994,000); PCH Median Improvements Project ($2,042,000); PCH Signal Synchronization System Improvements Project ($2,585,000); Permanent Skate Park ($694,000); Westward Beach Road Repair Project ($1,781,000)."
+civic_unstructured,task1,pandas,completed,completed,True,123.02491608000001,0.843558,estimated,0,Annual Street Maintenance; Civic Center Water Treatment Facility Phase 2; Marie Canyon Green Streets; Michael Landon Center Roof Replacement Project; PCH at Trancas Canyon Road Right Turn Lane; PCH Median Improvements Project; PCH Signal Synchronization System Improvements Project; Permanent Skate Park; Westward Beach Road Repair Project.
+civic_unstructured,task1,polars,completed,completed,True,115.529307539,0.555936,estimated,0,"2022 Annual Street Maintenance ($9,861,000); Civic Center Water Treatment Facility Phase 2 ($4,239,000); Marie Canyon Green Streets ($6,997,000); Michael Landon Center Roof Replacement Project ($6,753,000); PCH at Trancas Canyon Road Right Turn Lane ($6,994,000); PCH Median Improvements Project ($2,042,000); PCH Signal Synchronization System Improvements Project ($2,585,000); Permanent Skate Park ($694,000); Westward Beach Road Repair Project ($1,781,000)."
+civic_unstructured,task2,ibis,completed,completed,False,140.6175209009998,0.727144,estimated,2,"Citywide Guardrail Replacement — $35,712,000 USD."
+civic_unstructured,task2,pandas,completed,completed,False,151.22746341900006,1.05518,estimated,0,"Citywide Guardrail Replacement — $35,712,000 USD."
+civic_unstructured,task2,polars,completed,completed,False,116.66518732900022,0.685724,estimated,0,"Citywide Guardrail Replacement: $35,712,000 USD."
+civic_unstructured,task3,ibis,completed,completed,True,176.10468668999965,1.089216,estimated,2,No funding sources meet the 25% threshold as of 2022-08-01.
+civic_unstructured,task3,pandas,completed,completed,True,144.34024272399995,0.771764,estimated,0,No funding sources meet the 25% threshold.
+civic_unstructured,task3,polars,completed,completed,True,138.10132762800004,0.755606,estimated,0,No funding sources meet the 25% completed-project threshold as of 2022-08-01.
+civic_unstructured,task4,ibis,completed,completed,False,181.58304266400046,0.94161,estimated,3,0.33
+civic_unstructured,task4,pandas,completed,completed,False,127.8423713740001,0.695386,estimated,0,0.32
+civic_unstructured,task4,polars,completed,completed,False,134.14827917000002,0.694442,estimated,0,0.33
+civic_unstructured,task5,ibis,completed,completed,False,156.57447797400073,0.972464,estimated,1,"$4,677,529.41 USD"
+civic_unstructured,task5,pandas,completed,completed,False,143.661426634,0.84217,estimated,0,"$4,677,529.41 USD"
+civic_unstructured,task5,polars,completed,completed,False,142.55692286800013,0.726148,estimated,0,"$4,677,529.41 USD"
+civic_unstructured,task6,ibis,completed,completed,True,183.58000859299955,1.027656,estimated,2,"2023: $88,615,000 USD."
+civic_unstructured,task6,pandas,completed,completed,True,134.13028306599995,0.737328,estimated,0,"2023: $88,615,000 USD."
+civic_unstructured,task6,polars,completed,completed,True,167.7106222069997,0.949382,estimated,0,"2023: $88,615,000 USD."
+civic_unstructured,task7,ibis,completed,completed,True,157.87521545399977,1.082674,estimated,3,No projects meet all the specified criteria as of 2022-11-01.
+civic_unstructured,task7,pandas,completed,completed,True,130.92067881000003,0.583456,estimated,0,No projects meet all the criteria as of 2022-11-01.
+civic_unstructured,task7,polars,completed,completed,True,134.9507131659998,0.561676,estimated,0,No projects meet all the criteria as of 2022-11-01.
+civic_unstructured,task8,ibis,completed,completed,True,176.35888047299977,0.809518,estimated,3,"City Hall Roof Replacement: $1,340,000 USD."
+civic_unstructured,task8,pandas,completed,completed,True,128.76162712899986,0.590526,estimated,0,"City Hall Roof Replacement: $1,340,000 USD."
+civic_unstructured,task8,polars,completed,completed,True,109.94689781499983,0.5019,estimated,0,"City Hall Roof Replacement: $1,340,000 USD."
+civic_unstructured,task9,ibis,completed,completed,False,189.24703105200024,0.929604,estimated,4,No funding sources meet the more-than-55% criterion as of 2022-11-01.
+civic_unstructured,task9,pandas,completed,completed,False,143.7849939820003,0.834016,estimated,1,None.
+civic_unstructured,task9,polars,completed,completed,False,140.24193751599978,0.737182,estimated,0,No funding sources meet the more-than-55% threshold as of 2022-11-01.
+civic_unstructured,task10,ibis,completed,completed,False,186.0247837679999,1.043794,estimated,3,0.77
+civic_unstructured,task10,pandas,completed,completed,False,143.74728989300002,0.746158,estimated,0,0.77
+civic_unstructured,task10,polars,completed,completed,False,139.27095552899937,0.776022,estimated,0,0.77
+crmarenapro,task1,ibis,completed,completed,True,63.63728810800001,0.346798,estimated,0,Authority
+crmarenapro,task1,pandas,completed,completed,True,65.20811387399999,0.281738,estimated,0,Authority
+crmarenapro,task1,polars,completed,completed,True,75.42639702900124,0.43048,estimated,0,Authority
+crmarenapro,task2,ibis,completed,completed,True,73.06364096700008,0.42409,estimated,0,ka0Wt000000Ens5IAC
+crmarenapro,task2,pandas,completed,completed,True,64.61575806600001,0.30395,estimated,0,ka0Wt000000Ens5IAC
+crmarenapro,task2,polars,completed,completed,True,62.24788896299998,0.335712,estimated,0,ka0Wt000000Ens5IAC
+crmarenapro,task3,ibis,completed,completed,True,48.54309066799988,0.246908,estimated,0,Negotiation
+crmarenapro,task3,pandas,completed,completed,True,47.302500425999824,0.257062,estimated,0,Negotiation
+crmarenapro,task3,polars,completed,completed,True,73.81942093100224,0.167058,estimated,0,Negotiation
+crmarenapro,task4,ibis,completed,completed,True,40.825477698999975,0.219572,estimated,0,November
+crmarenapro,task4,pandas,completed,completed,True,36.31933991300002,0.149462,estimated,0,November
+crmarenapro,task4,polars,completed,completed,True,43.38652774200091,0.24286,estimated,0,November
+crmarenapro,task5,ibis,completed,completed,True,45.941495135000196,0.241318,estimated,0,a03Wt00000JqnHwIAJ
+crmarenapro,task5,pandas,completed,completed,True,44.44363297300015,0.186844,estimated,0,a03Wt00000JqnHwIAJ
+crmarenapro,task5,polars,completed,completed,True,55.06683831299961,0.30023,estimated,0,a03Wt00000JqnHwIAJ
+crmarenapro,task6,ibis,completed,completed,True,61.58237142899998,0.396252,estimated,1,ka0Wt000000EnwvIAC
+crmarenapro,task6,pandas,completed,completed,True,59.63979309200022,0.288184,estimated,0,ka0Wt000000EnwvIAC
+crmarenapro,task6,polars,completed,completed,True,58.17291273199953,0.32634,estimated,0,ka0Wt000000EnwvIAC
+crmarenapro,task7,ibis,completed,completed,True,78.59622943999989,0.457514,estimated,1,ka0Wt000000EoD3IAK
+crmarenapro,task7,pandas,completed,completed,True,66.01238366799998,0.367758,estimated,0,ka0Wt000000EoD3IAK
+crmarenapro,task7,polars,completed,completed,True,65.04339510099817,0.369774,estimated,0,ka0Wt000000EoD3IAK
+crmarenapro,task8,ibis,completed,completed,True,56.5829646279999,0.250262,estimated,0,005Wt000003NIliIAG
+crmarenapro,task8,pandas,completed,completed,True,51.1143137199997,0.206664,estimated,0,005Wt000003NIliIAG
+crmarenapro,task8,polars,completed,completed,True,61.63621629900081,0.31762,estimated,0,005Wt000003NIliIAG
+crmarenapro,task9,ibis,completed,completed,True,49.00751226700004,0.242276,estimated,0,MI
+crmarenapro,task9,pandas,completed,completed,True,54.68428686700008,0.243918,estimated,0,MI
+crmarenapro,task9,polars,completed,completed,True,58.27325218899932,0.202088,estimated,0,MI
+crmarenapro,task10,ibis,completed,completed,True,61.69731561399999,0.211862,estimated,0,005Wt000003NDqDIAW
+crmarenapro,task10,pandas,completed,completed,True,53.225578898000094,0.200814,estimated,0,005Wt000003NDqDIAW
+crmarenapro,task10,polars,completed,completed,True,61.839400364999165,0.25911,estimated,0,005Wt000003NDqDIAW
+crmarenapro,task11,ibis,completed,completed,True,176.224846222,0.368122,estimated,1,01tWt000006hV8LIAU
+crmarenapro,task11,pandas,completed,completed,True,57.43914402400014,0.284044,estimated,0,01tWt000006hV8LIAU
+crmarenapro,task11,polars,completed,completed,True,58.274507386999176,0.30332,estimated,0,01tWt000006hV8LIAU
+crmarenapro,task12,ibis,completed,completed,True,45.63970339799994,0.246482,estimated,0,005Wt000003NDEBIA4
+crmarenapro,task12,pandas,completed,completed,True,49.56587231699996,0.29635,estimated,0,005Wt000003NDEBIA4
+crmarenapro,task12,polars,completed,completed,True,50.90568874999735,0.245402,estimated,0,005Wt000003NDEBIA4
+crmarenapro,task13,ibis,completed,completed,True,46.49855928399984,0.291076,estimated,0,005Wt000003NIXCIA4
+crmarenapro,task13,pandas,completed,completed,True,42.69034884499979,0.186728,estimated,0,005Wt000003NIXCIA4
+crmarenapro,task13,polars,completed,completed,True,55.86685556500015,0.24864,estimated,0,005Wt000003NIXCIA4
+cve,task1,ibis,completed,completed,True,274.0121414749999,1.650236,estimated,0,4
+cve,task1,pandas,completed,completed,True,318.85513929599983,1.754264,estimated,0,4
+cve,task1,polars,completed,completed,True,293.83381001900125,1.444534,estimated,0,4
+cve,task2,ibis,completed,completed,True,562.5347322560001,3.625982,estimated,10,ivanti
+cve,task2,pandas,completed,completed,True,554.6622860289999,2.981932,estimated,,ivanti
+cve,task2,polars,completed,completed,True,584.4675256110022,3.181028,estimated,7,ivanti
+cve,task3,ibis,completed,completed,True,376.0229438309998,1.74783,estimated,0,1262 entries.
+cve,task3,pandas,completed,completed,True,553.9210243189991,2.43728,estimated,1,1262
+cve,task3,polars,completed,completed,True,411.2025961569998,1.957206,estimated,1,1262
+cve,task4,ibis,completed,completed,False,359.42117095799995,2.337662,estimated,2,apache
+cve,task4,pandas,completed,completed,True,458.2760211900004,2.884636,estimated,2,ivanti
+cve,task4,polars,timeout,skipped,,600.0659475610009,,partial_or_unavailable,1,
+cve,task5,ibis,completed,completed,True,394.78467477899994,2.180962,estimated,0,1
+cve,task5,pandas,completed,completed,True,257.84573499600083,1.379256,estimated,3,1
+cve,task5,polars,completed,completed,True,229.05089334199874,1.546066,estimated,1,1 distinct affected versions.
+cve,task6,ibis,completed,completed,True,358.9259485479997,1.576532,estimated,0,13
+cve,task6,pandas,completed,completed,True,398.43254473199977,2.120066,estimated,0,13
+cve,task6,polars,completed,completed,True,430.5105311530024,2.048376,estimated,1,13
+cve,task7,ibis,completed,completed,True,347.17291228700014,1.814822,estimated,2,cisco:adaptive_security_appliance_software
+cve,task7,pandas,completed,completed,True,258.44467400899975,1.158018,estimated,0,cisco:adaptive_security_appliance_software
+cve,task7,polars,completed,completed,True,333.6715710589997,1.654704,estimated,0,cisco:adaptive_security_appliance_software
+cve,task8,ibis,completed,completed,True,344.3994245819995,1.98218,estimated,0,58
+cve,task8,pandas,completed,completed,False,414.60849495899856,2.494478,estimated,0,59
+cve,task8,polars,completed,completed,False,364.719356374997,1.558816,estimated,0,63
+cve,task9,ibis,completed,completed,True,399.2160849490001,2.008082,estimated,0,8
+cve,task9,pandas,completed,completed,True,401.27322576999904,1.836386,estimated,0,8
+cve,task9,polars,completed,completed,True,447.84102133500346,2.312332,estimated,1,8
+cve,task10,ibis,completed,completed,True,299.7084615370004,1.487024,estimated,0,5 distinct products.
+cve,task10,pandas,completed,completed,True,336.2212455980007,1.547168,estimated,0,5
+cve,task10,polars,completed,completed,False,320.0399998310022,1.574754,estimated,0,6
+googlelocal,task1,ibis,completed,completed,True,45.438661328999956,0.160316,estimated,0,1. Widows Peak Salon — 4.86/5; 2. City Textile — 4.50/5; 3. Nobel Textile Co — 4.29/5; 4. San Soo Dang — 4.28/5; 5. Nova Fabrics — 3.33/5
+googlelocal,task1,pandas,completed,completed,True,49.90606430099979,0.166444,estimated,0,1. Widows Peak Salon — 4.86/5; 2. City Textile — 4.50/5; 3. Nobel Textile Co — 4.29/5; 4. San Soo Dang — 4.28/5; 5. Nova Fabrics — 3.33/5
+googlelocal,task1,polars,completed,completed,True,46.69441545999871,0.161104,estimated,0,1. Widows Peak Salon — 4.86/5; 2. City Textile — 4.50/5; 3. Nobel Textile Co — 4.29/5; 4. San Soo Dang — 4.28/5; 5. Nova Fabrics — 3.33/5.
+googlelocal,task2,ibis,completed,completed,True,60.38030961000004,0.270672,estimated,0,Angel-A Massage: 4.33; Aurora Massage: 4.18; Elite Massage: 5.0; J B Oriental Inc: 4.17
+googlelocal,task2,pandas,completed,completed,True,63.73789409100027,0.246076,estimated,0,"Angel-A Massage: 4.33; Aurora Massage: 4.18; Elite Massage: 5.00; J B Oriental Inc: 4.17 (average ratings out of 5, rounded to two decimal places)."
+googlelocal,task2,polars,completed,completed,True,59.07611303399972,0.235914,estimated,0,Angel-A Massage: 4.3333; Aurora Massage: 4.1786; Elite Massage: 5.0; J B Oriental Inc: 4.1667
+googlelocal,task3,ibis,completed,completed,True,69.624470471,0.313156,estimated,0,"1. Beauty Divine Artistry — average rating 5.0000/5; Monday–Friday: 9AM–8PM; Saturday: 10AM–7PM; Sunday: 11AM–6PM.
+2. Mariscos el poblano — average rating 5.0000/5; Monday: 9AM–3:30AM; Tuesday–Wednesday: 8AM–3:30PM; Thursday: Open 24 hours; Friday–Sunday: 8AM–3:30PM.
+3. TACOS LA CABANA — average rating 5.0000/5; Monday: 5–11PM; Tuesday–Thursday: Closed; Friday–Sunday: 5–11PM.
+4. Taba Rug Gallery — average rating 5.0000/5; Monday–Saturday: 10AM–7PM; Sunday: 11AM–6PM.
+5. White Barn Candle Co — average rating 5.0000/5; Monday–Saturday: 10AM–9PM; Sunday: 11AM–7PM."
+googlelocal,task3,pandas,completed,completed,True,73.222142988,0.32458,estimated,0,"Top 5 (average review rating out of 5; ties listed alphabetically):
+1. Beauty Divine Artistry — 5.00/5. Hours: Mon, Tue, Wed, Thu, Fri: 9AM–8PM; Sat: 10AM–7PM; Sun: 11AM–6PM.
+2. Mariscos el poblano — 5.00/5. Hours: Mon: 9AM–3:30AM; Tue, Wed, Fri, Sat, Sun: 8AM–3:30PM; Thu: Open 24 hours.
+3. TACOS LA CABANA — 5.00/5. Hours: Mon, Fri, Sat, Sun: 5–11PM; Tue, Wed, Thu: Closed.
+4. Taba Rug Gallery — 5.00/5. Hours: Mon, Tue, Wed, Thu, Fri, Sat: 10AM–7PM; Sun: 11AM–6PM.
+5. White Barn Candle Co — 5.00/5. Hours: Mon, Tue, Wed, Thu, Fri, Sat: 10AM–9PM; Sun: 11AM–7PM."
+googlelocal,task3,polars,completed,completed,True,70.41517235200001,0.277504,estimated,0,"Top 5 by mean review rating (weekdays = Monday–Friday; permanently or temporarily closed businesses excluded):
+1. Beauty Divine Artistry — 5.00/5; Mon–Fri: 9AM–8PM; Sat: 10AM–7PM; Sun: 11AM–6PM.
+2. Mariscos el poblano — 5.00/5; Mon: 9AM–3:30AM; Tue–Wed: 8AM–3:30PM; Thu: Open 24 hours; Fri–Sun: 8AM–3:30PM.
+3. TACOS LA CABANA — 5.00/5; Mon: 5–11PM; Tue–Thu: Closed; Fri–Sun: 5–11PM.
+4. Taba Rug Gallery — 5.00/5; Mon–Sat: 10AM–7PM; Sun: 11AM–6PM.
+5. White Barn Candle Co — 5.00/5; Mon–Sat: 10AM–9PM; Sun: 11AM–7PM."
+googlelocal,task4,ibis,completed,completed,True,62.38626671099996,0.257094,estimated,1,Encino Dermatology & Laser: Alex Khadavi MD: 19 high-rating reviews; The Boochyard @ Local Roots: 17 high-rating reviews; Aurora Massage: 14 high-rating reviews.
+googlelocal,task4,pandas,completed,completed,True,52.11191499800043,0.178584,estimated,0,Encino Dermatology & Laser: Alex Khadavi MD: 19 high-rating reviews; The Boochyard @ Local Roots: 17 high-rating reviews; Aurora Massage: 14 high-rating reviews.
+googlelocal,task4,polars,completed,completed,True,59.07774704300027,0.216082,estimated,0,Encino Dermatology & Laser: Alex Khadavi MD: 19 high-rating reviews; The Boochyard @ Local Roots: 17 high-rating reviews; Aurora Massage: 14 high-rating reviews.
+imdb,task1,ibis,completed,completed,True,68.86440010600018,0.355582,estimated,0,Dirt Merchant (movie)
+imdb,task1,pandas,completed,completed,True,70.16539330999876,0.423652,estimated,0,Dirt Merchant — movie.
+imdb,task1,polars,completed,completed,True,59.53462370700072,0.27855,estimated,0,Dirt Merchant — movie.
+imdb,task2,ibis,completed,completed,True,54.52316870899995,0.215324,estimated,0,"Pseudonym: ""A.J.""; title: #1 Cheerleader Camp."
+imdb,task2,pandas,completed,completed,True,54.52904925300027,0.269278,estimated,0,"Pseudonym: ""A.J.""; title: #1 Cheerleader Camp."
+imdb,task2,polars,completed,completed,True,57.92491644099937,0.330198,estimated,0,"Pseudonym: ""A.J.""; title: #1 Cheerleader Camp."
+imdb,task3,ibis,completed,completed,True,96.55030962700039,0.604092,estimated,1,"Actress: Aaron, Caroline; title: $9.99."
+imdb,task3,pandas,completed,completed,True,65.40787479000028,0.308796,estimated,0,"Actress: Aaron, Caroline; title: $9.99."
+imdb,task3,polars,completed,completed,True,66.9560659480012,0.30051,estimated,0,"Actress: Aaron, Caroline; title: $9.99."
+imdb,task4,ibis,completed,completed,True,55.27336742099942,0.269804,estimated,0,"Z'Dar, Robert"
+imdb,task4,pandas,completed,completed,True,61.8993985699999,0.437506,estimated,0,"Z'Dar, Robert"
+imdb,task4,polars,completed,completed,True,49.40610291100165,0.273618,estimated,0,"Z'Dar, Robert"
+imdb,task5,ibis,completed,completed,True,66.15428264599905,0.405416,estimated,1,"Company: ""O"" Films; rating: 1.0; title: #54 Meets #47."
+imdb,task5,pandas,completed,completed,True,62.70209672799865,0.297104,estimated,0,"Company: ""O"" Films; rating: 1.0; title: #54 Meets #47."
+imdb,task5,polars,completed,completed,True,62.94178185200144,0.296996,estimated,0,"Company: ""O"" Films; rating: 1.0; title: #54 Meets #47."
+imdb,task6,ibis,completed,completed,True,98.40309637999962,0.50781,estimated,2,"Character: Lola; actress: Andrews, Julie; title: Hoodwinked!."
+imdb,task6,pandas,completed,completed,True,79.10561746500025,0.32991,estimated,0,"Character: Lola; actress: Andrews, Julie; title: Hoodwinked!."
+imdb,task6,polars,completed,completed,True,64.90854071700232,0.272812,estimated,0,"Character: Lola; actress: Andrews, Julie; title: Hoodwinked!."
+imdb,task7,ibis,completed,completed,True,51.11363284900108,0.271212,estimated,0,"Pseudonym: !!!, Toy; title: & Teller."
+imdb,task7,pandas,completed,completed,True,77.95346446000076,0.340972,estimated,0,"Pseudonym: !!!, Toy; title: & Teller."
+imdb,task7,polars,completed,completed,True,50.712837283001136,0.27368,estimated,0,"Pseudonym: !!!, Toy; title: & Teller."
+imdb,task8,ibis,completed,completed,True,60.74509509499876,0.288824,estimated,0,"Alternate name: !!!, Toy; character name: ""Cockamamie's"" Salesgirl; actress name: Aaron, Caroline; title: $15,000.00 Error."
+imdb,task8,pandas,completed,completed,True,79.7520831310012,0.313142,estimated,0,"Alternate name: !!!, Toy; Character name: ""Cockamamie's"" Salesgirl; Actress name: Aaron, Caroline; Title: $15,000.00 Error."
+imdb,task8,polars,completed,completed,True,61.74217207300171,0.304226,estimated,0,"Alternate name: !!!, Toy; Character name: ""Cockamamie's"" Salesgirl; Actress name: Aaron, Caroline; Title: $15,000.00 Error."
+imdb,task9,ibis,completed,completed,False,68.16379755199887,0.330904,estimated,1,"Genre: Horror; vote count: 101188; writer: Agnew, Jim; title: 2001 Maniacs."
+imdb,task9,pandas,completed,completed,False,83.91103002400087,0.290024,estimated,0,"Genre: Horror; vote count: 101188; writer: Agnew, Jim; title: 2001 Maniacs."
+imdb,task9,polars,completed,completed,True,89.67004099000042,0.390762,estimated,0,"Genre: Horror; vote count: 1040; writer: Agnew, Jim; title: 2001 Maniacs."
+imdb,task10,ibis,completed,completed,True,62.403893142000015,0.28357,estimated,0,"Cast member: Abell, Alistair; title: ...And Then I...."
+imdb,task10,pandas,completed,completed,True,87.02975456700005,0.414972,estimated,0,"Cast member: Abell, Alistair; title: ...And Then I...."
+imdb,task10,polars,completed,completed,True,62.089393704998656,0.291784,estimated,0,"Cast member: Abell, Alistair; title: ...And Then I...."
+krama,task1,ibis,completed,completed,True,239.03136390799955,1.37087,estimated,5,NWCC
+krama,task1,pandas,completed,completed,True,215.8930643399999,0.862392,estimated,4,NWCC
+krama,task1,polars,completed,completed,True,147.58573008200256,0.586668,estimated,2,NWCC
+krama,task2,ibis,completed,completed,True,290.47866262000025,1.26713,estimated,6,Idaho
+krama,task2,pandas,completed,completed,True,271.2113197380004,1.482876,estimated,2,Idaho
+krama,task2,polars,completed,completed,True,305.1700712359998,1.560358,estimated,3,Idaho
+krama,task3,ibis,completed,completed,True,171.8262678910005,1.112556,estimated,1,12964.8727
+krama,task3,pandas,completed,completed,False,142.45334519099924,0.742196,estimated,0,12583.9636
+krama,task3,polars,completed,completed,True,217.1760466779997,0.759198,estimated,1,12964.8727
+krama,task4,ibis,completed,completed,True,126.47401460200035,0.793846,estimated,0,"319,655 people."
+krama,task4,pandas,completed,completed,True,149.09336126299968,0.704874,estimated,1,"319,655 people."
+krama,task4,polars,completed,completed,True,120.46237371399911,0.748374,estimated,1,"319,655 people (Miami-Fort Lauderdale-West Palm Beach, FL Metropolitan Statistical Area; 6,138,333 in 2020 to 6,457,988 in 2024)."
+krama,task5,ibis,completed,completed,True,155.5710113920004,0.9326,estimated,1,20.03 °C
+krama,task5,pandas,completed,completed,True,120.33587633299976,0.523094,estimated,1,20.03 °C
+krama,task5,polars,completed,completed,True,82.24664257800032,0.389042,estimated,0,20.03 °C
+krama,task6,ibis,completed,completed,True,133.10901052600002,0.714054,estimated,0,Ocean @ Squibnocket Beach: 3.85%.
+krama,task6,pandas,completed,completed,True,134.12375682099992,0.778108,estimated,2,Ocean @ Squibnocket Beach: 3.88%.
+krama,task6,polars,completed,completed,True,109.54577080700255,0.506854,estimated,1,Ocean @ Squibnocket Beach: 3.88% (4 violations out of 103 samples).
+krama,task7,ibis,completed,completed,True,113.70570493000014,0.599754,estimated,1,60.00 years
+krama,task7,pandas,completed,completed,True,108.88914231200033,0.684788,estimated,0,60.00 years
+krama,task7,polars,completed,completed,True,105.2139587399979,0.679362,estimated,0,60.00 years
+krama,task8,ibis,completed,completed,True,157.4781243739999,1.106568,estimated,3,PFN1
+krama,task8,pandas,completed,completed,True,138.5991748029992,0.723594,estimated,0,PFN1
+krama,task8,polars,completed,completed,True,105.41608586399889,0.625568,estimated,0,PFN1
+krama,task9,ibis,completed,completed,False,154.36615374699977,0.954038,estimated,1,24.4315
+krama,task9,pandas,completed,completed,True,106.74003000300036,0.85527,estimated,1,"24.4315 in OMNI2’s stored Kp units (Kp × 10), equivalent to 2.4431 Kp, for October 2024."
+krama,task9,polars,completed,completed,False,87.61876307999773,0.700482,estimated,0,24.4315 (OMNI2 encoded Kp units; October 2024).
+krama,task10,ibis,completed,completed,False,102.21852365999985,0.64944,estimated,3,0.000708
+krama,task10,pandas,completed,completed,False,91.04017933199975,0.535502,estimated,0,0.000708
+krama,task10,polars,completed,completed,False,82.36048386300172,0.61705,estimated,1,0.000708
+music_brainz_20k,task1,ibis,completed,completed,True,52.90545558299999,0.199648,estimated,0,"$1,059.46 USD"
+music_brainz_20k,task1,pandas,completed,completed,True,51.41360737799994,0.18388,estimated,0,"$1,059.46 USD"
+music_brainz_20k,task1,polars,completed,completed,True,52.80885567400037,0.159368,estimated,0,"$1,059.46 USD"
+music_brainz_20k,task2,ibis,completed,completed,True,59.124798551000026,0.277014,estimated,0,"Amazon Music earned the most revenue: $1,108.99 USD."
+music_brainz_20k,task2,pandas,completed,completed,True,62.748103342000036,0.215392,estimated,0,Amazon Music ($682.23 USD).
+music_brainz_20k,task2,polars,completed,completed,True,60.38351871600025,0.280082,estimated,0,"Amazon Music earned the most revenue: $1,108.99 USD."
+music_brainz_20k,task3,ibis,completed,completed,True,91.320389267,0.379574,estimated,1,"Zo gaat het leven aan je voor by Syb van der Ploeg generated the highest total revenue: $9,013.69 USD."
+music_brainz_20k,task3,pandas,completed,completed,True,116.53627852099999,0.48862,estimated,1,"“Zo gaat het leven aan je voor” by Syb van der Ploeg generated the highest total revenue: $9,013.69 USD."
+music_brainz_20k,task3,polars,completed,completed,True,107.86134326199681,0.51522,estimated,,"Zo gaat het leven aan je voor by Syb van der Ploeg generated the highest total revenue: $9,013.69 USD."
+stockindex,task1,ibis,completed,completed,True,60.781673254,0.195404,estimated,0,"Shenzhen Component Index (399001.SZ) had the highest average intraday volatility since 2020, at 1.8341% (mean of (High - Low) / Open)."
+stockindex,task1,pandas,completed,completed,True,51.467984993000016,0.207986,estimated,0,"Shenzhen Component (399001.SZ) had the highest average intraday volatility since 2020, at 1.8341%."
+stockindex,task1,polars,completed,completed,True,65.09492654199857,0.246896,estimated,0,"The Shenzhen Component index (399001.SZ) had the highest average intraday volatility since 2020, at 1.83% (mean of (High - Low) / Open)."
+stockindex,task2,ibis,completed,completed,True,57.32137659099996,0.247634,estimated,1,"NASDAQ Composite (IXIC): 131 up days, 120 down days."
+stockindex,task2,pandas,completed,completed,True,45.09930707000001,0.150448,estimated,0,"NASDAQ Composite (IXIC): 131 up days, 120 down days."
+stockindex,task2,polars,completed,completed,True,50.90664105099859,0.171796,estimated,0,NASDAQ Composite (IXIC): 131 up days and 120 down days.
+stockindex,task3,ibis,completed,completed,True,99.40762194599984,0.333334,estimated,3,"Equal monthly investments from January 2000 (or earliest available data), buying at each month’s first available USD closing price and valuing at each index’s final observation: 1. NASDAQ Composite (IXIC) — United States: 382.7%; 2. NIFTY 50 (NSEI) — India: 135.8%; 3. Shenzhen Component (399001.SZ) — China: 134.7%; 4. DAX (GDAXI) — Germany: 134.7%; 5. Taiwan Weighted Index (TWII) — Taiwan: 129.8%. Returns are gains relative to total contributions."
+stockindex,task3,pandas,completed,completed,True,99.28967119899971,0.25538,estimated,0,"Equal monthly investments at each month’s first available USD close, valued at each index’s latest recorded close (May–June 2021), yield: 1. NASDAQ Composite (IXIC) — United States: 382.69%; 2. Nifty 50 (NSEI) — India: 135.84%; 3. Shenzhen Component (399001.SZ) — China: 134.75%; 4. DAX (GDAXI) — Germany: 134.70%; 5. Taiwan Weighted (TWII) — Taiwan: 129.82%. Returns are gains divided by total contributions. Nifty 50 history begins in September 2007, so its return covers that shorter period; the other top-five histories begin in January 2000."
+stockindex,task3,polars,completed,completed,True,105.88790696099977,0.273696,estimated,1,"Assuming equal monthly investments at the first trading-day close from January 2000 (or the first available month), valued at each index’s latest available close, the highest cumulative returns were: 1. IXIC — United States (382.7%); 2. NSEI — India (135.8%); 3. 399001.SZ — China (134.7%); 4. GDAXI — Germany (134.7%); 5. TWII — Taiwan (129.8%). Returns are gains divided by total contributions, using CloseUSD; data end in May–June 2021. NSEI history begins in September 2007, so its investment period is shorter."
+stockmarket,task1,ibis,completed,completed,True,44.043071480000435,0.14902,estimated,0,"The maximum adjusted closing price for The RealReal, Inc. in 2020 was $18.44."
+stockmarket,task1,pandas,completed,completed,True,41.632431562999955,0.145744,estimated,0,$18.44
+stockmarket,task1,polars,completed,completed,True,38.622897039000236,0.149386,estimated,0,"The maximum adjusted closing price in 2020 for The RealReal, Inc. was $18.44."
+stockmarket,task2,ibis,completed,completed,True,116.98784386599982,0.401992,estimated,0,"BOIL, BZQ, COM, DUST, EDZ, ERX, FAZ, FXP, GFIN, GUSH, HYUP, JDST, JNUG, JPN, LABD, LABU, LBJ, MDY, PTIN, RTL, SDOW, SOXS, SSG, TECS, TZA, UVXY, VIXY, VPC, XES, XOP, YANG. Total: 31 ETFs."
+stockmarket,task2,pandas,completed,completed,True,63.29444759299986,0.217808,estimated,0,"31 ETFs: BOIL, BZQ, COM, DUST, EDZ, ERX, FAZ, FXP, GFIN, GUSH, HYUP, JDST, JNUG, JPN, LABD, LABU, LBJ, MDY, PTIN, RTL, SDOW, SOXS, SSG, TECS, TZA, UVXY, VIXY, VPC, XES, XOP, YANG."
+stockmarket,task2,polars,completed,completed,True,67.29503453399957,0.3168,estimated,0,"31 ETFs: BOIL, BZQ, COM, DUST, EDZ, ERX, FAZ, FXP, GFIN, GUSH, HYUP, JDST, JNUG, JPN, LABD, LABU, LBJ, MDY, PTIN, RTL, SDOW, SOXS, SSG, TECS, TZA, UVXY, VIXY, VPC, XES, XOP, YANG."
+stockmarket,task3,ibis,completed,completed,True,51.66437035299987,0.19842,estimated,0,"Average daily trading volume in 2008 (shares/day, excluding null volumes): Apex Global Brands Inc. (APEX): 23,781.42; BIO-key International, Inc. (BKYI): 10,988.14; CBAK Energy Technology, Inc. (CBAT): 86,223.32; China Ceramics Co., Ltd. (CCCL): 4,366.80; Correvio Pharma Corp. (CORV): 145,247.83; CounterPath Corporation (CPAH): 375.49; DASAN Zhone Solutions, Inc. (DZSI): 15,578.66; Future FinTech Group Inc. (FTFT): 9.85; Frontier Communications Corporation (FTR): 254,397.63; Ideanomics, Inc. (IDEX): 10.28; Ocean Power Technologies, Inc. (OPTT): 254.15; Pacific Ethanol, Inc. (PEIX): 10,706.72; Synthesis Energy Systems, Inc. (SES): 2,390.51; Sunesis Pharmaceuticals, Inc. (SNSS): 781.82; Sypris Solutions, Inc. (SYPR): 36,836.36."
+stockmarket,task3,pandas,completed,completed,True,55.825290986000255,0.20686,estimated,0,"Average daily trading volume in 2008 (shares/day; non-null observations): Apex Global Brands Inc. (APEX): 23,781.422925; BIO-key International, Inc. (BKYI): 10,988.142292; CBAK Energy Technology, Inc. (CBAT): 86,223.320158; China Ceramics Co., Ltd. (CCCL): 4,366.798419; Correvio Pharma Corp. (CORV): 145,247.826087; CounterPath Corporation (CPAH): 375.494071; DASAN Zhone Solutions, Inc. (DZSI): 15,578.656126; Frontier Communications Corporation (FTR): 254,397.628458; Future FinTech Group Inc. (FTFT): 9.845238; Ideanomics, Inc. (IDEX): 10.276680; Ocean Power Technologies, Inc. (OPTT): 254.150198; Pacific Ethanol, Inc. (PEIX): 10,706.719368; Sunesis Pharmaceuticals, Inc. (SNSS): 781.818182; Synthesis Energy Systems, Inc. (SES): 2,390.513834; Sypris Solutions, Inc. (SYPR): 36,836.363636."
+stockmarket,task3,polars,completed,completed,True,41.129521656999714,0.225436,estimated,0,"Average daily trading volume in 2008 (shares/day; non-null observations only): Apex Global Brands Inc. (APEX): 23,781.422925; BIO-key International, Inc. (BKYI): 10,988.142292; CBAK Energy Technology, Inc. (CBAT): 86,223.320158; China Ceramics Co., Ltd. (CCCL): 4,366.798419; Correvio Pharma Corp. (CORV): 145,247.826087; CounterPath Corporation (CPAH): 375.494071; DASAN Zhone Solutions, Inc. (DZSI): 15,578.656126; Frontier Communications Corporation (FTR): 254,397.628458; Future FinTech Group Inc. (FTFT): 9.845238; Ideanomics, Inc. (IDEX): 10.276680; Ocean Power Technologies, Inc. (OPTT): 254.150198; Pacific Ethanol, Inc. (PEIX): 10,706.719368; Sunesis Pharmaceuticals, Inc. (SNSS): 781.818182; Synthesis Energy Systems, Inc. (SES): 2,390.513834; Sypris Solutions, Inc. (SYPR): 36,836.363636."
+stockmarket,task4,ibis,completed,completed,True,143.76050393400055,0.5521,estimated,1,"MFA Financial, Inc.; Argo Group International Holdings, Ltd.; HDFC Bank Limited; Albany International Corporation; DTE Energy Company"
+stockmarket,task4,pandas,completed,completed,True,68.46196662500006,0.201558,estimated,0,"MFA Financial, Inc.; Argo Group International Holdings, Ltd.; HDFC Bank Limited; Albany International Corporation; DTE Energy Company"
+stockmarket,task4,polars,completed,completed,True,61.5351852820022,0.240196,estimated,0,"MFA Financial, Inc.; Argo Group International Holdings, Ltd.; HDFC Bank Limited; Albany International Corporation; DTE Energy Company"
+stockmarket,task5,ibis,completed,completed,True,190.0777185270008,0.611806,estimated,0,"Synthesis Energy Systems, Inc.; TD Holdings, Inc.; TMSR Holding Company Limited; Verb Technology Company, Inc.; Sunesis Pharmaceuticals, Inc."
+stockmarket,task5,pandas,completed,completed,True,52.21501497100053,0.21077,estimated,0,"Synthesis Energy Systems, Inc.; TD Holdings, Inc.; TMSR Holding Company Limited; Verb Technology Company, Inc.; Sunesis Pharmaceuticals, Inc."
+stockmarket,task5,polars,completed,completed,True,58.12351862000287,0.384136,estimated,0,"Synthesis Energy Systems, Inc.; TD Holdings, Inc.; TMSR Holding Company Limited; Verb Technology Company, Inc.; Sunesis Pharmaceuticals, Inc."
+usaspending,task1,ibis,completed,completed,False,239.45492975599973,1.6164,estimated,0,896 distinct contract awards.
+usaspending,task1,pandas,completed,completed,False,225.45510988499998,1.209166,estimated,0,899 distinct contract awards.
+usaspending,task1,polars,completed,completed,False,208.95178790299997,1.222228,estimated,0,899 distinct contract awards.
+usaspending,task2,ibis,completed,completed,False,142.05720746499992,0.660266,estimated,0,74 contract awards.
+usaspending,task2,pandas,completed,completed,False,119.00302768300003,0.567624,estimated,0,74 contract awards.
+usaspending,task2,polars,completed,completed,False,133.98406892399998,0.758966,estimated,2,74 contract awards.
+usaspending,task3,ibis,completed,completed,True,83.0133284020003,0.258248,estimated,0,601
+usaspending,task3,pandas,completed,completed,True,77.34342498600017,0.236374,estimated,0,601 distinct recipient UEIs.
+usaspending,task3,polars,completed,completed,True,64.66129019400023,0.294416,estimated,0,601
+usaspending,task4,ibis,completed,completed,True,141.529809484,0.574352,estimated,1,Department of Homeland Security
+usaspending,task4,pandas,completed,completed,True,119.98705766500007,0.526896,estimated,0,Department of Homeland Security
+usaspending,task4,polars,completed,completed,True,124.0079122899997,0.77035,estimated,0,Department of Homeland Security
+usaspending,task5,ibis,completed,completed,True,133.268725307,0.658182,estimated,0,12
+usaspending,task5,pandas,completed,completed,True,144.61997022399987,0.539142,estimated,0,12
+usaspending,task5,polars,completed,completed,True,131.77793702999998,0.662016,estimated,0,12
+usaspending,task6,ibis,completed,completed,True,71.334467501,0.266116,estimated,0,56
+usaspending,task6,pandas,completed,completed,False,74.68173629500006,0.32059,estimated,0,55
+usaspending,task6,polars,completed,completed,True,81.55006742800015,0.358572,estimated,0,56 distinct recipients are each associated with more than one UEI.
+usaspending,task7,ibis,completed,completed,True,195.28083834000006,1.032396,estimated,0,23
+usaspending,task7,pandas,completed,completed,True,172.13810771399994,0.8792,estimated,3,23
+usaspending,task7,polars,completed,completed,True,149.89692914499983,1.139828,estimated,1,23
+usaspending,task8,ibis,completed,completed,False,96.50765821799996,0.519022,estimated,0,23 contract awards.
+usaspending,task8,pandas,completed,completed,False,97.58625405700013,0.41903,estimated,0,23 contract awards.
+usaspending,task8,polars,completed,completed,False,120.53819045599994,0.327818,estimated,0,23 contract awards.
+usaspending,task9,ibis,completed,completed,False,174.07350128400003,0.962338,estimated,0,146 contracts.
+usaspending,task9,pandas,completed,completed,False,175.32268457299983,0.93774,estimated,2,145 contracts.
+usaspending,task9,polars,completed,completed,False,154.1772548419999,0.76389,estimated,0,145 contracts.
+usaspending,task10,ibis,completed,completed,True,83.14719589200001,0.271804,estimated,0,141 contracts.
+usaspending,task10,pandas,completed,completed,True,64.15340102699975,0.220482,estimated,0,141
+usaspending,task10,polars,completed,completed,True,81.65841922999971,0.279718,estimated,0,141 contracts.
+yelp,task1,ibis,completed,completed,True,40.43146831300055,0.169476,estimated,0,The average rating is 3.5470 out of 5.
+yelp,task1,pandas,completed,completed,True,42.38938960699943,0.205372,estimated,0,"The average rating of businesses in Indianapolis, Indiana is 3.5470 out of 5."
+yelp,task1,polars,completed,completed,True,43.03661678199933,0.20635,estimated,0,"The average rating of businesses in Indianapolis, Indiana is 3.547009 out of 5."
+yelp,task2,ibis,completed,completed,True,64.81175979399995,0.256144,estimated,1,"Pennsylvania (PA) has the highest number of reviews (662), with an average rating of 3.70 out of 5."
+yelp,task2,pandas,completed,completed,True,69.21013669000058,0.31055,estimated,1,"Pennsylvania (PA) has 662 reviews, with an average rating of 3.70 out of 5."
+yelp,task2,polars,completed,completed,True,56.92383112100288,0.226004,estimated,0,"Pennsylvania (PA) has the highest number of reviews (662), with an average rating of 3.70 out of 5."
+yelp,task3,ibis,completed,completed,True,58.83832236700073,0.243618,estimated,0,35 businesses.
+yelp,task3,pandas,completed,completed,True,54.323029176999626,0.244714,estimated,0,35 businesses.
+yelp,task3,polars,completed,completed,True,58.37482170400108,0.249406,estimated,0,35 businesses.
+yelp,task4,ibis,completed,completed,True,90.72836079399985,0.408174,estimated,2,"Restaurants (27 businesses accepting credit cards), with an average rating of 3.63 out of 5."
+yelp,task4,pandas,completed,completed,True,63.501649157999964,0.33302,estimated,0,"Restaurants has the most businesses accepting credit cards (27), with an average rating of 3.63/5."
+yelp,task4,polars,completed,completed,True,70.60942751899711,0.30007,estimated,0,"Restaurants (27 businesses accepting credit cards), with an average rating of 3.63/5."
+yelp,task5,ibis,completed,completed,True,67.70899884400023,0.37032,estimated,1,"Pennsylvania has 8 businesses offering WiFi, with an average review rating of 3.48 out of 5."
+yelp,task5,pandas,completed,completed,True,61.04384034499981,0.266194,estimated,0,Pennsylvania (PA) has 8 businesses offering WiFi; their average review rating is 3.48 out of 5.
+yelp,task5,polars,completed,completed,True,70.6606033120006,0.255266,estimated,0,"Pennsylvania (PA) has the most businesses offering WiFi: 8, with an average review rating of 3.48/5."
+yelp,task6,ibis,completed,completed,True,70.21526877500037,0.302032,estimated,1,"Coffee House Too Cafe — categories: Restaurants, Breakfast & Brunch, American (New), Cafes; average rating 4.375/5 from 16 reviews during January 1–June 30, 2016."
+yelp,task6,pandas,completed,completed,True,63.001197880999825,0.231762,estimated,0,"Coffee House Too Cafe — categories: Restaurants, Breakfast & Brunch, American (New), Cafes; average rating 4.375/5 from 16 reviews (January 1–June 30, 2016)."
+yelp,task6,polars,completed,completed,True,61.93593107000197,0.276676,estimated,0,"Coffee House Too Cafe — 4.375/5 average from 16 reviews. Categories: Restaurants, Breakfast & Brunch, American (New), Cafes."
+yelp,task7,ibis,completed,completed,True,75.23935643799996,0.306886,estimated,0,Restaurants: 58 reviews; Food: 38 reviews; American (New): 24 reviews; Shopping: 20 reviews; Breakfast & Brunch: 19 reviews.
+yelp,task7,pandas,completed,completed,True,74.7847614479997,0.28907,estimated,0,Restaurants: 58 reviews; Food: 38 reviews; American (New): 24 reviews; Shopping: 20 reviews; Breakfast & Brunch: 19 reviews.
+yelp,task7,polars,completed,completed,True,100.99643530799949,0.378794,estimated,1,Restaurants: 55 reviews; Food: 34 reviews; American (New): 24 reviews; Shopping: 20 reviews; Breakfast & Brunch: 19 reviews.

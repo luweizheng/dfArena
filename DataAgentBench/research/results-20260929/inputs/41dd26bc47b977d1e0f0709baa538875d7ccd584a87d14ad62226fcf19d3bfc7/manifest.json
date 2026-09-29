@@ -1,0 +1,34 @@
+{
+  "dataset": "DEPS_DEV_V1",
+  "files": [
+    {
+      "path": "context/description.md",
+      "sha256": "b6a9d08002227d4325b30b3b7ae36c7337b7208d5d07d2ef8333393747294d7c"
+    },
+    {
+      "path": "context/hints.md",
+      "sha256": "fb6d19a0a891f2a22c0b3fe1e69a68b959ea522da156c3383818bb9b46eb2e8f"
+    },
+    {
+      "path": "data/package/packageinfo.parquet",
+      "sha256": "05d46c8dbe33c625735608511e5aa00ede7c090c03ad78931ba54acd35c92ff2"
+    },
+    {
+      "path": "data/project/project_info.parquet",
+      "sha256": "9cfb3365cde0d7cb72e9bf6deec77ff0f99fc19aea20e2756b0ec095a64caa9b"
+    },
+    {
+      "path": "data/project/project_packageversion.parquet",
+      "sha256": "c7ef3c783e0ab2342c73d83603e4a58b3f3465a5817ad91df139eeecf60bdc77"
+    },
+    {
+      "path": "tasks/task1/task.json",
+      "sha256": "33eefebff53d40bbe5db3472b48027a1cbdcf1ad21e02ecf6be57d031b8ed953"
+    },
+    {
+      "path": "tasks/task2/task.json",
+      "sha256": "775522e0a1df49d6c214ae8c7970a4380c19302fb4e09ae7d078e15b61218045"
+    }
+  ],
+  "data_files_included": false
+}

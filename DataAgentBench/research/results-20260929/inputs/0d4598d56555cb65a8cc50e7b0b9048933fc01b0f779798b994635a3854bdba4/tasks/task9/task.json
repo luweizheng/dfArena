@@ -1,0 +1,6 @@
+{
+  "task_id": "civic_unstructured_task9",
+  "dataset_id": "civic_unstructured",
+  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.",
+  "query": "As of 2022-11-01, list all funding sources where more than 55% of the distinct projects they have funded on or before that date have a type of 'disaster' in their most recent report dated on or before 2022-11-01."
+}

@@ -1,0 +1,6 @@
+{
+  "task_id": "bookreview_task1",
+  "dataset_id": "bookreview",
+  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.",
+  "query": "Which decade of publication (e.g., 1980s) has the highest average rating among decades with at least 10 distinct books that have been rated? Return the decade with the highest average rating."
+}

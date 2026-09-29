@@ -1,0 +1,6 @@
+{
+  "task_id": "usaspending_task7",
+  "dataset_id": "usaspending",
+  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions and reversible JSON encoding. Hints are optional and selected by the experiment configuration.",
+  "query": "Among contracts with an award amount of at least $10,000,000, which 2-digit NAICS sector has the most contracts? Return the 2-digit sector code, breaking ties by the smaller code."
+}

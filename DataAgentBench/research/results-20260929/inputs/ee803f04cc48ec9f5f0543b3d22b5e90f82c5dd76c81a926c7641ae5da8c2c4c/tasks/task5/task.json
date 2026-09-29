@@ -1,0 +1,6 @@
+{
+  "task_id": "cve_task5",
+  "dataset_id": "cve",
+  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions and reversible JSON encoding. Hints are optional and selected by the experiment configuration.",
+  "query": "Among CVEs in CISA's Known Exploited Vulnerabilities (KEV) catalog that affect Apache Tomcat (canonical vendor 'apache', canonical product 'tomcat' per the CPE match list), how many distinct affected version strings are recorded, excluding wildcard ('*') and null values? Treat versions that differ only in encoding as the SAME version (e.g. '9.0.71', '9,0,71', and 'v9_0_71' are all the same version)."
+}

@@ -1,0 +1,155 @@
+Solve this DataAgentBench task. Read only /workspace/data, /workspace/context, and /workspace/task.json. Put code and intermediate files under /workspace/work. Do not modify /workspace/data. Do not read hidden answers, validators, reference solutions, or other runs. Use this backend: Use Ibis with DuckDB as the main dataframe backend for loading, filtering, joins, aggregation, sorting, and date handling. Keep relational computation lazy until final materialization where practical. Do not use pandas for the main workflow. A small final boundary conversion is allowed only when required for answer serialization. Generate /workspace/work/solution.py, execute it, repair failures, and write /workspace/work/answer.json with exactly {"answer": "<concise final answer>"}. Do not hard-code the answer.
+
+Context: Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.
+Question: Identify the CPC technology areas with the highest exponential moving average of patent filings each year (smoothing factor 0.2), and return only the CPC group codes at level 5 whose best year is 2022.
+
+Hints are enabled for this run. The data description and hints below, including any task-specific clarifications, are equally binding parts of the task requirements. Read and follow both when solving the task. Both documents are included in full below.
+
+## Data description (context/description.md)
+
+# PATENTS
+
+The two original data groups are available as local Parquet tables.  
+
+Original group names are retained below for interpreting the original hints. File paths are relative to the dataset root.  
+
+1. publication_database
+   - This database is stored in Parquet format and contains natural-language metadata for published patents. Each record corresponds to a single patent publication, with descriptive fields for publication details, dates, classification codes, relationships, and citations.  
+   - This database consists of one table:
+    - publicationinfo:
+      - Fields:  
+        - Patents_info (str): Natural-language summary of the patent publication, including key identifiers and status like publication number, application number etc,.  
+        - kind_code (str): Description of the publication kind code (e.g., type of document issued).  
+        - application_kind (str): Type of application (e.g., “utility patent application”).  
+        - pct_number (str): Patent Cooperation Treaty application number, if applicable.  
+        - family_id (int64): Identifier linking related patents in the same family.  
+        - title_localized (str): Patent title in localized language form.  
+        - abstract_localized (str): Patent abstract in natural language.  
+        - claims_localized_html (str): Claims section in HTML format containing readable text.  
+        - description_localized_html (str): Description section in HTML format containing readable text.  
+        - publication_date (str): Publication date in natural language format (e.g., “March 15th, 2020”).  
+        - filing_date (str): Filing date in natural language format.  
+        - grant_date (str): Grant date in in natural language format.  
+        - priority_date (str): Priority date in in natural language format.  
+        - priority_claim (str): List of claimed priority applications.  
+        - inventor_harmonized (str): Harmonized list of inventors.  
+        - examiner (str): Examiner(s) handling the case.  
+        - uspc (str): United States Patent Classification code(s).  
+        - ipc (str): International Patent Classification code(s).  
+        - cpc (str): JSON-like list of Cooperative Patent Classification entries, each with code and metadata.  
+        - citation (str): List of cited patents and non-patent literature.  
+        - parent (str): Parent patent applications.  
+        - child (str): Child patent applications.  
+        - entity_status (str): Legal entity status of the assignee (e.g., “small entity”, “large entity”).  
+        - art_unit (str): USPTO art unit assigned to the application.  
+
+2. CPCDefinition_database
+   - This database is stored in Parquet format and contains the hierarchical structure, definitions, and metadata for Cooperative Patent Classification (CPC) codes. Each record represents a CPC symbol at a specific hierarchy level, with parent-child relationships, references, and descriptive titles.  
+   - This database consists of one table:
+    - cpc_definition:
+      - Fields (cpc_definition table):  
+        - applicationReferences (str): Informative references to related applications.  
+        - breakdownCode (bool): Indicates whether the symbol is a breakdown code.  
+        - childGroups (str): JSON-like list of child CPC symbols at the next level.  
+        - children (str): Additional JSON-like child references.  
+        - dateRevised (double): Original numeric revision-date field; no date parsing or rescaling is performed.  
+        - definition (str): Full definition of the CPC symbol.  
+        - glossary (str): Glossary terms and explanations for the symbol.  
+        - informativeReferences (str): Additional informative references.  
+        - ipcConcordant (str): IPC concordance mapping for the CPC symbol.  
+        - level (double): Hierarchical level of the CPC symbol (e.g., 1 to 5).  
+        - limitingReferences (str): Scope-limiting references.  
+        - notAllocatable (bool): Indicates whether this symbol can be assigned to a patent.  
+        - parents (str): JSON-like list of parent CPC symbols in the hierarchy.  
+        - precedenceLimitingReferences (str): Precedence-limiting references.  
+        - residualReferences (str): Residual references for related but distinct subject matter.  
+        - rules (str): Rules for interpreting and applying the CPC symbol.  
+        - scopeLimitingReferences (str): Scope-limiting references for the symbol.  
+        - status (str): Status of the CPC symbol (e.g., “active”, “deleted”).  
+        - symbol (str): CPC classification code symbol.  
+        - synonyms (str): Synonyms for the CPC symbol.  
+        - titleFull (str): Full descriptive title of the CPC symbol.  
+        - titlePart (str): Abbreviated or partial title of the CPC symbol.  
+
+## Files and physical column types
+
+### publicationinfo
+
+File: `data/publication/publicationinfo.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Patents_info` | string |
+| `kind_code` | string |
+| `application_kind` | string |
+| `pct_number` | string |
+| `family_id` | int64 |
+| `title_localized` | string |
+| `abstract_localized` | string |
+| `claims_localized_html` | string |
+| `description_localized_html` | string |
+| `publication_date` | string |
+| `filing_date` | string |
+| `grant_date` | string |
+| `priority_date` | string |
+| `priority_claim` | string |
+| `inventor_harmonized` | string |
+| `examiner` | string |
+| `uspc` | string |
+| `ipc` | string |
+| `cpc` | string |
+| `citation` | string |
+| `parent` | string |
+| `child` | string |
+| `entity_status` | string |
+| `art_unit` | string |
+
+### cpc_definition
+
+File: `data/CPCDefinition/cpc_definition.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `applicationReferences` | string |
+| `breakdownCode` | bool |
+| `childGroups` | string |
+| `children` | string |
+| `dateRevised` | double |
+| `definition` | string |
+| `glossary` | string |
+| `informativeReferences` | string |
+| `ipcConcordant` | string |
+| `level` | double |
+| `limitingReferences` | string |
+| `notAllocatable` | bool |
+| `parents` | string |
+| `precedenceLimitingReferences` | string |
+| `residualReferences` | string |
+| `rules` | string |
+| `scopeLimitingReferences` | string |
+| `status` | string |
+| `symbol` | string |
+| `synonyms` | string |
+| `titleFull` | string |
+| `titlePart` | string |
+
+## Preservation
+
+All original records, long HTML/text content, nulls, empty strings, and duplicate records are preserved without truncation or cleaning. Structured text stays text. Natural-language dates are not parsed. SQLite family_id retains integer storage; CPC level and dateRevised retain double storage; breakdownCode and notAllocatable retain boolean storage. No HTML, SQL text, citations, or other embedded content is executed during migration.
+
+metadata.yaml enumerates the two configured input tables. A separate .part file in the original source directory is not referenced by db_config.yaml and is retained at the original location; it is not treated as an additional database table. Original hints are available in context/hints.md when enabled by the experiment.
+
+
+## Hints and task-specific clarifications (context/hints.md)
+
+# Hints
+
+- The `cpc` field in the `publicationinfo` table of `publication_database` contains CPC classification codes. The full definitions for these CPC codes are located in the `cpc_definition` table of `CPCDefinition_database`, where each row includes fields such as `symbol` and `titleFull`.
+- The descriptive title for each CPC code can be found in the `titleFull` field of the `cpc_definition` table.
+- Citation information is stored in the `citation` field of the `publicationinfo` table in `publication_database`.
+- Date-related information such as `publication_date`, `filing_date`, and `grant_date` is located in the `publicationinfo` table and is expressed in natural-language format.
+- The `Patents_info` field in the `publicationinfo` table is a natural-language summary that includes information like `application_number`, `publication_number`, `assignee_harmonized`, and `country_code`.
+- When counting patent filings per CPC technology area, use only a patent's primary CPC codes (the entries flagged `first = true` in the `cpc` field) and count each patent once per CPC group, even if the same code is listed multiple times.
+- When computing an exponential moving average of filings per year for a CPC group, include every year from the group's first filing year to its last, counting years without filings as zero. If multiple years share the highest average, take the earliest.
+- When identifying assignees that cite patents assigned to UNIV CALIFORNIA, return the full titles of the primary CPC subclasses of the citing patents, rather than those of the cited UNIV CALIFORNIA patents.
+

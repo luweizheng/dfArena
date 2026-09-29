@@ -1,0 +1,464 @@
+Solve this DataAgentBench task. Read only /workspace/data, /workspace/context, and /workspace/task.json. Put code and intermediate files under /workspace/work. Do not modify /workspace/data. Do not read hidden answers, validators, reference solutions, or other runs. Use this backend: Use pandas as the main dataframe backend for loading, transformation, and computation. Generate /workspace/work/solution.py, execute it, repair failures, and write /workspace/work/answer.json with exactly {"answer": "<concise final answer>"}. Do not hard-code the answer.
+
+Context: Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.
+Question: Among female actresses whose name contains 'An', who have a registered alternate name, played a named character, and have trivia on record, and who are credited with a voice role (general, uncredited, Japanese version, or English version) in a computer-animated film produced between 2000 and 2010 with a Japan or USA release in the 2000s, associated with a US company, and with a complete and verified cast listing — what are the alphabetically first character name, the alphabetically first actress name, and the alphabetically first title?
+
+Hints are enabled for this run. The data description and hints below, including any task-specific clarifications, are equally binding parts of the task requirements. Read and follow both when solving the task. Both documents are included in full below.
+
+## Data description (context/description.md)
+
+# imdb
+
+The two original data groups are provided as local Parquet tables.
+
+Original group names are retained below. Paths are relative to this dataset root.
+
+1. movies_database
+   - This database is provided as Parquet tables and contains movie-centric information. It covers titles, production companies, keywords, genres, ratings, and structural relationships between titles.
+   - This database consists of 15 tables:
+     - title
+       - This table is the central table of the movies_database. Each row represents a unique title entry (movie, TV series, episode, video game, etc.).
+       - Fields:
+         - id (str): Unique identifier for the title.
+         - title (str): The title string of the movie or show.
+         - imdb_index (str): Disambiguation suffix used by IMDB (e.g., Roman numerals).
+         - kind_id (int): Foreign key referencing kind_type.id; indicates the type of title.
+         - production_year (int): Year in which the title was produced or released.
+         - imdb_id (int): Original numeric IMDB identifier.
+         - phonetic_code (str): Phonetic encoding of the title for search purposes.
+         - episode_of_id (int): For TV episodes, references the id of the parent series in this table.
+         - season_nr (int): Season number (for TV episodes).
+         - episode_nr (int): Episode number within a season.
+         - series_years (str): Year span for TV series (e.g., "1990-1995").
+         - md5sum (str): MD5 checksum of the record.
+     - aka_title
+       - This table stores alternate or foreign-language titles for movies and shows.
+       - Fields:
+         - id (int): Unique identifier for the alternate title record.
+         - movie_id (int): Foreign key referencing title.id.
+         - title (str): The alternate title string.
+         - imdb_index (str): Disambiguation suffix.
+         - kind_id (int): Foreign key referencing kind_type.id.
+         - production_year (int): Production year for this alternate release.
+         - phonetic_code (str): Phonetic encoding of the alternate title.
+         - episode_of_id (int): Parent series ID for episode alternate titles.
+         - season_nr (int): Season number.
+         - episode_nr (int): Episode number.
+         - note (str): Notes on context (e.g., country, dubbed version).
+         - md5sum (str): MD5 checksum.
+     - kind_type
+       - This lookup table enumerates the types of titles (e.g., movie, TV series, episode).
+       - Fields:
+         - id (int): Unique identifier.
+         - kind (str): Label for the title type (e.g., "movie", "tv series", "episode").
+     - movie_info
+       - This table stores free-text metadata about movies, such as genres, languages, countries, plot summaries, and technical specifications.
+       - Fields:
+         - id (int): Unique identifier for the info record.
+         - movie_id (int): Foreign key referencing title.id.
+         - info_type_id (str): Foreign key referencing info_type.id.
+         - info (str): The metadata value (e.g., "English", "USA", "Drama").
+         - note (str): Supplemental notes.
+     - movie_info_idx
+       - This table stores indexed numeric metadata about movies, primarily ratings and vote counts.
+       - Fields:
+         - id (int): Unique identifier for the index record.
+         - movie_id (int): Foreign key referencing title.id.
+         - info_type_id (int): Foreign key referencing info_type.id.
+         - info (str): The numeric metadata value (e.g., a rating score).
+         - note (str): Supplemental notes.
+     - info_type
+       - This lookup table enumerates the categories of metadata stored in movie_info and movie_info_idx (e.g., "genres", "rating", "votes").
+       - Fields:
+         - id (str): Unique identifier.
+         - info (str): Description of the info category (e.g., "genres", "rating", "languages").
+     - movie_keyword
+       - This table records the association between movies and descriptive keywords.
+       - Fields:
+         - id (int): Unique identifier for the movie-keyword association.
+         - movie_id (int): Foreign key referencing title.id.
+         - keyword_id (str): Foreign key referencing keyword.id.
+     - keyword
+       - This lookup table contains all descriptive keywords (tags) used to annotate movies.
+       - Fields:
+         - id (str): Unique identifier.
+         - keyword (str): The keyword text (e.g., "murder", "based-on-novel").
+         - phonetic_code (str): Phonetic encoding of the keyword.
+     - movie_companies
+       - This table links movies to the production or distribution companies involved.
+       - Fields:
+         - id (str): Unique identifier.
+         - movie_id (int): Foreign key referencing title.id.
+         - company_id (int): Foreign key referencing company_name.id.
+         - company_type_id (int): Foreign key referencing company_type.id.
+         - note (str): Additional notes on the company's role.
+     - company_name
+       - This lookup table contains names and metadata for production and distribution companies.
+       - Fields:
+         - id (str): Unique identifier.
+         - name (str): Full name of the company.
+         - country_code (str): Country code of the company (e.g., "[us]", "[gb]").
+         - imdb_id (int): Original IMDB numeric identifier.
+         - name_pcode_nf (str): Phonetic code for the company name.
+         - name_pcode_sf (str): Alternate phonetic code.
+         - md5sum (str): MD5 checksum.
+     - company_type
+       - This lookup table enumerates the roles a company can have (e.g., production, distribution).
+       - Fields:
+         - id (int): Unique identifier.
+         - kind (str): Company role label (e.g., "production companies", "distributors").
+     - movie_link
+       - This table records directional relationships between titles (e.g., sequel, remake, spin-off).
+       - Fields:
+         - id (int): Unique identifier.
+         - movie_id (int): Foreign key referencing title.id (the source title).
+         - linked_movie_id (int): Foreign key referencing title.id (the related title).
+         - link_type_id (int): Foreign key referencing link_type.id.
+     - link_type
+       - This lookup table enumerates the types of relationships between titles.
+       - Fields:
+         - id (int): Unique identifier.
+         - link (str): Relationship description (e.g., "follows", "sequel", "remake of").
+     - complete_cast
+       - This table records the completeness status of cast and crew information for a movie.
+       - Fields:
+         - id (int): Unique identifier.
+         - movie_id (int): Foreign key referencing title.id.
+         - subject_id (int): Foreign key referencing comp_cast_type.id; indicates whether cast or crew is being described.
+         - status_id (int): Foreign key referencing comp_cast_type.id; indicates the completeness status.
+     - comp_cast_type
+       - This lookup table enumerates the subjects and statuses used in complete_cast.
+       - Fields:
+         - id (int): Unique identifier.
+         - kind (str): Label for the subject or status (e.g., "cast", "crew", "complete", "complete+verified").
+
+2. people_database
+   - This database is provided as Parquet tables and contains people-centric information from IMDB. It covers individuals who worked on movies (actors, directors, writers, etc.), their alternate names, roles, biographical information, and their casting associations with titles.
+   - This database consists of 6 tables:
+     - name
+       - This table is the central table of the people_database. Each row represents a unique person in the IMDB database.
+       - Fields:
+         - id (str): Unique identifier.
+         - name (str): Full name of the person (last name, first name format).
+         - imdb_index (str): Disambiguation suffix for persons sharing the same name.
+         - imdb_id (int): Original IMDB numeric identifier.
+         - gender (str): Gender of the person ("m" or "f").
+         - name_pcode_cf (str): Phonetic code for the full name.
+         - name_pcode_nf (str): Alternate phonetic code.
+         - surname_pcode (str): Phonetic code for the surname.
+         - md5sum (str): MD5 checksum.
+     - aka_name
+       - This table stores alternate names or pseudonyms for people.
+       - Fields:
+         - id (int): Unique identifier.
+         - person_id (int): Foreign key referencing name.id.
+         - name (str): The alternate name or pseudonym.
+         - imdb_index (str): Disambiguation suffix.
+         - name_pcode_cf (str): Phonetic code.
+         - name_pcode_nf (str): Alternate phonetic code.
+         - surname_pcode (str): Phonetic code for the surname.
+         - md5sum (str): MD5 checksum.
+     - cast_info
+       - This table records the association between a person and a movie in a specific role. It is the central join table linking people_database to movies_database.
+       - Fields:
+         - id (int): Unique identifier.
+         - person_id (str): Foreign key referencing name.id.
+         - movie_id (int): Foreign key referencing title.id in movies_database.
+         - person_role_id (int): Foreign key referencing char_name.id; the character played.
+         - note (str): Additional credit notes (e.g., "uncredited").
+         - nr_order (int): Billing order of the credit.
+         - role_id (int): Foreign key referencing role_type.id.
+     - char_name
+       - This table contains character names that appear in movie credits.
+       - Fields:
+         - id (int): Unique identifier.
+         - name (str): The character name.
+         - imdb_index (str): Disambiguation suffix.
+         - imdb_id (int): Original IMDB numeric identifier.
+         - name_pcode_nf (str): Phonetic code.
+         - surname_pcode (str): Phonetic code for the surname portion.
+         - md5sum (str): MD5 checksum.
+     - person_info
+       - This table stores biographical and career metadata about people (e.g., birth date, birthplace, trivia).
+       - Fields:
+         - id (int): Unique identifier.
+         - person_id (int): Foreign key referencing name.id.
+         - info_type_id (int): Foreign key referencing info_type.id in movies_database.
+         - info (str): The metadata value.
+         - note (str): Supplemental notes.
+     - role_type
+       - This lookup table enumerates the types of roles a person can have in a movie (e.g., actor, director, writer).
+       - Fields:
+         - id (str): Unique identifier.
+         - role (str): Role description (e.g., "actor", "director", "writer", "producer").
+
+## Files and measured physical types
+
+### title
+
+File: `data/movies/title.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | string |
+| `title` | string |
+| `imdb_index` | string |
+| `kind_id` | int32 |
+| `production_year` | int32 |
+| `imdb_id` | int32 |
+| `phonetic_code` | string |
+| `episode_of_id` | int32 |
+| `season_nr` | int32 |
+| `episode_nr` | int32 |
+| `series_years` | string |
+| `md5sum` | string |
+
+### aka_title
+
+File: `data/movies/aka_title.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | int32 |
+| `movie_id` | int32 |
+| `title` | string |
+| `imdb_index` | string |
+| `kind_id` | int32 |
+| `production_year` | int32 |
+| `phonetic_code` | string |
+| `episode_of_id` | int32 |
+| `season_nr` | int32 |
+| `episode_nr` | int32 |
+| `note` | string |
+| `md5sum` | string |
+
+### kind_type
+
+File: `data/movies/kind_type.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | int32 |
+| `kind` | string |
+
+### movie_info
+
+File: `data/movies/movie_info.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | int32 |
+| `movie_id` | int32 |
+| `info_type_id` | string |
+| `info` | string |
+| `note` | string |
+
+### movie_info_idx
+
+File: `data/movies/movie_info_idx.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | int32 |
+| `movie_id` | int32 |
+| `info_type_id` | int32 |
+| `info` | string |
+| `note` | string |
+
+### info_type
+
+File: `data/movies/info_type.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | string |
+| `info` | string |
+
+### movie_keyword
+
+File: `data/movies/movie_keyword.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | int32 |
+| `movie_id` | int32 |
+| `keyword_id` | string |
+
+### keyword
+
+File: `data/movies/keyword.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | string |
+| `keyword` | string |
+| `phonetic_code` | string |
+
+### movie_companies
+
+File: `data/movies/movie_companies.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | string |
+| `movie_id` | int32 |
+| `company_id` | int32 |
+| `company_type_id` | int32 |
+| `note` | string |
+
+### company_name
+
+File: `data/movies/company_name.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | string |
+| `name` | string |
+| `country_code` | string |
+| `imdb_id` | int32 |
+| `name_pcode_nf` | string |
+| `name_pcode_sf` | string |
+| `md5sum` | string |
+
+### company_type
+
+File: `data/movies/company_type.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | int32 |
+| `kind` | string |
+
+### movie_link
+
+File: `data/movies/movie_link.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | int32 |
+| `movie_id` | int32 |
+| `linked_movie_id` | int32 |
+| `link_type_id` | int32 |
+
+### link_type
+
+File: `data/movies/link_type.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | int32 |
+| `link` | string |
+
+### complete_cast
+
+File: `data/movies/complete_cast.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | int32 |
+| `movie_id` | int32 |
+| `subject_id` | int32 |
+| `status_id` | int32 |
+
+### comp_cast_type
+
+File: `data/movies/comp_cast_type.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | int32 |
+| `kind` | string |
+
+### aka_name
+
+File: `data/people/aka_name.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | int64 |
+| `person_id` | int64 |
+| `name` | string |
+| `imdb_index` | string |
+| `name_pcode_cf` | string |
+| `name_pcode_nf` | string |
+| `surname_pcode` | string |
+| `md5sum` | string |
+
+### cast_info
+
+File: `data/people/cast_info.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | int64 |
+| `person_id` | string |
+| `movie_id` | int64 |
+| `person_role_id` | int64 |
+| `note` | string |
+| `nr_order` | int64 |
+| `role_id` | int64 |
+
+### char_name
+
+File: `data/people/char_name.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | int64 |
+| `name` | string |
+| `imdb_index` | string |
+| `imdb_id` | int64 |
+| `name_pcode_nf` | string |
+| `surname_pcode` | string |
+| `md5sum` | string |
+
+### name
+
+File: `data/people/name.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | string |
+| `name` | string |
+| `imdb_index` | string |
+| `imdb_id` | int64 |
+| `gender` | string |
+| `name_pcode_cf` | string |
+| `name_pcode_nf` | string |
+| `surname_pcode` | string |
+| `md5sum` | string |
+
+### person_info
+
+File: `data/people/person_info.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | int64 |
+| `person_id` | int64 |
+| `info_type_id` | int64 |
+| `info` | string |
+| `note` | string |
+
+### role_type
+
+File: `data/people/role_type.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | string |
+| `role` | string |
+
+## Preservation
+
+All original rows, duplicates, nulls, empty strings, Unicode text, punctuation, numeric-looking text and encoded identifiers remain unchanged. No identifier normalization, joins, sorting, numeric extraction, deduplication or answers have been computed. PostgreSQL INTEGER fields are int32; SQLite INTEGER fields are int64. Fields whose source type is TEXT stay string. The COPY CSV null marker is unquoted \N; quoted \N is a literal string, and empty strings remain empty. CSV quoting and embedded newlines are decoded as file-format syntax, not data cleaning.
+
+
+## Hints and task-specific clarifications (context/hints.md)
+
+# Hints
+
+- Many identifier columns in both databases use non-standard string encodings rather than plain integers. To join across tables, you must extract the embedded numeric ID by stripping the alphabetic prefix, any punctuation padding characters, and any leading zeros. For example, `tt0000042` → `42`, `nm001` → `1`, `InfT~~7` → `7`. This applies to the following columns: title.id, company_name.id, movie_companies.id, name.id, cast_info.person_id, keyword.id, movie_keyword.keyword_id, info_type.id, movie_info.info_type_id, and role_type.id.
+- When checking whether an actress's name contains "An", compare case-sensitively.
+- For the query requesting the alphabetically first alternate name, character name, actress name, and title, include all title types in the title table, such as movies, TV series, and TV episodes; do not restrict the scope to kind "movie".
+

@@ -1,0 +1,84 @@
+Solve this DataAgentBench task. Read only /workspace/data, /workspace/context, and /workspace/task.json. Put code and intermediate files under /workspace/work. Do not modify /workspace/data. Do not read hidden answers, validators, reference solutions, or other runs. Use this backend: Use Polars as the main dataframe backend for loading, transformation, and computation. Do not use pandas for the main workflow. Pandas may be used only for an explicit final interoperability boundary when required. Generate /workspace/work/solution.py, execute it, repair failures, and write /workspace/work/answer.json with exactly {"answer": "<concise final answer>"}. Do not hard-code the answer.
+
+Context: Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.
+Question: As of 2022-06-01, among all projects whose most recent report (dated on or before 2022-06-01) records a type of 'capital' and a status of 'construction', which project has the lowest accumulated total funding, and what is that funding amount in USD? Accumulated total funding means the sum of all funding amounts granted to that project on or before 2022-06-01.
+
+Hints are enabled for this run. The data description and hints below, including any task-specific clarifications, are equally binding parts of the task requirements. Read and follow both when solving the task. Both documents are included in full below.
+
+## Data description (context/description.md)
+
+# civic_unstructured
+
+The original data groups are exposed as local Parquet tables.
+
+Original group names are retained below to interpret the original hints. Paths are relative to this dataset directory.
+
+1. civic_docs_database
+   - This database is provided as a Parquet table and contains Malibu city council meeting agendas.
+   - This database consists of one collection:
+     - civic_docs
+       - This collection contains 19 documents, one per city council meeting agenda. Each document covers multiple civic projects and their current status at the time of the meeting.
+       - Fields:
+         - _id (string): Original MongoDB ObjectId encoded reversibly as 24 lowercase hexadecimal characters; not a new identifier
+         - report_id (str): Sequential report identifier (e.g., "rid_0001", "rid_0002", ..., "rid_0019")
+         - report_content (str): Full plain-text content of the meeting agenda, describing multiple civic projects.
+
+2. funding_database
+   - This database is provided as a Parquet table and contains structured funding records for civic projects.
+   - This database consists of one table:
+     - Funding
+       - This table contains funding grant records.
+       - Fields:
+         - fid (str): Unique funding record identifier
+         - project_name (str): Name of the project receiving the grant
+         - funding_source (str): Source of the funding
+         - grant_time (str): Date the funding was granted
+         - amount (int): Funding amount in USD
+
+Each original agenda remains one complete text cell. No project extraction, name matching, status labeling, date correction, noise removal, or funding aggregation is performed. These operations remain part of solving the original tasks.
+
+## Files and measured physical column types
+
+### civic_docs
+
+File: `data/civic_docs/civic_docs.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `_id` | string |
+| `report_id` | string |
+| `report_content` | string |
+
+### Funding
+
+File: `data/funding/Funding.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `fid` | string |
+| `project_name` | string |
+| `funding_source` | string |
+| `grant_time` | string |
+| `amount` | int64 |
+
+## Preservation
+
+Every input row and its order are retained, including any repeated records. Strings retain their exact characters, whitespace, and line breaks. Dates remain strings. BSON int32 stays int32; SQLite INTEGER is int64. ObjectId uses the explicitly documented reversible encoding. Both BSON snapshots have the same fields present in every document and contain no nulls or nested values. Source records are not cleaned or augmented.
+
+
+## Hints and task-specific clarifications (context/hints.md)
+
+# Hints
+
+- Projects have two types: "capital" and "disaster".
+- Projects have four statuses: "design", "construction", "completed", and "not started".
+- A project's status is the status category of the report section in which it appears. If the narrative update describes a different stage, use the section's status category.
+- The same project may appear under different names, so entity resolution is required.
+  - Two names likely refer to the same project if their names or agenda descriptions are semantically similar.
+  - Two names listed separately in the same agenda are likely distinct projects, as a project usually appears once per agenda.
+- For Annual Street Maintenance, the year in the name identifies an annual cycle of the same ongoing project rather than a separate project. Combine this project's records across years, then apply the time range specified in each question to determine status changes and aggregate funding.
+- For Storm Drain Trash Screens, treat "Storm Drain Trash Screens" and "Storm Drain Trash Screens Phase Two" as phases of the same project rather than separate projects. Combine their records, then determine status and aggregate funding using the dates specified in each question.
+- Some Funding records have a project_name that is not a real civic project; treat these as noise.
+- An agenda's stated meeting date may be wrong, so cross-check it against the dates its own text mentions.
+- According to the official complete meeting agenda, the meeting date for report rid_0010 is January 26, 2022; the date in the report header is incorrect.
+

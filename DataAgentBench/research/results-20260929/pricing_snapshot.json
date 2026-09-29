@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "snapshot_id": "openai-standard-2026-09-24",
+  "retrieved_on": "2026-09-24",
+  "currency": "USD",
+  "basis": "standard_public_api_equivalent_not_subscription_bill",
+  "models": {
+    "gpt-6-astra": {
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-astra",
+      "pricing_source": "https://developers.openai.com/api/docs/pricing",
+      "usd_per_million_tokens": {
+        "ordinary_input": 10,
+        "cached_input": 1,
+        "cache_write_input": 12.5,
+        "output": 50
+      },
+      "long_context_threshold_input_tokens_per_request": 272000,
+      "long_context_multipliers": {
+        "ordinary_input": 2,
+        "cached_input": 2,
+        "cache_write_input": 2,
+        "output": 1.5
+      }
+    }
+  }
+}

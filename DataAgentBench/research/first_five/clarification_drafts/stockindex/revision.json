@@ -1,0 +1,43 @@
+{
+  "original_dataset": "stockindex",
+  "variant_directory": "stockindex_clarified_v1",
+  "changes": [
+    {
+      "original_task_id": "stockindex_task1",
+      "path": "tasks/task1/task.json",
+      "json_pointer": "/query",
+      "before": "Which stock index in the Asia region has exhibited the highest average intraday volatility since 2020?",
+      "after": "Which stock index in the Asia region has exhibited the highest average intraday volatility since 2020? 日内波动按当日最高点位与最低点位之差占当日开盘点位的比例衡量，平均日内波动为这一比例在所考察交易日上的算术平均值。",
+      "approved_clarification_zh": "日内波动按当日最高点位与最低点位之差占当日开盘点位的比例衡量，平均日内波动为这一比例在所考察交易日上的算术平均值。",
+      "approved_by": "user",
+      "recorded_at_utc": "2026-09-14T12:09:30.215430+00:00",
+      "reason": "明确日内波动为相对开盘点位的高低点差，按交易日取算术平均。无hints原题未定义，有hints与该定义一致。"
+    },
+    {
+      "original_task_id": "stockindex_task2",
+      "path": "tasks/task2/task.json",
+      "json_pointer": "/query",
+      "before": "Among North American stock indices, which indices had more up days than down days in 2018?",
+      "after": "Among North American stock indices, which indices had more up days than down days in 2018? 上涨日和下跌日均以当日收盘点位相对当日开盘点位判断：收盘高于开盘为上涨日，低于开盘为下跌日，相等则不计入两者。",
+      "approved_clarification_zh": "上涨日和下跌日均以当日收盘点位相对当日开盘点位判断：收盘高于开盘为上涨日，低于开盘为下跌日，相等则不计入两者。",
+      "approved_by": "user",
+      "recorded_at_utc": "2026-09-14T12:16:51.201396+00:00",
+      "reason": "明确当日收盘相对当日开盘的涨跌口径，与hints一致；不使用上一交易日收盘为基准。"
+    },
+    {
+      "original_task_id": "stockindex_task3",
+      "path": "tasks/task3/task.json",
+      "json_pointer": "/query",
+      "before": "If an investor had made regular monthly investments in all indices since 2000, which 5 indices would have produced the highest overall returns, and what countries do they belong to?",
+      "after": "If an investor had made regular monthly investments in all indices since 2000, which 5 indices would have produced the highest overall returns, and what countries do they belong to? 从2000年起，对每个指数在有数据后开始按月投入固定金额，并在每月首个交易日按收盘价买入。总体回报按累计收益率比较，即期末持有份额的总价值减去累计投入金额后，再除以累计投入金额。所有指数采用共同的投资截止日期，即各指数最后可用记录日期中的最早日期，并以该日或之前最近一个交易日的收盘价计算期末价值。",
+      "approved_clarification_zh": "从2000年起，对每个指数在有数据后开始按月投入固定金额，并在每月首个交易日按收盘价买入。总体回报按累计收益率比较，即期末持有份额的总价值减去累计投入金额后，再除以累计投入金额。所有指数采用共同的投资截止日期，即各指数最后可用记录日期中的最早日期，并以该日或之前最近一个交易日的收盘价计算期末价值。",
+      "approved_by": "user",
+      "recorded_at_utc": "2026-09-14T12:34:47.343380+00:00",
+      "reason": "合并用户确认的五项：固定月投入、月初收盘买入、有数据后开始、累计收益率、共同截止日期。未按评分反推日期，两个候选终点的前五名单相同，评分无法区分。",
+      "approved_clarification_en": "From 2000 onward, invest a fixed amount monthly in each index, starting once data for that index becomes available, and buy at the closing price on the first trading day of each month. Compare overall returns using the cumulative rate of return: subtract total contributions from the final value of the accumulated holdings, then divide by total contributions. Use a common investment cutoff date for all indices: the earliest of their last available record dates. Value each index at its closing price on that date, or on the most recent trading day before it.",
+      "runtime_hint_source": "context/hints.md",
+      "english_translation_applied_at": "2026-09-27T13:34:57.226984+00:00"
+    }
+  ],
+  "unchanged_task_ids": []
+}

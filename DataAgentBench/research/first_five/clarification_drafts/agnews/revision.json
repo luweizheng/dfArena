@@ -1,0 +1,132 @@
+{
+  "schema_version": "1.0",
+  "status": "historical_task_specific_rules_superseded",
+  "variant_id": "agnews_clarified_v1",
+  "original_dataset": "../agnews",
+  "version": "clarified_v1",
+  "recorded_at_utc": "2026-09-12T16:58:04+00:00",
+  "reference_answer_policy": "unchanged",
+  "validator_policy": "unchanged",
+  "identity_policy": "Original task IDs and metadata retained; variant identity recorded here and in the directory name.",
+  "changes": [
+    {
+      "original_task_id": "agnews_task2",
+      "revised_task_id": "agnews_task2",
+      "path": "tasks/task2/task.json",
+      "json_pointer": "/query",
+      "before": "What fraction of all articles authored by Amy Jones belong to the Science/Technology category?",
+      "after": "What fraction of all articles authored by Amy Jones belong to the Science/Technology category? 根据文章标题和描述所表达的主要报道内容判断类别，不仅依据涉及的企业或行业分类。科技企业相关新闻应结合报道重点，区分科学技术内容与商业经营内容；涉及利润、合作、裁员、合并或并购，考虑和Business的关联性，但本身不作为排除出 Science/Technology 类别的充分条件。",
+      "approved_clarification_zh": "根据文章标题和描述所表达的主要报道内容判断类别，不仅依据涉及的企业或行业分类。科技企业相关新闻应结合报道重点，区分科学技术内容与商业经营内容；涉及利润、合作、裁员、合并或并购，考虑和Business的关联性，但本身不作为排除出 Science/Technology 类别的充分条件。",
+      "inserted_text_en": null,
+      "reason": "按主要报道内容判断，撤销把科技企业商业活动一律排除出科技类的旧概括；不以汇总答案拟合分类。",
+      "approved_by": "user",
+      "approved_at_utc": null,
+      "approval_source": "User message in the current conversation; exact message timestamp unavailable. recorded_at_utc is the recording time.",
+      "baseline_runs": [
+        {
+          "hints_enabled": false,
+          "path": "../agnews/output/task2/codex_gpt-6-astra/pandas/r001"
+        },
+        {
+          "hints_enabled": true,
+          "path": "../agnews/output/task2/codex_gpt-6-astra/pandas/r002"
+        }
+      ],
+      "inserted_text": "根据文章标题和描述所表达的主要报道内容判断类别，不仅依据涉及的企业或行业分类。科技企业相关新闻应结合报道重点，区分科学技术内容与商业经营内容；涉及利润、合作、裁员、合并或并购，考虑和Business的关联性，但本身不作为排除出 Science/Technology 类别的充分条件。",
+      "recorded_at_utc": "2026-09-14T14:25:10.284382+00:00",
+      "status": "superseded_for_future_runs"
+    },
+    {
+      "original_task_id": "agnews_task3",
+      "revised_task_id": "agnews_task3",
+      "path": "tasks/task3/task.json",
+      "json_pointer": "/query",
+      "before": "What is the average number of business articles published per year in Europe from 2010 to 2020, inclusive?",
+      "after": "What is the average number of business articles published per year in Europe from 2010 to 2020, inclusive? 根据文章标题和描述所表达的主要报道内容判断类别。以贸易制裁、关税或补贴争端等贸易经济事务为主要内容的报道归入 Business，不因涉及多个国家或国际组织就归入 World。体育行业公司的财报、利润、销售或股息等企业财务表现报道归入 Business；以球队引援或球员转会为主要内容的报道归入 Sports。科技企业并购的新闻则需要根据文章主要内容的聚焦点来分析。",
+      "approved_clarification_zh": "根据文章标题和描述所表达的主要报道内容判断类别。以贸易制裁、关税或补贴争端等贸易经济事务为主要内容的报道归入 Business，不因涉及多个国家或国际组织就归入 World。体育行业公司的财报、利润、销售或股息等企业财务表现报道归入 Business；以球队引援或球员转会为主要内容的报道归入 Sports。科技企业并购的新闻则需要根据文章主要内容的聚焦点来分析。",
+      "inserted_text_zh": "根据文章标题和描述所表达的主要报道内容判断类别。以贸易制裁、关税或补贴争端等贸易经济事务为主要内容的报道归入 Business，不因涉及多个国家或国际组织就归入 World。体育行业公司的财报、利润、销售或股息等企业财务表现报道归入 Business；以球队引援或球员转会为主要内容的报道归入 Sports。科技企业并购的新闻则需要根据文章主要内容的聚焦点来分析。",
+      "approved_by": "user",
+      "recorded_at_utc": "2026-09-14T10:45:22.838342+00:00",
+      "approved_at_utc": null,
+      "reason": "根据公开来源证据明确贸易经济与体育企业财务、球队转会的类别边界；用户补充科技企业并购按主要内容聚焦点判断，不统一按企业行业或并购行为判类。具体分类判断困难不自动要求继续扩写语义。",
+      "baseline_runs": [
+        {
+          "hints_enabled": false,
+          "path": "../agnews/output/task3/codex_gpt-6-astra/pandas/r001"
+        },
+        {
+          "hints_enabled": true,
+          "path": "../agnews/output/task3/codex_gpt-6-astra/pandas/r002"
+        }
+      ],
+      "status": "superseded_for_future_runs"
+    },
+    {
+      "original_task_id": "agnews_task4",
+      "revised_task_id": "agnews_task4",
+      "path": "tasks/task4/task.json",
+      "json_pointer": "/query",
+      "before": "In 2015, which region published the largest number of articles in the World category?",
+      "after": "In 2015, which region published the largest number of articles in the World category? 根据文章标题和描述所表达的主要报道内容判断类别，不因报道涉及多个国家、政府或国际组织就将其归入 World。以贸易制裁、关税或补贴争端等贸易经济事务为主要内容的报道归入 Business；以干细胞或克隆研究是否获准开展为主要内容的许可、禁令及相关讨论归入 Science/Technology。",
+      "approved_clarification_zh": "根据文章标题和描述所表达的主要报道内容判断类别，不因报道涉及多个国家、政府或国际组织就将其归入 World。以贸易制裁、关税或补贴争端等贸易经济事务为主要内容的报道归入 Business；以干细胞或克隆研究是否获准开展为主要内容的许可、禁令及相关讨论归入 Science/Technology。",
+      "inserted_text_zh": "根据文章标题和描述所表达的主要报道内容判断类别，不因报道涉及多个国家、政府或国际组织就将其归入 World。以贸易制裁、关税或补贴争端等贸易经济事务为主要内容的报道归入 Business；以干细胞或克隆研究是否获准开展为主要内容的许可、禁令及相关讨论归入 Science/Technology。",
+      "approved_by": "user",
+      "recorded_at_utc": "2026-09-14T10:06:16.257105+00:00",
+      "approved_at_utc": null,
+      "reason": "用户根据已核实的公开来源标签确认贸易经济事务和干细胞、克隆研究许可禁令的类别边界；不以跨国、政府或国际组织出现为World充分条件。研究证据在analysis/semantic_clarification_rules/agnews_task4，仅研究端使用。",
+      "baseline_runs": [
+        {
+          "hints_enabled": false,
+          "path": "../agnews/output/task4/codex_gpt-6-astra/pandas/r001"
+        },
+        {
+          "hints_enabled": true,
+          "path": "../agnews/output/task4/codex_gpt-6-astra/pandas/r002"
+        }
+      ],
+      "status": "superseded_for_future_runs"
+    }
+  ],
+  "unchanged_task_ids": [
+    "agnews_task1"
+  ],
+  "scope_note_zh": "2026-09-28：用户采用一条共享的主旨判别澄清，撤下历史逐题具体类别约定；changes仅保留修订历史，不得作为新运行输入。",
+  "research_only": true,
+  "current_runtime_policy": {
+    "version": "agnews_general_focus_v2",
+    "approved_by": "user",
+    "recorded_at_utc": "2026-09-28T06:30:16.468527+00:00",
+    "path": "agnews/context/hints.md",
+    "scope": "All four AG News tasks",
+    "approved_clarification_en": "When an article contains content relevant to multiple categories, consider its title and description together to determine the main focus of the report; do not treat the presence of a particular keyword or entity as decisive.",
+    "historical_specific_rules_active": false,
+    "hint_sha256": "4a8584e0a3b465792314c810d9b8f37c33682bc981cce76d59ad3ca8c0299a9f",
+    "existing_runs": "Eight previous Pandas/Polars runs replaced; four Ibis runs added under agnews_general_focus_v2.",
+    "latest_execution": {
+      "completed_at": "2026-09-28T07:54:21.252989+00:00",
+      "runs": 12,
+      "record": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-09-21\\ni-x\\outputs\\agnews-general-three-backends-20260928\\progress.json",
+      "summary": {
+        "pandas": {
+          "passed": 2,
+          "failed": 2,
+          "unscored": 0,
+          "agent_seconds": 1272.9334070240002
+        },
+        "polars": {
+          "passed": 2,
+          "failed": 1,
+          "unscored": 1,
+          "agent_seconds": 1320.6734205739997
+        },
+        "ibis": {
+          "passed": 1,
+          "failed": 3,
+          "unscored": 0,
+          "agent_seconds": 1095.4475407020004
+        }
+      },
+      "verification": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-09-21\\ni-x\\outputs\\agnews-general-three-backends-20260928\\verification.json"
+    }
+  }
+}

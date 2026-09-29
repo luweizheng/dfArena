@@ -1,0 +1,34 @@
+{
+  "dataset": "bookreview",
+  "files": [
+    {
+      "path": "context/description.md",
+      "sha256": "e992ccc4a6a0325ee04a32b7f159c6a262ff8a42246b6c1993480bdd6bf53f4b"
+    },
+    {
+      "path": "context/hints.md",
+      "sha256": "3d4d207a21a367bad8f0bcbb6fba4b714a0e6787ac926c875e75e889d8af4349"
+    },
+    {
+      "path": "data/books/books_info.parquet",
+      "sha256": "b266d693e8f2cfc949952cf79adcfc23911cd6baaa4d726299a78642c4a97567"
+    },
+    {
+      "path": "data/review/review.parquet",
+      "sha256": "113c3091cddc57ca5a1a5887ded1fb3a4455bf12b2d097be87c33d604c0a9e45"
+    },
+    {
+      "path": "tasks/task1/task.json",
+      "sha256": "7d5bfddb76c8dbf2e41edbbfd28104a54e2db4c56ef70ee0f1db26aaadd7d8a0"
+    },
+    {
+      "path": "tasks/task2/task.json",
+      "sha256": "9304062f4316125d2b9ff0e1626d7b96e526d62c11a8f3ecb2a8fee88eaf0d1d"
+    },
+    {
+      "path": "tasks/task3/task.json",
+      "sha256": "e59a4a936e2d7559874d8dd27712ffe882158079f6aed0a79864513b86a409ac"
+    }
+  ],
+  "data_files_included": false
+}

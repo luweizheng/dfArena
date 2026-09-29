@@ -1,0 +1,70 @@
+Solve this DataAgentBench task. Read only /workspace/data, /workspace/context, and /workspace/task.json. Put code and intermediate files under /workspace/work. Do not modify /workspace/data. Do not read hidden answers, validators, reference solutions, or other runs. Use this backend: Use Polars as the main dataframe backend for loading, transformation, and computation. Do not use pandas for the main workflow. Pandas may be used only for an explicit final interoperability boundary when required. Generate /workspace/work/solution.py, execute it, repair failures, and write /workspace/work/answer.json with exactly {"answer": "<concise final answer>"}. Do not hard-code the answer.
+
+Context: Use the provided Parquet tables under data/. Dataset-relative file paths and table statistics are listed in metadata.yaml; table schemas and field descriptions are in context/description.md. Additional guidance in context/hints.md is available only when enabled by the experiment configuration.
+Question: Which stock index in the Asia region has exhibited the highest average intraday volatility since 2020?
+
+Hints are enabled for this run. The data description and hints below, including any task-specific clarifications, are equally binding parts of the task requirements. Read and follow both when solving the task. Both documents are included in full below.
+
+## Data description (context/description.md)
+
+# stockindex
+
+This dataset contains two Parquet tables: stock-exchange metadata and daily historical prices for stock-market indices. Paths below are relative to the dataset root.
+
+## Table: `index_info`
+
+Metadata about stock market exchanges from major markets around the world, including the United States, China, Canada, Germany, Japan, and more.
+
+File: `data/indexinfo/index_info.parquet`
+
+| Column | Parquet / Arrow type | Description |
+|---|---|---|
+| `Exchange` | `string` | Full name of the stock exchange. |
+| `Currency` | `string` | Trading currency of the exchange. |
+
+## Table: `index_trade`
+
+Daily price data for indices tracking stock exchanges across countries and regions.
+
+File: `data/indextrade/index_trade.parquet`
+
+| Column | Parquet / Arrow type | Description |
+|---|---|---|
+| `Index` | `string` | Abbreviated index symbol. |
+| `Date` | `string` | Trading date represented using mixed textual formats. |
+| `Open` | `double` | Opening price. |
+| `High` | `double` | Highest price during the day. |
+| `Low` | `double` | Lowest price during the day. |
+| `Close` | `double` | Closing price. |
+| `Adj Close` | `double` | Adjusted closing price. |
+| `CloseUSD` | `double` | Closing price in US dollars. |
+
+## Relationships and interpretation
+
+`index_info.Exchange` stores full exchange names, whereas `index_trade.Index` stores index symbols. The tables do not expose a shared join key. Geographic regions are not stored as explicit columns.
+
+`Date` remains a string column; parse its textual values when performing date-based analysis. No date normalization or new mapping columns were introduced during this layout migration.
+
+Additional domain and calculation guidance is available in `context/hints.md` when enabled by the experiment configuration.
+
+
+## Hints and task-specific clarifications (context/hints.md)
+
+# Hints
+
+- The `Exchange` field in `index_info` contains full exchange names, such as
+  `Tokyo Stock Exchange` and `New York Stock Exchange`. The `Index` field in
+  `index_trade` contains abbreviated index symbols, such as `N225`, `HSI`, and
+  `000001.SS`. These fields refer to related market entities but do not form a
+  directly joinable key. For example, `Tokyo Stock Exchange` corresponds to
+  `N225` (Nikkei 225), and `Hong Kong Stock Exchange` corresponds to `HSI`
+  (Hang Seng Index).
+- The region of each stock exchange is not explicitly provided. Infer it using
+  geographic knowledge. For example, `N225` belongs to Asia because it tracks
+  the Tokyo Stock Exchange in Japan.
+- An up day is a trading day where the closing price is higher than the opening
+  price. A down day is a trading day where the closing price is lower than the
+  opening price.
+- Average intraday volatility is the mean of `(High - Low) / Open` over the
+  requested period.
+

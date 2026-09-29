@@ -1,0 +1,34 @@
+{
+  "dataset": "music_brainz_20k",
+  "files": [
+    {
+      "path": "context/description.md",
+      "sha256": "543daf7f2176e47f204db3202920bc75bd01159903889c4cff794552894a3380"
+    },
+    {
+      "path": "context/hints.md",
+      "sha256": "dce5b9c62cee65ba1b7bbb582ac326bf5473271bd464b005fbeb36657f0fbd3a"
+    },
+    {
+      "path": "data/sales/sales.parquet",
+      "sha256": "1167888681f3f0f4a2c520028fa7d7d0989a1e9a517ffdcbd80822a4fcb38f8a"
+    },
+    {
+      "path": "data/tracks/tracks.parquet",
+      "sha256": "bbfbe265cd9a319029ac2d0419b457191b3512f8a2c65af5b630f766a4a5a4e5"
+    },
+    {
+      "path": "tasks/task1/task.json",
+      "sha256": "ad7bae03bde000ae60d6f52dbbd067d975f094f8a7f701e0ef97cc39f282b5ee"
+    },
+    {
+      "path": "tasks/task2/task.json",
+      "sha256": "aeaf0df86fa0c736eb4669e8f41ebcd0e2898495fa9fbcca8186bbcf11a57dcd"
+    },
+    {
+      "path": "tasks/task3/task.json",
+      "sha256": "b16f484f4ca06168a1594859ab332a73ff0d55f7a62afa2fc3337146adc94ba1"
+    }
+  ],
+  "data_files_included": false
+}

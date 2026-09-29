@@ -1,0 +1,62 @@
+Solve this DataAgentBench task. Read only /workspace/data, /workspace/context, and /workspace/task.json. Put code and intermediate files under /workspace/work. Do not modify /workspace/data. Do not read hidden answers, validators, reference solutions, or other runs. Use this backend: Use pandas as the main dataframe backend for loading, transformation, and computation. Generate /workspace/work/solution.py, execute it, repair failures, and write /workspace/work/answer.json with exactly {"answer": "<concise final answer>"}. Do not hard-code the answer.
+
+Context: Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.
+Question: How much revenue in USD did Apple Music make from Beyoncé's song 'Get Me Bodied' in Canada?
+
+Hints are enabled for this run. The data description and hints below, including any task-specific clarifications, are equally binding parts of the task requirements. Read and follow both when solving the task. Both documents are included in full below.
+
+## Data description (context/description.md)
+
+# music_brainz_20k
+
+This dataset contains two Parquet tables: music-track records and individual sales transactions. Paths below are relative to the dataset root.
+
+## Table: `tracks`
+
+File: `data/tracks/tracks.parquet`
+
+Detailed information about music tracks, including title, artist and album. Each row represents a track record with a unique `track_id`; the table may contain multiple records for the same real-world track originating from different sources.
+
+| Column | Parquet / Arrow type | Description |
+|---|---|---|
+| `track_id` | `int64` | Unique identifier for a track record in this table. |
+| `source_id` | `int64` | Identifier of the source from which the record originates. |
+| `source_track_id` | `string` | Original track identifier from the source; uniqueness is not guaranteed. |
+| `title` | `string` | Track title. |
+| `artist` | `string` | Artist or band name. |
+| `album` | `string` | Album in which the track appears. |
+| `year` | `string` | Year of publication. |
+| `length` | `string` | Track length, in seconds or a formatted string. |
+| `language` | `string` | Track language. |
+
+## Table: `sales`
+
+File: `data/sales/sales.parquet`
+
+Individual sales transactions for track records. Each row represents a sale for a specific `track_id`.
+
+| Column | Parquet / Arrow type | Description |
+|---|---|---|
+| `sale_id` | `int32` | Unique identifier for a sale record. |
+| `track_id` | `int32` | Identifier linking the sale to a record in `tracks`. |
+| `country` | `string` | Country in which the sale occurred. |
+| `store` | `string` | Store or platform where the sale occurred. |
+| `units_sold` | `int32` | Number of units sold in the transaction. |
+| `revenue_usd` | `double` | Revenue generated in USD from the sale. |
+
+## Relationships and representation
+
+`sales.track_id` links to `tracks.track_id`. A track record and a real-world song are not necessarily the same unit of analysis.
+
+Original text values, missing values and individual records are preserved. `year` and `length` remain strings. No text normalization, missing-value imputation, entity resolution or sales aggregation is performed during conversion. SQLite integer values are exported as Arrow `int64`; DuckDB `INTEGER` values retain Arrow `int32`.
+
+Additional guidance is available in `context/hints.md` when enabled by the experiment configuration.
+
+
+## Hints and task-specific clarifications (context/hints.md)
+
+# Hints
+
+- The `tracks` table may contain duplicate entries. Different `track_id`s can represent the same real-world track. To answer queries correctly, you need to perform **entity resolution** by comparing track attributes such as `title`, `artist`, `album`, `year`, etc. Note that duplicates may not match exactly (e.g., different year formats or minor attribute variations), so you must reason about the meaning of these attributes rather than relying on exact string equality for entity resolution.
+- The `sales` table records sales in five countries: USA, UK, Canada, Germany, and France.
+- Sales occur across five platforms or stores: iTunes, Spotify, Apple Music, Amazon Music, and Google Play.

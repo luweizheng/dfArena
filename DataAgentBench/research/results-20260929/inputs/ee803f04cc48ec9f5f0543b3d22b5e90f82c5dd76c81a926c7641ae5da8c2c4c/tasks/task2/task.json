@@ -1,0 +1,6 @@
+{
+  "task_id": "cve_task2",
+  "dataset_id": "cve",
+  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions and reversible JSON encoding. Hints are optional and selected by the experiment configuration.",
+  "query": "Among CVEs in CISA's Known Exploited Vulnerabilities (KEV) catalog flagged as having known ransomware-campaign use, identify the canonical vendor (lowercase, using kev_vendor_aliases to resolve KEV vendor_project surface forms) whose CVEs include the most CRITICAL-severity entries (consider only vendors with at least 3 KEV-ransomware-flagged CVEs). Return the vendor name as a single lowercase word."
+}

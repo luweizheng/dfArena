@@ -1,0 +1,174 @@
+{
+  "dataset": "crmarenapro",
+  "files": [
+    {
+      "path": "context/description.md",
+      "sha256": "280000944335efab95f061f164fd5614e7af18aa94be1f02f46c2c19c2074e62"
+    },
+    {
+      "path": "context/hints.md",
+      "sha256": "82b01f3ce91a48da2fb74b1c4249de9300db2fe452a52ba85a10318feb7e57ea"
+    },
+    {
+      "path": "data/activities/Event.parquet",
+      "sha256": "45dc8b9dcde635ec9267e0be3d031df7db8f6af72e7576a919920bc60db9ba62"
+    },
+    {
+      "path": "data/activities/Task.parquet",
+      "sha256": "fb22900f878c002a4cf70f5368766641140ff65bce3a9bb8e970b8d3ac6d6aca"
+    },
+    {
+      "path": "data/activities/VoiceCallTranscript__c.parquet",
+      "sha256": "5970859510b7fd76bbbdd451d38c73584ebeb847a792814990f9ffb441d726bc"
+    },
+    {
+      "path": "data/core_crm/Account.parquet",
+      "sha256": "b6f90c96902ef823b3e80f177f5d1abc7e3afae2265acb268c7dd002a452e89b"
+    },
+    {
+      "path": "data/core_crm/Contact.parquet",
+      "sha256": "5d3c1d81ab7ea6548a64384f63c6c53c9d5111ef99d35b280d7ae75d9bf874a6"
+    },
+    {
+      "path": "data/core_crm/User.parquet",
+      "sha256": "b96611860fdedd16e456837e5b411e117b032cbf897e6a54405edfa888052258"
+    },
+    {
+      "path": "data/products_orders/Order.parquet",
+      "sha256": "0a1999642320545c9e0e227bb2257adccdfa60d6246c109317e3d876f7d0a1f6"
+    },
+    {
+      "path": "data/products_orders/OrderItem.parquet",
+      "sha256": "9adc46c1dbcc21b0e4bd1cf345b0152a067e382e6828f526afda12f5879d2dd9"
+    },
+    {
+      "path": "data/products_orders/Pricebook2.parquet",
+      "sha256": "f8a161559c855b6244bba0907189e144aa6e455b320fcef495832e4a3c5e7588"
+    },
+    {
+      "path": "data/products_orders/PricebookEntry.parquet",
+      "sha256": "f0759ef5c9ecd03b27880cd67f9e11c36b343e9f23dc9772249c00d861e0e3fb"
+    },
+    {
+      "path": "data/products_orders/Product2.parquet",
+      "sha256": "34b269c597ff0809c8f1685bb95df605ab36f8ed0017ead1da45282b859dc082"
+    },
+    {
+      "path": "data/products_orders/ProductCategory.parquet",
+      "sha256": "4bb13557a06d12b826ce77320c9529df737f7f7d3dabb7abecd3d83093dd7421"
+    },
+    {
+      "path": "data/products_orders/ProductCategoryProduct.parquet",
+      "sha256": "12a5046ddbd9732abf49cf9ad2dc3bdfb1eefefe3f3a4647cdfe946ab2d0e682"
+    },
+    {
+      "path": "data/sales_pipeline/Contract.parquet",
+      "sha256": "6504a4821030ee2b26f04e90704e35e8cfe900893510734b51d3ebb0171e8299"
+    },
+    {
+      "path": "data/sales_pipeline/Lead.parquet",
+      "sha256": "d5bba97763132713bd0798aa0280f7f52275282f3095b6552d073c2449f5c156"
+    },
+    {
+      "path": "data/sales_pipeline/Opportunity.parquet",
+      "sha256": "5f8872318f65cfc48039d81faccc06ccb35a38207987673be8a318ae2a26ba37"
+    },
+    {
+      "path": "data/sales_pipeline/OpportunityLineItem.parquet",
+      "sha256": "89fe661b1ca3ada1f356eac7303a9cd263bd943ae34ad9eeb2d9df2f04e51a02"
+    },
+    {
+      "path": "data/sales_pipeline/Quote.parquet",
+      "sha256": "9035f8737f6d0496930f76d1261c398e03bfdbd2b3704b208ec74f80f70d2f21"
+    },
+    {
+      "path": "data/sales_pipeline/QuoteLineItem.parquet",
+      "sha256": "d3259344b47bee31bb57eb3097df596e15999b9a65584bd9ac1e28fe0a2f8097"
+    },
+    {
+      "path": "data/support/Case.parquet",
+      "sha256": "ebb4536cd5e9ee3c09e5690f0b70af1501984e95ef1955fa30655f61e39fe0bb"
+    },
+    {
+      "path": "data/support/casehistory__c.parquet",
+      "sha256": "aff8cba5c5986369130399f6b94e87a6477b4925c6e8acab62ed490eb22c487b"
+    },
+    {
+      "path": "data/support/emailmessage.parquet",
+      "sha256": "88171b87f7a3363a6b06e241e8f34b06faa51bd0e268e5cb8a550a07f15aea6a"
+    },
+    {
+      "path": "data/support/issue__c.parquet",
+      "sha256": "1fd90b832e3284512c9a4340b2665cecc21be318075af8141272eb639bfa3143"
+    },
+    {
+      "path": "data/support/knowledge__kav.parquet",
+      "sha256": "9aa26f11e7968076a9a4224ebf29cac401ceeb3e3c51385c5c8c460ae0f5c942"
+    },
+    {
+      "path": "data/support/livechattranscript.parquet",
+      "sha256": "348dc78d43403cabbdda32a29fc68062fb65e8f223dcdf1e4061d4cd040a0e83"
+    },
+    {
+      "path": "data/territory/Territory2.parquet",
+      "sha256": "1ce6ddf0ec5cb1f51f83b6d8a0044fbc499b7c083eb325aa79280029ff5723db"
+    },
+    {
+      "path": "data/territory/UserTerritory2Association.parquet",
+      "sha256": "5085d8b11f72f9a9e268e7412d5cb30043816a6e6bca633bbfa3f4eae6ed4931"
+    },
+    {
+      "path": "tasks/task1/task.json",
+      "sha256": "df64ff6ab2160bc2459d5c60c6d568d0f8e533ae9e7655ab2c979e3c00ac37c2"
+    },
+    {
+      "path": "tasks/task10/task.json",
+      "sha256": "b42bd42dffdbddc1360ddeb657df01aa423582313cc7c999f147b3055977492c"
+    },
+    {
+      "path": "tasks/task11/task.json",
+      "sha256": "5d926b717e5ea932b9d3d2a02d0ef3739ffbce76aed4f41fdadff04db8f6af7b"
+    },
+    {
+      "path": "tasks/task12/task.json",
+      "sha256": "03c13b2e5bd912d91871382cce020f222e2db26c8441d45a707ef4a426a19bb7"
+    },
+    {
+      "path": "tasks/task13/task.json",
+      "sha256": "0320460d21f5b85faa39ad8cc7140d4deb8b7077695e670adac8c30b0fb3bc82"
+    },
+    {
+      "path": "tasks/task2/task.json",
+      "sha256": "70ad70c8f2ec55bdb407ac275d002b71e51d4f17a1b04eed46e2ebecd35610e4"
+    },
+    {
+      "path": "tasks/task3/task.json",
+      "sha256": "0e569f3df2d4091fd6988c5574f4c84d86f8a1a1fe7703d52f26f99a855e152f"
+    },
+    {
+      "path": "tasks/task4/task.json",
+      "sha256": "dce1988c2f7dc88e7e7ca74ecfd9cc7a0c80a9ba6bd587ec65d39c968bfdded4"
+    },
+    {
+      "path": "tasks/task5/task.json",
+      "sha256": "fdbbc93d2dd0ec7455766c5c407a1e799e7e48b58c5615d862dbeead11cbcede"
+    },
+    {
+      "path": "tasks/task6/task.json",
+      "sha256": "20ba387f96a1a11efa5ed354e53ba03657a82ffbf435ab8cc728d35aca218665"
+    },
+    {
+      "path": "tasks/task7/task.json",
+      "sha256": "75812df9e0ff9717d8d5d4375b9d760f42716e0d3f2f8f29e06e148ae0666832"
+    },
+    {
+      "path": "tasks/task8/task.json",
+      "sha256": "2c0afb32c441f560dc5a4cf36d6f6a0a366cfb00691051ebbb49222f24053097"
+    },
+    {
+      "path": "tasks/task9/task.json",
+      "sha256": "53ce2a80cfa95784721b30582bf120b291003de6ea677fd2fa60eb18c85125de"
+    }
+  ],
+  "data_files_included": false
+}

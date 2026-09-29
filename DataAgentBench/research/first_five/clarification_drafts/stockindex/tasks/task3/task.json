@@ -1,0 +1,6 @@
+{
+  "task_id": "stockindex_task3",
+  "context": "Use the provided Parquet tables under data/. Dataset-relative file paths and table statistics are listed in metadata.yaml; table schemas and field descriptions are in context/description.md. Additional guidance in context/hints.md is available only when enabled by the experiment configuration.",
+  "query": "If an investor had made regular monthly investments in all indices since 2000, which 5 indices would have produced the highest overall returns, and what countries do they belong to? 从2000年起，对每个指数在有数据后开始按月投入固定金额，并在每月首个交易日按收盘价买入。总体回报按累计收益率比较，即期末持有份额的总价值减去累计投入金额后，再除以累计投入金额。所有指数采用共同的投资截止日期，即各指数最后可用记录日期中的最早日期，并以该日或之前最近一个交易日的收盘价计算期末价值。",
+  "dataset_id": "stockindex"
+}

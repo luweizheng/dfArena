@@ -1,0 +1,15 @@
+{
+  "after": "Which decade of publication (e.g., 1980s) has the highest average rating among decades with at least 10 distinct books that have been rated? Return the decade with the highest average rating. When calculating the average rating, each individual review has equal weight. Determine the publication decade using the publication date of the edition corresponding to the book entry in the provided data; if there are multiple editions, use the earliest published edition.",
+  "reason": "明确平均权重及多个版本时采用出版最早版本；由用户确认。",
+  "inserted_text_en": "When calculating the average rating, each individual review has equal weight. Determine the publication decade using the publication date of the edition corresponding to the book entry in the provided data; if there are multiple editions, use the earliest published edition.",
+  "status": "approved",
+  "before": "Which decade of publication (e.g., 1980s) has the highest average rating among decades with at least 10 distinct books that have been rated? Return the decade with the highest average rating.",
+  "approved_clarification_zh": "计算平均评分时，每条评论具有相同权重。出版年代以给定数据中该书籍条目所对应版本的出版日期为准，如果有多个版本则使用出版最早的版本。",
+  "research_only": true,
+  "reference_answer_policy": "unchanged",
+  "validator_policy": "unchanged",
+  "recorded_at_utc": "2026-09-14T12:43:12.9518261Z",
+  "approved_clarification_en": "When calculating the average rating, each individual review has equal weight. Determine the publication decade using the publication date of the edition corresponding to the book entry in the provided data; if there are multiple editions, use the earliest published edition.",
+  "runtime_hint_source": "context/hints.md",
+  "english_translation_applied_at": "2026-09-27T13:34:57.207884+00:00"
+}

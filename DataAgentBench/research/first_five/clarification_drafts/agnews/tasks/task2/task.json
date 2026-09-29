@@ -1,0 +1,6 @@
+{
+  "task_id": "agnews_task2",
+  "dataset_id": "agnews",
+  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.",
+  "query": "What fraction of all articles authored by Amy Jones belong to the Science/Technology category? 根据文章标题和描述所表达的主要报道内容判断类别，不仅依据涉及的企业或行业分类。科技企业相关新闻应结合报道重点，区分科学技术内容与商业经营内容；涉及利润、合作、裁员、合并或并购，考虑和Business的关联性，但本身不作为排除出 Science/Technology 类别的充分条件。"
+}

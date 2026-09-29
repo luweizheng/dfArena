@@ -1,0 +1,6 @@
+{
+  "task_id": "yelp_task6",
+  "dataset_id": "yelp",
+  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions and reversible dictionary encoding. Hints are optional and selected by the experiment configuration.",
+  "query": "Which business received the highest average rating between January 1, 2016 and June 30, 2016, and what category does it belong to? Consider only businesses with at least 5 reviews."
+}

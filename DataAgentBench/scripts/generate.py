@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Generate in an isolated Docker/agent session; retain an independent stage report."""
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import shutil
@@ -19,6 +20,39 @@ BACKENDS = {
 }
 
 
+def build_prompt(dataset, task, backend_instruction, *, complete_requirements=False):
+    prompt = f'''Solve this DataAgentBench task. Read only /workspace/data, /workspace/context, and /workspace/task.json. Put code and intermediate files under /workspace/work. Do not modify /workspace/data. Do not read hidden answers, validators, reference solutions, or other runs. Use this backend: {backend_instruction} Generate /workspace/work/solution.py, execute it, repair failures, and write /workspace/work/answer.json with exactly {{"answer": "<concise final answer>"}}. Do not hard-code the answer.
+
+Context: {task.get("context", "")}
+Question: {task.get("query", "")}'''
+    delivery = {
+        'version': 1,
+        'mode': 'complete_requirements' if complete_requirements else 'file_references',
+        'hints_enabled': True if complete_requirements else None,
+        'inline_sources': [],
+    }
+    if complete_requirements:
+        prompt += (
+            '\n\nHints are enabled for this run. The data description and hints below, '
+            'including any task-specific clarifications, are equally binding parts of '
+            'the task requirements. Read and follow both when solving the task. '
+            'Both documents are included in full below.\n'
+        )
+        for name, title in [('description.md', 'Data description'), ('hints.md', 'Hints and task-specific clarifications')]:
+            relative = f'context/{name}'
+            raw = (dataset / relative).read_bytes()
+            body = raw.decode('utf-8-sig').replace('\r\n', '\n').replace('\r', '\n')
+            if not body.strip():
+                raise ValueError(f'Complete requirements need a nonempty {relative}')
+            prompt += f'\n## {title} ({relative})\n\n{body}\n'
+            delivery['inline_sources'].append({
+                'path': relative, 'sha256': hashlib.sha256(raw).hexdigest(),
+                'bytes': len(raw), 'text_characters': len(body),
+            })
+    delivery['prompt_sha256'] = hashlib.sha256(prompt.encode('utf-8')).hexdigest()
+    return prompt, delivery
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--dataset', type=Path, required=True)
@@ -27,6 +61,8 @@ def main():
     p.add_argument('--image', default='dfarena-agent-sandbox:latest')
     p.add_argument('--run-dir', type=Path, required=True)
     p.add_argument('--timeout', type=int, default=600)
+    p.add_argument('--complete-requirements', action='store_true',
+                   help='Enable hints and include full description and hints as equally binding task requirements.')
     add_agent_options(p)
     add_model_options(p)
     a = p.parse_args()
@@ -39,17 +75,20 @@ def main():
     # Refuse reuse: stale answers/evaluations must not masquerade as a new run.
     if any((run / name).exists() for name in ('detail/generation.json', 'detail/evaluation.json', 'work', 'solution')):
         p.error('Use a fresh run directory; generation artifacts already exist')
-    task = json.loads((ds/'tasks'/a.task/'task.json').read_text())
+    task = json.loads((ds/'tasks'/a.task/'task.json').read_text(encoding='utf-8'))
+    try:
+        prompt, delivery = build_prompt(ds, task, BACKENDS[a.backend],
+                                        complete_requirements=a.complete_requirements)
+    except (OSError, UnicodeError, ValueError) as exc:
+        p.error(f'Cannot prepare task requirements: {exc}')
     for folder in ('solution', 'detail', 'work', 'logs'):
         (run/folder).mkdir(parents=True, exist_ok=True)
-    prompt = f'''Solve this DataAgentBench task. Read only /workspace/data, /workspace/context, and /workspace/task.json. Put code and intermediate files under /workspace/work. Do not modify /workspace/data. Do not read hidden answers, validators, reference solutions, or other runs. Use this backend: {BACKENDS[a.backend]} Generate /workspace/work/solution.py, execute it, repair failures, and write /workspace/work/answer.json with exactly {{"answer": "<concise final answer>"}}. Do not hard-code the answer.
-
-Context: {task.get("context", "")}
-Question: {task.get("query", "")}'''
-    (run/'detail/prompt.txt').write_text(prompt)
+    (run/'detail/prompt.txt').write_bytes(prompt.encode('utf-8'))
+    save(run/'detail/input_delivery.json', delivery)
     result = {'benchmark': 'DataAgentBench', 'dataset': ds.name, 'task': a.task,
               'mode': 'direct', 'run_id': run.name, 'backend': a.backend,
               'agent': {**info, 'label': label},
+              'input_delivery': delivery,
               'status': 'running', 'returncode': None, 'started_at': None, 'finished_at': None,
               'elapsed_seconds': None, 'timing_scope': a.agent + '_process',
               'artifacts': {'solution': 'solution/solution.py', 'answer': 'solution/answer.json',
@@ -77,7 +116,7 @@ Question: {task.get("query", "")}'''
             save(run/'detail/command.json', cmd)
             try:
                 with (agent_logs['events']).open('w') as out, agent_logs['stderr'].open('w') as err:
-                    cp = subprocess.run(cmd, input=prompt, text=True, stdout=out, stderr=err, timeout=a.timeout+90)
+                    cp = subprocess.run(cmd, input=prompt, text=True, encoding='utf-8', stdout=out, stderr=err, timeout=a.timeout+90)
                 result['docker_returncode'] = cp.returncode
             except subprocess.TimeoutExpired:
                 result['status'] = 'runner_timeout'

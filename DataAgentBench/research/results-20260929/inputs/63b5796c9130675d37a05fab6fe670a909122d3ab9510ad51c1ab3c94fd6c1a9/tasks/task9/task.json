@@ -1,0 +1,6 @@
+{
+  "task_id": "crmarenapro_task9",
+  "dataset_id": "crmarenapro",
+  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions and measured physical types. Hints are optional and selected by the experiment configuration.",
+  "query": "Which states have the quickest case closure time in the past 6 quarters? Return only the two-letter abbreviation of the most matching state (eg. CA).\n\n- Today's date: 2022-10-26"
+}

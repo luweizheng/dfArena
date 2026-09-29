@@ -1,0 +1,34 @@
+{
+  "dataset": "stockindex",
+  "files": [
+    {
+      "path": "context/description.md",
+      "sha256": "cec65fd13348f39f326db0ca2f046cccd025a9d8b72a92a3634f01104dfcc83e"
+    },
+    {
+      "path": "context/hints.md",
+      "sha256": "c4d7550683597b61c2756dbad3b9e17d6d63ddd35dd7af0003a32c6d084aa0da"
+    },
+    {
+      "path": "data/indexinfo/index_info.parquet",
+      "sha256": "65c8c83714de7e35206c3d3b15fa542d47d420ee48aa9fcee5e9f47e483547cf"
+    },
+    {
+      "path": "data/indextrade/index_trade.parquet",
+      "sha256": "d6bcdafc4e5640b67125a0972d37c604a49be2e31280777798b7e82bdc4bc079"
+    },
+    {
+      "path": "tasks/task1/task.json",
+      "sha256": "e4fb1ec056637eb73ccde561f1274c3bbf3ab5af6018f304e9eccf81448fea2a"
+    },
+    {
+      "path": "tasks/task2/task.json",
+      "sha256": "85b2dc6420b04953a07136cbfe9678a4828757a71588c2adb27f80263b76ae1c"
+    },
+    {
+      "path": "tasks/task3/task.json",
+      "sha256": "609b27314a025a5d612372b767c103870e034c26166f5d27647abcf0c3a9c5af"
+    }
+  ],
+  "data_files_included": false
+}

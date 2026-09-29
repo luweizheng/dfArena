@@ -1,0 +1,494 @@
+Solve this DataAgentBench task. Read only /workspace/data, /workspace/context, and /workspace/task.json. Put code and intermediate files under /workspace/work. Do not modify /workspace/data. Do not read hidden answers, validators, reference solutions, or other runs. Use this backend: Use Polars as the main dataframe backend for loading, transformation, and computation. Do not use pandas for the main workflow. Pandas may be used only for an explicit final interoperability boundary when required. Generate /workspace/work/solution.py, execute it, repair failures, and write /workspace/work/answer.json with exactly {"answer": "<concise final answer>"}. Do not hard-code the answer.
+
+Context: Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions and measured physical types. Hints are optional and selected by the experiment configuration.
+Question: Is the product setup in this quotation, including elements like quantity and price, against company regulations? Return only the Id of the knowledge article that the invalid config violates.
+
+## Invalid config guide.
+Look for the relevant knowledge articles to justify the invalid config.
+
+- Quote Id to be considered is: 0Q0Wt000001WRAzKAO
+
+Hints are enabled for this run. The data description and hints below, including any task-specific clarifications, are equally binding parts of the task requirements. Read and follow both when solving the task. Both documents are included in full below.
+
+## Data description (context/description.md)
+
+# crmarenapro
+
+The six original data groups are provided as local Parquet tables.
+
+The original group names are retained. File paths below are relative to the dataset root.
+
+1. core_crm
+   - This database is provided as Parquet tables and contains core CRM data including users, accounts, and contacts from Salesforce CRMArena.
+   - This database consists of three tables:
+    - User: Sales team information
+      - Fields: Id, FirstName, LastName, Email, Phone, Username, Alias, LanguageLocaleKey, EmailEncodingKey, TimeZoneSidKey, LocaleSidKey
+    - Account: Company/customer data
+      - Fields: Id, Name, Phone, Industry, Description, NumberOfEmployees, ShippingState
+    - Contact: Individual contacts
+      - Fields: Id, FirstName, LastName, Email, AccountId
+
+2. sales_pipeline
+   - This database is provided as Parquet tables and contains sales pipeline data including opportunities, quotes, contracts, and leads.
+   - This database consists of six tables:
+     - Contract: Signed contracts
+      - Fields: Id, AccountId, Status, StartDate, CustomerSignedDate, CompanySignedDate, Description, ContractTerm
+     - Lead: Sales leads
+      - Fields: Id, FirstName, LastName, Email, Phone, Company, Status, ConvertedContactId, ConvertedAccountId, Title, CreatedDate, ConvertedDate, IsConverted, OwnerId
+     - Opportunity: Sales deals
+      - Fields: Id, ContractID__c, AccountId, ContactId, OwnerId, Probability, Amount, StageName, Name, Description, CreatedDate, CloseDate
+     - OpportunityLineItem: Deal line items
+      - Fields: Id, OpportunityId, Product2Id, PricebookEntryId, Quantity, TotalPrice
+     - Quote: Price quotes
+      - Fields: Id, OpportunityId, AccountId, ContactId, Name, Description, Status, CreatedDate, ExpirationDate
+     - QuoteLineItem: Quote details
+      - Fields: Id, QuoteId, OpportunityLineItemId, Product2Id, PricebookEntryId, Quantity, UnitPrice, Discount, TotalPrice
+
+3. support
+   - This database is provided as Parquet tables and contains customer support data including cases, knowledge articles, and communications.
+   - This database consists of six tables:
+     - Case: Support cases
+      - Fields: id, priority, subject, description, status, contactid, createddate, closeddate, orderitemid__c, issueid__c, accountid, ownerid
+     - knowledge__kav: Knowledge articles
+      - Fields: id, title, faq_answer__c, summary, urlname
+     - issue__c: Custom issues
+      - Fields: id, name, description__c
+     - casehistory__c: Case history
+      - Fields: id, caseid__c, oldvalue__c, newvalue__c, createddate, field__c
+     - emailmessage: Email communications
+      - Fields: id, subject, textbody, parentid, fromaddress, toids, messagedate, relatedtoid
+     - livechattranscript: Chat logs
+      - Fields: id, caseid, accountid, ownerid, body, endtime, livechatvisitorid, contactid
+
+4. products_orders
+   - This database is provided as Parquet tables and contains product catalog and order data.
+   - This database consists of seven tables:
+     - ProductCategory: Product categories
+      - Fields: Id, Name, CatalogId
+     - Product2: Product catalog
+      - Fields: Id, Name, Description, IsActive, External_ID__c
+     - ProductCategoryProduct: one of the pricing and mapping tables
+      - Fields: Id, ProductCategoryId, ProductId
+     - Pricebook2: one of the pricing and mapping tables
+      - Fields: Id, Name, Description, IsActive, ValidFrom, ValidTo
+     - PricebookEntry: one of the pricing and mapping tables
+      - Fields: Id, Pricebook2Id, Product2Id, UnitPrice
+     - Order: Customer orders
+      - Fields: Id, AccountId, Status, EffectiveDate, Pricebook2Id, OwnerId
+     - OrderItem: Order details
+      - Fields: Id, OrderId, Product2Id, Quantity, UnitPrice, PriceBookEntryId
+
+5. activities
+   - This database is provided as Parquet tables and contains activity data including tasks, events, and voice call transcripts.
+   - This database consists of three tables:
+     - Event: Calendar events
+      - Fields: Id, WhatId, OwnerId, StartDateTime, Subject, Description, DurationInMinutes, Location, IsAllDayEvent
+     - Task: Activities and tasks
+      - Fields: Id, WhatId, OwnerId, Priority, Status, ActivityDate, Subject, Description
+     - VoiceCallTranscript__c: Call records
+      - Fields: Id, OpportunityId__c, LeadId__c, Body__c, CreatedDate, EndTime__c
+
+6. territory
+   - This database is provided as Parquet tables and contains sales territory management data.
+   - This database consists of two tables:
+     - Territory2: Sales territories
+      - Fields: Id, Name, Description
+     - UserTerritory2Association: Territory assignments
+      - Id, UserId, Territory2Id
+## Files and measured physical types
+
+### Account
+
+File: `data/core_crm/Account.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `Name` | string |
+| `Phone` | string |
+| `Industry` | string |
+| `Description` | string |
+| `NumberOfEmployees` | double |
+| `ShippingState` | string |
+
+### Contact
+
+File: `data/core_crm/Contact.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `FirstName` | string |
+| `LastName` | string |
+| `Email` | string |
+| `AccountId` | string |
+
+### User
+
+File: `data/core_crm/User.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `FirstName` | string |
+| `LastName` | string |
+| `Email` | string |
+| `Phone` | string |
+| `Username` | string |
+| `Alias` | string |
+| `LanguageLocaleKey` | string |
+| `EmailEncodingKey` | string |
+| `TimeZoneSidKey` | string |
+| `LocaleSidKey` | string |
+
+### Contract
+
+File: `data/sales_pipeline/Contract.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `AccountId` | string |
+| `Status` | string |
+| `StartDate` | string |
+| `CustomerSignedDate` | string |
+| `CompanySignedDate` | string |
+| `Description` | string |
+| `ContractTerm` | string |
+
+### Lead
+
+File: `data/sales_pipeline/Lead.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `FirstName` | string |
+| `LastName` | string |
+| `Email` | string |
+| `Phone` | string |
+| `Company` | string |
+| `Status` | string |
+| `ConvertedContactId` | string |
+| `ConvertedAccountId` | string |
+| `Title` | string |
+| `CreatedDate` | string |
+| `ConvertedDate` | string |
+| `IsConverted` | int64 |
+| `OwnerId` | string |
+
+### Opportunity
+
+File: `data/sales_pipeline/Opportunity.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `ContractID__c` | string |
+| `AccountId` | string |
+| `ContactId` | string |
+| `OwnerId` | string |
+| `Probability` | string |
+| `Amount` | double |
+| `StageName` | string |
+| `Name` | string |
+| `Description` | string |
+| `CreatedDate` | string |
+| `CloseDate` | string |
+
+### OpportunityLineItem
+
+File: `data/sales_pipeline/OpportunityLineItem.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `OpportunityId` | string |
+| `Product2Id` | string |
+| `PricebookEntryId` | string |
+| `Quantity` | string |
+| `TotalPrice` | string |
+
+### Quote
+
+File: `data/sales_pipeline/Quote.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `OpportunityId` | string |
+| `AccountId` | string |
+| `ContactId` | string |
+| `Name` | string |
+| `Description` | string |
+| `Status` | string |
+| `CreatedDate` | string |
+| `ExpirationDate` | string |
+
+### QuoteLineItem
+
+File: `data/sales_pipeline/QuoteLineItem.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `QuoteId` | string |
+| `OpportunityLineItemId` | string |
+| `Product2Id` | string |
+| `PricebookEntryId` | string |
+| `Quantity` | string |
+| `UnitPrice` | string |
+| `Discount` | string |
+| `TotalPrice` | string |
+
+### Case
+
+File: `data/support/Case.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | string |
+| `priority` | string |
+| `subject` | string |
+| `description` | string |
+| `status` | string |
+| `contactid` | string |
+| `createddate` | string |
+| `closeddate` | string |
+| `orderitemid__c` | string |
+| `issueid__c` | string |
+| `accountid` | string |
+| `ownerid` | string |
+
+### knowledge__kav
+
+File: `data/support/knowledge__kav.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | string |
+| `title` | string |
+| `faq_answer__c` | string |
+| `summary` | string |
+| `urlname` | string |
+
+### issue__c
+
+File: `data/support/issue__c.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | string |
+| `name` | string |
+| `description__c` | string |
+
+### casehistory__c
+
+File: `data/support/casehistory__c.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | string |
+| `caseid__c` | string |
+| `oldvalue__c` | string |
+| `newvalue__c` | string |
+| `createddate` | string |
+| `field__c` | string |
+
+### emailmessage
+
+File: `data/support/emailmessage.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | string |
+| `subject` | string |
+| `textbody` | string |
+| `parentid` | string |
+| `fromaddress` | string |
+| `toids` | string |
+| `messagedate` | string |
+| `relatedtoid` | string |
+
+### livechattranscript
+
+File: `data/support/livechattranscript.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `id` | string |
+| `caseid` | string |
+| `accountid` | string |
+| `ownerid` | string |
+| `body` | string |
+| `endtime` | string |
+| `livechatvisitorid` | string |
+| `contactid` | string |
+
+### Order
+
+File: `data/products_orders/Order.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `AccountId` | string |
+| `Status` | string |
+| `EffectiveDate` | string |
+| `Pricebook2Id` | string |
+| `OwnerId` | string |
+
+### OrderItem
+
+File: `data/products_orders/OrderItem.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `OrderId` | string |
+| `Product2Id` | string |
+| `Quantity` | string |
+| `UnitPrice` | string |
+| `PriceBookEntryId` | string |
+
+### Pricebook2
+
+File: `data/products_orders/Pricebook2.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `Name` | string |
+| `Description` | string |
+| `IsActive` | int64 |
+| `ValidFrom` | string |
+| `ValidTo` | string |
+
+### PricebookEntry
+
+File: `data/products_orders/PricebookEntry.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `Pricebook2Id` | string |
+| `Product2Id` | string |
+| `UnitPrice` | string |
+
+### Product2
+
+File: `data/products_orders/Product2.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `Name` | string |
+| `Description` | string |
+| `IsActive` | int64 |
+| `External_ID__c` | string |
+
+### ProductCategory
+
+File: `data/products_orders/ProductCategory.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `Name` | string |
+| `CatalogId` | string |
+
+### ProductCategoryProduct
+
+File: `data/products_orders/ProductCategoryProduct.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `ProductCategoryId` | string |
+| `ProductId` | string |
+
+### Event
+
+File: `data/activities/Event.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `WhatId` | string |
+| `OwnerId` | string |
+| `StartDateTime` | string |
+| `Subject` | string |
+| `Description` | string |
+| `DurationInMinutes` | string |
+| `Location` | string |
+| `IsAllDayEvent` | int64 |
+
+### Task
+
+File: `data/activities/Task.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `WhatId` | string |
+| `OwnerId` | string |
+| `Priority` | string |
+| `Status` | string |
+| `ActivityDate` | string |
+| `Subject` | string |
+| `Description` | string |
+
+### VoiceCallTranscript__c
+
+File: `data/activities/VoiceCallTranscript__c.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `OpportunityId__c` | string |
+| `LeadId__c` | string |
+| `Body__c` | string |
+| `CreatedDate` | string |
+| `EndTime__c` | string |
+
+### Territory2
+
+File: `data/territory/Territory2.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `Name` | string |
+| `Description` | string |
+
+### UserTerritory2Association
+
+File: `data/territory/UserTerritory2Association.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `UserId` | string |
+| `Territory2Id` | string |
+
+## Preservation and source naming
+
+All rows, duplicate records, nulls, empty strings, leading # characters, trailing whitespace, HTML and multiline text remain unchanged. Numeric-looking and date-looking text is not parsed. Actual NumberOfEmployees and Amount fields are float64; other physical types are listed above. No joins or cleaning have been performed.
+
+In the support group, unquoted SQL table and column names are lowercase under PostgreSQL naming rules. The explicitly quoted table "Case" retains its capital C. These are the physical Parquet names; metadata also records the original SQL spellings. This is identifier interpretation only and never changes the case of any cell value. Ordinary SQL string literals are decoded with standard_conforming_strings=on, preserving literal backslashes.
+
+
+## Hints and task-specific clarifications (context/hints.md)
+
+# Hints
+ 
+- ~25% of ID-like fields may include a leading # (e.g., #001Wt00000PFj4zIAD).
+- ~20% of text fields may contain trailing whitespace (e.g., "Company Name ").
+- Corruption may appear in: Id, AccountId, ContactId, Name, FirstName, LastName, Email, Subject, Status.
+- Corruption handling is needed for reliable joins
+- Domain-specific CRM knowledge is required
+- When comparing case closure speed across states, use the arithmetic mean closure time of each state's closed cases, weighting each case equally. A case's closure time is its closed date/time minus its created date/time.
+- When determining eligibility for having handled more than one case, include cases that have not yet been closed.
+- When comparing agents' average sales cycles in April 2023, include opportunities whose corresponding contracts have a company signed date in that month, rather than filtering by the opportunity creation date or the opportunity's own close date.
+- When comparing agents' order sales amounts, attribute each order's sales amount to that order's owner.
+

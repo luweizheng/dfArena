@@ -1,0 +1,6 @@
+{
+  "task_id": "usaspending_task4",
+  "dataset_id": "usaspending",
+  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions and reversible JSON encoding. Hints are optional and selected by the experiment configuration.",
+  "query": "Among awarding agencies that have issued at least 10 contracts, which agency has the highest proportion of contracts with an award amount greater than $1,000,000? Return the agency name, breaking ties alphabetically."
+}

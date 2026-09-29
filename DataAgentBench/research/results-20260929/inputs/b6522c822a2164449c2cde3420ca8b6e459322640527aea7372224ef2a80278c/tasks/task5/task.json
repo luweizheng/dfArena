@@ -1,0 +1,6 @@
+{
+  "task_id": "krama_task5",
+  "dataset_id": "krama",
+  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for document and binary representations. Hints are optional and selected by the experiment configuration.",
+  "query": "From 2012 to 2018 (inclusive at both ends), what is the average water temperature (in °C) of the beach that had the most water samples that failed to meet bacterial water quality requirements? Consider only temperature readings collected within the same period. Round to 2 decimal places."
+}

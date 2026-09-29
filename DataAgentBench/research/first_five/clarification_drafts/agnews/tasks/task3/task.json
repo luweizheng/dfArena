@@ -1,0 +1,6 @@
+{
+  "task_id": "agnews_task3",
+  "dataset_id": "agnews",
+  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.",
+  "query": "What is the average number of business articles published per year in Europe from 2010 to 2020, inclusive? 根据文章标题和描述所表达的主要报道内容判断类别。以贸易制裁、关税或补贴争端等贸易经济事务为主要内容的报道归入 Business，不因涉及多个国家或国际组织就归入 World。体育行业公司的财报、利润、销售或股息等企业财务表现报道归入 Business；以球队引援或球员转会为主要内容的报道归入 Sports。科技企业并购的新闻则需要根据文章主要内容的聚焦点来分析。"
+}

@@ -1,0 +1,138 @@
+{
+  "dataset": "imdb",
+  "files": [
+    {
+      "path": "context/description.md",
+      "sha256": "70fbf37b9632964d5e78b72c2587c4f3ec63d71a77f234b5a30adff0fe1c9ba7"
+    },
+    {
+      "path": "context/hints.md",
+      "sha256": "d2ed26dcb9df9f96e98e66a523256237d37f94cc6746e0b8a92c9275e89bf1d5"
+    },
+    {
+      "path": "data/movies/aka_title.parquet",
+      "sha256": "259806a34064136cfcd20d6509674832f06da3f05ca6847c1f432b14afd76a44"
+    },
+    {
+      "path": "data/movies/comp_cast_type.parquet",
+      "sha256": "bf8f9503b65ded04c90e09ecfbbfe6964f3db18b08e2736c4cb2271fa9f75271"
+    },
+    {
+      "path": "data/movies/company_name.parquet",
+      "sha256": "c95ff4b2d2183afe4066d20cc820e001140097fb42f16c65f08a8c003ee190c4"
+    },
+    {
+      "path": "data/movies/company_type.parquet",
+      "sha256": "1125be5852d50108253321c96e2c009483518b9bcae3916f69af1fffff355a69"
+    },
+    {
+      "path": "data/movies/complete_cast.parquet",
+      "sha256": "4d958461345de126aeb0b70a885126f3e565e24302ea002e47ddad3c7a8dce8c"
+    },
+    {
+      "path": "data/movies/info_type.parquet",
+      "sha256": "ff950010b87b46f99787c31f009e0b19957debe3b38283bbdc220772d792f257"
+    },
+    {
+      "path": "data/movies/keyword.parquet",
+      "sha256": "27e7ef4b64d646f38d45940184e4a58780bc6fa33c537e036d5ffb4f8eb35b8c"
+    },
+    {
+      "path": "data/movies/kind_type.parquet",
+      "sha256": "1fdef6149b434a31cda76f34dd57187185ac1805c9cdd13d513d82e1b7b2b41c"
+    },
+    {
+      "path": "data/movies/link_type.parquet",
+      "sha256": "83624e1ac6f35b5e46f51e3225cd7d2dc2b2d2ddbe99348c84d7ad1e2f03a795"
+    },
+    {
+      "path": "data/movies/movie_companies.parquet",
+      "sha256": "dc7ea0b8612f580645bb1f62c9346d277d80b84ab536b1d9b959df9ba5857956"
+    },
+    {
+      "path": "data/movies/movie_info.parquet",
+      "sha256": "f92e56cdcdbe0366a2c563b902a2a0a9c354dc73f680352ef3114c9430d74d60"
+    },
+    {
+      "path": "data/movies/movie_info_idx.parquet",
+      "sha256": "3a285ddf6cfdfdc896e84a54a6f5aabe4c7f1c30f115fe8ada0616f16153bed0"
+    },
+    {
+      "path": "data/movies/movie_keyword.parquet",
+      "sha256": "0a697afc71632f3bd383c03e3273e84ea1559e7a8e356fbd57f1321b8ae591c2"
+    },
+    {
+      "path": "data/movies/movie_link.parquet",
+      "sha256": "ede52a156048714bb6a9400dafd5f592a1e9119c3c399b9057bc19f3d33f3388"
+    },
+    {
+      "path": "data/movies/title.parquet",
+      "sha256": "d97f6a87afed0a0cc72fa4bb4fe8f0c404d25ab547b04b3b78169f984d04260b"
+    },
+    {
+      "path": "data/people/aka_name.parquet",
+      "sha256": "ceed98616caeba875a9d9e5ee73c899d2385c6c0e42432c331d197038544646c"
+    },
+    {
+      "path": "data/people/cast_info.parquet",
+      "sha256": "a0192faa790ca801a8a77fc6e5160bef1ab670e30e11d1326e0bf8cc0652e4eb"
+    },
+    {
+      "path": "data/people/char_name.parquet",
+      "sha256": "342b3570e5a7b6a7a1536e6bf392327838ff3b43dcf6b685df3b2fdfd861f93c"
+    },
+    {
+      "path": "data/people/name.parquet",
+      "sha256": "d6601def91a5decf83f7f90c1fe89f0222d091f89266f1fbe93d13c395740557"
+    },
+    {
+      "path": "data/people/person_info.parquet",
+      "sha256": "7c87acfa8f1591342b8d1966d5237f5196acce07179813bb1ee56afd4d2bd9e0"
+    },
+    {
+      "path": "data/people/role_type.parquet",
+      "sha256": "f5e0c5a8468695006cbfd277b0c9a335dc10b32205aa72850e81096a806259b9"
+    },
+    {
+      "path": "tasks/task1/task.json",
+      "sha256": "7dee502155b532fa2f2ac144060e0b7b9cf16621e88ab1a4fc83d8b55737da83"
+    },
+    {
+      "path": "tasks/task10/task.json",
+      "sha256": "7ec8758e579a0e57656eceb9adc87c0eceabb0b0df35b174af89334af15ba11a"
+    },
+    {
+      "path": "tasks/task2/task.json",
+      "sha256": "7d51f1b92c593dd792aeebcc442fcf7de0efc665f596350dbf28b3d4af7f06e2"
+    },
+    {
+      "path": "tasks/task3/task.json",
+      "sha256": "2504ad435482e7ef5c965dea2aa4ff85930df651f7896cca5f27b1d407e26540"
+    },
+    {
+      "path": "tasks/task4/task.json",
+      "sha256": "7a6d2f448814ea67b417854ff2777a602d22dec4162e9f8edc1061325f747abb"
+    },
+    {
+      "path": "tasks/task5/task.json",
+      "sha256": "3e0da1da8c5e0f3339fab8882de052b5ad80110d048c416595d89abc7ecc4a9f"
+    },
+    {
+      "path": "tasks/task6/task.json",
+      "sha256": "2ffdc217e52c9104cee36d36f70a36b6c7cfd34fa7ce519e4f5096ec7789d388"
+    },
+    {
+      "path": "tasks/task7/task.json",
+      "sha256": "035db5fa490a533cd49ba9b0f7d75774372d939e3dd868d7bd28730fa42f602f"
+    },
+    {
+      "path": "tasks/task8/task.json",
+      "sha256": "0b3be0230b069a64b443a37c66a59ea647754941e45b1f305f3cedd136ed187e"
+    },
+    {
+      "path": "tasks/task9/task.json",
+      "sha256": "fe002c5a1a4ad2f594a2cc2cff68a297c16d9af1313fa14f09daba5e0d0be027"
+    }
+  ],
+  "data_files_included": false
+}

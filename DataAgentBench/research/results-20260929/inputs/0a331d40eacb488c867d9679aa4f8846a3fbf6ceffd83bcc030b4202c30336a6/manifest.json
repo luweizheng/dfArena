@@ -1,0 +1,42 @@
+{
+  "dataset": "agnews",
+  "files": [
+    {
+      "path": "context/description.md",
+      "sha256": "471bb9f6b0d22805a317d6597f5b83aa52d387e0e3e3f1084fbc3c0d5137a549"
+    },
+    {
+      "path": "context/hints.md",
+      "sha256": "4a8584e0a3b465792314c810d9b8f37c33682bc981cce76d59ad3ca8c0299a9f"
+    },
+    {
+      "path": "data/articles/articles.parquet",
+      "sha256": "354564b972a1c42bb7cf42b7dd86ea08a99124c6453f94b5891cfe3eaf0b121e"
+    },
+    {
+      "path": "data/metadata/article_metadata.parquet",
+      "sha256": "6f8d1aafdbb972e4e788599ec1cf096949a10c17c4e0ae1ae8bbb8e80d240a04"
+    },
+    {
+      "path": "data/metadata/authors.parquet",
+      "sha256": "85c35fdd8657fd8ebaf1247b7fe5b5e6e25d7baf390962c8e2fdb7d80f53b3da"
+    },
+    {
+      "path": "tasks/task1/task.json",
+      "sha256": "f10e2765b29db8166072f1aa550539537f5e479c0eac83d558897f32cc3a7cdc"
+    },
+    {
+      "path": "tasks/task2/task.json",
+      "sha256": "96d038acc214513a8119d22fae32bf349541041115f99aa93d93689df79933bd"
+    },
+    {
+      "path": "tasks/task3/task.json",
+      "sha256": "fbb4c1a2cfd82df9f16406af355e848cd5e63370a9ab532d2ccb724512f0d80d"
+    },
+    {
+      "path": "tasks/task4/task.json",
+      "sha256": "c6b39d0f5a1e89c528695aa0a19795f0f9f5d9f9ac6a223bcbd12537b979737a"
+    }
+  ],
+  "data_files_included": false
+}
