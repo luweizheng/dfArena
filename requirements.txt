@@ -1,0 +1,7 @@
+# Host-side runners and PrepBench simulator; dataframe dependencies live in docker/requirements.txt.
+fastapi>=0.115,<1
+uvicorn>=0.30,<1
+requests>=2.32,<3
+PyYAML>=6,<7
+Jinja2>=3.1,<4
+httpx>=0.27,<1

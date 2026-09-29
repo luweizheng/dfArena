@@ -30,7 +30,8 @@ def summarize(run):
         result['generation'] = {key: gen.get(key) for key in
             ('status', 'returncode', 'started_at', 'finished_at', 'elapsed_seconds',
              'timing_scope', 'token_usage', 'token_usage_status')}
-        for key in ('token_usage_source','token_usage_basis','token_usage_steps','token_usage_native','reported_cost','agent_errors'):
+        for key in ('elapsed_seconds_excluding_simulator', 'timing_scope_excluding_simulator',
+                    'token_usage_source','token_usage_basis','token_usage_steps','token_usage_native','reported_cost','agent_errors'):
             if key in gen:
                 result['generation'][key] = gen[key]
         result['artifacts'] = gen.get('artifacts', {})

@@ -24,3 +24,6 @@ runs/
 *.pem
 *.key
 *.log
+
+# Public simulator configuration template
+!PrepBench/.env.example

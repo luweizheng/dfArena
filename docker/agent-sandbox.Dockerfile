@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
     jq \
+    openjdk-17-jre-headless \
     ripgrep \
     xz-utils \
     && rm -rf /var/lib/apt/lists/*

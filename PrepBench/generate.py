@@ -2,6 +2,7 @@
 import argparse
 import re
 import hashlib
+import math
 import json
 import os
 from pathlib import Path
@@ -20,7 +21,8 @@ from simulator.case_ids import normalize_case_id
 from simulator.case_views import load_internal_case_view
 
 ROOT = Path(__file__).resolve().parent
-BACKENDS = {'pandas': 'pandas', 'polars': 'Polars', 'ibis': 'Ibis with DuckDB as the backend'}
+BACKENDS = {'pandas': 'pandas', 'polars': 'Polars', 'ibis': 'Ibis with DuckDB as the backend',
+            'pyspark': 'PySpark DataFrame API with a local SparkSession'}
 
 
 sys.path.insert(0, str(ROOT.parent))
@@ -42,10 +44,12 @@ def prepare(case, run, mode, backend):
         prompt += 'Do not use pandas for the data transformation logic. '
     prompt += 'You may use Python standard-library utilities for file handling.\n'
     if mode == 'interact':
-        prompt += '''This is an interactive requirement-clarification task. Inspect the input data yourself. When a business requirement is unclear, ask the simulated user through the HTTP service. Use the returned answers to guide your implementation. Each question should concern one decision. You may send multiple questions in one request. Follow the returned budget and done flag; reuse the same session.
-Call POST $DFARENA_SIMULATOR_URL/session/ask with Content-Type: application/json. Body: {"session_id": "the value of DFARENA_SESSION_ID", "questions": ["your question"]}. You may create a JSON file using Python json.dumps and submit it with curl --fail-with-body -sS --max-time 180 -H 'Content-Type: application/json' --data-binary @request.json "$DFARENA_SIMULATOR_URL/session/ask". Responses contain answers (answer, classification, ref), budget, done, and next_round. Read the actual answers and use them. Do not create new simulator sessions.
+        prompt += '''This is an interactive requirement-clarification task. Inspect the input data yourself. When a business requirement is unclear, call the `clarification.ask` MCP tool. The tool call is blocking: wait for its complete answer before continuing, and do not repeat a question whose answer has arrived. Use the returned answers to guide implementation. You may send multiple questions in one call. Do not create new clarification sessions.
 '''
-    prompt += 'Write and run /workspace/work/solution.py, and save the requested output under /workspace/work/outputs/. The final program must run without contacting the simulator.\n'
+    prompt += 'Write and run /workspace/work/solution.py, and save the requested output under /workspace/work/outputs/.'
+    if mode == 'interact':
+        prompt += ' Use the clarification service during task solving only. Do not include clarification-service HTTP calls in solution.py.'
+    prompt += '\n'
     (run / 'detail/prompt.txt').write_text(prompt)
     return work, prompt
 
@@ -63,7 +67,7 @@ def next_run(case, mode, agent_model, backend):
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--case', required=True)
-    ap.add_argument('--mode', choices=['interact', 'clarified'], default='interact')
+    ap.add_argument('--mode', choices=['direct', 'interact', 'clarified'], default='interact')
     ap.add_argument('--backend', choices=BACKENDS, default='pandas')
     ap.add_argument('--image', default='dfarena-agent-sandbox:latest')
     ap.add_argument('--simulator-env', type=Path, default=ROOT / '.env')
@@ -92,7 +96,10 @@ def main(argv=None):
                'status': 'prepared' if args.dry_run else 'running', 'returncode': None,
                'started_at': None, 'finished_at': None, 'elapsed_seconds': None,
                'timing_scope': args.agent + '_process',
-               'interaction': {'enabled': args.mode == 'interact', 'ask_calls': 0},
+               'interaction': {'enabled': args.mode == 'interact', 'ask_calls': 0,
+                               'simulator_elapsed_seconds': None},
+               'elapsed_seconds_excluding_simulator': None,
+               'timing_scope_excluding_simulator': None,
                'artifacts': {'solution': 'workspace/solution.py', 'outputs': [],
                              'agent_log': str(agent_logs['events'].relative_to(run))},
                **token_usage(agent_logs['events'], completed=False, agent=args.agent)}
@@ -111,7 +118,18 @@ def main(argv=None):
             metrics.mkdir()
             agent_flags, agent_command = prepare_agent(args, cfg, info)
             docker_env = []
+            # Only interact mode needs clarification; direct and clarified skip this setup.
             if args.mode == 'interact':
+                # There are two hops in an interactive clarification call:
+                #   Codex (in docker container)
+                #      --MCP/stdio
+                #   --> mcp_adapter.py (in docker container)
+                #      --HTTP
+                #   --> simulator_server.py (on host)
+                # MCP uses stdio inside the container, so it does not need this port.
+                # The port is only for the host-side HTTP simulator. Ask the OS for
+                # an unused ephemeral port, close the probe socket, and give that
+                # port number to uvicorn below.
                 with socket.socket() as sock:
                     sock.bind(('127.0.0.1', 0))
                     port = sock.getsockname()[1]
@@ -135,11 +153,18 @@ def main(argv=None):
                 response.raise_for_status()
                 session = response.json()
                 save(run / 'session.json', session)
-                docker_env = ['-e', f'DFARENA_SIMULATOR_URL=http://host.docker.internal:{port}', '-e', f'DFARENA_SESSION_ID={session["session_id"]}']
+                docker_env = ['-e', f'DFARENA_SESSION_ID={session["session_id"]}']
+                # Codex starts the MCP adapter inside Docker and communicates via stdio.
+                # The adapter forwards ask calls over HTTP to the host-side simulator;
+                # host.docker.internal lets the container reach the port selected above.
+                with (cfg / 'config.toml').open('a') as config_file:
+                    config_file.write(f'''\n[mcp_servers.clarification]\ncommand = "bash"\nargs = ["-c", "exec /usr/local/bin/python /runner/mcp_adapter.py 2>/workspace/work/mcp_stderr.log"]\nstartup_timeout_sec = 30\ntool_timeout_sec = 180\nrequired = true\n[mcp_servers.clarification.env]\nDFARENA_CLARIFIER_URL = "http://host.docker.internal:{port}/session/ask"\nDFARENA_SESSION_ID = "{session["session_id"]}"\n''')
+            # Run the agent in Docker with mounted task inputs, a writable workspace, and temporary agent configuration.
             cmd = ['docker', 'run', '--rm', '-i', '--name', container, '--add-host=host.docker.internal:host-gateway', *docker_env,
                    '-v', f'{case / ("query_full.md" if args.mode == "clarified" else "query.md")}:/workspace/query.md:ro',
                    '-v', f'{case / "inputs"}:/workspace/inputs:ro',
                    '-v', f'{work}:/workspace/work:rw', *agent_flags,
+                   *(['-v', f'{ROOT / "simulator/mcp_adapter.py"}:/runner/mcp_adapter.py:ro'] if args.mode == 'interact' else []),
                    '-v', f'{ROOT.parent / "runners/timed_process.py"}:/runner/timed_process.py:ro',
                    '-v', f'{metrics}:/runner/metrics:rw', '-w', '/workspace/work', args.image,
                    'python', '/runner/timed_process.py', '--report', f'/runner/metrics/{args.agent}.json',
@@ -193,7 +218,26 @@ def main(argv=None):
         if summary.get('agent_errors') and summary['status'] == 'completed':
             summary['status'] = 'agent_failed'
         trace = run / 'logs' / 'interaction.jsonl'
-        summary['interaction']['ask_calls'] = len(trace.read_text().splitlines()) if trace.exists() else 0
+        interaction_records = []
+        if trace.exists():
+            for line in trace.read_text().splitlines():
+                try:
+                    record = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                if isinstance(record, dict):
+                    interaction_records.append(record)
+        summary['interaction']['ask_calls'] = len(interaction_records)
+        durations = [record.get('elapsed_seconds') for record in interaction_records]
+        timing_complete = all(type(value) in (int, float) and math.isfinite(value) and value >= 0
+                              for value in durations)
+        simulator_seconds = sum(durations) if timing_complete else None
+        summary['interaction']['simulator_elapsed_seconds'] = simulator_seconds if interaction_records else None
+        if (summary.get('status') == 'completed' and
+                isinstance(summary.get('elapsed_seconds'), (int, float)) and interaction_records and
+                simulator_seconds is not None and simulator_seconds <= summary['elapsed_seconds']):
+            summary['elapsed_seconds_excluding_simulator'] = summary['elapsed_seconds'] - simulator_seconds
+            summary['timing_scope_excluding_simulator'] = args.agent + '_process_minus_simulator_wait'
         outputs = sorted((work / 'outputs').glob('*.csv'))
         summary['artifacts']['outputs'] = [str(p.relative_to(run)) for p in outputs]
         if summary['status'] == 'completed' and (not outputs or not (work / 'solution.py').is_file()):

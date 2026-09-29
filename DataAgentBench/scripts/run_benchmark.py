@@ -14,7 +14,7 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--dataset', type=Path, required=True)
     p.add_argument('--task', required=True)
-    p.add_argument('--backend', choices=['pandas','polars','ibis'], default='pandas')
+    p.add_argument('--backend', choices=['pandas','polars','ibis','pyspark'], default='pandas')
     p.add_argument('--image', default='dfarena-agent-sandbox:latest')
     p.add_argument('--timeout', type=int, default=600)
     p.add_argument('--evaluation-timeout', type=int, default=120)
