@@ -1,55 +1,13 @@
 dataset_id: music_brainz_20k
 version: '1.0'
-domain: music and sales
+domain: media_culture
 source:
   benchmark: DataAgentBench
   dataset: query_music_brainz_20k
-  task_mapping:
-    music_brainz_20k_task1: query1
-    music_brainz_20k_task2: query2
-    music_brainz_20k_task3: query3
-  files:
-  - path: db_config.yaml
-    sha256: 31c3180aea769887628cf51e91998f9d5e72df98449608fb887d92203f212c6e
-  - path: db_description.txt
-    sha256: 6741a5467641016ac78d05f8ec6501b48efb182355cc63db8aa4f3cc715a8dc7
-  - path: db_description_withhint.txt
-    sha256: c18a833cc12c1ccb055a7a7a717404c2b55129a4ad48941328eb7fb33488ebda
-  - path: query1/ground_truth.csv
-    sha256: 3a21b64bdb7b781b51d41c587a8834c38a4dca706588fa5eddc421a737a68232
-  - path: query1/query.json
-    sha256: b49b9e624260d2ea09ec1191ef32bf7a85fe00a428288140a2ea4fb9233e267f
-  - path: query1/validate.py
-    sha256: 95e75de5b663e836372faeab70420527c7b42bcf3767e8431beca1ebde17637b
-  - path: query2/ground_truth.csv
-    sha256: 2faf9cfdecef4a699b155b1f3d5fad94e760f7767c57f9c50f4ce60392c5f09c
-  - path: query2/query.json
-    sha256: 8918f918a333b6c28250bfa169a4acd2e7c36876c98b946c30b64e0aeb0c677c
-  - path: query2/validate.py
-    sha256: 2ef8b4f76ade27acfeed410e59fd52c608a04b86a6bed8626b71c8b589bfcff3
-  - path: query3/ground_truth.csv
-    sha256: f9ed9f10dd91abe4f91cd3a0b1a98dae80087cbed65bac2db7795da510fc8e43
-  - path: query3/query.json
-    sha256: c73ce87fbc8a1a57563705070de6867e9d275656ef48d5be0b1b28dfa3375146
-  - path: query3/validate.py
-    sha256: cdc581cea003b72d490ab83e3e005bac94531a990a737aa96a39b8cceee33d2e
-  - path: query_dataset/sales.duckdb
-    sha256: 52ce48c0027eab1b3f85932139425107dd5cf7422217bd8adedfc3edf21ad0e2
-  - path: query_dataset/tracks.db
-    sha256: 0c349f70e5bafcba1deb605b49e224abfa95c5a83a44688faa511f9e123a02cc
   adaptations:
-  - SQLite and DuckDB tables exported read-only to Parquet; all records and values
-    preserved.
-  - Database descriptions adapted to local Parquet paths and measured Arrow types.
-  - Hints retained with only the document heading changed; questions, ground truths
-    and validators preserved.
-  - No entity resolution, text normalization, missing-value imputation or aggregation.
-  export_environment:
-    python: 3.12.8
-    sqlite: 3.47.2
-    duckdb: 1.4.2
-    pyarrow: 15.0.2
-    PyYAML: 6.0.1
+  - SQLite and DuckDB tables were exported read-only to Parquet, retaining all records, text, and missing
+    values without normalization, imputation, entity resolution, or aggregation.
+  - year and length remain strings. SQLite INTEGER retains int64; DuckDB INTEGER retains int32.
 format: parquet
 table_count: 2
 data_size_bytes: 1855121
@@ -58,12 +16,44 @@ tables:
   path: data/tracks/tracks.parquet
   rows: 19375
   columns: 9
+  schema:
+  - name: track_id
+    type: int64
+  - name: source_id
+    type: int64
+  - name: source_track_id
+    type: string
+  - name: title
+    type: string
+  - name: artist
+    type: string
+  - name: album
+    type: string
+  - name: year
+    type: string
+  - name: length
+    type: string
+  - name: language
+    type: string
   size_bytes: 1097225
   sha256: bbfbe265cd9a319029ac2d0419b457191b3512f8a2c65af5b630f766a4a5a4e5
 - name: sales
   path: data/sales/sales.parquet
   rows: 58049
   columns: 6
+  schema:
+  - name: sale_id
+    type: int32
+  - name: track_id
+    type: int32
+  - name: country
+    type: string
+  - name: store
+    type: string
+  - name: units_sold
+    type: int32
+  - name: revenue_usd
+    type: double
   size_bytes: 757896
   sha256: 1167888681f3f0f4a2c520028fa7d7d0989a1e9a517ffdcbd80822a4fcb38f8a
 context:

@@ -79,6 +79,8 @@ class PromptDeliveryTests(unittest.TestCase):
             self.assertIn('Hints are enabled for this run.', prompt)
             self.assertIn('equally binding', prompt)
             self.assertNotIn('HIDDEN_GOLD_SENTINEL', prompt)
+            self.assertNotIn('metadata.yaml', prompt)
+            self.assertNotIn('metadata_source', delivery)
             self.assertTrue(delivery['hints_enabled'])
             self.assertEqual(len(delivery['inline_sources']), 2)
             for item in delivery['inline_sources']:
@@ -110,12 +112,51 @@ class PromptDeliveryTests(unittest.TestCase):
             self.assertEqual(delivery['mode'], 'file_references')
             self.assertIsNone(delivery['hints_enabled'])
             self.assertEqual(delivery['inline_sources'], [])
+            self.assertNotIn('metadata.yaml', prompt)
+
+    def test_research_metadata_is_not_an_input_in_either_prompt_mode(self):
+        for complete in [False, True]:
+            with self.subTest(complete=complete), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                task = self.make_input(root)
+                baseline = build_prompt(root, task, 'Use pandas.', complete_requirements=complete)
+                metadata = root / 'metadata.yaml'
+                for content in [b' \n', b'\xff', b'notes: RESEARCH_ONLY_SENTINEL\n']:
+                    with self.subTest(content=content):
+                        metadata.write_bytes(content)
+                        prompt, delivery = build_prompt(root, task, 'Use pandas.', complete_requirements=complete)
+                        self.assertEqual((prompt, delivery), baseline)
+                        self.assertNotIn('RESEARCH_ONLY_SENTINEL', prompt)
+                        self.assertNotIn('metadata.yaml', prompt)
+                        self.assertNotIn('metadata_source', delivery)
+
+    def test_missing_hints_stops_complete_mode_before_docker_or_agent_configuration(self):
+        import generate
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            task = self.make_input(root)
+            (root / 'context/hints.md').unlink()
+            task_dir = root / 'tasks/task1'
+            task_dir.mkdir(parents=True)
+            (task_dir / 'task.json').write_text(json.dumps(task), encoding='utf-8')
+            run = root / 'run'
+            with patch.object(generate, 'settings', return_value={'model': 'test'}), \
+                 patch.object(generate, 'prepare_agent') as prepare, \
+                 patch.object(generate.subprocess, 'run') as execute, \
+                 patch.object(sys, 'stderr'), self.assertRaises(SystemExit) as raised:
+                generate.main(['--dataset', str(root), '--task', 'task1', '--run-dir', str(run),
+                               '--complete-requirements'])
+            self.assertEqual(raised.exception.code, 2)
+            prepare.assert_not_called()
+            execute.assert_not_called()
+            self.assertFalse(run.exists())
 
     def test_actual_subprocess_input_matches_saved_prompt(self):
         import generate
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             task = self.make_input(root)
+            (root / 'metadata.yaml').write_text('notes: RESEARCH_ONLY_SENTINEL\n', encoding='utf-8')
             task_dir = root / 'tasks/task1'
             task_dir.mkdir(parents=True)
             (task_dir / 'task.json').write_text(json.dumps(task), encoding='utf-8')
@@ -125,6 +166,17 @@ class PromptDeliveryTests(unittest.TestCase):
             def fake_process(command, **kwargs):
                 if command[:2] == ['docker', 'run']:
                     self.assertEqual(kwargs['encoding'], 'utf-8')
+                    mounts = [command[i + 1] for i, arg in enumerate(command) if arg == '-v']
+                    workspace_inputs = {m for m in mounts if ':/workspace/' in m and m.endswith(':ro')}
+                    self.assertEqual(workspace_inputs, {
+                        f'{root / "data"}:/workspace/data:ro',
+                        f'{root / "context"}:/workspace/context:ro',
+                        f'{task_dir / "task.json"}:/workspace/task.json:ro',
+                    })
+                    self.assertFalse(any(':/workspace/answer' in m or ':/workspace:ro' in m for m in mounts))
+                    self.assertFalse(any('metadata.yaml' in m for m in mounts))
+                    self.assertNotIn('metadata.yaml', kwargs['input'])
+                    self.assertNotIn('RESEARCH_ONLY_SENTINEL', kwargs['input'])
                     sent.append(kwargs['input'])
                     metrics_mount = next(x for x in command if x.endswith(':/runner/metrics:rw'))
                     metrics = Path(metrics_mount[:-len(':/runner/metrics:rw')])

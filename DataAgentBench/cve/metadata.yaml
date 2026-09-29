@@ -1,121 +1,20 @@
 dataset_id: cve
 version: '1.0'
-domain: vulnerability metadata
+domain: software
 source:
   benchmark: DataAgentBench
   dataset: query_cve
-  task_mapping:
-    cve_task1: query1
-    cve_task2: query2
-    cve_task3: query3
-    cve_task4: query4
-    cve_task5: query5
-    cve_task6: query6
-    cve_task7: query7
-    cve_task8: query8
-    cve_task9: query9
-    cve_task10: query10
-  files:
-  - path: db_config.yaml
-    sha256: 5e7847f412a6a3bfacea5b489340c0c2f0fbee43d5528d0ed772b9dc976e61a3
-  - path: db_description.txt
-    sha256: 0fe4671b75edc01f3f4770a33f472a5a03058390bd93e37a88e8e6ae009f2250
-  - path: db_description_withhint.txt
-    sha256: a0b6d76528ded7aaa2fca12a22a420e712cbf1143aba26f369584799e84f9876
-  - path: manual_querycode/corrupt.py
-    sha256: 209237bd2c7387fa09276e1f87b44c4a8002822b96df09393009f9572573f005
-  - path: query1/ground_truth.csv
-    sha256: 7de1555df0c2700329e815b93b32c571c3ea54dc967b89e81ab73b9972b72d1d
-  - path: query1/query.json
-    sha256: 68fa0a0ad2d7a95b6b3e53ceafde1d96546797583d7cab13956fd4d85c150899
-  - path: query1/validate.py
-    sha256: e4bd55f7fa4e930198f5c487cc7be28798576e74ba6ae4713d1d8a1857ffd6ab
-  - path: query10/ground_truth.csv
-    sha256: f0b5c2c2211c8d67ed15e75e656c7862d086e9245420892a7de62cd9ec582a06
-  - path: query10/query.json
-    sha256: 840cb4552caa0d0ebb5f5e8a59f4012370bf1bb4e7dd5ee7a4d5f5b68fa9eb69
-  - path: query10/validate.py
-    sha256: e4bd55f7fa4e930198f5c487cc7be28798576e74ba6ae4713d1d8a1857ffd6ab
-  - path: query2/ground_truth.csv
-    sha256: aaf606fbc3e82aeb6eeca09f8f61738346f9fe383b249914b969c249b63448fc
-  - path: query2/query.json
-    sha256: e4e2dcc57237f3cf282dccc99be9bfe6715b547035bce41eaca531b46a7eaede
-  - path: query2/validate.py
-    sha256: 29ea555f29aba53d062ace211a197b6a1638c462134de8229363da0e63caf7cd
-  - path: query3/ground_truth.csv
-    sha256: 8c252966aa58e12185b326d192fea8556ff358792484cbbf2c102a9ccf8bb028
-  - path: query3/query.json
-    sha256: 635b65110a16c02d8867f6f43caae33308f29531557b7edd5fe11038b2e6fdf7
-  - path: query3/validate.py
-    sha256: e4bd55f7fa4e930198f5c487cc7be28798576e74ba6ae4713d1d8a1857ffd6ab
-  - path: query4/ground_truth.csv
-    sha256: 0d168d653bd794263cf0ce2b4a605afd6e1df51f256c4a0fd34e236909dfbbc8
-  - path: query4/query.json
-    sha256: 3c04bfab52656b4b47e4cce0eec136e2641a919ed61c9787799845bd3805f3e8
-  - path: query4/validate.py
-    sha256: 456d24a6c945e7f67c94892d3c4e3d5c04933253162c1ed13a614a29f151b2a9
-  - path: query5/ground_truth.csv
-    sha256: 4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865
-  - path: query5/query.json
-    sha256: f4c0184c08ace23835c7e8af0c2f99c012d4ae280d7b4af1a4efef8254ba4512
-  - path: query5/validate.py
-    sha256: e4bd55f7fa4e930198f5c487cc7be28798576e74ba6ae4713d1d8a1857ffd6ab
-  - path: query6/ground_truth.csv
-    sha256: 1a252402972f6057fa53cc172b52b9ffca698e18311facd0f3b06ecaaef79e17
-  - path: query6/query.json
-    sha256: 0cbae4d7dfbc38d0df063716676f23450cff321ccca79d709b25681036a1f528
-  - path: query6/validate.py
-    sha256: e4bd55f7fa4e930198f5c487cc7be28798576e74ba6ae4713d1d8a1857ffd6ab
-  - path: query7/ground_truth.csv
-    sha256: d373dd49db7c695a3e9a6caef04101f12d79f0fb5c6d45cb24276c5ddc5cb182
-  - path: query7/query.json
-    sha256: 71f002aa4edde80a7024289c36b0dfcf6f903d2cfbbed8d5298afdfc5f831cd6
-  - path: query7/validate.py
-    sha256: 29ea555f29aba53d062ace211a197b6a1638c462134de8229363da0e63caf7cd
-  - path: query8/ground_truth.csv
-    sha256: 1a62e878f334291869f88f4b71f8c157ee774b6bdb11d2ca86cccf2b48cef87b
-  - path: query8/query.json
-    sha256: 8d0a9deff05d14d74cb2919251575d348d51816749057da787ecfbc081ef0ddb
-  - path: query8/validate.py
-    sha256: 017fd5411ba3fc7687b398ff6dcec86afea0c5100f3ba57fb52abe6dfd8a933e
-  - path: query9/ground_truth.csv
-    sha256: aa67a169b0bba217aa0aa88a65346920c84c42447c36ba5f7ea65f422c1fe5d8
-  - path: query9/query.json
-    sha256: 971fd1ad71ba0b02e7b310267ca86830ad33e4b31b47e621899368ad0d18862b
-  - path: query9/validate.py
-    sha256: e4bd55f7fa4e930198f5c487cc7be28798576e74ba6ae4713d1d8a1857ffd6ab
-  - path: query_dataset/cpe.duckdb
-    sha256: efca9e48cd400fd8f65f69102c1e1c1f2c3b2813dfeb19cd0633335cdcf61970
-  - path: query_dataset/descriptions/cve_descriptions/cve_documents.bson
-    sha256: 7a938a5fc2852dd7559df0bf667ed3f9195956237ddba259774e617a7fd184d0
-  - path: query_dataset/descriptions/cve_descriptions/cve_documents.metadata.json
-    sha256: 8dc5a8e83e8207108de4a4d6d0d7d7dbe31ebdc27cdb2794942e6c18d417b5b8
-  - path: query_dataset/kev.sql
-    sha256: 76f15a345a8dd1006a5b21c198e52952846efa7dc5581727d5052137218a8bfe
-  - path: query_dataset/vulns.db
-    sha256: e76efe1a177354afcc0929610eabbcf088f29af7bc1638d1def78085f4ca601b
-  shared_files: []
   adaptations:
-  - TEXT-only PostgreSQL INSERT snapshot decoded with standard_conforming_strings=on,
-    literal backslashes preserved, PRIMARY KEY recorded and checked; no SQL execution/server
-    restore.
-  - BSON descriptions and references encoded as reversible JSON arrays, preserving
-    order, empty lists and repeated references. Actual lang key retained; no generated
-    identifiers.
-  - All source values, nulls, rows, identifier variants, scores and versions as text,
-    questions, answer files, validators, and hint body retained.
-  - SQLite INTEGER preserved as int64 and DuckDB INTEGER as int32. No normalization,
-    joins, severity inference or grading changes.
-  sql_string_interpretation:
-    standard_conforming_strings: 'on'
-    server_setting_verified: false
-    reference: https://www.postgresql.org/docs/current/runtime-config-compatible.html#GUC-STANDARD-CONFORMING-STRINGS
-  export_environment:
-    python: 3.12.8
-    pymongo: 4.16.0
-    duckdb: 1.4.2
-    pyarrow: 15.0.2
-    PyYAML: 6.0.1
+  - TEXT-only PostgreSQL INSERT data was decoded without SQL execution or server restore using standard_conforming_strings=on,
+    preserving literal backslashes; the original server setting was not independently verified.
+  - cve_documents.descriptions and references are reversible JSON array strings. Array order, empty arrays,
+    repeated references, object key order, and original lang/url/source keys were retained; no _id was
+    generated.
+  - Rows, duplicate/conflicting records, nulls, empty strings, identifier variants, flags, scores-as-text,
+    and version encodings were retained without inference or normalization. SQLite INTEGER remains int64
+    and DuckDB INTEGER remains int32.
+  - The source primary key kev_vendor_aliases.vendor_project was checked for uniqueness and non-null values
+    during conversion; Parquet does not enforce that constraint.
 format: parquet
 table_count: 8
 data_size_bytes: 46433845
@@ -220,8 +119,6 @@ tables:
     type: string
   - name: notes
     type: string
-  source_constraints:
-    primary_key: []
 - name: kev_vendor_aliases
   path: data/kev_db/kev_vendor_aliases.parquet
   rows: 420
@@ -233,9 +130,6 @@ tables:
     type: string
   - name: canonical_vendor
     type: string
-  source_constraints:
-    primary_key:
-    - vendor_project
 - name: cve_documents
   path: data/descriptions_db/cve_documents.parquet
   rows: 71501
@@ -249,11 +143,6 @@ tables:
     type: string
   - name: references
     type: string
-  bson_field_encoding:
-    cve: string
-    descriptions: json_array_of_string_objects
-    references: json_array_of_string_objects
-  original_bson_path: query_dataset/descriptions/cve_descriptions/cve_documents.bson
 context:
   description: context/description.md
   hints: context/hints.md

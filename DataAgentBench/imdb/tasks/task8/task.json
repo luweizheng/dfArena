@@ -1,6 +1,6 @@
 {
   "task_id": "imdb_task8",
   "dataset_id": "imdb",
-  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.",
+  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions. Hints are optional and selected by the experiment configuration.",
   "query": "Among female actresses credited with a voice role — including general voice, uncredited voice, Japanese version, or English version — who have a registered alternate name (with the alternate name belonging to the same person holding the credit) and played a named character, in movies associated with a US company, what are the alphabetically first alternate name, the alphabetically first character name, the alphabetically first actress name, and the alphabetically first title?"
 }

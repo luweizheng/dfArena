@@ -1,6 +1,6 @@
 {
   "task_id": "krama_task3",
   "dataset_id": "krama",
-  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for document and binary representations. Hints are optional and selected by the experiment configuration.",
+  "context": "Use the Parquet tables under data/. See context/description.md for file paths, document and binary representations. Hints are optional and selected by the experiment configuration.",
   "query": "What is the average number of reported identity thefts, as reported in 2024, across all US metropolitan statistical areas with a 2023 population exceeding one million? Estimate each MSA's 2023 population by linearly interpolating between its 2020 census count and 2024 estimate. Only include MSAs that appear in both the population source and the identity theft source. Round to 4 decimal places."
 }

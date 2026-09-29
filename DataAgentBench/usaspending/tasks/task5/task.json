@@ -1,6 +1,6 @@
 {
   "task_id": "usaspending_task5",
   "dataset_id": "usaspending",
-  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions and reversible JSON encoding. Hints are optional and selected by the experiment configuration.",
+  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions and reversible JSON encoding. Hints are optional and selected by the experiment configuration.",
   "query": "How many distinct 2-digit NAICS sectors are represented among contracts with an award amount of at least $10,000,000?"
 }

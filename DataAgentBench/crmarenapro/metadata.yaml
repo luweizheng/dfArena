@@ -1,140 +1,19 @@
 dataset_id: crmarenapro
 version: '1.0'
-domain: customer relationship management
+domain: business
 source:
   benchmark: DataAgentBench
   dataset: query_crmarenapro
-  task_mapping:
-    crmarenapro_task1: query1
-    crmarenapro_task2: query2
-    crmarenapro_task3: query3
-    crmarenapro_task4: query4
-    crmarenapro_task5: query5
-    crmarenapro_task6: query6
-    crmarenapro_task7: query7
-    crmarenapro_task8: query8
-    crmarenapro_task9: query9
-    crmarenapro_task10: query10
-    crmarenapro_task11: query11
-    crmarenapro_task12: query12
-    crmarenapro_task13: query13
-  files:
-  - path: db_config.yaml
-    sha256: 8440fe2fba1ca42ea5106bb0113c7f3eb4b248f2ea38d63bc432d9e4553b6390
-  - path: db_description.txt
-    sha256: 7a5421cb138f6e4bb0b2d1a7458b9b2a53dfbd1df8d5ebd852b6a2f8d9a9ad18
-  - path: db_description_withhint.txt
-    sha256: 8dd1fc389af715a4af0dae53543c6e996bbb63eaf75e9813c07cb2ce7176d256
-  - path: query1/ground_truth.csv
-    sha256: 36b5edda18b50b864d526ee9d5926061302708cf96574b54de0adc0bd667fafb
-  - path: query1/query.json
-    sha256: 894e6fb92a2c798b3dd29e486a7ec78c5c9f8aa7ff398bef227b8784529d5f66
-  - path: query1/validate.py
-    sha256: 579be6cfae68087cc8efd8e2e9c1ae0a5283e722d2a1d033705d52f28b9f9835
-  - path: query10/ground_truth.csv
-    sha256: 6d935e6f705c93174be6576cdd4467bca849d126a6be8e0b9023f944284ace1c
-  - path: query10/query.json
-    sha256: cad473f5f29c0965ea73e0c136a96034e3436df59c016c2a3549d03beeca2010
-  - path: query10/validate.py
-    sha256: 33e391562f728b4a5d80b7a1a8b046746a8d40a48817db1f379271ed99329193
-  - path: query11/ground_truth.csv
-    sha256: 8eae503568db8e087f4553b80f1acadcba3972fbc09cf4b697a76cbedb5e3f7e
-  - path: query11/query.json
-    sha256: f26f335645c4383dde4f4532c4c84f21f4b01a26f9dd2738be6d151e8116b0f1
-  - path: query11/validate.py
-    sha256: 0a0b8e676ad86e4e90c8c06e0034a04d2b1fb28ef5bf63d097ecbd440d4bb8a7
-  - path: query12/ground_truth.csv
-    sha256: 00fd1d685ab1dba492d8c237367560944efce4283e913cec527ba3ddd1c99384
-  - path: query12/query.json
-    sha256: c4a10a08df2a82e5bbba81c38820f441acc4e69f0e8784b4cd9df76045244a20
-  - path: query12/validate.py
-    sha256: 99476c2b08ba7f07bfbe1fb4fd32938a5a78c7942e88fb57c35da748e6c7d2cc
-  - path: query13/ground_truth.csv
-    sha256: 392ca1513b6b80d358b95124c4f212920d4424d75b5ccfaa70349d4574047ab0
-  - path: query13/query.json
-    sha256: e45a2ab8feb029efd1fdc6dd175053d253ec6a833bec576015ca0fff5bde1044
-  - path: query13/validate.py
-    sha256: cf707902d5ccb87233fbba008ebc70d6e7001d2f77e10ddebeb082575ded4486
-  - path: query2/ground_truth.csv
-    sha256: 6b6a6337891ae7619f92991923a68920a4c4b1eca81e1733463af2bf7ed2d458
-  - path: query2/query.json
-    sha256: 9e4834b6399ed135885379b58092992df72a6abfda6d63289c3c6d632ff7a67b
-  - path: query2/validate.py
-    sha256: a9e852fda1bbda63d3d1940e129e32d5af4a428c75a78424b4495db02a984d1d
-  - path: query3/ground_truth.csv
-    sha256: 3e18e2dab6f2bdb77a8888916f368ab87ad7a23534560f8159744aff0e245aff
-  - path: query3/query.json
-    sha256: 3413c9ccae6924385e20ca4e5683a2b2bb53e988df87cbd40b2154885824d294
-  - path: query3/validate.py
-    sha256: 0b8dda4ccc5958a7ae292ff782329785ac450ac1ccec890484a6ff5a9f774767
-  - path: query4/ground_truth.csv
-    sha256: 9de6fe1d72659daec67e919b0c473a24da5f03d3d096dc44ead1687240975f7c
-  - path: query4/query.json
-    sha256: e7b8341035f0e32bb2dfe08a1112b2e973bf45ebffde77ec42de102d427f0da3
-  - path: query4/validate.py
-    sha256: 44a9efc64699eb0f99703ef0cb1e37d7c11af5bcfb62974a9f3c5d890af27c14
-  - path: query5/ground_truth.csv
-    sha256: 1527ff4fc7764fd9d086de285177637357747e3d583dcc594151607ea0b3409d
-  - path: query5/query.json
-    sha256: 12f4ad0de8c065b851dd9edb53f9003c58ddd02516c73d7b941c7b08ff432962
-  - path: query5/validate.py
-    sha256: 2c9fd2b1cef51e8e00b5cbefb15dfe4cb8261d726519f394ab4b2dc1f2c05797
-  - path: query6/ground_truth.csv
-    sha256: 6dcb146b0c2b9eafa8588e83f10e655a9db823987fb8638a9fc23d5106cd3d84
-  - path: query6/query.json
-    sha256: 366e380fb2873420a22a287a85a3eeea802bc10985709a0b1ded7eb90aa8736f
-  - path: query6/validate.py
-    sha256: 62d23cae1947acf29b02fdc186e25b10b2d11e223965c6f384fbbab6ccf6a7df
-  - path: query7/ground_truth.csv
-    sha256: b673d6904b108ea9c43d1ce5f49bf549de8b09d5773b27cccfd8af6aaafceea7
-  - path: query7/query.json
-    sha256: 82d93f1e5317b087cb59b785270191915f0d1d542779dc1d7035efe99277689a
-  - path: query7/validate.py
-    sha256: 6a3a4ce64de4fe3abbb7c38f50f0bd5c54ef09506445b384fa9f2f537bb0704e
-  - path: query8/ground_truth.csv
-    sha256: d6272a72f0c9f9e38fd138b0eeda6bd4e26c68c72d409f52a373e96bd8f557a7
-  - path: query8/query.json
-    sha256: c0d1d62e8696fc91c2469b719753ba8c6e4273c3cdeade0f4c58b5d9df5a8408
-  - path: query8/validate.py
-    sha256: f5286f8dadbe0c2d0895b6f0fe4085691fdd2e6ae916e79f2f9293a960c30334
-  - path: query9/ground_truth.csv
-    sha256: 4a95385af451dc995120af71db4be91aeb125c541eb70adc65287dbc3f27a09c
-  - path: query9/query.json
-    sha256: ad49f3909ed2da0fd72a99db50de26652f1a4c7b7b35aead6656092918357a71
-  - path: query9/validate.py
-    sha256: fd1b20664e106209005d1d3f8321d935616927f4529d9a9388098481e6799b78
-  - path: query_dataset/activities.duckdb
-    sha256: f3299b9214885f00c71c9af77d89b62ad73f3e545e3cf5baa4861d1265151c60
-  - path: query_dataset/core_crm.db
-    sha256: aa595797e41db401136a0a68bf14bac44707f9f86ed235f61d9f051728e50506
-  - path: query_dataset/products_orders.db
-    sha256: 92ad52f2a624ee5e0cdf7cd4cc64ac60b1e3f7af2c672be27f651f80af4a6bdb
-  - path: query_dataset/sales_pipeline.duckdb
-    sha256: 5b44cc3754820bff20c3f25e50cf09c6be401f86e69df6b9d3ee7a4cf64ac5af
-  - path: query_dataset/support.sql
-    sha256: 5248cd64cddf4936027859c5d6f74b2d32fbeb4e1939d784b2ff26d45d83950c
-  - path: query_dataset/territory.db
-    sha256: 1a9650d4ba3c0a3690b936d294feb31a3227bf6f2ebe886f74cf12e14936366a
-  shared_files: []
   adaptations:
-  - All rows, duplicates, nulls, strings, trailing whitespace, noisy identifiers,
-    HTML, questions, answers, validators and hint body retained.
-  - SQLite/DuckDB native types retained. Amount and NumberOfEmployees remain float64;
-    fields stored as text stay text even when numeric/date-like.
-  - PostgreSQL TEXT INSERT snapshot parsed without execution using standard_conforming_strings=on.
-    Unquoted SQL identifiers fold to lowercase; quoted Case retains case. Original
-    SQL identifier spellings recorded.
-  - No cleaning, joins, date parsing, amount calculation, business-policy interpretation,
-    answer computation or grading changes.
-  sql_string_interpretation:
-    standard_conforming_strings: 'on'
-    server_setting_verified: false
-    reference: https://www.postgresql.org/docs/current/runtime-config-compatible.html#GUC-STANDARD-CONFORMING-STRINGS
-  export_environment:
-    python: 3.12.8
-    duckdb: 1.4.2
-    pyarrow: 15.0.2
-    PyYAML: 6.0.1
+  - 'SQLite, DuckDB, and PostgreSQL TEXT INSERT inputs were converted without cleaning or joins; rows,
+    duplicates, nulls, empty strings, leading # characters, trailing whitespace, HTML, and multiline text
+    were retained.'
+  - Native numeric types were retained, including float64 Amount and NumberOfEmployees. Numeric-looking
+    and date-looking text was not parsed.
+  - The PostgreSQL snapshot was decoded without SQL execution using standard_conforming_strings=on, preserving
+    literal backslashes; the original server setting was not independently verified.
+  - Unquoted PostgreSQL identifiers fold to lowercase; the quoted Case table retains its capital C. This
+    changes identifier interpretation, not the case of cell values.
 format: parquet
 table_count: 27
 data_size_bytes: 7731427
@@ -395,23 +274,6 @@ tables:
     type: string
   - name: ownerid
     type: string
-  source_constraints:
-    primary_key: []
-  source_sql_identifiers:
-    table: '"Case"'
-    columns:
-    - Id
-    - Priority
-    - Subject
-    - Description
-    - Status
-    - ContactId
-    - CreatedDate
-    - ClosedDate
-    - OrderItemId__c
-    - IssueId__c
-    - AccountId
-    - OwnerId
 - name: knowledge__kav
   path: data/support/knowledge__kav.parquet
   rows: 194
@@ -429,16 +291,6 @@ tables:
     type: string
   - name: urlname
     type: string
-  source_constraints:
-    primary_key: []
-  source_sql_identifiers:
-    table: Knowledge__kav
-    columns:
-    - Id
-    - Title
-    - FAQ_Answer__c
-    - Summary
-    - UrlName
 - name: issue__c
   path: data/support/issue__c.parquet
   rows: 15
@@ -452,14 +304,6 @@ tables:
     type: string
   - name: description__c
     type: string
-  source_constraints:
-    primary_key: []
-  source_sql_identifiers:
-    table: Issue__c
-    columns:
-    - Id
-    - Name
-    - Description__c
 - name: casehistory__c
   path: data/support/casehistory__c.parquet
   rows: 393
@@ -479,17 +323,6 @@ tables:
     type: string
   - name: field__c
     type: string
-  source_constraints:
-    primary_key: []
-  source_sql_identifiers:
-    table: CaseHistory__c
-    columns:
-    - Id
-    - CaseId__c
-    - OldValue__c
-    - NewValue__c
-    - CreatedDate
-    - Field__c
 - name: emailmessage
   path: data/support/emailmessage.parquet
   rows: 5686
@@ -513,19 +346,6 @@ tables:
     type: string
   - name: relatedtoid
     type: string
-  source_constraints:
-    primary_key: []
-  source_sql_identifiers:
-    table: EmailMessage
-    columns:
-    - Id
-    - Subject
-    - TextBody
-    - ParentId
-    - FromAddress
-    - ToIds
-    - MessageDate
-    - RelatedToId
 - name: livechattranscript
   path: data/support/livechattranscript.parquet
   rows: 58
@@ -549,19 +369,6 @@ tables:
     type: string
   - name: contactid
     type: string
-  source_constraints:
-    primary_key: []
-  source_sql_identifiers:
-    table: LiveChatTranscript
-    columns:
-    - Id
-    - CaseId
-    - AccountId
-    - OwnerId
-    - Body
-    - EndTime
-    - LiveChatVisitorId
-    - ContactId
 - name: Order
   path: data/products_orders/Order.parquet
   rows: 163

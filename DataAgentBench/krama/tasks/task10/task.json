@@ -1,6 +1,6 @@
 {
   "task_id": "krama_task10",
   "dataset_id": "krama",
-  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for document and binary representations. Hints are optional and selected by the experiment configuration.",
+  "context": "Use the Parquet tables under data/. See context/description.md for file paths, document and binary representations. Hints are optional and selected by the experiment configuration.",
   "query": "During the geomagnetic storm period captured in the space-track orbital observations for satellite NORAD 58214, what is the mean BSTAR drag coefficient of satellite NORAD 43180 as recorded in its TLE data? Round to 6 decimal places."
 }

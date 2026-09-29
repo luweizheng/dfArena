@@ -1,61 +1,41 @@
 # googlelocal
 
-The original data groups are provided as local Parquet tables.
+The original two data groups are provided as local Parquet tables. They contain Google Maps reviews and business metadata collected up to September 2021 in the United States. Original group names are retained for interpreting the original hints. All file paths are relative to this dataset root.
 
-Original group names remain below for interpreting the original hints. Paths are relative to this dataset directory.
-
-1. review_database
-   - This database is stored in Parquet format and contains review information from Google Maps (reviewer name, ratings, text, etc.) collected up to September 2021 in the United States.
-   - This database consists of one table:
-    - review:
-      - Fields:
-        - name (str): Name of the reviewer
-        - time (str): Timestamp of the review
-        - rating (int): Rating given by the reviewer (1-5 scale)
-        - text (str): Review text content
-        - gmap_id (str): Google Maps business identifier
-
-2. business_database
-   - This database is stored in Parquet format and contains business metadata from Google Maps (business name, description, hours, etc.) collected up to September 2021 in the United States.
-   - This database consists of one table:
-    - business_description
-      - Fields:
-        - name (str): Business name
-        - gmap_id (str): Google Maps business identifier (links to review_database)
-        - description (str): Business description
-        - num_of_reviews (int): Total number of reviews for this business
-        - hours (string containing structured text): Operating hours information
-        - MISC (string containing structured text): Additional miscellaneous business information
-        - state (str): Business operating status (e.g., open, closed, temporarily closed)
-
-## Files and physical column types
-
-### business_description
-
-File: `data/business/business_description.parquet`
-
-| Column | Arrow type |
-|---|---|
-| `name` | string |
-| `gmap_id` | string |
-| `description` | string |
-| `num_of_reviews` | int64 |
-| `hours` | string |
-| `MISC` | string |
-| `state` | string |
+## review_database
 
 ### review
 
+Google Maps review information, including reviewer names, ratings, and text.
+
 File: `data/review/review.parquet`
 
-| Column | Arrow type |
-|---|---|
-| `name` | string |
-| `time` | string |
-| `rating` | int64 |
-| `text` | string |
-| `gmap_id` | string |
+| Column | Arrow type | Description |
+|---|---|---|
+| `name` | string | Name of the reviewer |
+| `time` | string | Timestamp of the review |
+| `rating` | int64 | Rating given by the reviewer (1-5 scale) |
+| `text` | string | Review text content |
+| `gmap_id` | string | Google Maps business identifier |
 
-## Preservation
+## business_database
 
-Original rows, duplicate records, nulls, empty strings, numeric values, column names, and text formatting are preserved. Structured text is not parsed or normalized. Textual markers such as bracketed annotations remain strings and are not replaced with nulls. Date-like and number-like text remains text. No joins, sample selection, aggregation, missing-value imputation, or answer computation has been performed. Additional original guidance is in context/hints.md when enabled by the experiment configuration.
+### business_description
+
+Google Maps business metadata, including names, descriptions, and operating hours.
+
+File: `data/business/business_description.parquet`
+
+| Column | Arrow type | Description |
+|---|---|---|
+| `name` | string | Business name |
+| `gmap_id` | string | Google Maps business identifier (links to review_database) |
+| `description` | string | Business description |
+| `num_of_reviews` | int64 | Total number of reviews for this business |
+| `hours` | string | Operating hours information; stored as structured text |
+| `MISC` | string | Additional miscellaneous business information; stored as structured text |
+| `state` | string | Business operating status (e.g., open, closed, temporarily closed) |
+
+## Representation
+
+Structured text, bracketed annotations, and date-like or number-like text are strings. Additional guidance is in context/hints.md when enabled by the experiment configuration.

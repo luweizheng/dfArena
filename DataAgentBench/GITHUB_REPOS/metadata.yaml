@@ -1,70 +1,17 @@
 dataset_id: GITHUB_REPOS
 version: '1.0'
-domain: software repositories
+domain: software
 source:
   benchmark: DataAgentBench
   dataset: query_GITHUB_REPOS
-  task_mapping:
-    GITHUB_REPOS_task1: query1
-    GITHUB_REPOS_task2: query2
-    GITHUB_REPOS_task3: query3
-    GITHUB_REPOS_task4: query4
-  files:
-  - path: db_config.yaml
-    sha256: 528a10e2a1827882af97d47514733cddb8264e81cb4e4d6dd2bcff6d8cab6cd5
-  - path: db_description.txt
-    sha256: 9a14a7a391f729498b51334a52612fa3c7f917d0c18d8f691a807834de63379c
-  - path: db_description_withhint.txt
-    sha256: 6105987c80e9aa6d1690dca00d8bdc770ade5daf9c48f84aa75de8ea6c1353dd
-  - path: query1/ground_truth.csv
-    sha256: 44899c6b8dd5da879dd0c12ea41f1f5218b6327404f3064953d2826e7818c262
-  - path: query1/query.json
-    sha256: c1ec5a8a222f1df528c246e18cc7791cfc5ffd5bdba3cd3da1f6362a526bd40f
-  - path: query1/validate.py
-    sha256: c8e979be70776b67ee32372ac1e77b75f7474946809dc81d4941821bf5683bd5
-  - path: query2/ground_truth.csv
-    sha256: 689b9dfba8e2eb25ac4b38c639986b31668cc9248a03231cf89786093f5f60f4
-  - path: query2/query.json
-    sha256: d643fbf44aef32f8b5f4c24cc5ab9ffc642ac2b5a6a52b6f7bae65b8087b632b
-  - path: query2/validate.py
-    sha256: 782a94fd3f78285d3035fcaa2b9de187c4a8a599b8203c9433f6aaa9ba1c83ef
-  - path: query3/ground_truth.csv
-    sha256: 6a70cf66bae386ff7cd4896ce681c5488bab0c20d69a4615b28b49fb1e805295
-  - path: query3/query.json
-    sha256: be348f0f9207fd049040a6cb3785a2e7d18a24aeb5d75a877e34e28d7916e0f0
-  - path: query3/validate.py
-    sha256: e415c60c301c0376ee0c9b922390efa20500d5e23dd24fc574d2c000603c4f7c
-  - path: query4/ground_truth.csv
-    sha256: 4931116a06cb21d15c4482bece3a8beda131539ef5bdb31a1b9433db2dc15607
-  - path: query4/query.json
-    sha256: e19192b4f504d1c0dd8f61c13b36022f95a0f125fa82a5383d893a6bc0f63f88
-  - path: query4/validate.py
-    sha256: b6d8110867225717a23f9e217f5586f8b32639b80a57d7d4bbd3f05cbc8d8287
-  - path: query_dataset/repo_artifacts.db
-    sha256: d514c66eb07403f79b8da2ff6a79a6c82f2d862cadaf71d536ea58644cd07bbc
-  - path: query_dataset/repo_metadata.db
-    sha256: e9b71beb5d7e2b344f996baf19fb34231c24ab354019d65bd14a1cbfc62c67a1
-  shared_files:
-  - path: common_scaffold/validate/levenshtein.py
-    sha256: 77c2cc868169345908261ad9c14bec48f29f6e25f4b690607c2936fefefa67c1
-    copied_into_answer_for:
-    - task2
-    - task4
   adaptations:
-  - All database tables exported read-only to Parquet with source physical types and
-    every row preserved.
-  - Questions, hint body, ground truths, and validators preserved. Required shared
-    Levenshtein helper copied byte-identically into evaluation-only answer directories.
-  - Description adapted to paths and measured types; no normalization, joins, or answer
-    recomputation.
-  - Windows-reserved PRN filename, when present, uses PRN__table.parquet; original
-    table name is retained in metadata.
-  export_environment:
-    python: 3.12.8
-    sqlite: 3.47.2
-    duckdb: 1.4.2
-    pyarrow: 15.0.2
-    PyYAML: 6.0.1
+  - All configured database tables were exported read-only to Parquet with original physical types, every
+    row, duplicates, nulls, empty strings, and text formatting retained; no joins, deduplication, imputation,
+    or answer computation was performed.
+  - Dates, content, commit metadata, language descriptions, and JSON-like values remain text; numeric
+    values were not rounded and embedded text was not executed.
+  - difference_truncated remains double and entirely null, despite being described as a boolean in the
+    source documentation.
 format: parquet
 table_count: 6
 data_size_bytes: 271830309

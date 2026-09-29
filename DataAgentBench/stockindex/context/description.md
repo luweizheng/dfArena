@@ -22,7 +22,7 @@ File: `data/indextrade/index_trade.parquet`
 | Column | Parquet / Arrow type | Description |
 |---|---|---|
 | `Index` | `string` | Abbreviated index symbol. |
-| `Date` | `string` | Trading date represented using mixed textual formats. |
+| `Date` | `string` | Trading date represented using mixed textual formats; parse its textual values for date-based analysis. |
 | `Open` | `double` | Opening price. |
 | `High` | `double` | Highest price during the day. |
 | `Low` | `double` | Lowest price during the day. |
@@ -33,7 +33,5 @@ File: `data/indextrade/index_trade.parquet`
 ## Relationships and interpretation
 
 `index_info.Exchange` stores full exchange names, whereas `index_trade.Index` stores index symbols. The tables do not expose a shared join key. Geographic regions are not stored as explicit columns.
-
-`Date` remains a string column; parse its textual values when performing date-based analysis. No date normalization or new mapping columns were introduced during this layout migration.
 
 Additional domain and calculation guidance is available in `context/hints.md` when enabled by the experiment configuration.

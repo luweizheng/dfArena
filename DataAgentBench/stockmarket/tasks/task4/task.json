@@ -1,6 +1,6 @@
 {
   "task_id": "stockmarket_task4",
   "dataset_id": "stockmarket",
-  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.",
+  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions. Hints are optional and selected by the experiment configuration.",
   "query": "What are the names (not symbol) of the top 5 non-ETF stocks listed on the New York Stock Exchange (NYSE) that had more up days than down days in 2017? (Up days: closing price > opening price; Down days: closing price < opening price)"
 }

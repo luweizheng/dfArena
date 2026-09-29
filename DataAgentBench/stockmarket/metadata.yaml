@@ -1,79 +1,16 @@
 dataset_id: stockmarket
 version: '1.0'
-domain: stock market
+domain: finance
 source:
   benchmark: DataAgentBench
   dataset: query_stockmarket
-  task_mapping:
-    stockmarket_task1: query1
-    stockmarket_task2: query2
-    stockmarket_task3: query3
-    stockmarket_task4: query4
-    stockmarket_task5: query5
-  files:
-  - path: db_config.yaml
-    sha256: 2a5a60ca2ad14195da7f6d98eab8efe7c665ebfb9f149bbb42befa63fab5efd2
-  - path: db_description.txt
-    sha256: e795a9ef086b388149f0d31bd422f688b5930fa11e80131adf506e09689b9c89
-  - path: db_description_withhint.txt
-    sha256: b915c5cdafca960929cab6f3fc0ff0f1167b83bfaf7417e2535e70aa6ed047a2
-  - path: query1/ground_truth.csv
-    sha256: 50af6be4c15cde023a1ac26b4980de1a058ceece741f0878bb6251b34a6d8fa3
-  - path: query1/query.json
-    sha256: ec4541f3706936b4950c984be32b011dee7c47cf0333b75c2f45a59d93a29c4d
-  - path: query1/validate.py
-    sha256: 58282597518b0432ab5d15c0f7845ae97d93a9d8dd66549c840f0c98fa9c815e
-  - path: query2/ground_truth.csv
-    sha256: 6e6a09f82a445daab52a178dca62db5ef4e17d6601dc642a1f5496cd5382c008
-  - path: query2/query.json
-    sha256: 1dfdfba655707afbb3e02084a572b173b79e20e47be036f413975ecd57664473
-  - path: query2/validate.py
-    sha256: be6ef9996c48d357291d87b8e572d20311d8cb6b05a3a6e9702f8d93dad8d63d
-  - path: query3/ground_truth.csv
-    sha256: ec679a6a984e44cb0277ab3055dee81ec38ce377ff9218b07791bef9fb6aaf7c
-  - path: query3/query.json
-    sha256: 0770ab30b8e79b9af5a3e91d0dd180a1d5f4708981a6c48f8ebf2716baf55010
-  - path: query3/validate.py
-    sha256: 948ed2b64b2ea8de48c11034c8c4e2772b5ca7dbdf898f8ff816bea407b227cb
-  - path: query4/ground_truth.csv
-    sha256: 615d35632dae90d0b38723f1bc50cc59f6838dd34432f58b2063d5effaecd27d
-  - path: query4/query.json
-    sha256: 01590225dde474c7496ca27c8c79a15a908da8b1388eef730d8b660146c59bc7
-  - path: query4/validate.py
-    sha256: 09538392d54f1c68d9aac70e5d7d1c692cebe3a743078067b211bbf0909d7f8d
-  - path: query5/ground_truth.csv
-    sha256: 55dc0939bfb90a11fb976ed7741c6802c8e5b23b150ca6637a5accd48b94b622
-  - path: query5/query.json
-    sha256: a40bc9e12f4723c5b54e3661c8d58518854e0cef2abf330612215d5de2fedd53
-  - path: query5/validate.py
-    sha256: 8f0e5b28bad6e209a6509662e7fab27d2a0a8114228dd04b49a2851dbefc95c4
-  - path: query_dataset/stockinfo_query.db
-    sha256: b8cf6b5627c92e17c10e27779afa8aa77c659e44bd4ccc14b10f1116053bc6a2
-  - path: query_dataset/stocktrade_query.db
-    sha256: e9cbf3c4d05d2eeb919c5b207374aefd19aa02e40dca49f2688618beb180350d
-  shared_files:
-  - path: common_scaffold/validate/levenshtein.py
-    sha256: 77c2cc868169345908261ad9c14bec48f29f6e25f4b690607c2936fefefa67c1
-    copied_into_answer_for:
-    - task2
-    - task3
-    - task4
-    - task5
   adaptations:
-  - All database tables exported read-only to Parquet with source physical types and
-    every row preserved.
-  - Questions, hint body, ground truths, and validators preserved. Required shared
-    Levenshtein helper copied byte-identically into evaluation-only answer directories.
-  - Description adapted to paths and measured types; no normalization, joins, or answer
-    recomputation.
-  - Windows-reserved PRN filename, when present, uses PRN__table.parquet; original
-    table name is retained in metadata.
-  export_environment:
-    python: 3.12.8
-    sqlite: 3.47.2
-    duckdb: 1.4.2
-    pyarrow: 15.0.2
-    PyYAML: 6.0.1
+  - All configured database tables were exported read-only to Parquet with physical types, rows, duplicates,
+    nulls, empty strings, and text formatting retained; dates remain strings and numeric values were not
+    rounded.
+  - The Windows-reserved table name PRN uses the filename PRN__table.parquet; its table name remains PRN.
+  - The CARR# price table was retained without inventing a matching stockinfo symbol. No joins, deduplication,
+    missing-value imputation, or answer computation were performed.
 format: parquet
 table_count: 2754
 data_size_bytes: 151072435

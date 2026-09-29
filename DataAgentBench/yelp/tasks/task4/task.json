@@ -1,6 +1,6 @@
 {
   "task_id": "yelp_task4",
   "dataset_id": "yelp",
-  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions and reversible dictionary encoding. Hints are optional and selected by the experiment configuration.",
+  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions and reversible dictionary encoding. Hints are optional and selected by the experiment configuration.",
   "query": "Which business category has the largest number of businesses that accept credit card payments, and what is its average rating?"
 }

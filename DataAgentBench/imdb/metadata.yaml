@@ -1,114 +1,18 @@
 dataset_id: imdb
 version: '1.0'
-domain: film and television credits
+domain: media_culture
 source:
   benchmark: DataAgentBench
   dataset: query_imdb
-  task_mapping:
-    imdb_task1: query1
-    imdb_task2: query2
-    imdb_task3: query3
-    imdb_task4: query4
-    imdb_task5: query5
-    imdb_task6: query6
-    imdb_task7: query7
-    imdb_task8: query8
-    imdb_task9: query9
-    imdb_task10: query10
-  files:
-  - path: db_config.yaml
-    sha256: 4a159a971d228920a8d3d1b1dca61efe4a029821f47ecfa813790cfd88379c25
-  - path: db_description.txt
-    sha256: 7f73e85d27d799bdbdff23d7ac1643d823a056cde83bc576e11bccddb383472f
-  - path: db_description_withhint.txt
-    sha256: e54421e1a71b25081c5cf212bce5a66849ca25dba3f893a2d0e37bcb04b948ca
-  - path: query1/ground_truth.csv
-    sha256: 19b1d006334418a711efc9912a6d2a2bcdc74e990cc4c7b0184ac52509b61b17
-  - path: query1/query.json
-    sha256: c793097ab4a44e8ee577da16fd05af0e85f94efbf9dbe88d4c58b85e6bc631ed
-  - path: query1/validate.py
-    sha256: d1a938560fdf9885473f80e10d461ad6d531c401a3119894ef459b3012fad919
-  - path: query10/ground_truth.csv
-    sha256: 93f13d28b25c5e8bfdf62e6908cd52dfff60316ab3a8ae819055da6e32d4d96d
-  - path: query10/query.json
-    sha256: f031e597be8e3df4bbdd9803e70ea5a8b84da58f9e2efe5b143804a74f4f3e4d
-  - path: query10/validate.py
-    sha256: 3da28cc851109b898ef94bcf283c3c282e7fae6261925fe9d0e22b4e20943d0b
-  - path: query2/ground_truth.csv
-    sha256: 9f98a882d2eab9027516d47ba341abd533af2d9fb317ededdd75e680eb7f08b3
-  - path: query2/query.json
-    sha256: 01454a4638d80b611edd5f4b0cd61ca521c6b3c1a64aeb65829af597ed31a3b0
-  - path: query2/validate.py
-    sha256: 9b4ff3b212a4622b91c86e994908e806b28ec1164cc487c8494d06f1a3609011
-  - path: query3/ground_truth.csv
-    sha256: c793c33bc76cd0af3b036a2a156f6c73cfbcc4e5ec7df72ca3d4db3cdc1f2407
-  - path: query3/query.json
-    sha256: 5bac637a7c0f8fa24dffffe7ed7558a855317227f638e57d67bd101bc5072525
-  - path: query3/validate.py
-    sha256: 4aeba96123896310c7b375705cf85c55337a34494be33b4208c6a9567bff6962
-  - path: query4/ground_truth.csv
-    sha256: dd4d4418a6bebfaab7f2af292fb9e060f390d9872b0808a6c08b8c53fe265843
-  - path: query4/query.json
-    sha256: 366626c94f4ec2f075db15598dc465e80912b35601eb6bbf9427d724557d49cb
-  - path: query4/validate.py
-    sha256: 21390b4fc71ed37db1fb833449aa96a18dc73f0634f44071e41ce35ed39d0c7a
-  - path: query5/ground_truth.csv
-    sha256: 33d40cfde7d5a7dcfb080ba7cf7a9b6305c9e321185afdf4f4753f128f7e656b
-  - path: query5/query.json
-    sha256: f8a1a358d62316d7e71cc5b8df0ca2740f1c464dcf4459285b3ea95977fd22bc
-  - path: query5/validate.py
-    sha256: eb437c2a2f0e625870d874be4f570979d18793076937edffe25fdace34a3f91f
-  - path: query6/ground_truth.csv
-    sha256: b062e3fcb946ba90a77e12f8eb95a5a399f805d858873878e528fc6a81faa654
-  - path: query6/query.json
-    sha256: 33c93f6cff1b2fa1942488fb45c4f9601a73294a1e00eada44fe387d2c026c90
-  - path: query6/validate.py
-    sha256: da0339de482eac9949b3b98407ba2601d6538f6bbee99776c855f9e6362d9ca4
-  - path: query7/ground_truth.csv
-    sha256: 735d6dccb4c58fcf9ae02785a6b1206a54ae7ca7bdcf1b492a39411d853cb5d7
-  - path: query7/query.json
-    sha256: a9f380213e0ffa6951de64e2651249eb49751bacd6f46313a6d7c72c4b7e3891
-  - path: query7/validate.py
-    sha256: 61ec6a59f9c1d399d1522e8c41034c8986147ba70e82ce5bbe32e4bb0218e875
-  - path: query8/ground_truth.csv
-    sha256: 83490d031803c52dd17b45f464fec1b884c5c731268ef3e2e4d7694aa3bac757
-  - path: query8/query.json
-    sha256: bf0dc7b997c7848097b14182074f970d4f08b82b4abcaf6b0ebdb221d02b3e9c
-  - path: query8/validate.py
-    sha256: 028d49ac777fe0f7baafcbd89af0bdfc160ba5bb7384a2ab7aac5704141ac572
-  - path: query9/ground_truth.csv
-    sha256: 4391f6bf9d3e405f96592a4fb66c03558b0a35cc7c1e00eaf47eddfcb799e9e7
-  - path: query9/query.json
-    sha256: 47ecd58d5dc8589dd585d4cf9dae15d59622d8a3292a1f4b126d24ea18a6575b
-  - path: query9/validate.py
-    sha256: 00014b7a06b4b54f51b87cc4eb3313433734e938f72d2ad9c300ca3529366cc8
-  - path: query_dataset/.BC.T_mQ3SIh
-    sha256: e5e8756a6970a91c10cefc558d3a5e8ea54786bef951223f367a6f4e90da7a96
-  - path: query_dataset/movies.sql
-    sha256: 9ef5452628ec8d07fbdc283fdb420168bd97b718dda25648087f2fe178bb1daa
-  - path: query_dataset/people.sqlite
-    sha256: ba583402740f2f5ef42b5be7ac1dd4c47a0cac990ddf7332575e203b976c1b10
-  shared_files: []
   adaptations:
-  - Full PostgreSQL COPY CSV and SQLite contents converted without cleaning or normalization.
-    No SQL statements executed.
-  - PostgreSQL INTEGER retained as int32, SQLite INTEGER as int64, all original TEXT
-    as string. Quoted/unquoted CSV null markers distinguished.
-  - Questions, answers, validators and hint body retained. No formal AI run or ground-truth
-    recomputation.
-  copy_csv:
-    format: CSV
-    delimiter: tab
-    null_marker: \N
-    quoted_null_marker_is_text: true
-    encoding: UTF8
-    postgres_server_restore_performed: false
-    sql_literal_setting: standard_conforming_strings=on for the COPY NULL option;
-      original server setting not measured
-    reference: https://www.postgresql.org/docs/current/sql-copy.html#SQL-COPY-FILE-FORMATS
-  export_environment:
-    python: 3.12.8
-    pyarrow: 15.0.2
+  - Full PostgreSQL COPY CSV and SQLite contents were converted without SQL execution, cleaning, sorting,
+    normalization, joins, numeric extraction, or deduplication; rows, nulls, empty strings, Unicode, punctuation,
+    and encoded identifiers were retained.
+  - PostgreSQL INTEGER remains int32, SQLite INTEGER remains int64, and TEXT remains string.
+  - 'COPY input was tab-delimited UTF-8 CSV: unquoted \N denotes null, quoted \N is literal text, and
+    empty strings remain empty. Quoting and embedded newlines were decoded as format syntax.'
+  - The COPY NULL option was interpreted with standard_conforming_strings=on; the original server setting
+    was not measured.
 format: parquet
 table_count: 21
 data_size_bytes: 1539912696

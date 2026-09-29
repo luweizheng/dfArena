@@ -58,6 +58,6 @@ GitHub project information.
 
 ## Representation
 
-Text, empty strings, nulls, duplicate records, column names, and column order are preserved. JSON-like text is not parsed or normalized. Version strings are not sorted or interpreted during migration. The numeric columns SLSAProvenance, Purl, and OSSFuzz are entirely null in this snapshot and retain their source-declared numeric types. No extra project keys, joins, deduplication, or derived metrics have been added.
+SLSAProvenance, Purl, and OSSFuzz are entirely null in this snapshot.
 
 Additional relationship guidance is available in `context/hints.md` when enabled by the experiment configuration.

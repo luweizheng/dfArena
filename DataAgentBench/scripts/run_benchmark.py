@@ -10,7 +10,7 @@ from results import save, summarize
 from runners.agents import add_agent_options, add_model_options, settings, label_for, validate_label, forwarded_options
 
 
-def main():
+def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--dataset', type=Path, required=True)
     p.add_argument('--task', required=True)
@@ -18,9 +18,11 @@ def main():
     p.add_argument('--image', default='dfarena-agent-sandbox:latest')
     p.add_argument('--timeout', type=int, default=600)
     p.add_argument('--evaluation-timeout', type=int, default=120)
+    p.add_argument('--complete-requirements', action='store_true',
+                   help='Enable hints and include full description and hints in the generation prompt.')
     add_agent_options(p)
     add_model_options(p)
-    a = p.parse_args()
+    a = p.parse_args(argv)
     a.agent_model = label_for(a, settings(a))
     if a.timeout <= 0 or a.evaluation_timeout <= 0:
         p.error('Timeouts must be positive')
@@ -42,6 +44,8 @@ def main():
                '--backend',a.backend,'--timeout',str(a.timeout),*forwarded_options(a)]
     if a.model:
         command += ['--model',a.model]
+    if a.complete_requirements:
+        command.append('--complete-requirements')
     g = subprocess.run(command)
     if g.returncode == 0:
         subprocess.run([sys.executable,str(scripts/'evaluate.py'),*common,'--timeout',str(a.evaluation_timeout)])

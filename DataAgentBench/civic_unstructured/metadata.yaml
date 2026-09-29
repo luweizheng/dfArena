@@ -1,106 +1,16 @@
 dataset_id: civic_unstructured
 version: '1.0'
-domain: civic meeting documents and funding
+domain: public_sector
 source:
   benchmark: DataAgentBench
   dataset: query_civic_unstructured
-  task_mapping:
-    civic_unstructured_task1: query1
-    civic_unstructured_task2: query2
-    civic_unstructured_task3: query3
-    civic_unstructured_task4: query4
-    civic_unstructured_task5: query5
-    civic_unstructured_task6: query6
-    civic_unstructured_task7: query7
-    civic_unstructured_task8: query8
-    civic_unstructured_task9: query9
-    civic_unstructured_task10: query10
-  files:
-  - path: db_config.yaml
-    sha256: c77b780f76b401b5f09d19726e99fff6f23951f0f3ebaa95ff365a6850ddcd5d
-  - path: db_description.txt
-    sha256: ad4a6fe272636a3799ac5dbf5957959e702df521bd31a82584a1744a0e89c444
-  - path: db_description_withhint.txt
-    sha256: 3ef37f578b25adff02b689dc49be763231a12d459665a13c87c6d847e662475a
-  - path: query1/ground_truth.csv
-    sha256: 51796076b40f754b0e91f9f14a1b71261b75d2247ec851fe29a5d98d8e64a8bb
-  - path: query1/query.json
-    sha256: 478b10a51b6c113a2ff243187a70c3eda78c51169855cc72b94a57344d7600d5
-  - path: query1/validate.py
-    sha256: a396dfc707b0a4b789cb97d71d706800db84a42f80b8140171e9384fb2b48afc
-  - path: query10/ground_truth.csv
-    sha256: ade62648f7942d279aa4f30ac2cbcc24324063665d5957700d2a731596bb9e0a
-  - path: query10/query.json
-    sha256: 0f122a8b31d6437696806a179c605cc375f8b9927345ad94927f0787d002b3d0
-  - path: query10/validate.py
-    sha256: 91330e6b5237efd23331ff9536981bb448b885f0ec4b08bf4a5c4525f47f2ac6
-  - path: query2/ground_truth.csv
-    sha256: a784f17af0836ffecb8909392460e16523fb387a29a0b67456abb45c5e264e01
-  - path: query2/query.json
-    sha256: 67e1a5c7067c1ee50d4bd0c9ce53618ebabc469aa2cd52c5a80f97aa729be2cf
-  - path: query2/validate.py
-    sha256: 236e1a16fb849f52e94459701105cd0ca8632cba5148acf336f8402a4c160e8a
-  - path: query3/ground_truth.csv
-    sha256: 052c9ec3a82986ed41a447c0d4f63284e8e4ff10bdde6d3055ccb50de14daa84
-  - path: query3/query.json
-    sha256: aa4dad7d1cd220f7d77da443765ac16716fbffb785ab7a9945cedc853bcbbd5c
-  - path: query3/validate.py
-    sha256: a540e9a014276d31a68f44fadec6dcd104d101dab05f4cc338563f5e2aad7e2a
-  - path: query4/ground_truth.csv
-    sha256: e993927bfaa2760a6a1210e9d4586ba33c222321f792918abd8f57c5ac95674e
-  - path: query4/query.json
-    sha256: 4510a767209e3ab2d4856cb73efb704fc11ff61a0d77fde4a09582d2de6cd38c
-  - path: query4/validate.py
-    sha256: 03badfb8ef33f2426421edb27489c3b3dd34cc202a6360bafa3eac1e0bbdfc69
-  - path: query5/ground_truth.csv
-    sha256: 1e4f417027ca74ab39db589804efcdc825174b3d49b0c18fb4444fa6c18e6f21
-  - path: query5/query.json
-    sha256: 798b7753a803fd9b6ea858ec1f73b45c761ad5304eb27833763d54ee2aafaa8a
-  - path: query5/validate.py
-    sha256: 04dcefd2978667fb4039d720e54699c3884babcc6de249ebcbe478d90e3110ba
-  - path: query6/ground_truth.csv
-    sha256: a0d0e8868e22cb21e894745381b45165a6e6f1e194849c52baadafac99a0a122
-  - path: query6/query.json
-    sha256: c7ebbe9df618af350208be2fa75c622f4ce5bfc507870ed33f5ba43fa18d62d4
-  - path: query6/validate.py
-    sha256: f3c8e7b5c984647cdf0a6c122ffab83d40fcba6bc14ce4bf100eedd6b6a5e709
-  - path: query7/ground_truth.csv
-    sha256: 38870c2d48454d46ce5e2d7f0e7b8abbe362bad5c24e4e3d57cc6be4c936bc60
-  - path: query7/query.json
-    sha256: 0c1176f587a90ec671b194cf71ef605be962e5e5a790f94a6c328f7567de5e66
-  - path: query7/validate.py
-    sha256: cbd3eec6b6158bfb2f7dfb128f760579d6b5be62ff24bbc91649f3148543e4f7
-  - path: query8/ground_truth.csv
-    sha256: 31668a35e68261699637bc06cb853f70fec9c61b1573c8d060a83f25feb54fa6
-  - path: query8/query.json
-    sha256: cbab82b223e19aae99e6d785143fa1dce585f7bb591920f8be711f97fadb6db5
-  - path: query8/validate.py
-    sha256: 92822ce3655aa749c37904ac8b5950dfdcda5c12729553ac08c0fbd8276ef971
-  - path: query9/ground_truth.csv
-    sha256: 4b6c9c1b50f0eea305f93eeaa85726a395102368009009aa4f3b1952dc53b77c
-  - path: query9/query.json
-    sha256: 8b7d7e519f573176d9ff4a3f6c60bb7ba2f53ba9272cbfc74db8e703611caf77
-  - path: query9/validate.py
-    sha256: 0a62ed854d0531f492d98e2181b97708305dd5801101dbce8cbda420bbaf8d63
-  - path: query_dataset/civic_docs_dump/civic_db/civic_docs.bson
-    sha256: 57fd5ff32b81478b696b6af7583dfd64744c01b3ed6bf112b3f8ee00c2e45bce
-  - path: query_dataset/funding.db
-    sha256: 7e2e209f30c79917882db69ef379e0d4f58be23e7117e6caf14c31ebdbbfefc3
-  shared_files: []
   adaptations:
-  - Flat BSON decoded with official PyMongo; all present source fields retained, no
-    generated identifiers.
-  - MongoDB ObjectId encoded reversibly as 24-character lowercase hexadecimal text;
-    BSON int32 retained as int32.
-  - SQLite read-only export preserves physical values and types. Every input row remains
-    in original order.
-  - Original questions, ground truths, validators, and hint body preserved. No classification
-    or information extraction performed.
-  export_environment:
-    python: 3.12.8
-    pymongo: 4.16.0
-    pyarrow: 15.0.2
-    PyYAML: 6.0.1
+  - Flat BSON documents and SQLite funding records were exported to Parquet with all rows, original order,
+    duplicates, strings, and nulls retained.
+  - civic_docs._id uses reversible 24-character lowercase hexadecimal ObjectId text. BSON int32 and SQLite
+    INTEGER retain int32 and int64; dates remain strings.
+  - Each agenda remains one complete text cell. No project extraction, name matching, status labeling,
+    date correction, noise removal, or funding aggregation was performed.
 format: parquet
 table_count: 2
 data_size_bytes: 45767
@@ -118,11 +28,6 @@ tables:
     type: string
   - name: report_content
     type: string
-  bson_field_encoding:
-    _id: objectid_hex
-    report_id: string
-    report_content: string
-  original_bson_path: query_dataset/civic_docs_dump/civic_db/civic_docs.bson
 - name: Funding
   path: data/funding/Funding.parquet
   rows: 746

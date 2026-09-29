@@ -4,112 +4,13 @@ The six original data groups are provided as local Parquet tables.
 
 The original group names are retained. File paths below are relative to the dataset root.
 
-1. core_crm
-   - This database is provided as Parquet tables and contains core CRM data including users, accounts, and contacts from Salesforce CRMArena.
-   - This database consists of three tables:
-    - User: Sales team information
-      - Fields: Id, FirstName, LastName, Email, Phone, Username, Alias, LanguageLocaleKey, EmailEncodingKey, TimeZoneSidKey, LocaleSidKey
-    - Account: Company/customer data
-      - Fields: Id, Name, Phone, Industry, Description, NumberOfEmployees, ShippingState
-    - Contact: Individual contacts
-      - Fields: Id, FirstName, LastName, Email, AccountId
+## core_crm
 
-2. sales_pipeline
-   - This database is provided as Parquet tables and contains sales pipeline data including opportunities, quotes, contracts, and leads.
-   - This database consists of six tables:
-     - Contract: Signed contracts
-      - Fields: Id, AccountId, Status, StartDate, CustomerSignedDate, CompanySignedDate, Description, ContractTerm
-     - Lead: Sales leads
-      - Fields: Id, FirstName, LastName, Email, Phone, Company, Status, ConvertedContactId, ConvertedAccountId, Title, CreatedDate, ConvertedDate, IsConverted, OwnerId
-     - Opportunity: Sales deals
-      - Fields: Id, ContractID__c, AccountId, ContactId, OwnerId, Probability, Amount, StageName, Name, Description, CreatedDate, CloseDate
-     - OpportunityLineItem: Deal line items
-      - Fields: Id, OpportunityId, Product2Id, PricebookEntryId, Quantity, TotalPrice
-     - Quote: Price quotes
-      - Fields: Id, OpportunityId, AccountId, ContactId, Name, Description, Status, CreatedDate, ExpirationDate
-     - QuoteLineItem: Quote details
-      - Fields: Id, QuoteId, OpportunityLineItemId, Product2Id, PricebookEntryId, Quantity, UnitPrice, Discount, TotalPrice
-
-3. support
-   - This database is provided as Parquet tables and contains customer support data including cases, knowledge articles, and communications.
-   - This database consists of six tables:
-     - Case: Support cases
-      - Fields: id, priority, subject, description, status, contactid, createddate, closeddate, orderitemid__c, issueid__c, accountid, ownerid
-     - knowledge__kav: Knowledge articles
-      - Fields: id, title, faq_answer__c, summary, urlname
-     - issue__c: Custom issues
-      - Fields: id, name, description__c
-     - casehistory__c: Case history
-      - Fields: id, caseid__c, oldvalue__c, newvalue__c, createddate, field__c
-     - emailmessage: Email communications
-      - Fields: id, subject, textbody, parentid, fromaddress, toids, messagedate, relatedtoid
-     - livechattranscript: Chat logs
-      - Fields: id, caseid, accountid, ownerid, body, endtime, livechatvisitorid, contactid
-
-4. products_orders
-   - This database is provided as Parquet tables and contains product catalog and order data.
-   - This database consists of seven tables:
-     - ProductCategory: Product categories
-      - Fields: Id, Name, CatalogId
-     - Product2: Product catalog
-      - Fields: Id, Name, Description, IsActive, External_ID__c
-     - ProductCategoryProduct: one of the pricing and mapping tables
-      - Fields: Id, ProductCategoryId, ProductId
-     - Pricebook2: one of the pricing and mapping tables
-      - Fields: Id, Name, Description, IsActive, ValidFrom, ValidTo
-     - PricebookEntry: one of the pricing and mapping tables
-      - Fields: Id, Pricebook2Id, Product2Id, UnitPrice
-     - Order: Customer orders
-      - Fields: Id, AccountId, Status, EffectiveDate, Pricebook2Id, OwnerId
-     - OrderItem: Order details
-      - Fields: Id, OrderId, Product2Id, Quantity, UnitPrice, PriceBookEntryId
-
-5. activities
-   - This database is provided as Parquet tables and contains activity data including tasks, events, and voice call transcripts.
-   - This database consists of three tables:
-     - Event: Calendar events
-      - Fields: Id, WhatId, OwnerId, StartDateTime, Subject, Description, DurationInMinutes, Location, IsAllDayEvent
-     - Task: Activities and tasks
-      - Fields: Id, WhatId, OwnerId, Priority, Status, ActivityDate, Subject, Description
-     - VoiceCallTranscript__c: Call records
-      - Fields: Id, OpportunityId__c, LeadId__c, Body__c, CreatedDate, EndTime__c
-
-6. territory
-   - This database is provided as Parquet tables and contains sales territory management data.
-   - This database consists of two tables:
-     - Territory2: Sales territories
-      - Fields: Id, Name, Description
-     - UserTerritory2Association: Territory assignments
-      - Id, UserId, Territory2Id
-## Files and measured physical types
-
-### Account
-
-File: `data/core_crm/Account.parquet`
-
-| Column | Arrow type |
-|---|---|
-| `Id` | string |
-| `Name` | string |
-| `Phone` | string |
-| `Industry` | string |
-| `Description` | string |
-| `NumberOfEmployees` | double |
-| `ShippingState` | string |
-
-### Contact
-
-File: `data/core_crm/Contact.parquet`
-
-| Column | Arrow type |
-|---|---|
-| `Id` | string |
-| `FirstName` | string |
-| `LastName` | string |
-| `Email` | string |
-| `AccountId` | string |
+This database is provided as Parquet tables and contains core CRM data including users, accounts, and contacts from Salesforce CRMArena. This database consists of three tables.
 
 ### User
+
+Sales team information
 
 File: `data/core_crm/User.parquet`
 
@@ -127,7 +28,43 @@ File: `data/core_crm/User.parquet`
 | `TimeZoneSidKey` | string |
 | `LocaleSidKey` | string |
 
+### Account
+
+Company/customer data
+
+File: `data/core_crm/Account.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `Name` | string |
+| `Phone` | string |
+| `Industry` | string |
+| `Description` | string |
+| `NumberOfEmployees` | double |
+| `ShippingState` | string |
+
+### Contact
+
+Individual contacts
+
+File: `data/core_crm/Contact.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `FirstName` | string |
+| `LastName` | string |
+| `Email` | string |
+| `AccountId` | string |
+
+## sales_pipeline
+
+This database is provided as Parquet tables and contains sales pipeline data including opportunities, quotes, contracts, and leads. This database consists of six tables.
+
 ### Contract
+
+Signed contracts
 
 File: `data/sales_pipeline/Contract.parquet`
 
@@ -143,6 +80,8 @@ File: `data/sales_pipeline/Contract.parquet`
 | `ContractTerm` | string |
 
 ### Lead
+
+Sales leads
 
 File: `data/sales_pipeline/Lead.parquet`
 
@@ -165,6 +104,8 @@ File: `data/sales_pipeline/Lead.parquet`
 
 ### Opportunity
 
+Sales deals
+
 File: `data/sales_pipeline/Opportunity.parquet`
 
 | Column | Arrow type |
@@ -184,6 +125,8 @@ File: `data/sales_pipeline/Opportunity.parquet`
 
 ### OpportunityLineItem
 
+Deal line items
+
 File: `data/sales_pipeline/OpportunityLineItem.parquet`
 
 | Column | Arrow type |
@@ -196,6 +139,8 @@ File: `data/sales_pipeline/OpportunityLineItem.parquet`
 | `TotalPrice` | string |
 
 ### Quote
+
+Price quotes
 
 File: `data/sales_pipeline/Quote.parquet`
 
@@ -213,6 +158,8 @@ File: `data/sales_pipeline/Quote.parquet`
 
 ### QuoteLineItem
 
+Quote details
+
 File: `data/sales_pipeline/QuoteLineItem.parquet`
 
 | Column | Arrow type |
@@ -227,7 +174,13 @@ File: `data/sales_pipeline/QuoteLineItem.parquet`
 | `Discount` | string |
 | `TotalPrice` | string |
 
+## support
+
+This database is provided as Parquet tables and contains customer support data including cases, knowledge articles, and communications. This database consists of six tables.
+
 ### Case
+
+Support cases
 
 File: `data/support/Case.parquet`
 
@@ -248,6 +201,8 @@ File: `data/support/Case.parquet`
 
 ### knowledge__kav
 
+Knowledge articles
+
 File: `data/support/knowledge__kav.parquet`
 
 | Column | Arrow type |
@@ -260,6 +215,8 @@ File: `data/support/knowledge__kav.parquet`
 
 ### issue__c
 
+Custom issues
+
 File: `data/support/issue__c.parquet`
 
 | Column | Arrow type |
@@ -269,6 +226,8 @@ File: `data/support/issue__c.parquet`
 | `description__c` | string |
 
 ### casehistory__c
+
+Case history
 
 File: `data/support/casehistory__c.parquet`
 
@@ -282,6 +241,8 @@ File: `data/support/casehistory__c.parquet`
 | `field__c` | string |
 
 ### emailmessage
+
+Email communications
 
 File: `data/support/emailmessage.parquet`
 
@@ -298,6 +259,8 @@ File: `data/support/emailmessage.parquet`
 
 ### livechattranscript
 
+Chat logs
+
 File: `data/support/livechattranscript.parquet`
 
 | Column | Arrow type |
@@ -311,33 +274,51 @@ File: `data/support/livechattranscript.parquet`
 | `livechatvisitorid` | string |
 | `contactid` | string |
 
-### Order
+## products_orders
 
-File: `data/products_orders/Order.parquet`
+This database is provided as Parquet tables and contains product catalog and order data. This database consists of seven tables.
 
-| Column | Arrow type |
-|---|---|
-| `Id` | string |
-| `AccountId` | string |
-| `Status` | string |
-| `EffectiveDate` | string |
-| `Pricebook2Id` | string |
-| `OwnerId` | string |
+### ProductCategory
 
-### OrderItem
+Product categories
 
-File: `data/products_orders/OrderItem.parquet`
+File: `data/products_orders/ProductCategory.parquet`
 
 | Column | Arrow type |
 |---|---|
 | `Id` | string |
-| `OrderId` | string |
-| `Product2Id` | string |
-| `Quantity` | string |
-| `UnitPrice` | string |
-| `PriceBookEntryId` | string |
+| `Name` | string |
+| `CatalogId` | string |
+
+### Product2
+
+Product catalog
+
+File: `data/products_orders/Product2.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `Name` | string |
+| `Description` | string |
+| `IsActive` | int64 |
+| `External_ID__c` | string |
+
+### ProductCategoryProduct
+
+one of the pricing and mapping tables
+
+File: `data/products_orders/ProductCategoryProduct.parquet`
+
+| Column | Arrow type |
+|---|---|
+| `Id` | string |
+| `ProductCategoryId` | string |
+| `ProductId` | string |
 
 ### Pricebook2
+
+one of the pricing and mapping tables
 
 File: `data/products_orders/Pricebook2.parquet`
 
@@ -352,6 +333,8 @@ File: `data/products_orders/Pricebook2.parquet`
 
 ### PricebookEntry
 
+one of the pricing and mapping tables
+
 File: `data/products_orders/PricebookEntry.parquet`
 
 | Column | Arrow type |
@@ -361,39 +344,43 @@ File: `data/products_orders/PricebookEntry.parquet`
 | `Product2Id` | string |
 | `UnitPrice` | string |
 
-### Product2
+### Order
 
-File: `data/products_orders/Product2.parquet`
+Customer orders
 
-| Column | Arrow type |
-|---|---|
-| `Id` | string |
-| `Name` | string |
-| `Description` | string |
-| `IsActive` | int64 |
-| `External_ID__c` | string |
-
-### ProductCategory
-
-File: `data/products_orders/ProductCategory.parquet`
+File: `data/products_orders/Order.parquet`
 
 | Column | Arrow type |
 |---|---|
 | `Id` | string |
-| `Name` | string |
-| `CatalogId` | string |
+| `AccountId` | string |
+| `Status` | string |
+| `EffectiveDate` | string |
+| `Pricebook2Id` | string |
+| `OwnerId` | string |
 
-### ProductCategoryProduct
+### OrderItem
 
-File: `data/products_orders/ProductCategoryProduct.parquet`
+Order details
+
+File: `data/products_orders/OrderItem.parquet`
 
 | Column | Arrow type |
 |---|---|
 | `Id` | string |
-| `ProductCategoryId` | string |
-| `ProductId` | string |
+| `OrderId` | string |
+| `Product2Id` | string |
+| `Quantity` | string |
+| `UnitPrice` | string |
+| `PriceBookEntryId` | string |
+
+## activities
+
+This database is provided as Parquet tables and contains activity data including tasks, events, and voice call transcripts. This database consists of three tables.
 
 ### Event
+
+Calendar events
 
 File: `data/activities/Event.parquet`
 
@@ -411,6 +398,8 @@ File: `data/activities/Event.parquet`
 
 ### Task
 
+Activities and tasks
+
 File: `data/activities/Task.parquet`
 
 | Column | Arrow type |
@@ -426,6 +415,8 @@ File: `data/activities/Task.parquet`
 
 ### VoiceCallTranscript__c
 
+Call records
+
 File: `data/activities/VoiceCallTranscript__c.parquet`
 
 | Column | Arrow type |
@@ -437,7 +428,13 @@ File: `data/activities/VoiceCallTranscript__c.parquet`
 | `CreatedDate` | string |
 | `EndTime__c` | string |
 
+## territory
+
+This database is provided as Parquet tables and contains sales territory management data. This database consists of two tables.
+
 ### Territory2
+
+Sales territories
 
 File: `data/territory/Territory2.parquet`
 
@@ -449,6 +446,8 @@ File: `data/territory/Territory2.parquet`
 
 ### UserTerritory2Association
 
+Territory assignments
+
 File: `data/territory/UserTerritory2Association.parquet`
 
 | Column | Arrow type |
@@ -457,8 +456,6 @@ File: `data/territory/UserTerritory2Association.parquet`
 | `UserId` | string |
 | `Territory2Id` | string |
 
-## Preservation and source naming
+## Representation
 
-All rows, duplicate records, nulls, empty strings, leading # characters, trailing whitespace, HTML and multiline text remain unchanged. Numeric-looking and date-looking text is not parsed. Actual NumberOfEmployees and Amount fields are float64; other physical types are listed above. No joins or cleaning have been performed.
-
-In the support group, unquoted SQL table and column names are lowercase under PostgreSQL naming rules. The explicitly quoted table "Case" retains its capital C. These are the physical Parquet names; metadata also records the original SQL spellings. This is identifier interpretation only and never changes the case of any cell value. Ordinary SQL string literals are decoded with standard_conforming_strings=on, preserving literal backslashes.
+In the support group, physical table and column names are lowercase except for the table "Case", whose capital C is significant. Numeric-looking and date-looking text is stored as text; NumberOfEmployees and Amount are float64.

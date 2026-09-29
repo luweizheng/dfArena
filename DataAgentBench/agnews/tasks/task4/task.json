@@ -1,6 +1,6 @@
 {
   "task_id": "agnews_task4",
   "dataset_id": "agnews",
-  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.",
+  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions. Hints are optional and selected by the experiment configuration.",
   "query": "In 2015, which region published the largest number of articles in the World category?"
 }

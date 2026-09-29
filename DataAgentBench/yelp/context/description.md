@@ -1,141 +1,97 @@
 # yelp
 
-The original two data groups are exposed as local Parquet tables.
+The original two data groups are exposed as local Parquet tables. Original group names are retained for interpreting the original hints. All file paths are relative to this dataset root.
 
-Original group names remain below for interpreting the original hints. File paths are relative to this dataset root.
+## businessinfo_database
 
-1. businessinfo_database
-   - This database is provided as Parquet tables and contains metadata and user check-in records for Yelp businesses. It captures business attributes, service descriptions, operating hours, and user visit timestamps.
-   - This database consists of two collections:
-     - business
-       - This collection contains metadata for businesses listed on Yelp, including names, identifiers, operational status, attributes, business hours, and service/location descriptions.
-       - Fields:
-         - _id (string): Original MongoDB ObjectId encoded reversibly as 24 lowercase hexadecimal characters
-         - business_id (str): Unique business identifier
-         - name (str): Business name
-         - review_count (int): Total number of reviews
-         - is_open (int): Whether business is currently open (1=open, 0=closed)
-         - attributes (JSON object text or null): Business attributes (parking, WiFi, etc.)
-         - hours (JSON object text or null): Operating hours
-         - description (str): Business description including location information
+Business metadata and user check-in records for Yelp businesses, covering business attributes, service descriptions, operating hours, and user visit timestamps.
 
-     - checkin
-       - This collection records the check-in behavior of Yelp users at various businesses, capturing the timestamped log of user presence.
-       - Fields:
-         - _id (string): Original MongoDB ObjectId encoded reversibly as 24 lowercase hexadecimal characters
-         - business_id (str): Business identifier linking to business collection
-         - date (str): Original comma-separated check-in timestamp text; it is not a BSON list in this snapshot
+### business
 
-2. user_database
-   - This database is provided as Parquet tables and contains user profiles and user-generated content from Yelp, including written reviews, tips, and engagement statistics such as review counts, votes, and elite status.
-   - This database consists of three tables:
-     - review
-       - This table contains user-generated reviews of businesses on Yelp, including rating scores, review content, and metadata such as user and business reference identifiers.
-       - Fields:
-         - review_id (str): Unique review identifier
-         - user_id (str or null): User identifier
-         - business_ref (str): Business identifier linking to the business collection
-         - rating (int): Rating score (1-5)
-         - useful (int): Useful votes received
-         - funny (int): Funny votes received
-         - cool (int): Cool votes received
-         - text (str): Review text content
-         - date (str): Review date
+Metadata for businesses listed on Yelp, including names, identifiers, operational status, attributes, business hours, and service/location descriptions.
 
-     - tip
-       - This table contains short user tips about Yelp businesses, usually concise suggestions or comments, along with optional compliments and timestamps.
-       - Fields:
-         - user_id (str or null): User identifier
-         - business_ref (str): Business identifier linking to the business collection
-         - text (str): Tip text content
-         - date (str): Tip date
-         - compliment_count (int): Number of compliments received
+File: `data/businessinfo/business.parquet`
 
-     - user
-       - This table contains user profile information from Yelp, including activity statistics and membership history.
-       - Fields:
-         - user_id (str): Unique user identifier
-         - name (str): User name
-         - review_count (int): Total reviews written by user
-         - yelping_since (str): Registration date
-         - useful (int): Total useful votes received
-         - funny (int): Total funny votes received
-         - cool (int): Total cool votes received
-         - elite (str): Elite status years
+| Column | Arrow type | Description |
+|---|---|---|
+| `_id` | string | Original MongoDB ObjectId encoded reversibly as 24 lowercase hexadecimal characters |
+| `business_id` | string | Unique business identifier |
+| `name` | string | Business name |
+| `review_count` | int32 | Total number of reviews |
+| `is_open` | int32 | Whether business is currently open (1=open, 0=closed) |
+| `attributes` | string | Business attributes (parking, WiFi, etc.); may be null; stored as JSON object text |
+| `hours` | string | Operating hours; may be null; stored as JSON object text |
+| `description` | string | Business description including location information |
+
+### checkin
+
+Timestamped log of user presence at Yelp businesses.
+
+File: `data/businessinfo/checkin.parquet`
+
+| Column | Arrow type | Description |
+|---|---|---|
+| `_id` | string | Original MongoDB ObjectId encoded reversibly as 24 lowercase hexadecimal characters |
+| `business_id` | string | Business identifier linking to business collection |
+| `date` | string | Original comma-separated check-in timestamp text; it is not a BSON list in this snapshot |
+
+## user_database
+
+User profiles and user-generated content from Yelp, including written reviews, tips, and engagement statistics such as review counts, votes, and elite status.
+
+### review
+
+User-generated reviews of businesses on Yelp, including rating scores, review content, and user and business reference identifiers.
+
+File: `data/user/review.parquet`
+
+| Column | Arrow type | Description |
+|---|---|---|
+| `review_id` | string | Unique review identifier |
+| `user_id` | string | User identifier; may be null |
+| `business_ref` | string | Business identifier linking to the business collection |
+| `rating` | int64 | Rating score (1-5) |
+| `useful` | int64 | Useful votes received |
+| `funny` | int64 | Funny votes received |
+| `cool` | int64 | Cool votes received |
+| `text` | string | Review text content |
+| `date` | string | Review date |
+
+### tip
+
+Short user tips about Yelp businesses, usually concise suggestions or comments, with optional compliments and timestamps.
+
+File: `data/user/tip.parquet`
+
+| Column | Arrow type | Description |
+|---|---|---|
+| `user_id` | string | User identifier; may be null |
+| `business_ref` | string | Business identifier linking to the business collection |
+| `text` | string | Tip text content |
+| `date` | string | Tip date |
+| `compliment_count` | int64 | Number of compliments received |
+
+### user
+
+User profile information, including activity statistics and membership history.
+
+File: `data/user/user.parquet`
+
+| Column | Arrow type | Description |
+|---|---|---|
+| `user_id` | string | Unique user identifier |
+| `name` | string | User name |
+| `review_count` | int64 | Total reviews written by user |
+| `yelping_since` | string | Registration date |
+| `useful` | int64 | Total useful votes received |
+| `funny` | int64 | Total funny votes received |
+| `cool` | int64 | Total cool votes received |
+| `elite` | string | Elite status years |
+
 ## Dictionary representation
 
 `attributes` and `hours` preserve their original dictionaries as JSON object text. A source null remains a Parquet null; an empty object, when present, is JSON `{}`. An absent dictionary key is not added with a null value. The original key order and string values are retained. Decode non-null cells with a JSON parser when dictionary access is needed. All attribute values in this snapshot are strings: text such as `True`, `False`, `None`, `u'no'`, and parking descriptions is not converted to booleans, nulls, or nested objects. Do not treat these strings as executable code.
 
-## Files and measured physical types
+## Representation
 
-### business
-
-File: `data/businessinfo/business.parquet`
-
-| Column | Arrow type |
-|---|---|
-| `_id` | string |
-| `business_id` | string |
-| `name` | string |
-| `review_count` | int32 |
-| `is_open` | int32 |
-| `attributes` | string |
-| `hours` | string |
-| `description` | string |
-
-### checkin
-
-File: `data/businessinfo/checkin.parquet`
-
-| Column | Arrow type |
-|---|---|
-| `_id` | string |
-| `business_id` | string |
-| `date` | string |
-
-### review
-
-File: `data/user/review.parquet`
-
-| Column | Arrow type |
-|---|---|
-| `review_id` | string |
-| `user_id` | string |
-| `business_ref` | string |
-| `rating` | int64 |
-| `useful` | int64 |
-| `funny` | int64 |
-| `cool` | int64 |
-| `text` | string |
-| `date` | string |
-
-### tip
-
-File: `data/user/tip.parquet`
-
-| Column | Arrow type |
-|---|---|
-| `user_id` | string |
-| `business_ref` | string |
-| `text` | string |
-| `date` | string |
-| `compliment_count` | int64 |
-
-### user
-
-File: `data/user/user.parquet`
-
-| Column | Arrow type |
-|---|---|
-| `user_id` | string |
-| `name` | string |
-| `review_count` | int64 |
-| `yelping_since` | string |
-| `useful` | int64 |
-| `funny` | int64 |
-| `cool` | int64 |
-| `elite` | string |
-
-## Preservation
-
-Every original record, repeated row, null, empty string, and text character is retained. Check-in timestamps remain one string per source document. Business identifier prefixes and reference fields remain unchanged; interpret their relationship using the original optional hints. No location/category extraction, joins, cleaning, deduplication, rating aggregation, attribute truth-value inference, or answer computation has been performed. Dates remain strings; BSON integers remain int32 and DuckDB BIGINT remains int64.
+Dates are strings. Interpret business identifier prefixes and reference fields using the optional hints.

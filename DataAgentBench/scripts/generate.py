@@ -22,7 +22,7 @@ BACKENDS = {
 
 
 def build_prompt(dataset, task, backend_instruction, *, complete_requirements=False):
-    prompt = f'''Solve this DataAgentBench task. Read only /workspace/data, /workspace/context, and /workspace/task.json. Put code and intermediate files under /workspace/work. Do not modify /workspace/data. Do not read hidden answers, validators, reference solutions, or other runs. Use this backend: {backend_instruction} Generate /workspace/work/solution.py, execute it, repair failures, and write /workspace/work/answer.json with exactly {{"answer": "<concise final answer>"}}. Do not hard-code the answer.
+    prompt = f'''Solve this DataAgentBench task. Read only /workspace/data, /workspace/context, and /workspace/task.json. Resolve dataset-relative paths from /workspace. Put code and intermediate files under /workspace/work. Do not modify the input files. Do not read hidden answers, validators, reference solutions, or other runs. Use this backend: {backend_instruction} Generate /workspace/work/solution.py, execute it, repair failures, and write /workspace/work/answer.json with exactly {{"answer": "<concise final answer>"}}. Do not hard-code the answer.
 
 Context: {task.get("context", "")}
 Question: {task.get("query", "")}'''
@@ -54,7 +54,7 @@ Question: {task.get("query", "")}'''
     return prompt, delivery
 
 
-def main():
+def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--dataset', type=Path, required=True)
     p.add_argument('--task', required=True)
@@ -66,7 +66,7 @@ def main():
                    help='Enable hints and include full description and hints as equally binding task requirements.')
     add_agent_options(p)
     add_model_options(p)
-    a = p.parse_args()
+    a = p.parse_args(argv)
     info = settings(a)
     label = label_for(a, info)
     if a.timeout <= 0:

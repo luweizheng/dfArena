@@ -1,6 +1,6 @@
 {
   "task_id": "googlelocal_task4",
   "dataset_id": "googlelocal",
-  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.",
+  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions. Hints are optional and selected by the experiment configuration.",
   "query": "Which 3 businesses received the highest number of reviews with ratings of 4.5 or higher during 2019? Include their names and the count of high-rating reviews."
 }

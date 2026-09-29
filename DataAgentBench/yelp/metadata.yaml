@@ -1,88 +1,19 @@
 dataset_id: yelp
 version: '1.0'
-domain: businesses and user reviews
+domain: business
 source:
   benchmark: DataAgentBench
   dataset: query_yelp
-  task_mapping:
-    yelp_task1: query1
-    yelp_task2: query2
-    yelp_task3: query3
-    yelp_task4: query4
-    yelp_task5: query5
-    yelp_task6: query6
-    yelp_task7: query7
-  files:
-  - path: db_config.yaml
-    sha256: c782c74ef5df85627e3993ab194cb6d0ee7350789546cfed80eea97566e59f41
-  - path: db_description.txt
-    sha256: 345e23f2306d398c0fee113a043504a2599d2ec11d7d98d8f82f132fbcde8f34
-  - path: db_description_withhint.txt
-    sha256: 81cf2d9f99f12a778bf6412bc57b1cb334ec14457b282418653f314ee9062806
-  - path: query1/ground_truth.csv
-    sha256: f9aa63a7dcac4c43d4acae18d8ccb68c2e5b23525f73ff81aabddc085c7374ad
-  - path: query1/query.json
-    sha256: 6d7feb548d68d731ea7c3b4cfeed0cc86bd796d4aaf4f142cd00ba02307d0be8
-  - path: query1/validate.py
-    sha256: 30d1f2535c4fea561260aa3e5e59fa3af25a98b0528557b11ba5af09f9a27475
-  - path: query2/ground_truth.csv
-    sha256: f2fd172bdd95984ea02defc781aae756565790ae2615ee6d7401586f3ed87545
-  - path: query2/query.json
-    sha256: 271ac8527fd063db0d58911d55429175cdb815d83fc39ba6b3794bafcda0e027
-  - path: query2/validate.py
-    sha256: aa1e9fe46484d1319fe7da725441e34d6c2008672a990ccc8424b75fa19a582b
-  - path: query3/ground_truth.csv
-    sha256: 90d7ec0f0acef104d8b6252794295f661a0149634868d02a1ae0c358099638f5
-  - path: query3/query.json
-    sha256: 1dcf772c1298a4df34e9f486ff9ae56dfd6e379fcef4986dbff6f00967af99a1
-  - path: query3/validate.py
-    sha256: c79185af0b0bc5d163d2c617fc853f724ecf30142e903978363e7ad82a4fb4ee
-  - path: query4/ground_truth.csv
-    sha256: 519c2fcda71548e2d22a68931d0aa885ed7459dde1416bbb20d14d3644f76820
-  - path: query4/query.json
-    sha256: 23ec6db6b39fb023c42c753c3b8a834190220b4bfe994bb69c7580fdedcd0080
-  - path: query4/validate.py
-    sha256: fb27e15bd68c5671fd1e152790d220bdd78c88270e398c0ccc4a91ee28b31ed2
-  - path: query5/ground_truth.csv
-    sha256: c8834cf007b7200fcb1f8914094868f330100fbeef81c84725479192b1e4c197
-  - path: query5/query.json
-    sha256: 26cb0e7d3cadead760b4201dfadfacf333aa6b143637b72c31d6609cd8db8848
-  - path: query5/validate.py
-    sha256: b9e2d3c797b7e51b13cdfdc62896a4dd074bb3135168e57e7faad5b8de52859b
-  - path: query6/ground_truth.csv
-    sha256: 163131e85c1522811b148b586ff479dcdb3d737ad134890daf9c886455d9b64b
-  - path: query6/query.json
-    sha256: 5b9b951319a32b32a070b29ea598f25332afb5529f92926f8268eedb07a49114
-  - path: query6/validate.py
-    sha256: 14b3488f8a0b35c69167d93fee30db11f02d2552c2003fd24e2061eb6f7d38b0
-  - path: query7/ground_truth.csv
-    sha256: 9e9d5fee0d199805a6470697df357f3888aae3606ca8c0304b969fcb4ce721dc
-  - path: query7/query.json
-    sha256: 5f226f1a026b89cc7d22903987c215df6837d561ebc193f607c12ccb48e40d3f
-  - path: query7/validate.py
-    sha256: b35b9f67c8c915c9e06d02b1abacfe853655b45cb34aef30e5ee972d84a21caf
-  - path: query_dataset/yelp_business/yelp_db/business.bson
-    sha256: 3aed3f77a2b0360b0f431decc63aaa0fd69e539a3fe4cb7e08f5ea081eb65c01
-  - path: query_dataset/yelp_business/yelp_db/checkin.bson
-    sha256: 879afe04080efd1bfc405109eb87efe4b127bf52d1c749224ca5e9c2f914fc6c
-  - path: query_dataset/yelp_user.db
-    sha256: 155ecf989e62e0d087ed9d4586893e6825ab56504bc5e62ad46d454067f9b730
-  shared_files: []
   adaptations:
-  - BSON ObjectId encoded as reversible 24-character lowercase hexadecimal text.
-  - BSON attributes/hours dictionaries encoded as JSON object text; source null remains
-    Parquet null, absent keys remain absent, original string values and key order
-    retained.
-  - Check-in date is actually a string, preserved without splitting into a list; description
-    corrected to actual storage.
-  - All original records, other scalar types, questions, answers, validators, and
-    hint body retained; no task-solving operations performed.
-  export_environment:
-    python: 3.12.8
-    pymongo: 4.16.0
-    duckdb: 1.4.2
-    pyarrow: 15.0.2
-    PyYAML: 6.0.1
+  - BSON ObjectId values use reversible 24-character lowercase hexadecimal text.
+  - business.attributes and hours use JSON object text, preserving object-key order and original string
+    values. Source null remains Parquet null; absent keys remain absent; empty objects remain {}. Values
+    were not evaluated as code or converted to booleans.
+  - Each check-in date remains its original string rather than a list. Other dates remain strings; BSON
+    integers retain int32 and DuckDB BIGINT retains int64.
+  - Rows, repeated records, nulls, empty strings, text characters, business identifier prefixes, and references
+    were retained without location/category extraction, joins, cleaning, deduplication, rating aggregation,
+    or truth-value inference.
 format: parquet
 table_count: 5
 data_size_bytes: 755705
@@ -110,16 +41,6 @@ tables:
     type: string
   - name: description
     type: string
-  bson_field_encoding:
-    _id: objectid_hex
-    business_id: string
-    name: string
-    review_count: int32
-    is_open: int32
-    attributes: json_object_string_or_null
-    hours: json_object_string_or_null
-    description: string
-  original_bson_path: query_dataset/yelp_business/yelp_db/business.bson
 - name: checkin
   path: data/businessinfo/checkin.parquet
   rows: 90
@@ -133,11 +54,6 @@ tables:
     type: string
   - name: date
     type: string
-  bson_field_encoding:
-    _id: objectid_hex
-    business_id: string
-    date: string
-  original_bson_path: query_dataset/yelp_business/yelp_db/checkin.bson
 - name: review
   path: data/user/review.parquet
   rows: 2000

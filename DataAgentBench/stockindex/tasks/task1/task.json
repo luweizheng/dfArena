@@ -1,6 +1,6 @@
 {
   "task_id": "stockindex_task1",
-  "context": "Use the provided Parquet tables under data/. Dataset-relative file paths and table statistics are listed in metadata.yaml; table schemas and field descriptions are in context/description.md. Additional guidance in context/hints.md is available only when enabled by the experiment configuration.",
+  "context": "Use the provided Parquet tables under data/. Dataset-relative file paths, table schemas, and field descriptions are in context/description.md. Additional guidance in context/hints.md is available only when enabled by the experiment configuration.",
   "query": "Which stock index in the Asia region has exhibited the highest average intraday volatility since 2020?",
   "dataset_id": "stockindex"
 }

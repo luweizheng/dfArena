@@ -1,6 +1,6 @@
 {
   "task_id": "krama_task6",
   "dataset_id": "krama",
-  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for document and binary representations. Hints are optional and selected by the experiment configuration.",
+  "context": "Use the Parquet tables under data/. See context/description.md for file paths, document and binary representations. Hints are optional and selected by the experiment configuration.",
   "query": "From 2008 to 2016 (inclusive at both ends), what is the bacterial exceedance rate (as a percentage, rounded to 2 decimal places) of the beach with the lowest average water temperature among all temperature readings collected in that period?"
 }

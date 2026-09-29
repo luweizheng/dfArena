@@ -1,6 +1,6 @@
 {
   "task_id": "PATENTS_task3",
   "dataset_id": "PATENTS",
-  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions. Hints are optional and selected by the experiment configuration.",
+  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions. Hints are optional and selected by the experiment configuration.",
   "query": "Which assignees, excluding UNIV CALIFORNIA itself, have cited patents assigned to UNIV CALIFORNIA, and what are the titles of the primary CPC subclasses associated with these citations? Please provide the name of each citing assignee together with the full title of the CPC subclass."
 }

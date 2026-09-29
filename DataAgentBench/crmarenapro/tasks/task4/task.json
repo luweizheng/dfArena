@@ -1,6 +1,6 @@
 {
   "task_id": "crmarenapro_task4",
   "dataset_id": "crmarenapro",
-  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions and measured physical types. Hints are optional and selected by the experiment configuration.",
+  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions and measured physical types. Hints are optional and selected by the experiment configuration.",
   "query": "Is there a particular month in the past 10 months where the number of SecureAnalytics Pro cases significantly exceeds those of other months? The associated product Id is 01tWt000006hVJdIAM. Return only the month name.\n\n- Today's date: 2021-04-10"
 }

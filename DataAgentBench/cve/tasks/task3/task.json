@@ -1,6 +1,6 @@
 {
   "task_id": "cve_task3",
   "dataset_id": "cve",
-  "context": "Use the Parquet tables under data/. See metadata.yaml for paths and context/description.md for field descriptions and reversible JSON encoding. Hints are optional and selected by the experiment configuration.",
+  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions and reversible JSON encoding. Hints are optional and selected by the experiment configuration.",
   "query": "How many entries in CISA's Known Exploited Vulnerabilities (KEV) catalog reference a CVE identifier for which there is NO matching record in the NVD vulnerability database (vulns_db)?"
 }

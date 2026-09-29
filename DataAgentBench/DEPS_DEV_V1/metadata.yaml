@@ -1,48 +1,16 @@
 dataset_id: DEPS_DEV_V1
 version: '1.0'
-domain: software packages and projects
+domain: software
 source:
   benchmark: DataAgentBench
   dataset: query_DEPS_DEV_V1
-  task_mapping:
-    DEPS_DEV_V1_task1: query1
-    DEPS_DEV_V1_task2: query2
-  files:
-  - path: db_config.yaml
-    sha256: fb41b42f81a17377459e5d80415360e91641d4b3dbbf06e039eb17a01fec0c3e
-  - path: db_description.txt
-    sha256: cc42969175de961c82d1660b44f4c49eeeac5476cb2442234a5aa9ad5a45278a
-  - path: db_description_withhint.txt
-    sha256: b19a9ab19dc779942a8b4838cc89d1a30992e5a99c54485162594f81db25a6e5
-  - path: query1/ground_truth.csv
-    sha256: 336cef76f717fb738b2a3128a1bec0bb863bc6a5cc981b9ab863475a4c542ad2
-  - path: query1/query.json
-    sha256: 0cedd62ce3f61e3fa7d45f1db9809b912273bded66b13310823fed671607c0a5
-  - path: query1/validate.py
-    sha256: 691a1910f0eb76e20b7d0652141584320b5bcfcaa399f07d8601f0dbc00c2d35
-  - path: query2/ground_truth.csv
-    sha256: e4b12f8c8d92b6c2feff844047e10aa6355358dae4cd24b9cb4192947ce353a8
-  - path: query2/query.json
-    sha256: 5fe660eaae9c882a79e1afcb8e91baccdfaf88a0aa59197e3ac1a790fb2f4aed
-  - path: query2/validate.py
-    sha256: e7c49325c40ebc7a028f27dd5d677e22485e7acfed456ba6e029f6bdb03d480d
-  - path: query_dataset/package_query.db
-    sha256: 6676259f784aa89aec838a3e4a74bc68793085e49520c819b2356205a6eaf68a
-  - path: query_dataset/project_query.db
-    sha256: e6b171594cbb8dbb5298b54206b235a396b0eee9dd8c2c68deefab8d76c72e6a
   adaptations:
-  - Read-only SQLite and DuckDB exports to Parquet, without cleaning, joins, or aggregation.
-  - Original SQLite 0/1 integer flags retained as int64; REAL/DOUBLE columns retained
-    as double, including all-null columns.
-  - Structured text and timestamp numeric values preserved; timestamp unit unresolved.
-  - Questions, ground truths, validators, and hint body preserved; description adapted
-    to paths and physical types.
-  export_environment:
-    python: 3.12.8
-    sqlite: 3.47.2
-    duckdb: 1.4.2
-    pyarrow: 15.0.2
-    PyYAML: 6.0.1
+  - Read-only SQLite and DuckDB exports retain rows, duplicates, nulls, empty strings, column names, and
+    column order without cleaning, joins, deduplication, or derived metrics.
+  - SQLite 0/1 flags remain int64; REAL/DOUBLE columns remain double, including the entirely null SLSAProvenance,
+    Purl, and OSSFuzz columns.
+  - JSON-like text, version strings, and numeric timestamps were not parsed, sorted, or normalized. The
+    timestamp unit remains unresolved.
 format: parquet
 table_count: 3
 data_size_bytes: 58814997
@@ -51,18 +19,75 @@ tables:
   path: data/package/packageinfo.parquet
   rows: 661372
   columns: 15
+  schema:
+  - name: System
+    type: string
+  - name: Name
+    type: string
+  - name: Version
+    type: string
+  - name: Licenses
+    type: string
+  - name: Links
+    type: string
+  - name: Advisories
+    type: string
+  - name: VersionInfo
+    type: string
+  - name: Hashes
+    type: string
+  - name: DependenciesProcessed
+    type: int64
+  - name: DependencyError
+    type: int64
+  - name: UpstreamPublishedAt
+    type: double
+  - name: Registries
+    type: string
+  - name: SLSAProvenance
+    type: double
+  - name: UpstreamIdentifiers
+    type: string
+  - name: Purl
+    type: double
   size_bytes: 54173698
   sha256: 05d46c8dbe33c625735608511e5aa00ede7c090c03ad78931ba54acd35c92ff2
 - name: project_info
   path: data/project/project_info.parquet
   rows: 770
   columns: 5
+  schema:
+  - name: Project_Information
+    type: string
+  - name: Licenses
+    type: string
+  - name: Description
+    type: string
+  - name: Homepage
+    type: string
+  - name: OSSFuzz
+    type: double
   size_bytes: 54048
   sha256: 9cfb3365cde0d7cb72e9bf6deec77ff0f99fc19aea20e2756b0ec095a64caa9b
 - name: project_packageversion
   path: data/project/project_packageversion.parquet
   rows: 597602
   columns: 7
+  schema:
+  - name: System
+    type: string
+  - name: Name
+    type: string
+  - name: Version
+    type: string
+  - name: ProjectType
+    type: string
+  - name: ProjectName
+    type: string
+  - name: RelationProvenance
+    type: string
+  - name: RelationType
+    type: string
   size_bytes: 4587251
   sha256: c7ef3c783e0ab2342c73d83603e4a58b3f3465a5817ad91df139eeecf60bdc77
 context:

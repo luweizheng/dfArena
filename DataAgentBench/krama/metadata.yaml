@@ -1,109 +1,22 @@
 dataset_id: krama
 version: '1.0'
-domain: cross-domain documents, geospatial and binary assets
+domain: geospatial
 source:
   benchmark: DataAgentBench
   dataset: query_krama
-  task_mapping:
-    krama_task1: query1
-    krama_task2: query2
-    krama_task3: query3
-    krama_task4: query4
-    krama_task5: query5
-    krama_task6: query6
-    krama_task7: query7
-    krama_task8: query8
-    krama_task9: query9
-    krama_task10: query10
-  files:
-  - path: db_config.yaml
-    sha256: 65f5e9653742375684fa1e79e4df0205a8aee9479936b8e1207a8e99616224e9
-  - path: db_description.txt
-    sha256: c367d7aa8db40d265059cb7a3c067a878c40e7a2e6d336c488e7d8149cc92005
-  - path: db_description_withhint.txt
-    sha256: 2e753f717738183f546285a6fe818d934a9be30aa19fe0c69e753ef4535aec9a
-  - path: query1/ground_truth.csv
-    sha256: 0e39fb5a446ccd5de5de8610fac6d3a9519ecf3cb518cd12d09ef0fb9987184d
-  - path: query1/query.json
-    sha256: 763a1ff345f7e214d0229962d6db17485ab78a7a74d0255cf13387226846d740
-  - path: query1/validate.py
-    sha256: c87cbc1a558f8111ffec10cf4e743f2065e8953732f2d7ffd2e5bd8fff01c4f5
-  - path: query10/ground_truth.csv
-    sha256: 2f2666abb156c8bb6f5683ec0a1aa144489619b737b7af0288632c2331f587af
-  - path: query10/query.json
-    sha256: 256d200f622fe5e202d25d9eebcb60dd4247affb4cf440b7cf4392a6979a8941
-  - path: query10/validate.py
-    sha256: e16c6a925ac09b46dd70d3ba4c41a2f17c540845542ac50c9540ab27e1e2c4cd
-  - path: query2/ground_truth.csv
-    sha256: 3520cdd3e83b99ea2ef48ec47e0058301d8b558b31ac6a8120353e03e2eb1515
-  - path: query2/query.json
-    sha256: deaa6387c35af3a7f07095b742b5d67ca8196ff43fe2ff02b11cd32b403d3471
-  - path: query2/validate.py
-    sha256: 4558b5fdcffc364de56afa8d0d998a0a9c1e5041bfbe7e11e910f224eb241df2
-  - path: query3/ground_truth.csv
-    sha256: 368ce695345f3dddf55bdac0ba394fe34a66cbc5222037fd9bbf428bce66315d
-  - path: query3/query.json
-    sha256: c0df64487d7b1c548ef4cda0b1548a4ae7bf87e54f55f7b707ce7a584dca5b07
-  - path: query3/validate.py
-    sha256: 65bd9b052c7eaeb4a495643232d1a751f2e0327300c350f0b6a10cfd2719832d
-  - path: query4/ground_truth.csv
-    sha256: 12db9c97dadbad28dcdbab1f5401ea6e8c6ce21b3e73f0e99cdefc7aaee35379
-  - path: query4/query.json
-    sha256: 0a0dc81930b47134a2f85a592862443953712ac8f1c91d9d7bf68d8ac91773b0
-  - path: query4/validate.py
-    sha256: c8bfd46ca094c1184a93aa18b9386b895d0d1396a45e4fea31c5d79b070b90d4
-  - path: query5/ground_truth.csv
-    sha256: 0582a8a4b3cec4dc7b3682a7b36969b73aaff07446af08fdd6baad64408951af
-  - path: query5/query.json
-    sha256: 323bf1c00160d7b30d9a47dcb3a26d6c08c9e34e89c5b11bee3ffb08806ae99f
-  - path: query5/validate.py
-    sha256: ae2d9f2871240378d6010a51b1004676f68a437b9d1a952cf29e7ae191e34e1c
-  - path: query6/ground_truth.csv
-    sha256: 0f466e1d855662d3c1cb8610636c552887ee2e8c4a5d4dcfde8b409ca9c129d1
-  - path: query6/query.json
-    sha256: c4034809052df234fdcecf5be55ca8f377fcf44bc71d68762baaf900918b9b96
-  - path: query6/validate.py
-    sha256: 7cfb29e674217cb8139f9d1e7ca0a5b4be2f12b55462861ae04cda21aec28472
-  - path: query7/ground_truth.csv
-    sha256: f329bfa88551c2033624cca2eec6e77bce9bf1625cff83992b4a4484097b1f19
-  - path: query7/query.json
-    sha256: e2cdff8cb2ebab06a12974736806ca26404a0c2e6cc2d5bb7f5c1fc4047100cd
-  - path: query7/validate.py
-    sha256: 408397697ea66e9a926da1cb38153ef77e5da250d681c40402fa925fe25deb46
-  - path: query8/ground_truth.csv
-    sha256: 6ff7706c36df46c69d6907ffe1d8f80c1f4f0625f9193a7583e4b14ea2d93384
-  - path: query8/query.json
-    sha256: bf8423a7b09d96ea16e477c0ba05472b97a3f9e3d92090e9daa495794cbc034e
-  - path: query8/validate.py
-    sha256: 9020451eff94f1c4caeb0bd009d287913b6e31b037c45a6bed3f45b77f4ee866
-  - path: query9/ground_truth.csv
-    sha256: 1e4649207e1a9b4706efc3c52e848da5f4121212fa68b09005011a8f09ae53c0
-  - path: query9/query.json
-    sha256: 41b8f632a5ae6e7212ffe357b3c986b5306aa552c07ad5ef4778c6eae60ef1ba
-  - path: query9/validate.py
-    sha256: febd2ee2ea8e23a511dbb2df2666f1418bdcd4df23cabf75733e8ec3f4d198a8
-  - path: query_dataset/domain_assets.db
-    sha256: d657f2253337b19694e7785b7d7ccf4398df95fe78012fc3b9e803715d15a3d1
-  - path: query_dataset/domain_docs/domain_docs_db/files.bson
-    sha256: 3bab163bfef5761e4e1407943eed4f9b2b1af0f6c14dd08931980f5df3dbd376
-  - path: query_dataset/us_geo.db
-    sha256: bf442d08de0ffc396d8b750597dba7d0df6659fac44af98ec53b73ae7a31514c
-  shared_files: []
   adaptations:
-  - Full original document strings and binary file contents retained; no inferred
-    fields or generated identifiers.
-  - SQLite physical storage classes measured for every column. NUM geometry values
-    preserved as binary, NUM date values as strings; declarations retained in metadata.
-  - GeoPackage geometry bytes retained as generic Parquet binary; no GeoParquet conversion
-    or CRS transformation.
-  - All original questions, answers, validators and hint body retained. No content
-    extraction, normalization, file execution or formal AI experiment.
-  excluded_files_retained_at_source: AppleDouble ._ files are filesystem sidecars,
-    not database rows; no source files deleted.
-  export_environment:
-    python: 3.12.8
-    pymongo: 4.16.0
-    pyarrow: 15.0.2
+  - Document strings, embedded tables, prose, names, and newlines were retained in full; no _id or inferred
+    domain/name columns were added.
+  - Binary assets and GeoPackage geometry bytes were retained byte-for-byte as ordinary Parquet binary,
+    without base64 encoding, extraction, decompression, GeoParquet conversion, CRS transformation, or
+    file execution.
+  - 'Observed SQLite storage types determined the Parquet types: SHAPE and geom are binary, while DateCurrent,
+    src_date, and src_update are strings despite their NUM declarations. All-null TEXT columns remain
+    nullable strings.'
+  - Rows, duplicates, nulls, empty values, whitespace, and binary zero bytes were retained. Text-valued
+    dates, temperatures, units, and identifiers were not parsed or normalized.
+  - AppleDouble ._ filesystem sidecars were excluded from data tables; original source files were not
+    deleted.
 format: parquet
 table_count: 5
 data_size_bytes: 237176915
@@ -117,9 +30,6 @@ tables:
     type: string
   size_bytes: 102218032
   sha256: 41644542e602d8c51446cac76191321b8e81161596e214d6a9a029290233d229
-  original_bson_path: query_dataset/domain_docs/domain_docs_db/files.bson
-  bson_field_encoding:
-    content: original UTF-8 string; no added _id
 - name: beach_water_temperature
   path: data/geo/beach_water_temperature.parquet
   rows: 17274
@@ -141,29 +51,6 @@ tables:
     type: string
   size_bytes: 960183
   sha256: d6b45a3435ebce0ab61c5af2adee54d30c5efd61ca94f5200c83adf24e381c1c
-  source_sqlite_declarations:
-    community_code: TEXT
-    county_code: TEXT
-    beach_name: TEXT
-    beach_type_description: TEXT
-    sample_date: TEXT
-    water_temp: TEXT
-    air_temp: TEXT
-  source_sqlite_storage_counts:
-    community_code:
-      text: 17274
-    county_code:
-      text: 17274
-    beach_name:
-      text: 17274
-    beach_type_description:
-      text: 17274
-    sample_date:
-      text: 17274
-    water_temp:
-      text: 17274
-    air_temp:
-      text: 17274
 - name: gacc_2025
   path: data/geo/gacc_2025.parquet
   rows: 120
@@ -191,38 +78,6 @@ tables:
     type: string
   size_bytes: 8808992
   sha256: 8c8c9cc46f4507b9e907ab2a085425f04a455634662e9f65bd04f8d20ae893b6
-  source_sqlite_declarations:
-    OBJECTID: INT
-    SHAPE: NUM
-    GeometryID: TEXT
-    GACCUnitID: TEXT
-    ContactPhone: TEXT
-    Comments: TEXT
-    DateCurrent: NUM
-    MapMethod: TEXT
-    GlobalID: TEXT
-    GACCDescription: TEXT
-  source_sqlite_storage_counts:
-    OBJECTID:
-      integer: 120
-    SHAPE:
-      blob: 120
-    GeometryID:
-      'null': 120
-    GACCUnitID:
-      text: 120
-    ContactPhone:
-      text: 120
-    Comments:
-      text: 120
-    DateCurrent:
-      text: 120
-    MapMethod:
-      text: 120
-    GlobalID:
-      text: 120
-    GACCDescription:
-      text: 120
 - name: usa_adm2
   path: data/geo/usa_adm2.parquet
   rows: 3142
@@ -280,83 +135,6 @@ tables:
     type: string
   size_bytes: 13571499
   sha256: 20af8a20baf81aa39cf9ca11fce6328600d5afd1efe910cd0a3f9947d6bedec9
-  source_sqlite_declarations:
-    fid: INT
-    geom: NUM
-    adm2_id: TEXT
-    adm2_src: TEXT
-    adm2_name1: TEXT
-    adm2_name2: TEXT
-    adm1_id: TEXT
-    adm1_src: TEXT
-    adm1_name1: TEXT
-    adm1_name2: TEXT
-    adm0_id: TEXT
-    adm0_src: TEXT
-    adm0_name1: TEXT
-    adm0_name2: TEXT
-    src_lvl: INT
-    src_lang: TEXT
-    src_lang1: TEXT
-    src_lang2: TEXT
-    src_date: NUM
-    src_update: NUM
-    src_name: TEXT
-    src_lic: TEXT
-    src_url: TEXT
-    src_grp: TEXT
-    adm_description: TEXT
-  source_sqlite_storage_counts:
-    fid:
-      integer: 3142
-    geom:
-      blob: 3142
-    adm2_id:
-      text: 3142
-    adm2_src:
-      text: 3142
-    adm2_name1:
-      'null': 3142
-    adm2_name2:
-      'null': 3142
-    adm1_id:
-      text: 3142
-    adm1_src:
-      text: 3142
-    adm1_name1:
-      'null': 3142
-    adm1_name2:
-      'null': 3142
-    adm0_id:
-      text: 3142
-    adm0_src:
-      text: 3142
-    adm0_name1:
-      'null': 3142
-    adm0_name2:
-      'null': 3142
-    src_lvl:
-      integer: 3142
-    src_lang:
-      text: 3142
-    src_lang1:
-      'null': 3142
-    src_lang2:
-      'null': 3142
-    src_date:
-      text: 3142
-    src_update:
-      text: 3142
-    src_name:
-      text: 3142
-    src_lic:
-      text: 3142
-    src_url:
-      text: 3142
-    src_grp:
-      text: 3142
-    adm_description:
-      text: 3142
 - name: files
   path: data/domain_assets/files.parquet
   rows: 96
@@ -368,14 +146,6 @@ tables:
     type: binary
   size_bytes: 111618209
   sha256: 356f6ae90a57494b8861a3304c5233e65af8b71779007e117e6d634c391bc062
-  source_sqlite_declarations:
-    file_description: TEXT
-    content: BLOB
-  source_sqlite_storage_counts:
-    file_description:
-      text: 96
-    content:
-      blob: 96
 context:
   description: context/description.md
   hints: context/hints.md

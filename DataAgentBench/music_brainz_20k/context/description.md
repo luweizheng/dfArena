@@ -39,6 +39,4 @@ Individual sales transactions for track records. Each row represents a sale for 
 
 `sales.track_id` links to `tracks.track_id`. A track record and a real-world song are not necessarily the same unit of analysis.
 
-Original text values, missing values and individual records are preserved. `year` and `length` remain strings. No text normalization, missing-value imputation, entity resolution or sales aggregation is performed during conversion. SQLite integer values are exported as Arrow `int64`; DuckDB `INTEGER` values retain Arrow `int32`.
-
 Additional guidance is available in `context/hints.md` when enabled by the experiment configuration.

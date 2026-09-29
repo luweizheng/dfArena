@@ -1,62 +1,17 @@
 dataset_id: PANCANCER_ATLAS
 version: '1.0'
-domain: cancer research data
+domain: health
 source:
   benchmark: DataAgentBench
   dataset: query_PANCANCER_ATLAS
-  task_mapping:
-    PANCANCER_ATLAS_task1: query1
-    PANCANCER_ATLAS_task2: query2
-    PANCANCER_ATLAS_task3: query3
-  files:
-  - path: db_config.yaml
-    sha256: 5711035bea1820d94eb5041faa687d5974553004dc993023970d3ed9493f5d13
-  - path: db_description.txt
-    sha256: ff2b6e2989c785eaf5d62d7665d2539d5405f65b53451cfb9921b49724b7dc92
-  - path: db_description_withhint.txt
-    sha256: 6824e704afbd5b3653908e71ba3d8f0a6e901457689021745a340f668c958795
-  - path: query1/ground_truth.csv
-    sha256: 7ee7cbafeaf478ae54c9beddfc70470234ee2eca9a0a7cb77728e45a4ecd4a0b
-  - path: query1/query.json
-    sha256: 7a127ebaa5aadfdd3eabf6a01891eda9211b15fa462f3e03f15e67f3a98ec328
-  - path: query1/validate.py
-    sha256: 3f1b15e3c24c1ce258ba064fcc3f2523ee4b7c8079ab58c5ac215cd90d1d6d7a
-  - path: query2/ground_truth.csv
-    sha256: 2bfe813dbde0db8da2b4fbec782091239d97c3e0a7c1af9fe2d3f04f1ae0610c
-  - path: query2/query.json
-    sha256: 352c6f13e64220ec8cb518ac3411382a66577f98f3c536d9610ea7f5a3e8b628
-  - path: query2/validate.py
-    sha256: e48251d37463258951299880b5784724274aa87fee40583cd3c513fc3ff02312
-  - path: query3/ground_truth.csv
-    sha256: e5e0c096ced1f63b34760d004167b551bcdfd6a642ba219de8c2e35786f6e158
-  - path: query3/query.json
-    sha256: c21bb23a1d4c9e40717b73a55edf04b237a953a5c79a894e44672a5eab36d1b5
-  - path: query3/validate.py
-    sha256: 14b8be8849e25f4ba71b0347589ade0e51dec3e8a51f1273b485244981427520
-  - path: query_dataset/pancancer_clinical.sql
-    sha256: ce57356f7a0f72e1c43a1fc2083d46293991645cbce2f6f237c731bf4035fdd6
-  - path: query_dataset/pancancer_molecular.db
-    sha256: 7e1131c386014ea8bdd528d2fd040a85f6891dd9e46e8dc18947f7a712cf8610
-  shared_files:
-  - path: common_scaffold/validate/levenshtein.py
-    sha256: 77c2cc868169345908261ad9c14bec48f29f6e25f4b690607c2936fefefa67c1
-    copied_into_answer_for:
-    - task2
   adaptations:
-  - PostgreSQL single-table text COPY snapshots decoded strictly; no PostgreSQL server
-    restore performed.
-  - SQLite and DuckDB tables read directly; all source physical types, values, nulls,
-    and duplicate records retained.
-  - Questions, answer files, validators and hint body preserved. Required original
-    shared helper copied into evaluation-only answer directories.
-  - Description adapted to measured physical schemas without inferring undocumented
-    medical field meanings.
-  copy_format_reference: https://www.postgresql.org/docs/17/sql-copy.html#SQL-COPY-FILE-FORMATS
-  export_environment:
-    python: 3.12.8
-    duckdb: 1.4.2
-    pyarrow: 15.0.2
-    PyYAML: 6.0.1
+  - PostgreSQL text COPY snapshots were decoded without server restore; SQLite and DuckDB tables were
+    read directly and exported to Parquet.
+  - Physical types, rows, duplicates, nulls, empty strings, numeric values, column names, and text formatting
+    were retained. Structured text, bracketed annotations, and date-like or number-like text were not
+    parsed or replaced with nulls.
+  - No joins, sample selection, aggregation, missing-value imputation, or interpretation of undocumented
+    medical fields were applied during conversion.
 format: parquet
 table_count: 3
 data_size_bytes: 205010713

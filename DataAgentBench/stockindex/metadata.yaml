@@ -1,10 +1,12 @@
 dataset_id: stockindex
 version: '1.0'
 domain: finance
-subdomain: stock_market
 source:
   benchmark: DataAgentBench
   dataset: query_stockindex
+  adaptations:
+  - Date values remain strings; no date normalization or new mapping columns were introduced during the
+    layout migration.
 format: parquet
 table_count: 2
 data_size_bytes: 3852875
@@ -13,12 +15,34 @@ tables:
   path: data/indexinfo/index_info.parquet
   rows: 14
   columns: 2
+  schema:
+  - name: Exchange
+    type: string
+  - name: Currency
+    type: string
   size_bytes: 2114
   sha256: 65c8c83714de7e35206c3d3b15fa542d47d420ee48aa9fcee5e9f47e483547cf
 - name: index_trade
   path: data/indextrade/index_trade.parquet
   rows: 104224
   columns: 8
+  schema:
+  - name: Index
+    type: string
+  - name: Date
+    type: string
+  - name: Open
+    type: double
+  - name: High
+    type: double
+  - name: Low
+    type: double
+  - name: Close
+    type: double
+  - name: Adj Close
+    type: double
+  - name: CloseUSD
+    type: double
   size_bytes: 3850761
   sha256: d6bcdafc4e5640b67125a0972d37c604a49be2e31280777798b7e82bdc4bc079
 context:

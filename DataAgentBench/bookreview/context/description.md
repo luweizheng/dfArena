@@ -35,7 +35,5 @@ File: `data/review/review.parquet`
 | `text` | `string` | Review text content |
 | `review_time` | `string` | Timestamp when review was posted |
 | `helpful_vote` | `int64` | Number of helpful votes received |
-| `verified_purchase` | `int64` | Whether purchase was verified |
+| `verified_purchase` | `int64` | Whether purchase was verified; described as a boolean in the source, but stored as int64. |
 | `purchase_id` | `string` | Unique identifier linking to book_id in books_info table |
-
-The source describes `verified_purchase` as a boolean. The SQLite values are preserved using their exported physical type; no boolean normalization is applied.

@@ -6,17 +6,39 @@ A dataframe-native adaptation of [DataAgentBench](https://github.com/ucbepic/Dat
 
 The original DataAgentBench is for database data agent, here we are a dataframe benchmark, we need to remove database-related stuff and turn it into a dataframe-native benchmark. Each task is a tuple: (data, context, task, answer). 
 
-- `metadata.yaml`: NEWLY ADDED, for analysis, source provenance, table paths, measured sizes, row/column counts, SHA-256 checksums, and context references.
-- `context/description.md`: FROM `db_description.txt`, table schemas, field descriptions, and dataset relationships.
+- `metadata.yaml`: dataset characteristics for research analysis and paper statistics, plus file identity and navigation. Field purposes and counting conventions are defined below.
+- `context/description.md`: FROM `db_description.txt`, input file paths, table schemas, field descriptions, and dataset relationships.
 - `context/hints.md`: FROM `db_description_withhint.txt`, optional domain and calculation guidance.
 - `data/<db_name>/<table>.parquet`: FROM `query_dataset`, convert them into parquet file which is widely used for data analysis, input tables, with no `_database` suffix.
 - `tasks/task{1,2,3}/task.json`: FROM `queryN`, task IDs and natural-language queries.
 - `tasks/task{1,2,3}/answer/`: FROM `queryN`, hidden ground truths and validators.
 - `output/<task>/<agent-model>/<backend>/rNNN/`: isolated generation and evaluation outputs.
 
+## Metadata for dataset analysis
+
+Metadata describes the adapted dataset, not the machinery used to migrate it. Use a consistent set of fields across datasets:
+
+This file is for researcher-side analysis and paper statistics. It is not an agent input, is not mounted into the solution-generation container, and is not required by task JSON. Agent-facing file paths, schemas, and representation guidance belong in `context/description.md`; approved task clarifications belong in `context/hints.md`.
+
+| Fields | Purpose |
+|---|---|
+| `dataset_id`, `version`, `domain` | Identify the dataset and its primary subject area. Use one `domain` from the [workload domain taxonomy](../README.md#workload-domain-taxonomy). |
+| `format`, `table_count`, `data_size_bytes` | Describe the storage format, number of physical input tables, and total on-disk Parquet size. |
+| `tables[].name`, `path` | Identify and locate each table. Use the dataset-relative path to distinguish tables with the same name in different groups. |
+| `tables[].rows`, `columns`, `size_bytes`, `schema` | Analyze table sizes and column types; schema records the actual Parquet/Arrow field names and types. |
+| `tables[].sha256` | Verify that comparisons use the same data files; this is a reproducibility check, not a dataset complexity metric. |
+| `source.benchmark`, `source.dataset`, `source.adaptations` | Record origin and concise, relevant data-conversion choices, such as JSON text or binary geometry encodings. |
+| `tasks`, `context` | Record task count and IDs, and locate the task descriptions and optional hints. |
+
+Dataset metadata does not include a `subdomain` field. The taxonomy's typical subdomains are examples, not required metadata fields. `krama` uses `geospatial` as its primary domain based on its geospatial and environmental tables; its document collection also includes health and science topics.
+
+`table_count` equals the number of entries in `tables`; `data_size_bytes` is the sum of their `size_bytes`, not an estimate of in-memory size. Counts describe individual physical Parquet tables: for example, stockmarket contains many separate stock price tables. Compute cross-dataset averages, medians, and distributions from these basic measurements instead of duplicating derived statistics in every metadata file. The existing version label alone does not identify exact file contents; use hashes for that purpose.
+
+Original database file lists, migration tool versions, BSON source paths, old SQL identifier spellings, SQLite declarations/storage counters, and empty source constraints are omitted. Useful conversion consequences belong in concise `source.adaptations` entries; field-reading guidance and approved task clarifications remain in `context`. Conversion notes refer to the initial adaptation unless explicitly marked as subsequent revisions. Dated migration and experiment audit records under `research/` remain historical records and are not rewritten by metadata cleanup.
+
 ## Execution boundary
 
-During solution generation, the runner must expose only input data, the context, metadata, and the current task JSON. Do not mount the whole dataset directory into agent sandbox: the whole dataset directory contains answers and historical runs. Keep solution outputs in an isolated run workspace.
+During solution generation, the runner must expose only input data, the context, and the current task JSON. Keep researcher-side metadata outside the agent sandbox. Do not mount the whole dataset directory into agent sandbox: the whole dataset directory contains answers and historical runs. Keep solution outputs in an isolated run workspace.
 
 After generation ends, freeze the solution and evaluate it in a separate process/container that can read `answer/`. Never mount answers into a still-running agent session.
 
@@ -27,7 +49,9 @@ Except for explicitly approved task revisions recorded below, this reorganizatio
 ## Complete-requirement experiments
 
 For the complete-requirement row, including S0 without an extra skill, pass
-`--complete-requirements` to `scripts/generate.py`. This explicitly enables hints
+`--complete-requirements` to `scripts/run_benchmark.py`, the top-level entry point
+that runs generation followed by evaluation. It forwards the flag to
+`scripts/generate.py` (which also accepts it when run independently). This explicitly enables hints
 and includes the full UTF-8 contents of both `context/description.md` and
 `context/hints.md` in the agent's initial prompt. Both documents have equal status
 as task requirements; approved task-specific clarifications belong in the hints

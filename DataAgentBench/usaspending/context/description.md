@@ -1,159 +1,123 @@
 # usaspending
 
-The four original data groups are provided as local Parquet tables.
+The four original data groups are provided as local Parquet tables. Original group names are retained for interpreting the original hints. All file paths are relative to this dataset root.
 
-Original group names remain below to interpret the original hints. Paths are relative to this dataset root.
+## contracts_db
 
-1. contracts_db
-   - This database is provided as Parquet tables. It contains the federal contract awards registry sourced from USAspending.gov, plus a sibling table holding award amounts.
-   - This database consists of two tables:
-     - contracts
-       - One row per contract award.
-       - Fields:
-         - award_id (str): Award identifier (surface form may vary per table; same canonical id may appear differently in contract_amounts and descriptions_db)
-         - generated_internal_id (str): Internal USAspending identifier
-         - recipient_uei (str): Unique Entity Identifier of the recipient
-         - awarding_agency (str): Awarding agency
-         - awarding_sub_agency (str): Awarding sub-agency
-         - funding_agency (str): Funding agency
-         - start_date (str): ISO date string
-         - end_date (str): ISO date string
-         - naics_code (str): NAICS code
-         - psc_code (str): Product / Service Code
-         - award_type (str): Contract type code
-     - contract_amounts
-       - Award amount per contract, encoded as text.
-       - Fields:
-         - award_id (str): Award identifier (surface forms may vary; join directly when identifiers match, and normalize only when actual differences require it)
-         - amount_text (str): Dollar amount expressed numerically or through a qualitative description of monetary magnitude. For qualitative descriptions, use the text and related supplied records to assess the question's threshold; exact dollar recovery is not required.
+Federal contract awards registry sourced from USAspending.gov, plus a sibling table holding award amounts.
 
-2. recipients_db
-   - This database is provided as Parquet tables. It contains the per-recipient registry derived from contract awards.
-   - This database consists of one table:
-     - recipients
-       - One row per recipient.
-       - Fields:
-         - uei (str): Unique Entity Identifier
-         - name (str): Recipient name
-         - state (str): U.S. state of the recipient
-         - n_contracts (int): Number of contract awards this recipient holds
-         - total_amount_text (str): Sum of contract amounts
+### contracts
 
-3. agencies_db
-   - This database is provided as Parquet tables. It contains the awarding-agency reference, an agency-alias lookup, and the NAICS sector hierarchy.
-   - This database consists of three tables:
-     - agencies
-       - One row per canonical agency.
-       - Fields:
-         - name (str): Canonical agency name
-         - n_contracts (int): Total number of contracts awarded
-         - total_amount_text (str): Total awarded amount
-     - agency_aliases
-       - Agency surface-form lookup.
-       - Fields:
-         - surface_form (str): Surface form
-         - canonical_name (str): Canonical agency name
-     - naics_sectors
-       - NAICS code hierarchy.
-       - Fields:
-         - code (str): NAICS code
-         - description (str): Human-readable description
-         - sector (str): 2-digit parent sector code
+One row per contract award.
 
-4. descriptions_db
-   - This database is provided as Parquet tables. It contains free-text contract descriptions.
-   - This database consists of one collection:
-     - contract_documents
-       - One document per award.
-       - Fields:
-         - award_id (str): Award identifier
-         - descriptions (JSON array text): Free-text descriptions, each with:
-           - language (str): ISO language code (e.g. "en", "es")
-           - value (str): Description prose
+File: `data/contracts_db/contracts.parquet`
+
+| Column | Arrow type | Description |
+|---|---|---|
+| `award_id` | string | Award identifier (surface form may vary per table; same canonical id may appear differently in contract_amounts and descriptions_db) |
+| `generated_internal_id` | string | Internal USAspending identifier |
+| `recipient_uei` | string | Unique Entity Identifier of the recipient |
+| `awarding_agency` | string | Awarding agency |
+| `awarding_sub_agency` | string | Awarding sub-agency |
+| `funding_agency` | string | Funding agency |
+| `start_date` | string | ISO date string |
+| `end_date` | string | ISO date string |
+| `naics_code` | string | NAICS code |
+| `psc_code` | string | Product / Service Code |
+| `award_type` | string | Contract type code |
+
+### contract_amounts
+
+Award amount per contract, encoded as text.
+
+File: `data/contracts_db/contract_amounts.parquet`
+
+| Column | Arrow type | Description |
+|---|---|---|
+| `award_id` | string | Award identifier (surface forms may vary; join directly when identifiers match, and normalize only when actual differences require it) |
+| `amount_text` | string | Dollar amount expressed numerically or through a qualitative description of monetary magnitude. For qualitative descriptions, use the text and related supplied records to assess the question's threshold; exact dollar recovery is not required. |
+
+## recipients_db
+
+Per-recipient registry derived from contract awards.
+
+### recipients
+
+One row per recipient.
+
+File: `data/recipients_db/recipients.parquet`
+
+| Column | Arrow type | Description |
+|---|---|---|
+| `uei` | string | Unique Entity Identifier |
+| `name` | string | Recipient name |
+| `state` | string | U.S. state of the recipient |
+| `n_contracts` | int64 | Number of contract awards this recipient holds |
+| `total_amount_text` | string | Sum of contract amounts |
+
+## agencies_db
+
+Awarding-agency reference, agency-alias lookup, and NAICS sector hierarchy.
+
+### agencies
+
+One row per canonical agency.
+
+File: `data/agencies_db/agencies.parquet`
+
+| Column | Arrow type | Description |
+|---|---|---|
+| `name` | string | Canonical agency name |
+| `n_contracts` | int32 | Total number of contracts awarded |
+| `total_amount_text` | string | Total awarded amount |
+
+### agency_aliases
+
+Agency surface-form lookup.
+
+File: `data/agencies_db/agency_aliases.parquet`
+
+| Column | Arrow type | Description |
+|---|---|---|
+| `surface_form` | string | Surface form |
+| `canonical_name` | string | Canonical agency name |
+
+### naics_sectors
+
+NAICS code hierarchy.
+
+File: `data/agencies_db/naics_sectors.parquet`
+
+| Column | Arrow type | Description |
+|---|---|---|
+| `code` | string | NAICS code |
+| `description` | string | Human-readable description |
+| `sector` | string | 2-digit parent sector code |
+
+## descriptions_db
+
+Free-text contract descriptions.
+
+### contract_documents
+
+One document per award.
+
+File: `data/descriptions_db/contract_documents.parquet`
+
+| Column | Arrow type | Description |
+|---|---|---|
+| `award_id` | string | Award identifier |
+| `descriptions` | string | Free-text descriptions stored as JSON array text; each item has the fields below |
+
+Each description item contains:
+
+- `language` (string): ISO language code (e.g. "en", "es")
+- `value` (string): Description prose
 
 ## JSON representation
 
 The original `descriptions` list of objects is stored as a reversible JSON array string, retaining list order, object key order, language labels, and exact description text. Parse this field with a JSON parser when list/object access is needed. No translation, language correction, flattening, deduplication, or extra `_id` generation was performed. The actual BSON snapshot has only award_id and descriptions.
 
-## Files and measured physical types
+## Representation
 
-### contracts
-
-File: `data/contracts_db/contracts.parquet`
-
-| Column | Arrow type |
-|---|---|
-| `award_id` | string |
-| `generated_internal_id` | string |
-| `recipient_uei` | string |
-| `awarding_agency` | string |
-| `awarding_sub_agency` | string |
-| `funding_agency` | string |
-| `start_date` | string |
-| `end_date` | string |
-| `naics_code` | string |
-| `psc_code` | string |
-| `award_type` | string |
-
-### contract_amounts
-
-File: `data/contracts_db/contract_amounts.parquet`
-
-| Column | Arrow type |
-|---|---|
-| `award_id` | string |
-| `amount_text` | string |
-
-### recipients
-
-File: `data/recipients_db/recipients.parquet`
-
-| Column | Arrow type |
-|---|---|
-| `uei` | string |
-| `name` | string |
-| `state` | string |
-| `n_contracts` | int64 |
-| `total_amount_text` | string |
-
-### agencies
-
-File: `data/agencies_db/agencies.parquet`
-
-| Column | Arrow type |
-|---|---|
-| `name` | string |
-| `n_contracts` | int32 |
-| `total_amount_text` | string |
-
-### agency_aliases
-
-File: `data/agencies_db/agency_aliases.parquet`
-
-| Column | Arrow type |
-|---|---|
-| `surface_form` | string |
-| `canonical_name` | string |
-
-### naics_sectors
-
-File: `data/agencies_db/naics_sectors.parquet`
-
-| Column | Arrow type |
-|---|---|
-| `code` | string |
-| `description` | string |
-| `sector` | string |
-
-### contract_documents
-
-File: `data/descriptions_db/contract_documents.parquet`
-
-| Column | Arrow type |
-|---|---|
-| `award_id` | string |
-| `descriptions` | string |
-
-## Preservation
-
-All original rows, duplicate entries, nulls, empty strings, amounts-as-text, date strings, identifier variants are retained. The PostgreSQL source is a literal INSERT SQL snapshot decoded without executing SQL or launching PostgreSQL. SQLite/DuckDB integer widths retain their native physical representation (SQLite INTEGER: int64; DuckDB INTEGER: int32). No fuzzy matching, normalization, amount inference, superseded-record filtering, aggregation, or answer computation has been performed. Original questions are unchanged. The hints include subsequent user-approved clarifications.
+Amounts-as-text, date strings, and identifier variants are present in the input. Task-specific clarifications are in context/hints.md.
