@@ -16,7 +16,7 @@ from runners.agents import add_agent_options, add_model_options, settings, label
 def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--case', required=True)
-    p.add_argument('--mode', choices=['interact', 'clarified'], default='interact')
+    p.add_argument('--mode', choices=['direct', 'interact', 'clarified'], default='interact')
     p.add_argument('--backend', choices=BACKENDS, default='pandas')
     p.add_argument('--image', default='dfarena-agent-sandbox:latest')
     p.add_argument('--simulator-env', type=Path, default=ROOT/'.env')

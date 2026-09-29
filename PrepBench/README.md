@@ -1,14 +1,14 @@
 # PrepBench in dfArena
 
-整理后的 case_001—case_006、本地 simulator、生成及评估流程。来源许可证见 [PREPBENCH_LICENSE](PREPBENCH_LICENSE)。
+This directory contains curated workload tasks, a local simulator for clarifying underspecified queries, and the generation and evaluation workflow. See [PREPBENCH_LICENSE](PREPBENCH_LICENSE) for the source license.
 
-任务适配包括将 Tableau 操作要求改为 DataFrame 工作流、将实际 CSV 输入的 sheet 表述改为 input file，并同步知识库引用；删除仅涉及可视化的交付要求，保留表格计算需求与原有歧义。case_005 的 Policy Number 和 Customer ID 按任务要求配置为 integer。
+Task curation replaces Tableau-specific instructions in PrepBench with DataFrame workflows and describes the supplied CSV assets as input files, with corresponding updates to knowledge-base references. Visualization-only instructions are removed while data-processing requirements and the original ambiguities are retained.
 
-当前 case_001 的完整需求包含排序约束，但保存的 GT 顺序与 reference 不一致，暂用 `ignore_order=true`；通过评估只代表内容通过，不代表排序要求已验证。历史迁移记录保留在本地 `curation/`，不作为运行依赖或本次发布内容。当前评估协议以 [evaluation/README.md](../evaluation/README.md) 为准。
+Historical migration records remain in the local `curation/` directory; they are not runtime dependencies or part of this release. The current evaluation protocol is defined in [evaluation/README.md](../evaluation/README.md).
 
-## 安装与运行
+## Installation and execution
 
-在 dfArena 根目录使用宿主机 Python 3.11+：
+Use Python 3.11+ on the host and run these commands from the dfArena repository root:
 
 ```bash
 python -m venv .venv
@@ -16,7 +16,7 @@ python -m venv .venv
 docker build -f docker/agent-sandbox.Dockerfile -t dfarena-agent-sandbox:latest .
 ```
 
-完整流程：
+Run the complete workflow:
 
 ```bash
 .venv/bin/python PrepBench/run_benchmark.py \
@@ -28,33 +28,70 @@ docker build -f docker/agent-sandbox.Dockerfile -t dfarena-agent-sandbox:latest 
   --model gpt-6-astra --image dfarena-agent-sandbox:latest
 ```
 
-默认镜像为 `dfarena-agent-sandbox:latest`；比较实验应固定镜像。`--mode` 默认 interact，`--backend` 支持 pandas/polars/ibis/pyspark。PySpark 使用本地 SparkSession，镜像需包含 PySpark 4.x 和 Java 17。`--model` 覆盖模型，`--agent-model` 仅设目录标签（默认 <agent>_<模型名>，OpenCode 去掉 provider/ 前缀）。推理程度来自 `--codex-config-dir` 的配置，默认 `runners/configs/codex`，实际值写入生成记录。
+The default image is `dfarena-agent-sandbox:latest`; keep the image fixed for comparative experiments. `--mode` defaults to `interact` and supports `direct`, `interact`, and `clarified`. `--backend` supports pandas, polars, ibis with DuckDB backend, and pyspark. PySpark uses a local SparkSession. `--model` overrides the model. `--agent` supports Codex and OpenCode. Reasoning effort comes from the configuration selected by `--codex-config-dir`, which defaults to `runners/configs/codex`.
 
-`--timeout` 默认 1800 秒，限制容器内所选 agent 进程；`--dry-run` 仅准备目录、prompt 和资产 hash，不启动 Docker、simulator 或评分，会占用运行编号。
+## Experimental modes
 
-## 脚本职责
+The three modes represent different query and user-interaction conditions:
 
-- `run_benchmark.py`：分配运行目录，依次调用 generate.py 和 evaluate.py。生成失败时记录 evaluation.status=skipped；评估通过退出码为 0，否则为 1。
-- `generate.py`：准备 query/输入，interact 模式启动 simulator，运行隔离的 Docker/agent，保存生成阶段记录。直接调用时也会自动分配新目录，或通过 `--run-dir` 使用指定的空目录。
-- `evaluate.py`：读取指定 case 的 config、GT 与本次 candidate，调用根目录的通用 `evaluation/`，保存完整报告和评估摘要，不执行 agent 代码。
-- `runners/results.py`：供 PrepBench/DataAgentBench 共用的阶段写入、token 汇总和 result.json 重建逻辑。
-- `runners/timed_process.py`：供两者共用的容器内 agent 计时包装脚本。
+- `direct`: The agent sees only the original `query.md`, without additional explanation, and cannot request clarification. This measures DataFrame program generation from the initial natural-language request.
+- `clarified`: The agent receives the manually curated complete requirements in `query_full.md` and cannot request clarification. This provides a reference condition with explicit requirements.
+- `interact`: The agent receives the same `query.md` as in `direct`, but can ask the simulated user questions while solving the task. The agent must identify ambiguities, formulate questions, and use the answers to clarify the requirements.
 
-单独生成和重新评估：
+`clarified` and `interact` use the same underlying complete task specification: the former provides it upfront, while the latter allows the agent to obtain clarifications through limited interaction. Comparisons across the modes help distinguish the effects of initial requirement understanding, interactive clarification, and implementation. All three modes use the same input data, target outputs, and evaluation protocol.
+
+## Interact protocol
+
+An `interact` run follows this call chain:
+
+```text
+agent reads query.md and inputs
+  → identifies uncertainty in the requirements
+  → calls the MCP clarification.ask([question, ...]) tool
+  → the simulator acts like a human user and answers business-rule questions using the hidden complete requirements
+  → the agent uses the answers to write and execute solution.py
+  → the evaluator compares the output CSV with the ground truth
+```
+
+The simulator acts as an **oracle user simulator**. It can read `query_full.md`, `amb_kb.json`, and the reference solution internally to recover the predefined business rules. These files and their code are not returned directly to the agent; the agent receives natural-language answers to its questions. The simulator is instructed to refuse requests for raw-data inspection, example outputs, hidden specifications, or implementation code.
+
+The simulator is itself an LLM-backed service. For each clarification request from the coding agent, it builds a prompt from the agent's questions and the hidden task materials, then sends that prompt to the configured LLM provider to generate the simulated user's answer. This introduces a second model-serving dependency in an `interact` run, separate from the coding agent's own model request. Provider or API failures, connection failures, and timeouts are recorded as simulator errors and cause `/session/ask` to return HTTP 502. If the provider responds successfully but the response is invalid JSON or violates the answer contract, the simulator retries once with validation feedback; a second invalid response becomes a refusal for the affected questions.
+
+By default, each session counts at most 3 successfully processed rounds, and each round accepts at most 10 questions. The total question budget is based on the number of ambiguity entries in `amb_kb.json`:
+
+```text
+max_questions = min(ceil(2.5 × ambiguity_count), max(25, ambiguity_count))
+```
+
+The budget and usage counters are stored in the simulator’s internal session state. `interaction.ask_calls` counts logged HTTP requests, not questions. Complete requests, answers, classifications, and provenance are stored in `logs/interaction.jsonl`; the response exposed to the agent contains only questions and answers.
+
+Request validation failures and exceptions from simulator calls do not consume round or question budgets. Once a session reaches its round or question limit, subsequent requests receive a quota-reached message. The number of HTTP requests can therefore exceed 3, although no more than 3 successfully processed rounds are counted.
+
+Simulator responses are not the benchmark’s final correctness labels; correctness is determined later by the table evaluator. If the simulator model returns invalid JSON or violates the answer contract, the simulator retries once with validation feedback. If the second response is still invalid, it returns a refusal for each expected question. Provider/API failures, timeouts, and connection errors are different: they are recorded as errors and `/session/ask` returns HTTP 502 rather than converting the failure into a refusal. Simulator failures can be investigated through `interaction.jsonl` and `server.log`; agent tool-call and code-generation failures are recorded in the agent log and generation/evaluation stage records.
+
+## Script responsibilities
+
+- `run_benchmark.py`: Allocates a run directory and invokes `generate.py` followed by `evaluate.py`. A generation failure records `evaluation.status=skipped`. An evaluated run exits with status 0 only if evaluation passes; otherwise it exits with status 1.
+- `generate.py`: Provides the selected query and input data to the isolated agent, which generates and executes DataFrame code for the workload, then saves the generation records. In `direct`, the agent receives the original `query.md` and no simulator is started. In `clarified`, it receives the complete requirements from `query_full.md` and no simulator is started. In `interact`, it receives the original `query.md` and can ask the simulator for clarification while generating the DataFrame code.
+- `evaluate.py`: Reads the case configuration, ground truth, and candidate output; calls the shared root-level `evaluation/` module; and saves the full report and evaluation summary. It does not execute agent code.
+- `runners/results.py`: Shared stage-record writing, token aggregation, and `result.json` reconstruction for PrepBench and DataAgentBench.
+- `runners/timed_process.py`: Shared wrapper for timing the agent process inside the container.
+
+Run generation and evaluation separately:
 
 ```bash
 .venv/bin/python PrepBench/generate.py \
   --case 001 --mode clarified --backend pandas --image dfarena-agent-sandbox:latest
 
-# 使用上一步打印的 RUN 路径；这里只是示例。
+# Use the RUN path printed by the preceding command; this path is an example.
 .venv/bin/python PrepBench/evaluate.py \
   --case 001 \
   --run-dir PrepBench/case_001/runs/clarified/codex_gpt-6-astra/pandas/r001
 ```
 
-独立评分会核对 generation.json 中的任务与状态；重新评分不修改生成阶段记录，更新本次 evaluation.json 和汇总。底层 `python -m evaluation` 仍可用于任意 CSV 比较，但不自动更新运行汇总。配置及比较协议见 [evaluation/README.md](../evaluation/README.md)。
+Standalone evaluation checks the task and status in `generation.json`. Re-evaluation preserves the generation record while updating `evaluation.json` and the summary. The lower-level `python -m evaluation` command can compare arbitrary CSV files but does not automatically update run summaries. See [evaluation/README.md](../evaluation/README.md) for the configuration and comparison protocol.
 
-## 目录和结果
+## Directory layout and results
 
 ```text
 PrepBench/
@@ -76,11 +113,12 @@ PrepBench/
       result.json
       detail/
         generation.json
-        evaluation.json
+        evaluation.json          # after evaluation starts
         agent_exec_timing.json
         prompt.txt
         command.json
-        codex_sessions/
+        codex_sessions/          # Codex, when archived
+        opencode_sessions/       # OpenCode, when archived
       logs/
         agent_events.jsonl
         agent_stderr.log
@@ -89,38 +127,50 @@ PrepBench/
       assets.json
       session.json               # interact
       workspace/
+        mcp_stderr.log           # interact
         solution.py
         outputs/output_*.csv
 ```
 
-每个 mode/model/backend 组合独立递增编号，并发编号分配暂未实现。新运行不再写 run.json，旧运行不自动迁移。生成目录必须为空，防止旧答案或旧评估结果被误用。
+Run numbers increase independently for each mode/model/backend combination; concurrent run-number allocation is not implemented. New runs no longer write `run.json`, and old runs are not migrated automatically. The run directory supplied to `generate.py` must be empty to prevent stale answers or evaluation results from being reused.
 
-`detail/generation.json` 保存模型、模式、后端、生成状态、计时、token、输出路径和交互信息；`detail/evaluation.json` 保存评估时间、status、passed、错误类型以及 `report` 内的完整 evaluator 报告（含 config/GT/candidate hash）。`result.json` 汇总关键指标，始终可以由两份阶段文件重建。写入采用临时文件再替换，不删除阶段记录。
+`detail/generation.json` records the model, mode, backend, generation status, timing, token usage, output paths, and interaction details. `detail/evaluation.json` records evaluation timing, `status`, `passed`, error types, and the complete evaluator result under `report`, including configuration, ground-truth, and candidate hashes. `result.json` summarizes the key metrics and can be rebuilt from whichever stage files are present. JSON stage records are written through temporary files followed by replacement; the stage records are retained.
 
-生成 completed 只表示 agent 正常结束且 solution.py/CSV 存在，不代表结果正确。未评估/跳过时 passed=null；candidate 比较失败时 passed=false；GT/config/evaluator 错误时 status=error、passed=null，并保留底层报告。
+A generation status of `completed` means only that the agent exited normally and produced `solution.py` and CSV output; it does not imply correctness. When evaluation has not run or is skipped, `passed=null`. A candidate comparison failure sets `passed=false`. A ground-truth, configuration, or evaluator error sets `status=error` and `passed=null`, with the underlying report retained.
 
-## 时间与 token
+## Timing and token usage
 
-生成的 started_at/finished_at 为 UTC ISO 8601，elapsed_seconds 来自容器内单调时钟：启动所选 agent 前开始，agent 退出或超时终止后结束。排除 Docker 启动、simulator 启动、资源清理和评估；包含 agent 内部探索、代码执行/修复及等待 simulator。不是 solution.py 单独执行时间。无计时报告时保留 null，不用 Docker 耗时替代。正常失败和超时仍保存报告；容器强杀等情况可能缺失。
+Generation `started_at` and `finished_at` are UTC ISO 8601 timestamps. `elapsed_seconds` uses a monotonic clock inside the container, starting immediately before the selected agent process launches and stopping after it exits or is terminated on timeout. It excludes Docker startup, simulator startup, cleanup, and evaluation. It includes agent exploration, code execution and repair, and simulator waits. It is not the standalone execution time of `solution.py`. Missing timing reports remain `null`. Reports are retained for ordinary failures and timeouts, but may be missing after a forced container termination.
 
-token_usage 汇总 Codex 有效的 turn.completed.usage，包含 input_tokens、output_tokens、cached_input_tokens、total_tokens（输入加输出，缓存不重复计入）。缺失为 null；token_usage_status 为 complete/partial/unavailable。该统计不包含 simulator，无法补齐未报告的中断请求。
+For Codex, `token_usage` aggregates valid `turn.completed.usage` events and includes `input_tokens`, `output_tokens`, `cached_input_tokens`, and `total_tokens` (input plus output, without counting cached input twice). Missing values are `null`; `token_usage_status` is `complete`, `partial`, or `unavailable`. Simulator tokens are excluded, and unreported usage from interrupted requests cannot be recovered.
 
-交互摘要在 interaction 中，包含 enabled 和 ask_calls。ask_calls 是 HTTP 请求日志条数，不代表不同问题数量，也不保证每次都成功；完整请求/回答见 interaction.jsonl。评估 elapsed_seconds 单独统计通用表格 evaluator 的运行时间。
+The `interaction` summary includes `enabled` and `ask_calls`. `ask_calls` counts HTTP request log entries, not distinct questions, and does not imply that every request succeeded. Complete requests and answers are in `interaction.jsonl`. Evaluation `elapsed_seconds` separately measures the shared evaluator execution time.
 
-## Simulator 与隔离
+### Clarification diagnostics and timing
 
-simulator 使用本机 `PrepBench/.env`，参考 `.env.example`，不随分享包含；进程环境变量优先。默认最多 3 轮，每次最多 10 个问题，总问题预算按 KB 大小计算。
+- The MCP adapter writes HTTP request start/completion and duration to `workspace/mcp_stderr.log`.
+- The simulator writes request receipt, simulator start, provider attempts, completion, and error types to `logs/server.log`. Progress messages appear before the answer is ready.
+- `logs/interaction.jsonl` retains one completed record per logged request, including `time` (the existing start timestamp), `started_at`, `finished_at`, and monotonic `elapsed_seconds`. Failed simulator calls are timed too. A missing completed record does not prove that the request never arrived.
 
-- clarified 将 query_full.md 只读挂载为 `/workspace/query.md`，不启动 simulator。
-- interact 将 query.md 挂载到相同路径，宿主机启动 FastAPI simulator，agent 在同一 session 内通过 HTTP/curl 提问，不需要每次 resume。
-- inputs 只读挂载到 `/workspace/inputs`，本次 workspace 可写挂载到 `/workspace/work`。不挂载整个 case；GT/config、知识库和 reference 不暴露给 agent。
-- Codex 使用独立临时配置目录，只复制模型/provider/推理程度及认证，不带入宿主机历史会话、MCP 或 skills。仅归档本次 session，不归档凭证。
-- command.json 保存实际 Docker 参数，用于诊断；临时目录和端口在结束后失效，不能视为可直接重放的脚本。
-- 不同运行使用独立 workspace；正常完成、异常和超时均尝试清理本次容器和 simulator。输入挂载期间不要修改资产。
+Provider retries and JSON repair share a 140-second deadline; connect/read timeouts and retry sleeps use the remaining budget. Synchronous HTTP reads are not a strict wall-clock deadline if a provider keeps sending bytes. The MCP adapter separately bounds its HTTP await at 160 seconds, with a 5-second connect timeout and a 150-second read timeout. This leaves time to report an error before the existing 180-second MCP tool timeout. The adapter does not automatically resend questions.
 
-历史探索 runs、case_173/242 和逐项 diff 仍留在 PandasLift/benchmark/PrepBench。参考程序部分 main 使用旧相对路径，运行 reference 时应显式调用 solve(case_dir / 'inputs')。这些参考程序不参与 agent 生成。
+The original generation `elapsed_seconds` includes clarification waits. `interaction.simulator_elapsed_seconds` sums the simulator's server-side time from receiving each `/session/ask` request until producing its response. It includes prompt construction, the LLM provider request, retries, and response parsing, but excludes client-side MCP adapter and network time before the request reaches the simulator or after the response leaves it; it is therefore neither pure model inference time nor the complete MCP round-trip time. Because this server-side measure has a clear and reproducible boundary, PrepBench currently uses it as the operational clarification-time measure. For completed runs with valid request durations, `elapsed_seconds_excluding_simulator` subtracts this measure from the original elapsed time. Both `detail/generation.json` and `result.json` retain the adjusted value and its scope. Missing durations are not silently replaced by zero; failed or interrupted runs do not receive an adjusted value. Concurrent work or overlapping requests require interval accounting before interpreting this subtraction as active agent time.
 
-## 测试
+## Simulator and isolation
+
+The simulator uses the model and API configured in the host-side `PrepBench/.env`; use `.env.example` as a template. Local credentials are not included when sharing the project. Process environment variables take precedence. Round and question budgets follow the interact protocol above. For reproducible experiments, fix the simulator model, temperature, and related environment settings.
+
+- `direct` mounts `query.md` read-only at `/workspace/query.md`, starts no simulator, and provides no clarification tool.
+- `clarified` mounts `query_full.md` read-only at `/workspace/query.md` and starts no simulator.
+- `interact` mounts `query.md` at the same path and starts a host-side FastAPI simulator. The agent asks questions within the same session through the MCP adapter, which forwards them over HTTP; each question does not require resuming the agent.
+- Inputs are mounted read-only at `/workspace/inputs`; the run workspace is writable at `/workspace/work`. The entire case directory is not mounted. Ground truth, evaluation configuration, the knowledge base, and the reference solution are hidden from the agent.
+- Codex uses an isolated temporary configuration directory containing only the model/provider settings, reasoning effort, and authentication. Host session history, MCP configuration, and skills are not imported. Only the current session is archived; credentials are not archived.
+- `command.json` stores the actual Docker arguments for diagnostics. Temporary directories and ports expire after the run, so it should not be treated as a directly replayable script.
+- Runs use independent workspaces. Cleanup of the container and simulator is attempted after normal completion, errors, and timeouts. Do not modify assets while they are mounted as inputs.
+
+Historical exploratory runs, case_173/242, and per-item diffs remain in `PandasLift/benchmark/PrepBench`. Some reference programs use legacy relative paths in `main`; when running a reference, invoke `solve` explicitly with the inputs directory for the case. These reference programs are not executed during agent generation.
+
+## Tests
 
 ```bash
 .venv/bin/python -m unittest discover -s PrepBench/tests -v
@@ -128,11 +178,11 @@ simulator 使用本机 `PrepBench/.env`，参考 `.env.example`，不随分享�
 .venv/bin/python -m unittest discover -s DataAgentBench/scripts/tests -v
 ```
 
-单元/集成测试使用模拟 agent 和 simulator 响应，覆盖两种模式串联、生成失败跳过评分、重评保留生成记录、计时及结果汇总。真实模型运行的结果保存在各自 runs 下，不把模拟测试当作真实模型正确性证据。
+Unit and integration tests use simulated agents and simulator responses. They cover the pipeline for interact and clarified modes, skipping evaluation after generation failure, preserving generation records during re-evaluation, timing, and result aggregation. Real-model runs are stored under their respective `runs` directories; simulated tests are not evidence of real-model correctness.
 
-## OpenCode 选项
+## OpenCode options
 
-`generate.py` 和 `run_benchmark.py` 都支持 `--agent codex|opencode`，默认 codex。OpenCode 的配置隔离、token 口径和镜像安装见 [runners/README.md](../runners/README.md)。自定义 provider 示例（先按共享说明准备本地配置）：
+Both `generate.py` and `run_benchmark.py` support `--agent codex|opencode`, with `codex` as the default. See [runners/README.md](../runners/README.md) for OpenCode configuration isolation, token accounting, and image setup. The following example uses a custom provider; prepare the local configuration according to the shared instructions first:
 
 ```bash
 .venv/bin/python PrepBench/run_benchmark.py \
@@ -141,4 +191,4 @@ simulator 使用本机 `PrepBench/.env`，参考 `.env.example`，不随分享�
   --model custom/gpt-6-astra --image dfarena-agent-sandbox:latest
 ```
 
-OpenCode 同样支持 interact 模式，通过 prompt 中的 HTTP 接口向 simulator 提问；这次真实模型验证使用 clarified 模式，尚未用 OpenCode 实测 interact。OpenCode 保存 `logs/agent_events.jsonl`、`logs/agent_stderr.log` 和 `detail/agent_exec_timing.json`，session ID 记录在 generation.json 中；会话数据库归档到 `detail/opencode_sessions/opencode.db`。阶段文件和 result.json 的路径不变。
+OpenCode interact support has not yet been validated with a real model; the recorded OpenCode validation used `clarified` mode. OpenCode saves `logs/agent_events.jsonl`, `logs/agent_stderr.log`, and `detail/agent_exec_timing.json`. The session ID is recorded in `generation.json`, and the session database is archived at `detail/opencode_sessions/opencode.db`. Stage-file and `result.json` paths are unchanged.

@@ -6,6 +6,7 @@ import os
 import random
 import re
 import time
+import logging
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Optional
@@ -190,6 +191,7 @@ class OpenAICompatibleClient:
         *,
         temperature: float,
         max_tokens: int,
+        deadline: Optional[float] = None,
     ) -> str:
         payload = self._build_payload(messages, temperature=temperature, max_tokens=max_tokens)
         headers = {
@@ -204,15 +206,25 @@ class OpenAICompatibleClient:
             self.session = requests.Session()
         last_error: Exception | None = None
         for attempt in range(self.max_retries + 1):
+            remaining = deadline - time.monotonic() if deadline is not None else float('inf')
+            if remaining <= 0:
+                raise TimeoutError('Simulator answer deadline exceeded')
+            connect_timeout = min(5, remaining / 2)
+            attempt_timeout = min(self.timeout, remaining - connect_timeout)
+            logging.getLogger('uvicorn.error').info('Simulator provider attempt %d started', attempt + 1)
             try:
                 response = self.session.post(
                     self.url,
                     headers=headers,
                     data=json.dumps(payload),
-                    timeout=self.timeout,
+                    timeout=(connect_timeout, attempt_timeout),
                 )
+                logging.getLogger('uvicorn.error').info('Simulator provider attempt %d returned HTTP %d', attempt + 1, response.status_code)
+                if deadline is not None and time.monotonic() >= deadline:
+                    raise TimeoutError('Simulator answer deadline exceeded')
                 if response.status_code in _RETRYABLE_STATUS_CODES and attempt < self.max_retries:
-                    time.sleep(self._backoff(attempt, response.headers.get("Retry-After")))
+                    delay = self._backoff(attempt, response.headers.get("Retry-After"))
+                    time.sleep(min(delay, max(0, deadline - time.monotonic())) if deadline is not None else delay)
                     continue
                 if response.status_code >= 400:
                     raise RuntimeError(f"LLM provider returned an error response: {self._response_summary(response)}")
@@ -231,9 +243,11 @@ class OpenAICompatibleClient:
                     raise RuntimeError(f"LLM response content is empty: {str(data)[:500]}")
                 return content
             except requests.RequestException as exc:
+                logging.getLogger('uvicorn.error').warning('Simulator provider attempt %d failed (%s)', attempt + 1, type(exc).__name__)
                 last_error = exc
                 if attempt < self.max_retries:
-                    time.sleep(self._backoff(attempt))
+                    delay = self._backoff(attempt)
+                    time.sleep(min(delay, max(0, deadline - time.monotonic())) if deadline is not None else delay)
                     continue
                 raise RuntimeError(f"LLM request failed: {exc}") from exc
         raise RuntimeError(f"LLM request failed: {last_error}")
@@ -501,11 +515,12 @@ class UserSimulator:
             context=ctx,
         )
 
-    def _generate(self, messages: list[dict[str, str]]) -> str:
+    def _generate(self, messages: list[dict[str, str]], *, deadline: Optional[float] = None) -> str:
         return self.client.generate(
             messages,
             temperature=self.temperature,
             max_tokens=self.max_tokens,
+            deadline=deadline,
         )
 
     def answer(
@@ -518,6 +533,9 @@ class UserSimulator:
         expected_sub_questions: Optional[list[str]] = None,
         runtime_feedback: Optional[str] = None,
     ) -> UserSimulatorResult:
+        # One shared budget covers provider retries AND JSON repair.
+        # The adapter allows 160s and the MCP tool 180s for error delivery.
+        deadline = time.monotonic() + 140
         ctx = {
             "query_full_text": query_full_text,
             "question": question,
@@ -528,7 +546,7 @@ class UserSimulator:
         }
         prompt_content = self._build_prompt(ctx)
         messages = [{"role": "user", "content": prompt_content}]
-        raw = self._generate(messages)
+        raw = self._generate(messages, deadline=deadline)
 
         def parse_answers(raw_text: str) -> tuple[Optional[UserSimulatorResult], Optional[str]]:
             parsed = _extract_json_object(raw_text or "")
@@ -560,7 +578,7 @@ class UserSimulator:
             ctx["runtime_feedback"] = _format_runtime_feedback(error, raw or "")
             retry_prompt = self._build_prompt(ctx)
             retry_messages = [{"role": "user", "content": retry_prompt}]
-            raw_retry = self._generate(retry_messages)
+            raw_retry = self._generate(retry_messages, deadline=deadline)
             result, error = parse_answers(raw_retry or "")
             if result:
                 return UserSimulatorResult(
