@@ -12,9 +12,6 @@ source:
   - Rows, duplicate entries, nulls, empty strings, prose amounts, date strings, and identifier variants
     were retained without fuzzy matching, normalization, amount inference, conflict filtering, aggregation,
     or answer computation during conversion.
-  - Subsequent approved task clarifications changed hints and descriptions; source data, questions, and
-    reference answers remain unchanged. Subsequent validator revisions accept sentence-final punctuation
-    after integers and distinguish declared or bold agency answers from unrelated bold headings.
 format: parquet
 table_count: 7
 data_size_bytes: 1132385
@@ -127,7 +124,6 @@ tables:
 context:
   description: context/description.md
   hints: context/hints.md
-  hints_policy: optional; selected by experiment configuration
 tasks:
   directory: tasks
   count: 10

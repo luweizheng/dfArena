@@ -311,4 +311,4 @@ File: `data/people/role_type.parquet`
 
 ## Representation
 
-PostgreSQL INTEGER fields are int32; SQLite INTEGER fields are int64. Text fields are strings, including numeric-looking values and encoded identifiers.
+Text fields are strings, including numeric-looking values and encoded identifiers.

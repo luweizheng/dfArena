@@ -458,4 +458,4 @@ File: `data/territory/UserTerritory2Association.parquet`
 
 ## Representation
 
-In the support group, physical table and column names are lowercase except for the table "Case", whose capital C is significant. Numeric-looking and date-looking text is stored as text; NumberOfEmployees and Amount are float64.
+In the support group, physical table and column names are lowercase except for the table "Case", whose capital C is significant. Numeric-looking and date-looking text is stored as text.

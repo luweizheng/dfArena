@@ -278,7 +278,6 @@ tables:
 context:
   description: context/description.md
   hints: context/hints.md
-  hints_policy: optional; selected by experiment configuration
 tasks:
   directory: tasks
   count: 3

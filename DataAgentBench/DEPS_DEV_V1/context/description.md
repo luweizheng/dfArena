@@ -18,13 +18,13 @@ Metadata of software packages, including licenses, versions, dependency-processi
 | `Advisories` | string | JSON-like list of security advisories. |
 | `VersionInfo` | string | JSON-like object with release metadata, e.g. `IsRelease` and `Ordinal`. |
 | `Hashes` | string | JSON-like list of file hashes. |
-| `DependenciesProcessed` | int64 | Whether dependencies have been processed; original SQLite integers 0/1 are retained. |
-| `DependencyError` | int64 | Whether a dependency-processing error occurred; original SQLite integers 0/1 are retained. |
+| `DependenciesProcessed` | int64 | Whether dependencies have been processed, encoded as 0/1 integers. |
+| `DependencyError` | int64 | Whether a dependency-processing error occurred, encoded as 0/1 integers. |
 | `UpstreamPublishedAt` | double | Upstream publication timestamp as originally stored. The source description labels the unit as milliseconds, but the unit has not been verified; values are not rescaled or converted to dates. |
 | `Registries` | string | JSON-like list of package registries. |
 | `SLSAProvenance` | double | Described by the source as SLSA provenance level, if available. |
 | `UpstreamIdentifiers` | string | JSON-like list of upstream identifiers. |
-| `Purl` | double | Described by the source as package URL, if available. The source declares this column REAL; that physical type is preserved. |
+| `Purl` | double | Described by the source as package URL, if available. |
 
 ## Table: `project_packageversion`
 

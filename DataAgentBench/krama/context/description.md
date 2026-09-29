@@ -106,8 +106,6 @@ File: `data/domain_assets/files.parquet`
 
 ## Binary and document representation
 
-The two tables called files belong to different groups: domain_docs/files contains content strings, whereas domain_assets/files contains file_description strings and content bytes. Use their distinct paths.
+`domain_docs/files` and `domain_assets/files` are separate tables; use their distinct paths listed above. Document content includes full text, embedded tables, document names, and newlines. Neither table has an `_id` or separate domain/name columns.
 
-Document content contains full text, including embedded tables, document names, and newlines. No _id or separate domain/name columns are present. Binary content and geometry values are Parquet binary; geometry cells use the GeoPackage binary representation described above, not GeoParquet encoding.
-
-SHAPE and geom contain bytes; DateCurrent, src_date and src_update contain strings despite their SQLite NUM declarations. All-null TEXT columns are nullable strings. Text-valued dates, temperatures, units, and identifiers remain strings.
+Geometry cells use GeoPackage binary, not GeoParquet encoding. All-null text columns are nullable strings. Text-valued dates, temperatures, units, and identifiers remain strings.

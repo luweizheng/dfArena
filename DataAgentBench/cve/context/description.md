@@ -138,7 +138,7 @@ Each `references` element has:
 
 ## JSON representation
 
-The original descriptions and references arrays are stored as reversible JSON array strings. Parse non-null strings with a JSON parser for nested access. Empty arrays remain `[]`; all element order, repeated references, object key order, URLs, language tags and text are preserved. The actual description key is `lang`, not `language` as stated in the original description. References have `url` and `source` keys; all present values are strings in this snapshot. The BSON documents contain only cve, descriptions and references: no `_id` is generated.
+Parse non-null `descriptions` and `references` cells with a JSON parser for nested access. Empty arrays are `[]`; element order, repeated references, object key order, URLs, language tags, and exact text are preserved. All non-null values of these object fields are strings. This table has no `_id` column.
 
 ## Representation
 

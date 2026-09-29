@@ -116,7 +116,7 @@ Each description item contains:
 
 ## JSON representation
 
-The original `descriptions` list of objects is stored as a reversible JSON array string, retaining list order, object key order, language labels, and exact description text. Parse this field with a JSON parser when list/object access is needed. No translation, language correction, flattening, deduplication, or extra `_id` generation was performed. The actual BSON snapshot has only award_id and descriptions.
+`descriptions` preserves the list of objects as JSON array text, including list order, duplicate entries, object key order, language labels, and exact description text. Parse non-null cells with a JSON parser for list/object access. This table has no `_id` column.
 
 ## Representation
 
