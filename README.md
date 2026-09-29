@@ -124,3 +124,22 @@ Evaluation is separate from generation and checks two types of output: an answer
 - **Table evaluation:** compares a generated table with a ground-truth table according to an evaluation configuration. For PrepBench, the shared [`evaluation/`](evaluation/README.md) module normalizes field values, aligns rows using configured keys, and compares values using the declared types and numeric tolerances. Row order is ignored by default; when required, order checks allow tied rows to exchange positions according to the configured ordering rules.
 
 See the [DataAgentBench runner documentation](DataAgentBench/scripts/README.md) and [PrepBench runner documentation](PrepBench/README.md) for benchmark-specific commands and evaluator details.
+
+## Workload domain taxonomy
+
+A workload has one primary `domain`.
+
+| Domain | Typical subdomains | Examples |
+| --- | --- | --- |
+| `business` | `sales_operations`, `customer_relationship_management`, `retail_operations`, `workforce_analytics`, `site_selection`, `local_businesses`, `business_reviews` | CRM, store performance, inventory, customer, sales and local-business analysis |
+| `finance` | `stock_market`, `financial_reporting`, `investment` | Stock prices, securities, trading and financial indicators |
+| `software` | `package_ecosystem`, `open_source_repositories`, `cybersecurity` | Software packages, GitHub repositories and CVE data |
+| `health` | `cancer_research`, `clinical`, `public_health` | Clinical and biomedical data |
+| `science` | `patents`, `research_data`, `scientific_literature` | Patents and other scientific data |
+| `public_sector` | `civic_data`, `government_contracts`, `procurement` | Civic documents, public funding and government awards |
+| `media_culture` | `news`, `books_reviews`, `film_television`, `music` | News, books, films and music |
+| `sports` | `league_statistics`, `game_results` | NBA and other sports standings or results |
+| `education` | `student_records`, `learning_analytics` | Education and learning datasets |
+| `geospatial` | `maps`, `locations`, `geospatial_documents` | Location and geometry-heavy datasets |
+
+Use `finance` as a peer of `business`: business covers organizational operations, customers, sales, retail and local businesses, while finance covers markets, securities and financial measures.
