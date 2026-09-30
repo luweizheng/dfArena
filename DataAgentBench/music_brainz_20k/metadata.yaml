@@ -1,0 +1,68 @@
+dataset_id: music_brainz_20k
+version: '1.0'
+domain: media_culture
+source:
+  benchmark: DataAgentBench
+  dataset: query_music_brainz_20k
+  adaptations:
+  - SQLite and DuckDB tables were exported read-only to Parquet, retaining all records, text, and missing
+    values without normalization, imputation, entity resolution, or aggregation.
+  - year and length remain strings. SQLite INTEGER retains int64; DuckDB INTEGER retains int32.
+format: parquet
+table_count: 2
+data_size_bytes: 1855121
+tables:
+- name: tracks
+  path: data/tracks/tracks.parquet
+  rows: 19375
+  columns: 9
+  schema:
+  - name: track_id
+    type: int64
+  - name: source_id
+    type: int64
+  - name: source_track_id
+    type: string
+  - name: title
+    type: string
+  - name: artist
+    type: string
+  - name: album
+    type: string
+  - name: year
+    type: string
+  - name: length
+    type: string
+  - name: language
+    type: string
+  size_bytes: 1097225
+  sha256: bbfbe265cd9a319029ac2d0419b457191b3512f8a2c65af5b630f766a4a5a4e5
+- name: sales
+  path: data/sales/sales.parquet
+  rows: 58049
+  columns: 6
+  schema:
+  - name: sale_id
+    type: int32
+  - name: track_id
+    type: int32
+  - name: country
+    type: string
+  - name: store
+    type: string
+  - name: units_sold
+    type: int32
+  - name: revenue_usd
+    type: double
+  size_bytes: 757896
+  sha256: 1167888681f3f0f4a2c520028fa7d7d0989a1e9a517ffdcbd80822a4fcb38f8a
+context:
+  description: description.md
+  hints: hints.md
+tasks:
+  directory: tasks
+  count: 3
+  ids:
+  - music_brainz_20k_task1
+  - music_brainz_20k_task2
+  - music_brainz_20k_task3

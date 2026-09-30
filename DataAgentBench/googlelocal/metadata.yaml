@@ -1,0 +1,66 @@
+dataset_id: googlelocal
+version: '1.0'
+domain: business
+source:
+  benchmark: DataAgentBench
+  dataset: query_googlelocal
+  adaptations:
+  - PostgreSQL text COPY snapshots were decoded without server restore; SQLite and DuckDB tables were
+    read directly and exported to Parquet.
+  - Physical types, rows, duplicates, nulls, empty strings, numeric values, column names, and text formatting
+    were retained. Structured text, bracketed annotations, and date-like or number-like text were not
+    parsed or replaced with nulls.
+  - No joins, sample selection, aggregation, or missing-value imputation were applied during conversion.
+format: parquet
+table_count: 2
+data_size_bytes: 200300
+tables:
+- name: business_description
+  path: data/business/business_description.parquet
+  rows: 79
+  columns: 7
+  size_bytes: 15548
+  sha256: 84b06fb2cfd98f4a2cfcb2694bfc58c4537ea6b2a1065d65a941113142019d4a
+  schema:
+  - name: name
+    type: string
+  - name: gmap_id
+    type: string
+  - name: description
+    type: string
+  - name: num_of_reviews
+    type: int64
+  - name: hours
+    type: string
+  - name: MISC
+    type: string
+  - name: state
+    type: string
+- name: review
+  path: data/review/review.parquet
+  rows: 2000
+  columns: 5
+  size_bytes: 184752
+  sha256: 9de6233cc68e3dd163109eb63999d0a397458a98c5a1d3ea021f02163b8370e2
+  schema:
+  - name: name
+    type: string
+  - name: time
+    type: string
+  - name: rating
+    type: int64
+  - name: text
+    type: string
+  - name: gmap_id
+    type: string
+context:
+  description: description.md
+  hints: hints.md
+tasks:
+  directory: tasks
+  count: 4
+  ids:
+  - googlelocal_task1
+  - googlelocal_task2
+  - googlelocal_task3
+  - googlelocal_task4

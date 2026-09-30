@@ -1,0 +1,101 @@
+dataset_id: DEPS_DEV_V1
+version: '1.0'
+domain: software
+source:
+  benchmark: DataAgentBench
+  dataset: query_DEPS_DEV_V1
+  adaptations:
+  - Read-only SQLite and DuckDB exports retain rows, duplicates, nulls, empty strings, column names, and
+    column order without cleaning, joins, deduplication, or derived metrics.
+  - SQLite 0/1 flags remain int64; REAL/DOUBLE columns remain double, including the entirely null SLSAProvenance,
+    Purl, and OSSFuzz columns.
+  - JSON-like text, version strings, and numeric timestamps were not parsed, sorted, or normalized. The
+    timestamp unit remains unresolved.
+format: parquet
+table_count: 3
+data_size_bytes: 58814997
+tables:
+- name: packageinfo
+  path: data/package/packageinfo.parquet
+  rows: 661372
+  columns: 15
+  schema:
+  - name: System
+    type: string
+  - name: Name
+    type: string
+  - name: Version
+    type: string
+  - name: Licenses
+    type: string
+  - name: Links
+    type: string
+  - name: Advisories
+    type: string
+  - name: VersionInfo
+    type: string
+  - name: Hashes
+    type: string
+  - name: DependenciesProcessed
+    type: int64
+  - name: DependencyError
+    type: int64
+  - name: UpstreamPublishedAt
+    type: double
+  - name: Registries
+    type: string
+  - name: SLSAProvenance
+    type: double
+  - name: UpstreamIdentifiers
+    type: string
+  - name: Purl
+    type: double
+  size_bytes: 54173698
+  sha256: 05d46c8dbe33c625735608511e5aa00ede7c090c03ad78931ba54acd35c92ff2
+- name: project_info
+  path: data/project/project_info.parquet
+  rows: 770
+  columns: 5
+  schema:
+  - name: Project_Information
+    type: string
+  - name: Licenses
+    type: string
+  - name: Description
+    type: string
+  - name: Homepage
+    type: string
+  - name: OSSFuzz
+    type: double
+  size_bytes: 54048
+  sha256: 9cfb3365cde0d7cb72e9bf6deec77ff0f99fc19aea20e2756b0ec095a64caa9b
+- name: project_packageversion
+  path: data/project/project_packageversion.parquet
+  rows: 597602
+  columns: 7
+  schema:
+  - name: System
+    type: string
+  - name: Name
+    type: string
+  - name: Version
+    type: string
+  - name: ProjectType
+    type: string
+  - name: ProjectName
+    type: string
+  - name: RelationProvenance
+    type: string
+  - name: RelationType
+    type: string
+  size_bytes: 4587251
+  sha256: c7ef3c783e0ab2342c73d83603e4a58b3f3465a5817ad91df139eeecf60bdc77
+context:
+  description: description.md
+  hints: hints.md
+tasks:
+  directory: tasks
+  count: 2
+  ids:
+  - DEPS_DEV_V1_task1
+  - DEPS_DEV_V1_task2

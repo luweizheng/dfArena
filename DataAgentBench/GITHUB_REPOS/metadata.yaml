@@ -1,0 +1,133 @@
+dataset_id: GITHUB_REPOS
+version: '1.0'
+domain: software
+source:
+  benchmark: DataAgentBench
+  dataset: query_GITHUB_REPOS
+  adaptations:
+  - All configured database tables were exported read-only to Parquet with original physical types, every
+    row, duplicates, nulls, empty strings, and text formatting retained; no joins, deduplication, imputation,
+    or answer computation was performed.
+  - Dates, content, commit metadata, language descriptions, and JSON-like values remain text; numeric
+    values were not rounded and embedded text was not executed.
+  - difference_truncated remains double and entirely null, despite being described as a boolean in the
+    source documentation.
+format: parquet
+table_count: 6
+data_size_bytes: 271830309
+tables:
+- name: languages
+  path: data/metadata/languages.parquet
+  rows: 3325634
+  columns: 2
+  size_bytes: 108716411
+  sha256: ef1f105f968bdfb842cda30faf561c55a583b67ca33590321392207ca2f2dda2
+  schema:
+  - name: repo_name
+    type: string
+  - name: language_description
+    type: string
+- name: licenses
+  path: data/metadata/licenses.parquet
+  rows: 3325634
+  columns: 2
+  size_bytes: 57632349
+  sha256: ff3efde687752944ef9461e97f446be04fcaa934388d15c6be3acb8c019079e3
+  schema:
+  - name: repo_name
+    type: string
+  - name: license
+    type: string
+- name: repos
+  path: data/metadata/repos.parquet
+  rows: 400000
+  columns: 2
+  size_bytes: 6930911
+  sha256: b73287ed25a12a3d6f864f0647f75f42003648260db185c2bc87cc5b401ace42
+  schema:
+  - name: repo_name
+    type: string
+  - name: watch_count
+    type: int64
+- name: commits
+  path: data/artifacts/commits.parquet
+  rows: 17976
+  columns: 12
+  size_bytes: 19519944
+  sha256: fd3c4435f2f1b53aa0bb5b17da7963c379e0793a7ef55c656ae361760f69dd53
+  schema:
+  - name: commit
+    type: string
+  - name: tree
+    type: string
+  - name: parent
+    type: string
+  - name: author
+    type: string
+  - name: committer
+    type: string
+  - name: subject
+    type: string
+  - name: message
+    type: string
+  - name: trailer
+    type: string
+  - name: difference
+    type: string
+  - name: difference_truncated
+    type: double
+  - name: repo_name
+    type: string
+  - name: encoding
+    type: string
+- name: contents
+  path: data/artifacts/contents.parquet
+  rows: 24286
+  columns: 7
+  size_bytes: 55334637
+  sha256: 0b03c1c48663729d074d5726101843c8726749f3b73bb6360c6a4413f664c42e
+  schema:
+  - name: id
+    type: string
+  - name: content
+    type: string
+  - name: sample_repo_name
+    type: string
+  - name: sample_ref
+    type: string
+  - name: sample_path
+    type: string
+  - name: sample_symlink_target
+    type: string
+  - name: repo_data_description
+    type: string
+- name: files
+  path: data/artifacts/files.parquet
+  rows: 524077
+  columns: 6
+  size_bytes: 23696057
+  sha256: 5c7abf40d5abcdccd183773b02dda7b839f672e7f449e778bc8a818824030b0e
+  schema:
+  - name: repo_name
+    type: string
+  - name: ref
+    type: string
+  - name: path
+    type: string
+  - name: mode
+    type: int64
+  - name: id
+    type: string
+  - name: symlink_target
+    type: string
+context:
+  description: description.md
+  hints: hints.md
+tasks:
+  directory: tasks
+  count: 4
+  ids:
+  - GITHUB_REPOS_task1
+  - GITHUB_REPOS_task2
+  - GITHUB_REPOS_task3
+  - GITHUB_REPOS_task4
