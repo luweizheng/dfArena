@@ -1,13 +1,16 @@
+import hashlib
 import json
 from pathlib import Path
 import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 SCRIPTS=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(SCRIPTS))
 from results import save, summarize, token_usage
+from generate import build_prompt
 WRAPPER=SCRIPTS.parents[1]/'runners/timed_process.py'
 
 
@@ -56,6 +59,146 @@ class ResultsTests(unittest.TestCase):
                 if status=='timeout':
                     self.assertEqual(cp.returncode,124)
                     self.assertLess(r['elapsed_seconds'],3)
+
+
+class PromptDeliveryTests(unittest.TestCase):
+    def make_input(self, root):
+        (root / 'data').mkdir()
+        (root / 'description.md').write_text('字段说明：Date 是交易日期。\n', encoding='utf-8')
+        (root / 'hints.md').write_text('规则：所有指数采用共同截止日期。\n', encoding='utf-8')
+        return {'context': 'Hints are available only when enabled.', 'query': 'Find the top five.'}
+
+    def test_complete_text_and_auditable_hashes_without_hidden_answers(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            task = self.make_input(root)
+            (root / 'answer').mkdir()
+            (root / 'answer/secret.txt').write_text('HIDDEN_GOLD_SENTINEL', encoding='utf-8')
+            prompt, delivery = build_prompt(root, task, 'Use pandas.', mode='clarified')
+            self.assertIn(task['query'], prompt)
+            self.assertIn('Hints are enabled for this run.', prompt)
+            self.assertIn('equally binding', prompt)
+            self.assertNotIn('HIDDEN_GOLD_SENTINEL', prompt)
+            self.assertNotIn('metadata.yaml', prompt)
+            self.assertNotIn('metadata_source', delivery)
+            self.assertEqual(delivery['agent_inputs'], ['data/', 'context/description.md', 'query.md', 'context/hints.md'])
+            self.assertFalse(delivery['simulator'])
+            self.assertEqual(delivery['simulator_context'], [])
+            self.assertIn((root / 'description.md').read_text(encoding='utf-8'), prompt)
+            self.assertIn((root / 'hints.md').read_text(encoding='utf-8'), prompt)
+
+    def test_incomplete_or_invalid_documents_fail(self):
+        for name in ['description.md', 'hints.md']:
+            for content, error in [(None, FileNotFoundError), (b' \n', ValueError), (b'\xff', UnicodeError)]:
+                with self.subTest(name=name, content=content), tempfile.TemporaryDirectory() as tmp:
+                    root = Path(tmp)
+                    task = self.make_input(root)
+                    source = root / name
+                    if content is None:
+                        source.unlink()
+                    else:
+                        source.write_bytes(content)
+                    with self.assertRaises(error):
+                        build_prompt(root, task, 'Use pandas.', mode='clarified')
+
+    def test_file_reference_mode_is_not_marked_complete(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            task = self.make_input(root)
+            prompt, delivery = build_prompt(root, task, 'Use pandas.', mode='direct')
+            self.assertNotIn('所有指数', prompt)
+            self.assertEqual(delivery['agent_inputs'], ['data/', 'context/description.md', 'query.md'])
+            self.assertFalse(delivery['simulator'])
+            self.assertEqual(delivery['simulator_context'], [])
+            self.assertNotIn('metadata.yaml', prompt)
+
+    def test_research_metadata_is_not_an_input_in_either_prompt_mode(self):
+        for complete in [False, True]:
+            with self.subTest(complete=complete), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                task = self.make_input(root)
+                baseline = build_prompt(root, task, 'Use pandas.', mode='clarified' if complete else 'direct')
+                metadata = root / 'metadata.yaml'
+                for content in [b' \n', b'\xff', b'notes: RESEARCH_ONLY_SENTINEL\n']:
+                    with self.subTest(content=content):
+                        metadata.write_bytes(content)
+                        prompt, delivery = build_prompt(root, task, 'Use pandas.', mode='clarified' if complete else 'direct')
+                        self.assertEqual((prompt, delivery), baseline)
+                        self.assertNotIn('RESEARCH_ONLY_SENTINEL', prompt)
+                        self.assertNotIn('metadata.yaml', prompt)
+                        self.assertNotIn('metadata_source', delivery)
+
+    def test_missing_hints_stops_complete_mode_before_docker_or_agent_configuration(self):
+        import generate
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            task = self.make_input(root)
+            (root / 'hints.md').unlink()
+            task_dir = root / 'tasks/task1'
+            task_dir.mkdir(parents=True)
+            (task_dir / 'query.md').write_text(task['query'], encoding='utf-8')
+            run = root / 'run'
+            with patch.object(generate, 'settings', return_value={'model': 'test'}), \
+                 patch.object(generate, 'prepare_agent') as prepare, \
+                 patch.object(generate.subprocess, 'run') as execute, \
+                 patch.object(sys, 'stderr'), self.assertRaises(SystemExit) as raised:
+                generate.main(['--dataset', str(root), '--task', 'task1', '--run-dir', str(run),
+                               '--mode', 'clarified'])
+            self.assertEqual(raised.exception.code, 2)
+            prepare.assert_not_called()
+            execute.assert_not_called()
+            self.assertFalse(run.exists())
+
+    def test_actual_subprocess_input_matches_saved_prompt(self):
+        import generate
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            task = self.make_input(root)
+            (root / 'metadata.yaml').write_text('notes: RESEARCH_ONLY_SENTINEL\n', encoding='utf-8')
+            task_dir = root / 'tasks/task1'
+            task_dir.mkdir(parents=True)
+            (task_dir / 'query.md').write_text(task['query'], encoding='utf-8')
+            run = root / 'run'
+            sent = []
+
+            def fake_process(command, **kwargs):
+                if command[:2] == ['docker', 'run']:
+                    self.assertEqual(kwargs['encoding'], 'utf-8')
+                    mounts = [command[i + 1] for i, arg in enumerate(command) if arg == '-v']
+                    workspace_inputs = {m for m in mounts if ':/workspace/' in m and m.endswith(':ro')}
+                    self.assertEqual(sum(x.endswith(':/workspace/data:ro') for x in workspace_inputs), 1)
+                    self.assertEqual(sum(x.endswith(':/workspace/context:ro') for x in workspace_inputs), 1)
+                    self.assertIn(f'{(task_dir / "query.md").resolve()}:/workspace/query.md:ro', workspace_inputs)
+                    self.assertFalse(any(':/workspace/answer' in m or ':/workspace:ro' in m for m in mounts))
+                    self.assertFalse(any('metadata.yaml' in m for m in mounts))
+                    self.assertNotIn('metadata.yaml', kwargs['input'])
+                    self.assertNotIn('RESEARCH_ONLY_SENTINEL', kwargs['input'])
+                    sent.append(kwargs['input'])
+                    metrics_mount = next(x for x in command if x.endswith(':/runner/metrics:rw'))
+                    metrics = Path(metrics_mount[:-len(':/runner/metrics:rw')])
+                    (metrics / 'codex.json').write_text(json.dumps({'status': 'completed', 'returncode': 0}), encoding='utf-8')
+                    (run / 'work/solution.py').write_text('print("test fixture")', encoding='utf-8')
+                    (run / 'work/answer.json').write_text('{"answer":"test fixture"}', encoding='utf-8')
+                return subprocess.CompletedProcess(command, 0)
+
+            argv = ['generate.py', '--dataset', str(root), '--task', 'task1', '--run-dir', str(run),
+                    '--mode', 'clarified', '--agent', 'codex']
+            with patch.object(sys, 'argv', argv), \
+                 patch.object(generate, 'settings', return_value={'model': 'test'}), \
+                 patch.object(generate, 'label_for', return_value='test'), \
+                 patch.object(generate, 'prepare_agent', return_value=([], ['fake-agent'])), \
+                 patch.object(generate, 'archive_sessions', return_value=None), \
+                 patch.object(generate.subprocess, 'run', side_effect=fake_process), \
+                 patch('builtins.print'):
+                self.assertEqual(generate.main(), 0)
+            self.assertEqual(len(sent), 1)
+            self.assertEqual(sent[0].encode('utf-8'), (run / 'detail/prompt.txt').read_bytes())
+            for name in ['description.md', 'hints.md']:
+                self.assertIn((root / name).read_text(encoding='utf-8'), sent[0])
+            generation = json.loads((run / 'detail/generation.json').read_text(encoding='utf-8'))
+            delivery = generation['input_delivery']
+            self.assertEqual(delivery['agent_inputs'], ['data/', 'context/description.md', 'query.md', 'context/hints.md'])
+            self.assertFalse((run / 'detail/input_delivery.json').exists())
 
 
 if __name__=='__main__':
