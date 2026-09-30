@@ -1,6 +1,0 @@
-{
-  "task_id": "bookreview_task3",
-  "dataset_id": "bookreview",
-  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions. Hints are optional and selected by the experiment configuration.",
-  "query": "Which books categorized as 'Children's Books' have received an average rating of at least 4.5 based on reviews from 2020 onwards?"
-}

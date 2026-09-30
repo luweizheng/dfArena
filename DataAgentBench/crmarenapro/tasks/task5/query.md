@@ -1,0 +1,3 @@
+What has been the most frequent problem AI Cirku-Tech encountered over the past five months? The associated product Id is 01tWt000006hV8LIAU. Return only the issue Id of the most reported issue for this product.
+
+- Today's date: 2023-01-16

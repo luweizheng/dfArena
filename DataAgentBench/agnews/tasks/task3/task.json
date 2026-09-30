@@ -1,6 +1,0 @@
-{
-  "task_id": "agnews_task3",
-  "dataset_id": "agnews",
-  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions. Hints are optional and selected by the experiment configuration.",
-  "query": "What is the average number of business articles published per year in Europe from 2010 to 2020, inclusive?"
-}

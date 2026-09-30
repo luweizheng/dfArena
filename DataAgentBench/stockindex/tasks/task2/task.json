@@ -1,6 +1,0 @@
-{
-  "task_id": "stockindex_task2",
-  "context": "Use the provided Parquet tables under data/. Dataset-relative file paths, table schemas, and field descriptions are in context/description.md. Additional guidance in context/hints.md is available only when enabled by the experiment configuration.",
-  "query": "Among North American stock indices, which indices had more up days than down days in 2018?",
-  "dataset_id": "stockindex"
-}

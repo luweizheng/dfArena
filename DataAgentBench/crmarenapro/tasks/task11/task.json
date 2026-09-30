@@ -1,6 +1,0 @@
-{
-  "task_id": "crmarenapro_task11",
-  "dataset_id": "crmarenapro",
-  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions and measured physical types. Hints are optional and selected by the experiment configuration.",
-  "query": "Can you show me the AI processing unit I purchased last month? Return only the Id of the product from the contact's relevant past transaction.\n\n- Contact Id interacting: 003Wt00000Jqy8SIAR\n- Today's date: 2021-07-15"
-}

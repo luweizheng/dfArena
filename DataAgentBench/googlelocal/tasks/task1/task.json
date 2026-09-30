@@ -1,6 +1,0 @@
-{
-  "task_id": "googlelocal_task1",
-  "dataset_id": "googlelocal",
-  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions. Hints are optional and selected by the experiment configuration.",
-  "query": "What are the top 5 businesses located in Los Angeles, California, ranked by highest average rating in descending order?"
-}

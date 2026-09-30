@@ -1,6 +1,0 @@
-{
-  "task_id": "crmarenapro_task2",
-  "dataset_id": "crmarenapro",
-  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions and measured physical types. Hints are optional and selected by the experiment configuration.",
-  "query": "Does the cost and setup of this quote comply with our company policy? If it doesn't, which knowledge article is it in conflict with? Return only the Id of the knowledge article that the quote violates. If no violation is found, return None.\n\n## Quote approval guide.\nLook for relevant knowledge articles to justify the quote approval.\n\n- Quote Id to be considered is: 0Q0Wt000001WSDVKA4"
-}

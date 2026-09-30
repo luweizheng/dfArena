@@ -1,6 +1,0 @@
-{
-  "task_id": "usaspending_task2",
-  "dataset_id": "usaspending",
-  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions and reversible JSON encoding. Hints are optional and selected by the experiment configuration.",
-  "query": "How many contract awards went to recipients located in California with an award amount greater than $1,000,000?"
-}

@@ -1,6 +1,0 @@
-{
-  "task_id": "cve_task8",
-  "dataset_id": "cve",
-  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions and reversible JSON encoding. Hints are optional and selected by the experiment configuration.",
-  "query": "How many distinct CVEs are listed in CISA's KEV catalog AND have at least one vulnerable Microsoft product configuration AND have a CVSS v3 base score of 7.0 or higher? Use the exact numeric score encoded as the first numeric token in vulns_db.cvss_metadata.score_text."
-}

@@ -1,6 +1,0 @@
-{
-  "task_id": "stockmarket_task1",
-  "dataset_id": "stockmarket",
-  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions. Hints are optional and selected by the experiment configuration.",
-  "query": "What was the maximum adjusted closing price in 2020 for The RealReal, Inc.?"
-}

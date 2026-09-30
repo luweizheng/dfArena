@@ -147,8 +147,8 @@ tables:
   size_bytes: 111618209
   sha256: 356f6ae90a57494b8861a3304c5233e65af8b71779007e117e6d634c391bc062
 context:
-  description: context/description.md
-  hints: context/hints.md
+  description: description.md
+  hints: hints.md
 tasks:
   directory: tasks
   count: 10

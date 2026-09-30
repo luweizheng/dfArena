@@ -1,6 +1,0 @@
-{
-  "task_id": "yelp_task3",
-  "dataset_id": "yelp",
-  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions and reversible dictionary encoding. Hints are optional and selected by the experiment configuration.",
-  "query": "During 2018, how many businesses that received reviews offered either business parking or bike parking?"
-}

@@ -1,6 +1,0 @@
-{
-  "task_id": "music_brainz_20k_task3",
-  "dataset_id": "music_brainz_20k",
-  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions. Hints are optional and selected by the experiment configuration.",
-  "query": "Which song generated the highest total revenue in USD across all stores and countries?"
-}

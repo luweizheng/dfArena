@@ -1,6 +1,0 @@
-{
-  "task_id": "GITHUB_REPOS_task2",
-  "dataset_id": "GITHUB_REPOS",
-  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions. Hints are optional and selected by the experiment configuration.",
-  "query": "Identify the repository that contains Swift code and the most frequently copied non-binary Swift (.swift) file in the dataset, ensuring that each file is uniquely determined by its ID in the files table."
-}

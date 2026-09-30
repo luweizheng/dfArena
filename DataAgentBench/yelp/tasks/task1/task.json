@@ -1,6 +1,0 @@
-{
-  "task_id": "yelp_task1",
-  "dataset_id": "yelp",
-  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions and reversible dictionary encoding. Hints are optional and selected by the experiment configuration.",
-  "query": "What is the average rating of all businesses located in Indianapolis, Indiana?"
-}

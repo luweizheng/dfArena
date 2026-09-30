@@ -46,8 +46,8 @@ tables:
   - name: amount
     type: int64
 context:
-  description: context/description.md
-  hints: context/hints.md
+  description: description.md
+  hints: hints.md
 tasks:
   directory: tasks
   count: 10

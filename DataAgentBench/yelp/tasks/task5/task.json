@@ -1,6 +1,0 @@
-{
-  "task_id": "yelp_task5",
-  "dataset_id": "yelp",
-  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions and reversible dictionary encoding. Hints are optional and selected by the experiment configuration.",
-  "query": "Which U.S. state has the highest number of businesses that offer WiFi, and what is the average rating for those businesses?"
-}

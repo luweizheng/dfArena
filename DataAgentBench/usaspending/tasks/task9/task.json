@@ -1,6 +1,0 @@
-{
-  "task_id": "usaspending_task9",
-  "dataset_id": "usaspending",
-  "context": "Use the Parquet tables under data/. See context/description.md for file paths, field descriptions and reversible JSON encoding. Hints are optional and selected by the experiment configuration.",
-  "query": "How many contracts have no English-language description and an award amount greater than $1,000,000?"
-}
