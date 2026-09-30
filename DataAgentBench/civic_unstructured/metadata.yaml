@@ -1,0 +1,64 @@
+dataset_id: civic_unstructured
+version: '1.0'
+domain: public_sector
+source:
+  benchmark: DataAgentBench
+  dataset: query_civic_unstructured
+  adaptations:
+  - Flat BSON documents and SQLite funding records were exported to Parquet with all rows, original order,
+    duplicates, strings, and nulls retained.
+  - civic_docs._id uses reversible 24-character lowercase hexadecimal ObjectId text. BSON int32 and SQLite
+    INTEGER retain int32 and int64; dates remain strings.
+  - Each agenda remains one complete text cell. No project extraction, name matching, status labeling,
+    date correction, noise removal, or funding aggregation was performed.
+format: parquet
+table_count: 2
+data_size_bytes: 45767
+tables:
+- name: civic_docs
+  path: data/civic_docs/civic_docs.parquet
+  rows: 19
+  columns: 3
+  size_bytes: 28725
+  sha256: 6df4a7ad46601fa0085ec7d9d835d843e134e70c17db2b56f4c3c5250fecdbc2
+  schema:
+  - name: _id
+    type: string
+  - name: report_id
+    type: string
+  - name: report_content
+    type: string
+- name: Funding
+  path: data/funding/Funding.parquet
+  rows: 746
+  columns: 5
+  size_bytes: 17042
+  sha256: 34edfd70d9927b7ba9f5d74f55cfa4cdcbc9b95faa889c58392efd36083641a0
+  schema:
+  - name: fid
+    type: string
+  - name: project_name
+    type: string
+  - name: funding_source
+    type: string
+  - name: grant_time
+    type: string
+  - name: amount
+    type: int64
+context:
+  description: description.md
+  hints: hints.md
+tasks:
+  directory: tasks
+  count: 10
+  ids:
+  - civic_unstructured_task1
+  - civic_unstructured_task2
+  - civic_unstructured_task3
+  - civic_unstructured_task4
+  - civic_unstructured_task5
+  - civic_unstructured_task6
+  - civic_unstructured_task7
+  - civic_unstructured_task8
+  - civic_unstructured_task9
+  - civic_unstructured_task10

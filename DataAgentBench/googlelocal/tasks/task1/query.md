@@ -1,0 +1,1 @@
+What are the top 5 businesses located in Los Angeles, California, ranked by highest average rating in descending order?

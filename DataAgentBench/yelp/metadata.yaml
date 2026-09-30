@@ -1,0 +1,135 @@
+dataset_id: yelp
+version: '1.0'
+domain: business
+source:
+  benchmark: DataAgentBench
+  dataset: query_yelp
+  adaptations:
+  - BSON ObjectId values use reversible 24-character lowercase hexadecimal text.
+  - business.attributes and hours use JSON object text, preserving object-key order and original string
+    values. Source null remains Parquet null; absent keys remain absent; empty objects remain {}. Values
+    were not evaluated as code or converted to booleans.
+  - Each check-in date remains its original string rather than a list. Other dates remain strings; BSON
+    integers retain int32 and DuckDB BIGINT retains int64.
+  - Rows, repeated records, nulls, empty strings, text characters, business identifier prefixes, and references
+    were retained without location/category extraction, joins, cleaning, deduplication, rating aggregation,
+    or truth-value inference.
+format: parquet
+table_count: 5
+data_size_bytes: 755705
+tables:
+- name: business
+  path: data/businessinfo/business.parquet
+  rows: 100
+  columns: 8
+  size_bytes: 24430
+  sha256: 6e159a3c32c11cb0c68ab86092d786f5fb42059267f9db030d0bb29296157f25
+  schema:
+  - name: _id
+    type: string
+  - name: business_id
+    type: string
+  - name: name
+    type: string
+  - name: review_count
+    type: int32
+  - name: is_open
+    type: int32
+  - name: attributes
+    type: string
+  - name: hours
+    type: string
+  - name: description
+    type: string
+- name: checkin
+  path: data/businessinfo/checkin.parquet
+  rows: 90
+  columns: 3
+  size_bytes: 75569
+  sha256: 81e47df90a680b0c85370ba94d5e6bace1c075f30c09937a3a7008ff3a619eb0
+  schema:
+  - name: _id
+    type: string
+  - name: business_id
+    type: string
+  - name: date
+    type: string
+- name: review
+  path: data/user/review.parquet
+  rows: 2000
+  columns: 9
+  size_bytes: 565914
+  sha256: acb5d0e9f90caf55eba7f8f2643ba7b56cd4b0505b71af8c79727f6fb54bd3e1
+  schema:
+  - name: review_id
+    type: string
+  - name: user_id
+    type: string
+  - name: business_ref
+    type: string
+  - name: rating
+    type: int64
+  - name: useful
+    type: int64
+  - name: funny
+    type: int64
+  - name: cool
+    type: int64
+  - name: text
+    type: string
+  - name: date
+    type: string
+- name: tip
+  path: data/user/tip.parquet
+  rows: 784
+  columns: 5
+  size_bytes: 39336
+  sha256: ae21781a149e452962a5e9dd65aa3bf271b756b2696bfec4b9af3dcc30091de3
+  schema:
+  - name: user_id
+    type: string
+  - name: business_ref
+    type: string
+  - name: text
+    type: string
+  - name: date
+    type: string
+  - name: compliment_count
+    type: int64
+- name: user
+  path: data/user/user.parquet
+  rows: 1999
+  columns: 8
+  size_bytes: 50456
+  sha256: 9f511639b505447e82f3955f31aaf884687ee1bd01b62fc1a9ad0c72db565daf
+  schema:
+  - name: user_id
+    type: string
+  - name: name
+    type: string
+  - name: review_count
+    type: int64
+  - name: yelping_since
+    type: string
+  - name: useful
+    type: int64
+  - name: funny
+    type: int64
+  - name: cool
+    type: int64
+  - name: elite
+    type: string
+context:
+  description: description.md
+  hints: hints.md
+tasks:
+  directory: tasks
+  count: 7
+  ids:
+  - yelp_task1
+  - yelp_task2
+  - yelp_task3
+  - yelp_task4
+  - yelp_task5
+  - yelp_task6
+  - yelp_task7

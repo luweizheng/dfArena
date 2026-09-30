@@ -1,0 +1,399 @@
+dataset_id: imdb
+version: '1.0'
+domain: media_culture
+source:
+  benchmark: DataAgentBench
+  dataset: query_imdb
+  adaptations:
+  - Full PostgreSQL COPY CSV and SQLite contents were converted without SQL execution, cleaning, sorting,
+    normalization, joins, numeric extraction, or deduplication; rows, nulls, empty strings, Unicode, punctuation,
+    and encoded identifiers were retained.
+  - PostgreSQL INTEGER remains int32, SQLite INTEGER remains int64, and TEXT remains string.
+  - 'COPY input was tab-delimited UTF-8 CSV: unquoted \N denotes null, quoted \N is literal text, and
+    empty strings remain empty. Quoting and embedded newlines were decoded as format syntax.'
+  - The COPY NULL option was interpreted with standard_conforming_strings=on; the original server setting
+    was not measured.
+format: parquet
+table_count: 21
+data_size_bytes: 1539912696
+tables:
+- name: title
+  path: data/movies/title.parquet
+  rows: 2528312
+  columns: 12
+  schema:
+  - name: id
+    type: string
+  - name: title
+    type: string
+  - name: imdb_index
+    type: string
+  - name: kind_id
+    type: int32
+  - name: production_year
+    type: int32
+  - name: imdb_id
+    type: int32
+  - name: phonetic_code
+    type: string
+  - name: episode_of_id
+    type: int32
+  - name: season_nr
+    type: int32
+  - name: episode_nr
+    type: int32
+  - name: series_years
+    type: string
+  - name: md5sum
+    type: string
+  size_bytes: 105030979
+  sha256: d97f6a87afed0a0cc72fa4bb4fe8f0c404d25ab547b04b3b78169f984d04260b
+- name: aka_title
+  path: data/movies/aka_title.parquet
+  rows: 361472
+  columns: 12
+  schema:
+  - name: id
+    type: int32
+  - name: movie_id
+    type: int32
+  - name: title
+    type: string
+  - name: imdb_index
+    type: string
+  - name: kind_id
+    type: int32
+  - name: production_year
+    type: int32
+  - name: phonetic_code
+    type: string
+  - name: episode_of_id
+    type: int32
+  - name: season_nr
+    type: int32
+  - name: episode_nr
+    type: int32
+  - name: note
+    type: string
+  - name: md5sum
+    type: string
+  size_bytes: 17652948
+  sha256: 259806a34064136cfcd20d6509674832f06da3f05ca6847c1f432b14afd76a44
+- name: kind_type
+  path: data/movies/kind_type.parquet
+  rows: 7
+  columns: 2
+  schema:
+  - name: id
+    type: int32
+  - name: kind
+    type: string
+  size_bytes: 956
+  sha256: 1fdef6149b434a31cda76f34dd57187185ac1805c9cdd13d513d82e1b7b2b41c
+- name: movie_info
+  path: data/movies/movie_info.parquet
+  rows: 14835720
+  columns: 5
+  schema:
+  - name: id
+    type: int32
+  - name: movie_id
+    type: int32
+  - name: info_type_id
+    type: string
+  - name: info
+    type: string
+  - name: note
+    type: string
+  size_bytes: 367328266
+  sha256: f92e56cdcdbe0366a2c563b902a2a0a9c354dc73f680352ef3114c9430d74d60
+- name: movie_info_idx
+  path: data/movies/movie_info_idx.parquet
+  rows: 1380035
+  columns: 5
+  schema:
+  - name: id
+    type: int32
+  - name: movie_id
+    type: int32
+  - name: info_type_id
+    type: int32
+  - name: info
+    type: string
+  - name: note
+    type: string
+  size_bytes: 13875154
+  sha256: 3a285ddf6cfdfdc896e84a54a6f5aabe4c7f1c30f115fe8ada0616f16153bed0
+- name: info_type
+  path: data/movies/info_type.parquet
+  rows: 113
+  columns: 2
+  schema:
+  - name: id
+    type: string
+  - name: info
+    type: string
+  size_bytes: 2523
+  sha256: ff950010b87b46f99787c31f009e0b19957debe3b38283bbdc220772d792f257
+- name: movie_keyword
+  path: data/movies/movie_keyword.parquet
+  rows: 4523930
+  columns: 3
+  schema:
+  - name: id
+    type: int32
+  - name: movie_id
+    type: int32
+  - name: keyword_id
+    type: string
+  size_bytes: 46645677
+  sha256: 0a697afc71632f3bd383c03e3273e84ea1559e7a8e356fbd57f1321b8ae591c2
+- name: keyword
+  path: data/movies/keyword.parquet
+  rows: 134170
+  columns: 3
+  schema:
+  - name: id
+    type: string
+  - name: keyword
+    type: string
+  - name: phonetic_code
+    type: string
+  size_bytes: 2486991
+  sha256: 27e7ef4b64d646f38d45940184e4a58780bc6fa33c537e036d5ffb4f8eb35b8c
+- name: movie_companies
+  path: data/movies/movie_companies.parquet
+  rows: 2609129
+  columns: 5
+  schema:
+  - name: id
+    type: string
+  - name: movie_id
+    type: int32
+  - name: company_id
+    type: int32
+  - name: company_type_id
+    type: int32
+  - name: note
+    type: string
+  size_bytes: 32448369
+  sha256: dc7ea0b8612f580645bb1f62c9346d277d80b84ab536b1d9b959df9ba5857956
+- name: company_name
+  path: data/movies/company_name.parquet
+  rows: 234997
+  columns: 7
+  schema:
+  - name: id
+    type: string
+  - name: name
+    type: string
+  - name: country_code
+    type: string
+  - name: imdb_id
+    type: int32
+  - name: name_pcode_nf
+    type: string
+  - name: name_pcode_sf
+    type: string
+  - name: md5sum
+    type: string
+  size_bytes: 10183893
+  sha256: c95ff4b2d2183afe4066d20cc820e001140097fb42f16c65f08a8c003ee190c4
+- name: company_type
+  path: data/movies/company_type.parquet
+  rows: 4
+  columns: 2
+  schema:
+  - name: id
+    type: int32
+  - name: kind
+    type: string
+  size_bytes: 1002
+  sha256: 1125be5852d50108253321c96e2c009483518b9bcae3916f69af1fffff355a69
+- name: movie_link
+  path: data/movies/movie_link.parquet
+  rows: 29997
+  columns: 4
+  schema:
+  - name: id
+    type: int32
+  - name: movie_id
+    type: int32
+  - name: linked_movie_id
+    type: int32
+  - name: link_type_id
+    type: int32
+  size_bytes: 283937
+  sha256: ede52a156048714bb6a9400dafd5f592a1e9119c3c399b9057bc19f3d33f3388
+- name: link_type
+  path: data/movies/link_type.parquet
+  rows: 18
+  columns: 2
+  schema:
+  - name: id
+    type: int32
+  - name: link
+    type: string
+  size_bytes: 1135
+  sha256: 83624e1ac6f35b5e46f51e3225cd7d2dc2b2d2ddbe99348c84d7ad1e2f03a795
+- name: complete_cast
+  path: data/movies/complete_cast.parquet
+  rows: 135086
+  columns: 4
+  schema:
+  - name: id
+    type: int32
+  - name: movie_id
+    type: int32
+  - name: subject_id
+    type: int32
+  - name: status_id
+    type: int32
+  size_bytes: 1299422
+  sha256: 4d958461345de126aeb0b70a885126f3e565e24302ea002e47ddad3c7a8dce8c
+- name: comp_cast_type
+  path: data/movies/comp_cast_type.parquet
+  rows: 4
+  columns: 2
+  schema:
+  - name: id
+    type: int32
+  - name: kind
+    type: string
+  size_bytes: 884
+  sha256: bf8f9503b65ded04c90e09ecfbbfe6964f3db18b08e2736c4cb2271fa9f75271
+- name: aka_name
+  path: data/people/aka_name.parquet
+  rows: 901343
+  columns: 8
+  schema:
+  - name: id
+    type: int64
+  - name: person_id
+    type: int64
+  - name: name
+    type: string
+  - name: imdb_index
+    type: string
+  - name: name_pcode_cf
+    type: string
+  - name: name_pcode_nf
+    type: string
+  - name: surname_pcode
+    type: string
+  - name: md5sum
+    type: string
+  size_bytes: 36320089
+  sha256: ceed98616caeba875a9d9e5ee73c899d2385c6c0e42432c331d197038544646c
+- name: cast_info
+  path: data/people/cast_info.parquet
+  rows: 36244344
+  columns: 7
+  schema:
+  - name: id
+    type: int64
+  - name: person_id
+    type: string
+  - name: movie_id
+    type: int64
+  - name: person_role_id
+    type: int64
+  - name: note
+    type: string
+  - name: nr_order
+    type: int64
+  - name: role_id
+    type: int64
+  size_bytes: 447783053
+  sha256: a0192faa790ca801a8a77fc6e5160bef1ab670e30e11d1326e0bf8cc0652e4eb
+- name: char_name
+  path: data/people/char_name.parquet
+  rows: 3140339
+  columns: 7
+  schema:
+  - name: id
+    type: int64
+  - name: name
+    type: string
+  - name: imdb_index
+    type: string
+  - name: imdb_id
+    type: int64
+  - name: name_pcode_nf
+    type: string
+  - name: surname_pcode
+    type: string
+  - name: md5sum
+    type: string
+  size_bytes: 128659241
+  sha256: 342b3570e5a7b6a7a1536e6bf392327838ff3b43dcf6b685df3b2fdfd861f93c
+- name: name
+  path: data/people/name.parquet
+  rows: 4167491
+  columns: 9
+  schema:
+  - name: id
+    type: string
+  - name: name
+    type: string
+  - name: imdb_index
+    type: string
+  - name: imdb_id
+    type: int64
+  - name: gender
+    type: string
+  - name: name_pcode_cf
+    type: string
+  - name: name_pcode_nf
+    type: string
+  - name: surname_pcode
+    type: string
+  - name: md5sum
+    type: string
+  size_bytes: 160046975
+  sha256: d6601def91a5decf83f7f90c1fe89f0222d091f89266f1fbe93d13c395740557
+- name: person_info
+  path: data/people/person_info.parquet
+  rows: 2963664
+  columns: 5
+  schema:
+  - name: id
+    type: int64
+  - name: person_id
+    type: int64
+  - name: info_type_id
+    type: int64
+  - name: info
+    type: string
+  - name: note
+    type: string
+  size_bytes: 169860191
+  sha256: 7c87acfa8f1591342b8d1966d5237f5196acce07179813bb1ee56afd4d2bd9e0
+- name: role_type
+  path: data/people/role_type.parquet
+  rows: 12
+  columns: 2
+  schema:
+  - name: id
+    type: string
+  - name: role
+    type: string
+  size_bytes: 1011
+  sha256: f5e0c5a8468695006cbfd277b0c9a335dc10b32205aa72850e81096a806259b9
+context:
+  description: description.md
+  hints: hints.md
+tasks:
+  directory: tasks
+  count: 10
+  ids:
+  - imdb_task1
+  - imdb_task2
+  - imdb_task3
+  - imdb_task4
+  - imdb_task5
+  - imdb_task6
+  - imdb_task7
+  - imdb_task8
+  - imdb_task9
+  - imdb_task10

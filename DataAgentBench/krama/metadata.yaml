@@ -1,0 +1,165 @@
+dataset_id: krama
+version: '1.0'
+domain: geospatial
+source:
+  benchmark: DataAgentBench
+  dataset: query_krama
+  adaptations:
+  - Document strings, embedded tables, prose, names, and newlines were retained in full; no _id or inferred
+    domain/name columns were added.
+  - Binary assets and GeoPackage geometry bytes were retained byte-for-byte as ordinary Parquet binary,
+    without base64 encoding, extraction, decompression, GeoParquet conversion, CRS transformation, or
+    file execution.
+  - 'Observed SQLite storage types determined the Parquet types: SHAPE and geom are binary, while DateCurrent,
+    src_date, and src_update are strings despite their NUM declarations. All-null TEXT columns remain
+    nullable strings.'
+  - Rows, duplicates, nulls, empty values, whitespace, and binary zero bytes were retained. Text-valued
+    dates, temperatures, units, and identifiers were not parsed or normalized.
+  - AppleDouble ._ filesystem sidecars were excluded from data tables; original source files were not
+    deleted.
+format: parquet
+table_count: 5
+data_size_bytes: 237176915
+tables:
+- name: files
+  path: data/domain_docs/files.parquet
+  rows: 1651
+  columns: 1
+  schema:
+  - name: content
+    type: string
+  size_bytes: 102218032
+  sha256: 41644542e602d8c51446cac76191321b8e81161596e214d6a9a029290233d229
+- name: beach_water_temperature
+  path: data/geo/beach_water_temperature.parquet
+  rows: 17274
+  columns: 7
+  schema:
+  - name: community_code
+    type: string
+  - name: county_code
+    type: string
+  - name: beach_name
+    type: string
+  - name: beach_type_description
+    type: string
+  - name: sample_date
+    type: string
+  - name: water_temp
+    type: string
+  - name: air_temp
+    type: string
+  size_bytes: 960183
+  sha256: d6b45a3435ebce0ab61c5af2adee54d30c5efd61ca94f5200c83adf24e381c1c
+- name: gacc_2025
+  path: data/geo/gacc_2025.parquet
+  rows: 120
+  columns: 10
+  schema:
+  - name: OBJECTID
+    type: int64
+  - name: SHAPE
+    type: binary
+  - name: GeometryID
+    type: string
+  - name: GACCUnitID
+    type: string
+  - name: ContactPhone
+    type: string
+  - name: Comments
+    type: string
+  - name: DateCurrent
+    type: string
+  - name: MapMethod
+    type: string
+  - name: GlobalID
+    type: string
+  - name: GACCDescription
+    type: string
+  size_bytes: 8808992
+  sha256: 8c8c9cc46f4507b9e907ab2a085425f04a455634662e9f65bd04f8d20ae893b6
+- name: usa_adm2
+  path: data/geo/usa_adm2.parquet
+  rows: 3142
+  columns: 25
+  schema:
+  - name: fid
+    type: int64
+  - name: geom
+    type: binary
+  - name: adm2_id
+    type: string
+  - name: adm2_src
+    type: string
+  - name: adm2_name1
+    type: string
+  - name: adm2_name2
+    type: string
+  - name: adm1_id
+    type: string
+  - name: adm1_src
+    type: string
+  - name: adm1_name1
+    type: string
+  - name: adm1_name2
+    type: string
+  - name: adm0_id
+    type: string
+  - name: adm0_src
+    type: string
+  - name: adm0_name1
+    type: string
+  - name: adm0_name2
+    type: string
+  - name: src_lvl
+    type: int64
+  - name: src_lang
+    type: string
+  - name: src_lang1
+    type: string
+  - name: src_lang2
+    type: string
+  - name: src_date
+    type: string
+  - name: src_update
+    type: string
+  - name: src_name
+    type: string
+  - name: src_lic
+    type: string
+  - name: src_url
+    type: string
+  - name: src_grp
+    type: string
+  - name: adm_description
+    type: string
+  size_bytes: 13571499
+  sha256: 20af8a20baf81aa39cf9ca11fce6328600d5afd1efe910cd0a3f9947d6bedec9
+- name: files
+  path: data/domain_assets/files.parquet
+  rows: 96
+  columns: 2
+  schema:
+  - name: file_description
+    type: string
+  - name: content
+    type: binary
+  size_bytes: 111618209
+  sha256: 356f6ae90a57494b8861a3304c5233e65af8b71779007e117e6d634c391bc062
+context:
+  description: description.md
+  hints: hints.md
+tasks:
+  directory: tasks
+  count: 10
+  ids:
+  - krama_task1
+  - krama_task2
+  - krama_task3
+  - krama_task4
+  - krama_task5
+  - krama_task6
+  - krama_task7
+  - krama_task8
+  - krama_task9
+  - krama_task10

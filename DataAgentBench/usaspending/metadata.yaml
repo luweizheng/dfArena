@@ -1,0 +1,140 @@
+dataset_id: usaspending
+version: '1.0'
+domain: public_sector
+source:
+  benchmark: DataAgentBench
+  dataset: query_usaspending
+  adaptations:
+  - The PostgreSQL literal TEXT INSERT snapshot was decoded without SQL execution or server restore; SQLite
+    INTEGER remains int64 and DuckDB INTEGER remains int32.
+  - contract_documents.descriptions is reversible JSON array text retaining original array and object-key
+    order; no identifiers were generated.
+  - Rows, duplicate entries, nulls, empty strings, prose amounts, date strings, and identifier variants
+    were retained without fuzzy matching, normalization, amount inference, conflict filtering, aggregation,
+    or answer computation during conversion.
+format: parquet
+table_count: 7
+data_size_bytes: 1132385
+tables:
+- name: contracts
+  path: data/contracts_db/contracts.parquet
+  rows: 9921
+  columns: 11
+  size_bytes: 248139
+  sha256: 3c90a8a4a3591bc64e945c88faa4830ee9bbd870ed5a1c56bfbac1eca8d711da
+  schema:
+  - name: award_id
+    type: string
+  - name: generated_internal_id
+    type: string
+  - name: recipient_uei
+    type: string
+  - name: awarding_agency
+    type: string
+  - name: awarding_sub_agency
+    type: string
+  - name: funding_agency
+    type: string
+  - name: start_date
+    type: string
+  - name: end_date
+    type: string
+  - name: naics_code
+    type: string
+  - name: psc_code
+    type: string
+  - name: award_type
+    type: string
+- name: contract_amounts
+  path: data/contracts_db/contract_amounts.parquet
+  rows: 10266
+  columns: 2
+  size_bytes: 503759
+  sha256: 75f035001ae550d82ccd35b183907ac5a02b51c38b9eab99e83a5d4249f23385
+  schema:
+  - name: award_id
+    type: string
+  - name: amount_text
+    type: string
+- name: recipients
+  path: data/recipients_db/recipients.parquet
+  rows: 3317
+  columns: 5
+  size_bytes: 114073
+  sha256: 9d58b8457c3dc73048ce0226367e1d6a88697c8112d129c67570c517fc418137
+  schema:
+  - name: uei
+    type: string
+  - name: name
+    type: string
+  - name: state
+    type: string
+  - name: n_contracts
+    type: int64
+  - name: total_amount_text
+    type: string
+- name: agencies
+  path: data/agencies_db/agencies.parquet
+  rows: 47
+  columns: 3
+  size_bytes: 2738
+  sha256: 6ba0638d245f1ed9fa61f9456278db98c7698f27bf26b38d3e4c037b09953b6c
+  schema:
+  - name: name
+    type: string
+  - name: n_contracts
+    type: int32
+  - name: total_amount_text
+    type: string
+- name: agency_aliases
+  path: data/agencies_db/agency_aliases.parquet
+  rows: 90
+  columns: 2
+  size_bytes: 3082
+  sha256: 77e34d1bbc0979e13c2c1fdeb252834419f89d1192c1ac385bf34a411615d23b
+  schema:
+  - name: surface_form
+    type: string
+  - name: canonical_name
+    type: string
+- name: naics_sectors
+  path: data/agencies_db/naics_sectors.parquet
+  rows: 24
+  columns: 3
+  size_bytes: 1840
+  sha256: b05538701793cb367147e5496300d91633908645a4a7a88bd063208deac90bcf
+  schema:
+  - name: code
+    type: string
+  - name: description
+    type: string
+  - name: sector
+    type: string
+- name: contract_documents
+  path: data/descriptions_db/contract_documents.parquet
+  rows: 9921
+  columns: 2
+  size_bytes: 258754
+  sha256: aa66c146a23669146d4e7f0c8187f2420a53df50579f6b2db299f6c922a1e450
+  schema:
+  - name: award_id
+    type: string
+  - name: descriptions
+    type: string
+context:
+  description: description.md
+  hints: hints.md
+tasks:
+  directory: tasks
+  count: 10
+  ids:
+  - usaspending_task1
+  - usaspending_task2
+  - usaspending_task3
+  - usaspending_task4
+  - usaspending_task5
+  - usaspending_task6
+  - usaspending_task7
+  - usaspending_task8
+  - usaspending_task9
+  - usaspending_task10

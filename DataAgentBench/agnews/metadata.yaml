@@ -1,0 +1,65 @@
+dataset_id: agnews
+version: '1.0'
+domain: media_culture
+source:
+  benchmark: DataAgentBench
+  dataset: query_agnews
+  adaptations:
+  - Flat BSON and SQLite tables were exported to Parquet without cleaning, classification, information
+    extraction, or generated identifiers; row order, duplicates, strings, and nulls were retained.
+  - BSON int32 and SQLite INTEGER retain their physical int32 and int64 types. Dates remain strings; the
+    articles snapshot has no _id or category column.
+format: parquet
+table_count: 3
+data_size_bytes: 14986264
+tables:
+- name: articles
+  path: data/articles/articles.parquet
+  rows: 127600
+  columns: 3
+  size_bytes: 13936488
+  sha256: 354564b972a1c42bb7cf42b7dd86ea08a99124c6453f94b5891cfe3eaf0b121e
+  schema:
+  - name: article_id
+    type: int32
+  - name: title
+    type: string
+  - name: description
+    type: string
+- name: article_metadata
+  path: data/metadata/article_metadata.parquet
+  rows: 127600
+  columns: 4
+  size_bytes: 1037464
+  sha256: 6f8d1aafdbb972e4e788599ec1cf096949a10c17c4e0ae1ae8bbb8e80d240a04
+  schema:
+  - name: article_id
+    type: int64
+  - name: author_id
+    type: int64
+  - name: region
+    type: string
+  - name: publication_date
+    type: string
+- name: authors
+  path: data/metadata/authors.parquet
+  rows: 994
+  columns: 2
+  size_bytes: 12312
+  sha256: 85c35fdd8657fd8ebaf1247b7fe5b5e6e25d7baf390962c8e2fdb7d80f53b3da
+  schema:
+  - name: author_id
+    type: int64
+  - name: name
+    type: string
+context:
+  description: description.md
+  hints: hints.md
+tasks:
+  directory: tasks
+  count: 4
+  ids:
+  - agnews_task1
+  - agnews_task2
+  - agnews_task3
+  - agnews_task4

@@ -19,11 +19,11 @@ docker build -f docker/agent-sandbox.Dockerfile -t dfarena-agent-sandbox:latest 
 Run the complete workflow:
 
 ```bash
-.venv/bin/python PrepBench/run_benchmark.py \
+.venv/bin/python PrepBench/scripts/run_benchmark.py \
   --case 001 --mode clarified --backend pandas \
   --model gpt-6-astra --image dfarena-agent-sandbox:latest
 
-.venv/bin/python PrepBench/run_benchmark.py \
+.venv/bin/python PrepBench/scripts/run_benchmark.py \
   --case 005 --mode interact --backend polars \
   --model gpt-6-astra --image dfarena-agent-sandbox:latest
 ```
@@ -80,11 +80,11 @@ Simulator responses are not the benchmark’s final correctness labels; correctn
 Run generation and evaluation separately:
 
 ```bash
-.venv/bin/python PrepBench/generate.py \
+.venv/bin/python PrepBench/scripts/generate.py \
   --case 001 --mode clarified --backend pandas --image dfarena-agent-sandbox:latest
 
 # Use the RUN path printed by the preceding command; this path is an example.
-.venv/bin/python PrepBench/evaluate.py \
+.venv/bin/python PrepBench/scripts/evaluate.py \
   --case 001 \
   --run-dir PrepBench/case_001/runs/clarified/codex_gpt-6-astra/pandas/r001
 ```
@@ -95,12 +95,13 @@ Standalone evaluation checks the task and status in `generation.json`. Re-evalua
 
 ```text
 PrepBench/
-  run_benchmark.py
-  generate.py
-  evaluate.py
-  simulator_server.py
-  simulator/
-  tests/
+  scripts/
+    run_benchmark.py
+    generate.py
+    evaluate.py
+    simulator_server.py
+    simulator/
+    tests/
   case_XXX/
     inputs/
     query.md
@@ -173,7 +174,7 @@ Historical exploratory runs, case_173/242, and per-item diffs remain in `PandasL
 ## Tests
 
 ```bash
-.venv/bin/python -m unittest discover -s PrepBench/tests -v
+.venv/bin/python -m unittest discover -s PrepBench/scripts/tests -v
 .venv/bin/python -m unittest discover -s evaluation/tests -v
 .venv/bin/python -m unittest discover -s DataAgentBench/scripts/tests -v
 ```
@@ -185,7 +186,7 @@ Unit and integration tests use simulated agents and simulator responses. They co
 Both `generate.py` and `run_benchmark.py` support `--agent codex|opencode`, with `codex` as the default. See [runners/README.md](../runners/README.md) for OpenCode configuration isolation, token accounting, and image setup. The following example uses a custom provider; prepare the local configuration according to the shared instructions first:
 
 ```bash
-.venv/bin/python PrepBench/run_benchmark.py \
+.venv/bin/python PrepBench/scripts/run_benchmark.py \
   --case 001 --mode clarified --backend pandas \
   --agent opencode --opencode-config runners/configs/opencode/opencode.json \
   --model custom/gpt-6-astra --image dfarena-agent-sandbox:latest

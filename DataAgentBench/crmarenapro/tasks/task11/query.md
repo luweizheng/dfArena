@@ -1,0 +1,4 @@
+Can you show me the AI processing unit I purchased last month? Return only the Id of the product from the contact's relevant past transaction.
+
+- Contact Id interacting: 003Wt00000Jqy8SIAR
+- Today's date: 2021-07-15

@@ -1,0 +1,162 @@
+dataset_id: cve
+version: '1.0'
+domain: software
+source:
+  benchmark: DataAgentBench
+  dataset: query_cve
+  adaptations:
+  - TEXT-only PostgreSQL INSERT data was decoded without SQL execution or server restore using standard_conforming_strings=on,
+    preserving literal backslashes; the original server setting was not independently verified.
+  - cve_documents.descriptions and references are reversible JSON array strings. Array order, empty arrays,
+    repeated references, object key order, and original lang/url/source keys were retained; no _id was
+    generated.
+  - Rows, duplicate/conflicting records, nulls, empty strings, identifier variants, flags, scores-as-text,
+    and version encodings were retained without inference or normalization. SQLite INTEGER remains int64
+    and DuckDB INTEGER remains int32.
+  - The source primary key kev_vendor_aliases.vendor_project was checked for uniqueness and non-null values
+    during conversion; Parquet does not enforce that constraint.
+format: parquet
+table_count: 8
+data_size_bytes: 46433845
+tables:
+- name: cves
+  path: data/vulns_db/cves.parquet
+  rows: 75199
+  columns: 5
+  size_bytes: 3395437
+  sha256: 5a00c51d1315c235533567c547f6adde9016bcf211944172efcdf65819d28af3
+  schema:
+  - name: cve_id
+    type: string
+  - name: published
+    type: string
+  - name: last_modified
+    type: string
+  - name: vuln_status
+    type: string
+  - name: cvss3_attack_vector
+    type: string
+- name: cvss_metadata
+  path: data/vulns_db/cvss_metadata.parquet
+  rows: 68367
+  columns: 2
+  size_bytes: 2399200
+  sha256: 96257404cded25b6d4a42358c82f924d1d47fe44428f5c6fa814dea2a4df74c7
+  schema:
+  - name: cve_id
+    type: string
+  - name: score_text
+    type: string
+- name: cpe_matches
+  path: data/cpe_db/cpe_matches.parquet
+  rows: 585165
+  columns: 3
+  size_bytes: 10845232
+  sha256: 67b4f24d856464395cefd40d2c4f5582cf6cc9c33b77c1c93c5c64363d28e581
+  schema:
+  - name: cve_id
+    type: string
+  - name: criteria
+    type: string
+  - name: vulnerable_flag
+    type: string
+- name: cpe_version_details
+  path: data/cpe_db/cpe_version_details.parquet
+  rows: 585165
+  columns: 7
+  size_bytes: 11420256
+  sha256: 0edccb81f8ee455b260704ef35b20bede6293874843b77b6b08f8f9b5361270c
+  schema:
+  - name: cve_id
+    type: string
+  - name: criteria
+    type: string
+  - name: version_text
+    type: string
+  - name: version_start_inc
+    type: string
+  - name: version_start_exc
+    type: string
+  - name: version_end_inc
+    type: string
+  - name: version_end_exc
+    type: string
+- name: vendor_aliases
+  path: data/cpe_db/vendor_aliases.parquet
+  rows: 9158
+  columns: 2
+  size_bytes: 133729
+  sha256: 5225af9ae843f7a0af62320a736cdf03235ccd5e64f72e619cf1ad7fdb117bcb
+  schema:
+  - name: alias
+    type: string
+  - name: canonical_vendor
+    type: string
+- name: kev_entries
+  path: data/kev_db/kev_entries.parquet
+  rows: 1583
+  columns: 10
+  size_bytes: 215381
+  sha256: f68df9776c014a582a10dac7b2997fb2a9237bdeaf054df82382e5c1236a693f
+  schema:
+  - name: cve_ref
+    type: string
+  - name: vendor_project
+    type: string
+  - name: products_csv
+    type: string
+  - name: vulnerability_name
+    type: string
+  - name: date_added
+    type: string
+  - name: short_description
+    type: string
+  - name: required_action
+    type: string
+  - name: due_date
+    type: string
+  - name: known_ransomware_use
+    type: string
+  - name: notes
+    type: string
+- name: kev_vendor_aliases
+  path: data/kev_db/kev_vendor_aliases.parquet
+  rows: 420
+  columns: 2
+  size_bytes: 6362
+  sha256: 71f5af1a3b16f3611ecc93d7f7106863bd998d8e4648d6e4cf4b3b30d72f1e33
+  schema:
+  - name: vendor_project
+    type: string
+  - name: canonical_vendor
+    type: string
+- name: cve_documents
+  path: data/descriptions_db/cve_documents.parquet
+  rows: 71501
+  columns: 3
+  size_bytes: 18018248
+  sha256: b6a3f45eb1c5ce5b40d2b7daacc2c7a58e6b0ebb009c3fb61aa760a12f74929d
+  schema:
+  - name: cve
+    type: string
+  - name: descriptions
+    type: string
+  - name: references
+    type: string
+context:
+  description: description.md
+  hints: hints.md
+tasks:
+  directory: tasks
+  count: 10
+  ids:
+  - cve_task1
+  - cve_task2
+  - cve_task3
+  - cve_task4
+  - cve_task5
+  - cve_task6
+  - cve_task7
+  - cve_task8
+  - cve_task9
+  - cve_task10

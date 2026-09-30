@@ -1,0 +1,135 @@
+dataset_id: PATENTS
+version: '1.0'
+domain: science
+source:
+  benchmark: DataAgentBench
+  dataset: query_PATENTS
+  adaptations:
+  - Configured SQLite and PostgreSQL text COPY inputs were exported without server restore, truncation,
+    cleaning, joins, or deduplication; original records, long HTML/text, nulls, and empty strings were
+    retained.
+  - family_id retains int64; CPC level and dateRevised retain double; breakdownCode and notAllocatable
+    retain boolean types. Structured text and natural-language dates were not parsed, and embedded content
+    was not executed.
+  - The unconfigured patent_publication.db.part file was retained at its original location and excluded
+    from the two exported input tables.
+format: parquet
+table_count: 2
+data_size_bytes: 1194280259
+tables:
+- name: publicationinfo
+  path: data/publication/publicationinfo.parquet
+  rows: 277813
+  columns: 24
+  schema:
+  - name: Patents_info
+    type: string
+  - name: kind_code
+    type: string
+  - name: application_kind
+    type: string
+  - name: pct_number
+    type: string
+  - name: family_id
+    type: int64
+  - name: title_localized
+    type: string
+  - name: abstract_localized
+    type: string
+  - name: claims_localized_html
+    type: string
+  - name: description_localized_html
+    type: string
+  - name: publication_date
+    type: string
+  - name: filing_date
+    type: string
+  - name: grant_date
+    type: string
+  - name: priority_date
+    type: string
+  - name: priority_claim
+    type: string
+  - name: inventor_harmonized
+    type: string
+  - name: examiner
+    type: string
+  - name: uspc
+    type: string
+  - name: ipc
+    type: string
+  - name: cpc
+    type: string
+  - name: citation
+    type: string
+  - name: parent
+    type: string
+  - name: child
+    type: string
+  - name: entity_status
+    type: string
+  - name: art_unit
+    type: string
+  size_bytes: 1146740837
+  sha256: a636818eff7a0fe195f0da4dc9e94758a98de02584c33baeaefd32a989825452
+- name: cpc_definition
+  path: data/CPCDefinition/cpc_definition.parquet
+  rows: 260808
+  columns: 22
+  schema:
+  - name: applicationReferences
+    type: string
+  - name: breakdownCode
+    type: bool
+  - name: childGroups
+    type: string
+  - name: children
+    type: string
+  - name: dateRevised
+    type: double
+  - name: definition
+    type: string
+  - name: glossary
+    type: string
+  - name: informativeReferences
+    type: string
+  - name: ipcConcordant
+    type: string
+  - name: level
+    type: double
+  - name: limitingReferences
+    type: string
+  - name: notAllocatable
+    type: bool
+  - name: parents
+    type: string
+  - name: precedenceLimitingReferences
+    type: string
+  - name: residualReferences
+    type: string
+  - name: rules
+    type: string
+  - name: scopeLimitingReferences
+    type: string
+  - name: status
+    type: string
+  - name: symbol
+    type: string
+  - name: synonyms
+    type: string
+  - name: titleFull
+    type: string
+  - name: titlePart
+    type: string
+  size_bytes: 47539422
+  sha256: 8fb575dae6ba080d7bdefcc7dee7c82b7afd927117cb9e4eb46823c51908e64e
+context:
+  description: description.md
+  hints: hints.md
+tasks:
+  directory: tasks
+  count: 3
+  ids:
+  - PATENTS_task1
+  - PATENTS_task2
+  - PATENTS_task3

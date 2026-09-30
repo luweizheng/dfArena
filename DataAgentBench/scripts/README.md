@@ -27,14 +27,19 @@ Use `--image <your-local-image>` to select another image. Backends are `pandas`,
 | `--agent-model` | Optional output directory label only. It does not select or change the agent or model. |
 | `--timeout` | Agent process timeout in seconds; default 600. |
 | `--evaluation-timeout` | Evaluation timeout in seconds; default 120. |
+| `--mode` | `direct`, `clarified`, or `interact`; controls hint delivery and simulator use. |
 
 The CLI spelling is `--agent-model`, not `--agent_model`; `agent_model` is the internal Python attribute. Normally omit this option: the label is inferred as `codex_gpt-6-astra` or `opencode_gpt-6-astra`, without the OpenCode provider prefix. Explicit labels are sanitized for use as directory names. Reasoning effort comes from agent configuration and is recorded alongside the model.
 
 ## Pipeline
 
+- `run_benchmark.py` is the top-level entry point: it allocates one fresh run directory, calls `generate.py`, then calls `evaluate.py` for that same run and updates `result.json`. Generation failure skips evaluation; the command exits with 0 only when evaluation passes.
 - `generate.py` prepares task inputs, runs the agent in Docker, and saves `detail/generation.json`.
 - `evaluate.py` runs the task's original `validate.py` and saves `detail/evaluation.json`. Re-evaluation preserves the generation record.
-- `run_benchmark.py` chains both stages and updates `result.json`. Generation failure skips evaluation; the command exits with 0 only when evaluation passes.
+
+`run_benchmark.py` defaults to `--mode interact`. `direct` exposes only `description.md`; `clarified` exposes and inlines both description and hints; `interact` exposes only the description initially and uses the host-side simulator to answer clarification questions.
+
+Generation mounts only `data/`, the selected `query.md`, and mode-selected documentation as read-only inputs. File paths, schemas, and field-reading guidance are in `description.md`; dataset-relative paths resolve from `/workspace`. `metadata.yaml` is for researcher-side analysis and paper statistics: generation neither requires it, mounts it, nor includes it in the prompt or generation input-delivery record. Task answers and validators become accessible only to the separate evaluation stage. These conventions apply to future runs; historical prompts and result bundles are not rewritten.
 
 The summary can be rebuilt with `runners.results.summarize(run_dir)`. An answer mismatch gives `passed=false`; an evaluation error or timeout gives `passed=null`.
 

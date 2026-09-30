@@ -1,0 +1,14 @@
+# Hints
+
+- The same canonical award_id may appear under a different surface form in each database. Each table may independently apply: (1) OCR-like character substitutions (0↔O, 1↔I, 5↔S, 2↔Z, 6↔G, 8↔B) on a per-character basis, (2) one of 207 prefix variants, (3) upper/lower/original case, (4) separator characters at letter↔digit boundaries. Cross-table joins may require normalization or entity resolution when identifier surface forms differ; identifiers that already match can be joined directly.
+- Similarly, the same canonical recipient UEI may appear under different surface forms in contracts_db vs recipients_db, potentially involving the OCR, prefix, case, and separator variations described above. Use the matching approach appropriate to the actual identifier values.
+- NAICS codes in contracts may contain variations such as prefixes, separators, or character substitutions. Normalize them according to the actual values; the naics_sectors table in agencies_db provides canonical codes.
+- contracts_db.contracts.awarding_agency, awarding_sub_agency, and funding_agency may appear under multiple surface forms for the same canonical agency; agencies_db.agency_aliases resolves surface forms to a canonical agency name.
+- recipients_db.recipients.name has multiple surface-form variants for the same canonical entity (corporate-suffix, case, and whitespace differences); some canonical entities are represented by more than one distinct UEI.
+- When determining whether recipient names refer to the same recipient, ignore differences in letter case, leading and trailing whitespace, and trailing corporate suffixes. Preserve punctuation differences within the name itself; do not merge recipients merely because their names become identical after removing that punctuation.
+- recipients_db.recipients.state may appear under multiple surface forms (e.g. "CA", "California", "Calif.").
+- Contract award amounts in contract_amounts.amount_text may be expressed numerically or through qualitative descriptions of monetary magnitude. For qualitative descriptions, use their meaning together with related records in the supplied dataset to determine whether the amount meets the threshold specified in the question; recovering an exact dollar amount is not required.
+- When multiple amount records share the same award_id, use the first record in the original row order of the supplied contract_amounts file. The remaining records are artificially introduced conflicting entries and must not be used to determine the award amount.
+- A subset of contracts are missing the English description and only carry a non-English description.
+- When discussing the number of contracts held by recipients, count contracts separately for each distinct UEI, rather than combining a company's multiple UEIs before counting.
+- When determining whether a contract is from an agency, use the awarding agency (awarding_agency), not the funding agency (funding_agency).

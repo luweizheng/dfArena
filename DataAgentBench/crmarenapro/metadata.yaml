@@ -1,0 +1,599 @@
+dataset_id: crmarenapro
+version: '1.0'
+domain: business
+source:
+  benchmark: DataAgentBench
+  dataset: query_crmarenapro
+  adaptations:
+  - 'SQLite, DuckDB, and PostgreSQL TEXT INSERT inputs were converted without cleaning or joins; rows,
+    duplicates, nulls, empty strings, leading # characters, trailing whitespace, HTML, and multiline text
+    were retained.'
+  - Native numeric types were retained, including float64 Amount and NumberOfEmployees. Numeric-looking
+    and date-looking text was not parsed.
+  - The PostgreSQL snapshot was decoded without SQL execution using standard_conforming_strings=on, preserving
+    literal backslashes; the original server setting was not independently verified.
+  - Unquoted PostgreSQL identifiers fold to lowercase; the quoted Case table retains its capital C. This
+    changes identifier interpretation, not the case of cell values.
+format: parquet
+table_count: 27
+data_size_bytes: 7731427
+tables:
+- name: Account
+  path: data/core_crm/Account.parquet
+  rows: 101
+  columns: 7
+  size_bytes: 18370
+  sha256: b6f90c96902ef823b3e80f177f5d1abc7e3afae2265acb268c7dd002a452e89b
+  schema:
+  - name: Id
+    type: string
+  - name: Name
+    type: string
+  - name: Phone
+    type: string
+  - name: Industry
+    type: string
+  - name: Description
+    type: string
+  - name: NumberOfEmployees
+    type: double
+  - name: ShippingState
+    type: string
+- name: Contact
+  path: data/core_crm/Contact.parquet
+  rows: 886
+  columns: 5
+  size_bytes: 26703
+  sha256: 5d3c1d81ab7ea6548a64384f63c6c53c9d5111ef99d35b280d7ae75d9bf874a6
+  schema:
+  - name: Id
+    type: string
+  - name: FirstName
+    type: string
+  - name: LastName
+    type: string
+  - name: Email
+    type: string
+  - name: AccountId
+    type: string
+- name: User
+  path: data/core_crm/User.parquet
+  rows: 212
+  columns: 11
+  size_bytes: 15527
+  sha256: b96611860fdedd16e456837e5b411e117b032cbf897e6a54405edfa888052258
+  schema:
+  - name: Id
+    type: string
+  - name: FirstName
+    type: string
+  - name: LastName
+    type: string
+  - name: Email
+    type: string
+  - name: Phone
+    type: string
+  - name: Username
+    type: string
+  - name: Alias
+    type: string
+  - name: LanguageLocaleKey
+    type: string
+  - name: EmailEncodingKey
+    type: string
+  - name: TimeZoneSidKey
+    type: string
+  - name: LocaleSidKey
+    type: string
+- name: Contract
+  path: data/sales_pipeline/Contract.parquet
+  rows: 163
+  columns: 8
+  size_bytes: 17869
+  sha256: 6504a4821030ee2b26f04e90704e35e8cfe900893510734b51d3ebb0171e8299
+  schema:
+  - name: Id
+    type: string
+  - name: AccountId
+    type: string
+  - name: Status
+    type: string
+  - name: StartDate
+    type: string
+  - name: CustomerSignedDate
+    type: string
+  - name: CompanySignedDate
+    type: string
+  - name: Description
+    type: string
+  - name: ContractTerm
+    type: string
+- name: Lead
+  path: data/sales_pipeline/Lead.parquet
+  rows: 1465
+  columns: 14
+  size_bytes: 87066
+  sha256: d5bba97763132713bd0798aa0280f7f52275282f3095b6552d073c2449f5c156
+  schema:
+  - name: Id
+    type: string
+  - name: FirstName
+    type: string
+  - name: LastName
+    type: string
+  - name: Email
+    type: string
+  - name: Phone
+    type: string
+  - name: Company
+    type: string
+  - name: Status
+    type: string
+  - name: ConvertedContactId
+    type: string
+  - name: ConvertedAccountId
+    type: string
+  - name: Title
+    type: string
+  - name: CreatedDate
+    type: string
+  - name: ConvertedDate
+    type: string
+  - name: IsConverted
+    type: int64
+  - name: OwnerId
+    type: string
+- name: Opportunity
+  path: data/sales_pipeline/Opportunity.parquet
+  rows: 1170
+  columns: 12
+  size_bytes: 166256
+  sha256: 5f8872318f65cfc48039d81faccc06ccb35a38207987673be8a318ae2a26ba37
+  schema:
+  - name: Id
+    type: string
+  - name: ContractID__c
+    type: string
+  - name: AccountId
+    type: string
+  - name: ContactId
+    type: string
+  - name: OwnerId
+    type: string
+  - name: Probability
+    type: string
+  - name: Amount
+    type: double
+  - name: StageName
+    type: string
+  - name: Name
+    type: string
+  - name: Description
+    type: string
+  - name: CreatedDate
+    type: string
+  - name: CloseDate
+    type: string
+- name: OpportunityLineItem
+  path: data/sales_pipeline/OpportunityLineItem.parquet
+  rows: 4926
+  columns: 6
+  size_bytes: 57389
+  sha256: 89fe661b1ca3ada1f356eac7303a9cd263bd943ae34ad9eeb2d9df2f04e51a02
+  schema:
+  - name: Id
+    type: string
+  - name: OpportunityId
+    type: string
+  - name: Product2Id
+    type: string
+  - name: PricebookEntryId
+    type: string
+  - name: Quantity
+    type: string
+  - name: TotalPrice
+    type: string
+- name: Quote
+  path: data/sales_pipeline/Quote.parquet
+  rows: 704
+  columns: 9
+  size_bytes: 48358
+  sha256: 9035f8737f6d0496930f76d1261c398e03bfdbd2b3704b208ec74f80f70d2f21
+  schema:
+  - name: Id
+    type: string
+  - name: OpportunityId
+    type: string
+  - name: AccountId
+    type: string
+  - name: ContactId
+    type: string
+  - name: Name
+    type: string
+  - name: Description
+    type: string
+  - name: Status
+    type: string
+  - name: CreatedDate
+    type: string
+  - name: ExpirationDate
+    type: string
+- name: QuoteLineItem
+  path: data/sales_pipeline/QuoteLineItem.parquet
+  rows: 2966
+  columns: 9
+  size_bytes: 54571
+  sha256: d3259344b47bee31bb57eb3097df596e15999b9a65584bd9ac1e28fe0a2f8097
+  schema:
+  - name: Id
+    type: string
+  - name: QuoteId
+    type: string
+  - name: OpportunityLineItemId
+    type: string
+  - name: Product2Id
+    type: string
+  - name: PricebookEntryId
+    type: string
+  - name: Quantity
+    type: string
+  - name: UnitPrice
+    type: string
+  - name: Discount
+    type: string
+  - name: TotalPrice
+    type: string
+- name: Case
+  path: data/support/Case.parquet
+  rows: 153
+  columns: 12
+  size_bytes: 18487
+  sha256: ebb4536cd5e9ee3c09e5690f0b70af1501984e95ef1955fa30655f61e39fe0bb
+  schema:
+  - name: id
+    type: string
+  - name: priority
+    type: string
+  - name: subject
+    type: string
+  - name: description
+    type: string
+  - name: status
+    type: string
+  - name: contactid
+    type: string
+  - name: createddate
+    type: string
+  - name: closeddate
+    type: string
+  - name: orderitemid__c
+    type: string
+  - name: issueid__c
+    type: string
+  - name: accountid
+    type: string
+  - name: ownerid
+    type: string
+- name: knowledge__kav
+  path: data/support/knowledge__kav.parquet
+  rows: 194
+  columns: 5
+  size_bytes: 193835
+  sha256: 9aa26f11e7968076a9a4224ebf29cac401ceeb3e3c51385c5c8c460ae0f5c942
+  schema:
+  - name: id
+    type: string
+  - name: title
+    type: string
+  - name: faq_answer__c
+    type: string
+  - name: summary
+    type: string
+  - name: urlname
+    type: string
+- name: issue__c
+  path: data/support/issue__c.parquet
+  rows: 15
+  columns: 3
+  size_bytes: 3313
+  sha256: 1fd90b832e3284512c9a4340b2665cecc21be318075af8141272eb639bfa3143
+  schema:
+  - name: id
+    type: string
+  - name: name
+    type: string
+  - name: description__c
+    type: string
+- name: casehistory__c
+  path: data/support/casehistory__c.parquet
+  rows: 393
+  columns: 6
+  size_bytes: 8133
+  sha256: aff8cba5c5986369130399f6b94e87a6477b4925c6e8acab62ed490eb22c487b
+  schema:
+  - name: id
+    type: string
+  - name: caseid__c
+    type: string
+  - name: oldvalue__c
+    type: string
+  - name: newvalue__c
+    type: string
+  - name: createddate
+    type: string
+  - name: field__c
+    type: string
+- name: emailmessage
+  path: data/support/emailmessage.parquet
+  rows: 5686
+  columns: 8
+  size_bytes: 2078437
+  sha256: 88171b87f7a3363a6b06e241e8f34b06faa51bd0e268e5cb8a550a07f15aea6a
+  schema:
+  - name: id
+    type: string
+  - name: subject
+    type: string
+  - name: textbody
+    type: string
+  - name: parentid
+    type: string
+  - name: fromaddress
+    type: string
+  - name: toids
+    type: string
+  - name: messagedate
+    type: string
+  - name: relatedtoid
+    type: string
+- name: livechattranscript
+  path: data/support/livechattranscript.parquet
+  rows: 58
+  columns: 8
+  size_bytes: 36991
+  sha256: 348dc78d43403cabbdda32a29fc68062fb65e8f223dcdf1e4061d4cd040a0e83
+  schema:
+  - name: id
+    type: string
+  - name: caseid
+    type: string
+  - name: accountid
+    type: string
+  - name: ownerid
+    type: string
+  - name: body
+    type: string
+  - name: endtime
+    type: string
+  - name: livechatvisitorid
+    type: string
+  - name: contactid
+    type: string
+- name: Order
+  path: data/products_orders/Order.parquet
+  rows: 163
+  columns: 6
+  size_bytes: 5184
+  sha256: 0a1999642320545c9e0e227bb2257adccdfa60d6246c109317e3d876f7d0a1f6
+  schema:
+  - name: Id
+    type: string
+  - name: AccountId
+    type: string
+  - name: Status
+    type: string
+  - name: EffectiveDate
+    type: string
+  - name: Pricebook2Id
+    type: string
+  - name: OwnerId
+    type: string
+- name: OrderItem
+  path: data/products_orders/OrderItem.parquet
+  rows: 689
+  columns: 6
+  size_bytes: 10589
+  sha256: 9adc46c1dbcc21b0e4bd1cf345b0152a067e382e6828f526afda12f5879d2dd9
+  schema:
+  - name: Id
+    type: string
+  - name: OrderId
+    type: string
+  - name: Product2Id
+    type: string
+  - name: Quantity
+    type: string
+  - name: UnitPrice
+    type: string
+  - name: PriceBookEntryId
+    type: string
+- name: Pricebook2
+  path: data/products_orders/Pricebook2.parquet
+  rows: 2
+  columns: 6
+  size_bytes: 2403
+  sha256: f8a161559c855b6244bba0907189e144aa6e455b320fcef495832e4a3c5e7588
+  schema:
+  - name: Id
+    type: string
+  - name: Name
+    type: string
+  - name: Description
+    type: string
+  - name: IsActive
+    type: int64
+  - name: ValidFrom
+    type: string
+  - name: ValidTo
+    type: string
+- name: PricebookEntry
+  path: data/products_orders/PricebookEntry.parquet
+  rows: 50
+  columns: 4
+  size_bytes: 2479
+  sha256: f0759ef5c9ecd03b27880cd67f9e11c36b343e9f23dc9772249c00d861e0e3fb
+  schema:
+  - name: Id
+    type: string
+  - name: Pricebook2Id
+    type: string
+  - name: Product2Id
+    type: string
+  - name: UnitPrice
+    type: string
+- name: Product2
+  path: data/products_orders/Product2.parquet
+  rows: 51
+  columns: 5
+  size_bytes: 5956
+  sha256: 34b269c597ff0809c8f1685bb95df605ab36f8ed0017ead1da45282b859dc082
+  schema:
+  - name: Id
+    type: string
+  - name: Name
+    type: string
+  - name: Description
+    type: string
+  - name: IsActive
+    type: int64
+  - name: External_ID__c
+    type: string
+- name: ProductCategory
+  path: data/products_orders/ProductCategory.parquet
+  rows: 10
+  columns: 3
+  size_bytes: 1792
+  sha256: 4bb13557a06d12b826ce77320c9529df737f7f7d3dabb7abecd3d83093dd7421
+  schema:
+  - name: Id
+    type: string
+  - name: Name
+    type: string
+  - name: CatalogId
+    type: string
+- name: ProductCategoryProduct
+  path: data/products_orders/ProductCategoryProduct.parquet
+  rows: 100
+  columns: 3
+  size_bytes: 2396
+  sha256: 12a5046ddbd9732abf49cf9ad2dc3bdfb1eefefe3f3a4647cdfe946ab2d0e682
+  schema:
+  - name: Id
+    type: string
+  - name: ProductCategoryId
+    type: string
+  - name: ProductId
+    type: string
+- name: Event
+  path: data/activities/Event.parquet
+  rows: 54
+  columns: 9
+  size_bytes: 7868
+  sha256: 45dc8b9dcde635ec9267e0be3d031df7db8f6af72e7576a919920bc60db9ba62
+  schema:
+  - name: Id
+    type: string
+  - name: WhatId
+    type: string
+  - name: OwnerId
+    type: string
+  - name: StartDateTime
+    type: string
+  - name: Subject
+    type: string
+  - name: Description
+    type: string
+  - name: DurationInMinutes
+    type: string
+  - name: Location
+    type: string
+  - name: IsAllDayEvent
+    type: int64
+- name: Task
+  path: data/activities/Task.parquet
+  rows: 4783
+  columns: 8
+  size_bytes: 201927
+  sha256: fb22900f878c002a4cf70f5368766641140ff65bce3a9bb8e970b8d3ac6d6aca
+  schema:
+  - name: Id
+    type: string
+  - name: WhatId
+    type: string
+  - name: OwnerId
+    type: string
+  - name: Priority
+    type: string
+  - name: Status
+    type: string
+  - name: ActivityDate
+    type: string
+  - name: Subject
+    type: string
+  - name: Description
+    type: string
+- name: VoiceCallTranscript__c
+  path: data/activities/VoiceCallTranscript__c.parquet
+  rows: 4033
+  columns: 6
+  size_bytes: 4654925
+  sha256: 5970859510b7fd76bbbdd451d38c73584ebeb847a792814990f9ffb441d726bc
+  schema:
+  - name: Id
+    type: string
+  - name: OpportunityId__c
+    type: string
+  - name: LeadId__c
+    type: string
+  - name: Body__c
+    type: string
+  - name: CreatedDate
+    type: string
+  - name: EndTime__c
+    type: string
+- name: Territory2
+  path: data/territory/Territory2.parquet
+  rows: 10
+  columns: 3
+  size_bytes: 1531
+  sha256: 1ce6ddf0ec5cb1f51f83b6d8a0044fbc499b7c083eb325aa79280029ff5723db
+  schema:
+  - name: Id
+    type: string
+  - name: Name
+    type: string
+  - name: Description
+    type: string
+- name: UserTerritory2Association
+  path: data/territory/UserTerritory2Association.parquet
+  rows: 184
+  columns: 3
+  size_bytes: 3072
+  sha256: 5085d8b11f72f9a9e268e7412d5cb30043816a6e6bca633bbfa3f4eae6ed4931
+  schema:
+  - name: Id
+    type: string
+  - name: UserId
+    type: string
+  - name: Territory2Id
+    type: string
+context:
+  description: description.md
+  hints: hints.md
+tasks:
+  directory: tasks
+  count: 13
+  ids:
+  - crmarenapro_task1
+  - crmarenapro_task2
+  - crmarenapro_task3
+  - crmarenapro_task4
+  - crmarenapro_task5
+  - crmarenapro_task6
+  - crmarenapro_task7
+  - crmarenapro_task8
+  - crmarenapro_task9
+  - crmarenapro_task10
+  - crmarenapro_task11
+  - crmarenapro_task12
+  - crmarenapro_task13
