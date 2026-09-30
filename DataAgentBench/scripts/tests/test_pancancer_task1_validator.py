@@ -2,7 +2,7 @@
 import importlib.util
 from pathlib import Path
 import unittest
-path=Path(__file__).resolve().parents[2]/'PANCANCER_ATLAS/tasks/task1/answer/validate.py'
+path=Path(__file__).resolve().parents[2]/'PANCANCER_ATLAS/tasks/task1/validate.py'
 spec=importlib.util.spec_from_file_location('pancancer_task1_validator',path)
 v=importlib.util.module_from_spec(spec);spec.loader.exec_module(v)
 CODES=['9382/3','9400/3','9401/3','9450/3','9451/3']

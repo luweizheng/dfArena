@@ -35,7 +35,7 @@ def main():
     started = time.monotonic()
     container = 'dfarena-dab-eval-' + uuid.uuid4().hex[:12]
     code = '''import json,sys
-sys.path.insert(0,"/workspace/answer")
+sys.path.insert(0,"/workspace/task")
 import validate
 ans=json.load(open("/workspace/solution/answer.json"))["answer"]
 ok,msg=validate.validate(ans)
@@ -43,9 +43,10 @@ print(json.dumps({"passed":bool(ok),"message":str(msg),"answer":ans}))
 '''
     cmd = ['docker', 'run', '--rm', '--name', container,
            '-v', f'{ds/"data"}:/workspace/data:ro',
-           '-v', f'{ds/"context"}:/workspace/context:ro',
+           '-v', f'{ds/"description.md"}:/workspace/description.md:ro',
+           '-v', f'{ds/"hints.md"}:/workspace/hints.md:ro',
            '-v', f'{run/"solution"}:/workspace/solution:ro',
-           '-v', f'{ds/"tasks"/a.task/"answer"}:/workspace/answer:ro',
+           '-v', f'{ds/"tasks"/a.task}:/workspace/task:ro',
            '-w', '/workspace/solution', a.image, 'python', '-c', code]
     try:
         log_path = run/'logs/evaluation.log'

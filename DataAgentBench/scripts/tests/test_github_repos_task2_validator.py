@@ -4,7 +4,7 @@ from pathlib import Path
 import sys
 import unittest
 
-path = Path(__file__).resolve().parents[2] / 'GITHUB_REPOS/tasks/task2/answer/validate.py'
+path = Path(__file__).resolve().parents[2] / 'GITHUB_REPOS/tasks/task2/validate.py'
 sys.path.insert(0, str(path.parent))
 spec = importlib.util.spec_from_file_location('github_task2_validator', path)
 validator = importlib.util.module_from_spec(spec)

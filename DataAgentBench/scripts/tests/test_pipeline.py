@@ -15,7 +15,7 @@ from results import save
 
 
 class PipelineTests(unittest.TestCase):
-    def run_pipeline(self, dataset, *, complete=False, agent='codex', generation_ok=True, passed=True):
+    def run_pipeline(self, dataset, *, mode='interact', agent='codex', generation_ok=True, passed=True):
         calls = []
         generation_bytes = []
 
@@ -39,8 +39,7 @@ class PipelineTests(unittest.TestCase):
                 '--model', 'custom/test' if agent == 'opencode' else 'test',
                 '--backend', 'polars', '--image', 'local-test-image',
                 '--timeout', '321', '--evaluation-timeout', '45']
-        if complete:
-            args.append('--complete-requirements')
+        args += ['--mode', mode]
         with patch.object(pipeline, 'settings', return_value={'model': 'test'}), \
              patch.object(pipeline.subprocess, 'run', side_effect=execute), \
              contextlib.redirect_stdout(io.StringIO()):
@@ -52,15 +51,15 @@ class PipelineTests(unittest.TestCase):
 
     def test_controller_forwards_generation_options_and_shares_run_with_evaluation(self):
         for agent in ['codex', 'opencode']:
-            for complete in [False, True]:
-                with self.subTest(agent=agent, complete=complete), tempfile.TemporaryDirectory() as tmp:
-                    rc, run, calls, result = self.run_pipeline(Path(tmp), agent=agent, complete=complete)
+            for mode in ['interact', 'clarified']:
+                with self.subTest(agent=agent, mode=mode), tempfile.TemporaryDirectory() as tmp:
+                    rc, run, calls, result = self.run_pipeline(Path(tmp), agent=agent, mode=mode)
                     self.assertEqual(rc, 0)
                     self.assertTrue(result['evaluation']['passed'])
                     self.assertEqual(len(calls), 2)
                     generate, evaluate = calls
-                    self.assertEqual('--complete-requirements' in generate, complete)
-                    self.assertNotIn('--complete-requirements', evaluate)
+                    self.assertEqual(generate[generate.index('--mode') + 1], mode)
+                    self.assertNotIn('--mode', evaluate)
                     self.assertNotIn('--backend', evaluate)
                     for command in calls:
                         self.assertEqual(command[command.index('--run-dir') + 1], str(run))
@@ -74,7 +73,7 @@ class PipelineTests(unittest.TestCase):
 
     def test_generation_failure_skips_scoring(self):
         with tempfile.TemporaryDirectory() as tmp:
-            rc, run, calls, result = self.run_pipeline(Path(tmp), complete=True, generation_ok=False)
+            rc, run, calls, result = self.run_pipeline(Path(tmp), mode='clarified', generation_ok=False)
             self.assertEqual(rc, 1)
             self.assertEqual(len(calls), 1)
             self.assertEqual(result['evaluation']['status'], 'skipped')
@@ -92,7 +91,7 @@ class PipelineTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             _, first, _, _ = self.run_pipeline(Path(tmp))
             before = (first / 'result.json').read_bytes()
-            _, second, _, _ = self.run_pipeline(Path(tmp), complete=True)
+            _, second, _, _ = self.run_pipeline(Path(tmp), mode='clarified')
             self.assertEqual(first.name, 'r001')
             self.assertEqual(second.name, 'r002')
             self.assertEqual(first.parent, second.parent)

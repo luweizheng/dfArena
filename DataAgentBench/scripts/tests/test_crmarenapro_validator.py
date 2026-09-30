@@ -4,7 +4,7 @@ from pathlib import Path
 import unittest
 
 
-path = Path(__file__).resolve().parents[2] / 'crmarenapro/tasks/task2/answer/validate.py'
+path = Path(__file__).resolve().parents[2] / 'crmarenapro/tasks/task2/validate.py'
 spec = importlib.util.spec_from_file_location('crm_task2_validator', path)
 validator = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(validator)

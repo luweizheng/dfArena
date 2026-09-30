@@ -63,9 +63,9 @@ class ResultsTests(unittest.TestCase):
 
 class PromptDeliveryTests(unittest.TestCase):
     def make_input(self, root):
-        (root / 'context').mkdir()
-        (root / 'context/description.md').write_text('字段说明：Date 是交易日期。\n', encoding='utf-8')
-        (root / 'context/hints.md').write_text('规则：所有指数采用共同截止日期。\n', encoding='utf-8')
+        (root / 'data').mkdir()
+        (root / 'description.md').write_text('字段说明：Date 是交易日期。\n', encoding='utf-8')
+        (root / 'hints.md').write_text('规则：所有指数采用共同截止日期。\n', encoding='utf-8')
         return {'context': 'Hints are available only when enabled.', 'query': 'Find the top five.'}
 
     def test_complete_text_and_auditable_hashes_without_hidden_answers(self):
@@ -74,20 +74,18 @@ class PromptDeliveryTests(unittest.TestCase):
             task = self.make_input(root)
             (root / 'answer').mkdir()
             (root / 'answer/secret.txt').write_text('HIDDEN_GOLD_SENTINEL', encoding='utf-8')
-            prompt, delivery = build_prompt(root, task, 'Use pandas.', complete_requirements=True)
+            prompt, delivery = build_prompt(root, task, 'Use pandas.', mode='clarified')
             self.assertIn(task['query'], prompt)
             self.assertIn('Hints are enabled for this run.', prompt)
             self.assertIn('equally binding', prompt)
             self.assertNotIn('HIDDEN_GOLD_SENTINEL', prompt)
             self.assertNotIn('metadata.yaml', prompt)
             self.assertNotIn('metadata_source', delivery)
-            self.assertTrue(delivery['hints_enabled'])
-            self.assertEqual(len(delivery['inline_sources']), 2)
-            for item in delivery['inline_sources']:
-                source = root / item['path']
-                self.assertIn(source.read_text(encoding='utf-8'), prompt)
-                self.assertEqual(item['sha256'], hashlib.sha256(source.read_bytes()).hexdigest())
-            self.assertEqual(delivery['prompt_sha256'], hashlib.sha256(prompt.encode('utf-8')).hexdigest())
+            self.assertEqual(delivery['agent_inputs'], ['data/', 'context/description.md', 'query.md', 'context/hints.md'])
+            self.assertFalse(delivery['simulator'])
+            self.assertEqual(delivery['simulator_context'], [])
+            self.assertIn((root / 'description.md').read_text(encoding='utf-8'), prompt)
+            self.assertIn((root / 'hints.md').read_text(encoding='utf-8'), prompt)
 
     def test_incomplete_or_invalid_documents_fail(self):
         for name in ['description.md', 'hints.md']:
@@ -95,23 +93,23 @@ class PromptDeliveryTests(unittest.TestCase):
                 with self.subTest(name=name, content=content), tempfile.TemporaryDirectory() as tmp:
                     root = Path(tmp)
                     task = self.make_input(root)
-                    source = root / 'context' / name
+                    source = root / name
                     if content is None:
                         source.unlink()
                     else:
                         source.write_bytes(content)
                     with self.assertRaises(error):
-                        build_prompt(root, task, 'Use pandas.', complete_requirements=True)
+                        build_prompt(root, task, 'Use pandas.', mode='clarified')
 
     def test_file_reference_mode_is_not_marked_complete(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             task = self.make_input(root)
-            prompt, delivery = build_prompt(root, task, 'Use pandas.')
+            prompt, delivery = build_prompt(root, task, 'Use pandas.', mode='direct')
             self.assertNotIn('所有指数', prompt)
-            self.assertEqual(delivery['mode'], 'file_references')
-            self.assertIsNone(delivery['hints_enabled'])
-            self.assertEqual(delivery['inline_sources'], [])
+            self.assertEqual(delivery['agent_inputs'], ['data/', 'context/description.md', 'query.md'])
+            self.assertFalse(delivery['simulator'])
+            self.assertEqual(delivery['simulator_context'], [])
             self.assertNotIn('metadata.yaml', prompt)
 
     def test_research_metadata_is_not_an_input_in_either_prompt_mode(self):
@@ -119,12 +117,12 @@ class PromptDeliveryTests(unittest.TestCase):
             with self.subTest(complete=complete), tempfile.TemporaryDirectory() as tmp:
                 root = Path(tmp)
                 task = self.make_input(root)
-                baseline = build_prompt(root, task, 'Use pandas.', complete_requirements=complete)
+                baseline = build_prompt(root, task, 'Use pandas.', mode='clarified' if complete else 'direct')
                 metadata = root / 'metadata.yaml'
                 for content in [b' \n', b'\xff', b'notes: RESEARCH_ONLY_SENTINEL\n']:
                     with self.subTest(content=content):
                         metadata.write_bytes(content)
-                        prompt, delivery = build_prompt(root, task, 'Use pandas.', complete_requirements=complete)
+                        prompt, delivery = build_prompt(root, task, 'Use pandas.', mode='clarified' if complete else 'direct')
                         self.assertEqual((prompt, delivery), baseline)
                         self.assertNotIn('RESEARCH_ONLY_SENTINEL', prompt)
                         self.assertNotIn('metadata.yaml', prompt)
@@ -135,17 +133,17 @@ class PromptDeliveryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             task = self.make_input(root)
-            (root / 'context/hints.md').unlink()
+            (root / 'hints.md').unlink()
             task_dir = root / 'tasks/task1'
             task_dir.mkdir(parents=True)
-            (task_dir / 'task.json').write_text(json.dumps(task), encoding='utf-8')
+            (task_dir / 'query.md').write_text(task['query'], encoding='utf-8')
             run = root / 'run'
             with patch.object(generate, 'settings', return_value={'model': 'test'}), \
                  patch.object(generate, 'prepare_agent') as prepare, \
                  patch.object(generate.subprocess, 'run') as execute, \
                  patch.object(sys, 'stderr'), self.assertRaises(SystemExit) as raised:
                 generate.main(['--dataset', str(root), '--task', 'task1', '--run-dir', str(run),
-                               '--complete-requirements'])
+                               '--mode', 'clarified'])
             self.assertEqual(raised.exception.code, 2)
             prepare.assert_not_called()
             execute.assert_not_called()
@@ -159,7 +157,7 @@ class PromptDeliveryTests(unittest.TestCase):
             (root / 'metadata.yaml').write_text('notes: RESEARCH_ONLY_SENTINEL\n', encoding='utf-8')
             task_dir = root / 'tasks/task1'
             task_dir.mkdir(parents=True)
-            (task_dir / 'task.json').write_text(json.dumps(task), encoding='utf-8')
+            (task_dir / 'query.md').write_text(task['query'], encoding='utf-8')
             run = root / 'run'
             sent = []
 
@@ -168,11 +166,9 @@ class PromptDeliveryTests(unittest.TestCase):
                     self.assertEqual(kwargs['encoding'], 'utf-8')
                     mounts = [command[i + 1] for i, arg in enumerate(command) if arg == '-v']
                     workspace_inputs = {m for m in mounts if ':/workspace/' in m and m.endswith(':ro')}
-                    self.assertEqual(workspace_inputs, {
-                        f'{root / "data"}:/workspace/data:ro',
-                        f'{root / "context"}:/workspace/context:ro',
-                        f'{task_dir / "task.json"}:/workspace/task.json:ro',
-                    })
+                    self.assertEqual(sum(x.endswith(':/workspace/data:ro') for x in workspace_inputs), 1)
+                    self.assertEqual(sum(x.endswith(':/workspace/context:ro') for x in workspace_inputs), 1)
+                    self.assertIn(f'{(task_dir / "query.md").resolve()}:/workspace/query.md:ro', workspace_inputs)
                     self.assertFalse(any(':/workspace/answer' in m or ':/workspace:ro' in m for m in mounts))
                     self.assertFalse(any('metadata.yaml' in m for m in mounts))
                     self.assertNotIn('metadata.yaml', kwargs['input'])
@@ -186,7 +182,7 @@ class PromptDeliveryTests(unittest.TestCase):
                 return subprocess.CompletedProcess(command, 0)
 
             argv = ['generate.py', '--dataset', str(root), '--task', 'task1', '--run-dir', str(run),
-                    '--complete-requirements', '--agent', 'codex']
+                    '--mode', 'clarified', '--agent', 'codex']
             with patch.object(sys, 'argv', argv), \
                  patch.object(generate, 'settings', return_value={'model': 'test'}), \
                  patch.object(generate, 'label_for', return_value='test'), \
@@ -198,10 +194,11 @@ class PromptDeliveryTests(unittest.TestCase):
             self.assertEqual(len(sent), 1)
             self.assertEqual(sent[0].encode('utf-8'), (run / 'detail/prompt.txt').read_bytes())
             for name in ['description.md', 'hints.md']:
-                self.assertIn((root / 'context' / name).read_text(encoding='utf-8'), sent[0])
-            delivery = json.loads((run / 'detail/input_delivery.json').read_text(encoding='utf-8'))
-            self.assertTrue(delivery['hints_enabled'])
-            self.assertEqual(delivery['prompt_sha256'], hashlib.sha256(sent[0].encode('utf-8')).hexdigest())
+                self.assertIn((root / name).read_text(encoding='utf-8'), sent[0])
+            generation = json.loads((run / 'detail/generation.json').read_text(encoding='utf-8'))
+            delivery = generation['input_delivery']
+            self.assertEqual(delivery['agent_inputs'], ['data/', 'context/description.md', 'query.md', 'context/hints.md'])
+            self.assertFalse((run / 'detail/input_delivery.json').exists())
 
 
 if __name__=='__main__':

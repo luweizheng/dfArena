@@ -5,7 +5,7 @@ from pathlib import Path
 import unittest
 
 path = Path(os.environ.get('CIVIC_TASK3_VALIDATOR_PATH', str(
-    Path(__file__).resolve().parents[2] / 'civic_unstructured/tasks/task3/answer/validate.py')))
+    Path(__file__).resolve().parents[2] / 'civic_unstructured/tasks/task3/validate.py')))
 spec = importlib.util.spec_from_file_location('civic_task3_validator', path)
 validator = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(validator)

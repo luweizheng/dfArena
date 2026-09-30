@@ -27,7 +27,7 @@ Use `--image <your-local-image>` to select another image. Backends are `pandas`,
 | `--agent-model` | Optional output directory label only. It does not select or change the agent or model. |
 | `--timeout` | Agent process timeout in seconds; default 600. |
 | `--evaluation-timeout` | Evaluation timeout in seconds; default 120. |
-| `--complete-requirements` | Enable hints and inline the full description and hints during generation; forwarded by the controller. |
+| `--mode` | `direct`, `clarified`, or `interact`; controls hint delivery and simulator use. |
 
 The CLI spelling is `--agent-model`, not `--agent_model`; `agent_model` is the internal Python attribute. Normally omit this option: the label is inferred as `codex_gpt-6-astra` or `opencode_gpt-6-astra`, without the OpenCode provider prefix. Explicit labels are sanitized for use as directory names. Reasoning effort comes from agent configuration and is recorded alongside the model.
 
@@ -37,9 +37,9 @@ The CLI spelling is `--agent-model`, not `--agent_model`; `agent_model` is the i
 - `generate.py` prepares task inputs, runs the agent in Docker, and saves `detail/generation.json`.
 - `evaluate.py` runs the task's original `validate.py` and saves `detail/evaluation.json`. Re-evaluation preserves the generation record.
 
-For complete-requirement experiments, add `--complete-requirements` to the `run_benchmark.py` command. The controller forwards it only to `generate.py`, which enables hints and places the full description and hints in the initial prompt. Without this flag, generation uses file references; that mode is not an isolated no-hints condition because the context directory remains visible.
+`run_benchmark.py` defaults to `--mode interact`. `direct` exposes only `description.md`; `clarified` exposes and inlines both description and hints; `interact` exposes only the description initially and uses the host-side simulator to answer clarification questions.
 
-Generation mounts only `data/`, `context/`, and the selected `task.json` as read-only inputs. File paths, schemas, and field-reading guidance are in `context/description.md`; dataset-relative paths resolve from `/workspace`. `metadata.yaml` is for researcher-side analysis and paper statistics: generation neither requires it, mounts it, nor includes it in the prompt or input-delivery record. Hidden answers and validators become accessible only to the separate evaluation stage. These conventions apply to future runs; historical prompts and result bundles are not rewritten.
+Generation mounts only `data/`, the selected `query.md`, and mode-selected documentation as read-only inputs. File paths, schemas, and field-reading guidance are in `description.md`; dataset-relative paths resolve from `/workspace`. `metadata.yaml` is for researcher-side analysis and paper statistics: generation neither requires it, mounts it, nor includes it in the prompt or generation input-delivery record. Task answers and validators become accessible only to the separate evaluation stage. These conventions apply to future runs; historical prompts and result bundles are not rewritten.
 
 The summary can be rebuilt with `runners.results.summarize(run_dir)`. An answer mismatch gives `passed=false`; an evaluation error or timeout gives `passed=null`.
 
@@ -53,7 +53,6 @@ DataAgentBench/<dataset>/output/<task>/<agent-model>/<backend>/rNNN/
     evaluation.json
     agent_exec_timing.json
     prompt.txt
-    input_delivery.json            # Prompt mode and input fingerprints
     command.json
     codex_sessions/                  # Codex runs only
     opencode_sessions/opencode.db    # OpenCode runs only

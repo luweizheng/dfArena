@@ -53,7 +53,7 @@ from evaluation import Evaluator
 report = Evaluator(gt_dir, cand_dir, config_path).run()
 ```
 
-底层 CLI 不自动更新 benchmark 的运行摘要；PrepBench/evaluate.py 提供阶段保存与汇总适配，PrepBench/run_benchmark.py 可串联生成和评分。报告记录实际读取的 config、GT、candidate SHA256，协议版本，以及每个文件的内容/顺序检查状态。`side` 表示错误出现在哪一侧或比较阶段，不自动推断 agent 的根因。
+底层 CLI 不自动更新 benchmark 的运行摘要；PrepBench/scripts/evaluate.py 提供阶段保存与汇总适配，PrepBench/scripts/run_benchmark.py 可串联生成和评分。报告记录实际读取的 config、GT、candidate SHA256，协议版本，以及每个文件的内容/顺序检查状态。`side` 表示错误出现在哪一侧或比较阶段，不自动推断 agent 的根因。
 
 ## 配置
 
