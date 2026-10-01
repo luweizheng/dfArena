@@ -6,25 +6,14 @@ A dataframe-native adaptation of [DataAgentBench](https://github.com/ucbepic/Dat
 
 The original DataAgentBench is for database data agent, here we are a dataframe benchmark, we need to remove database-related stuff and turn it into a dataframe-native benchmark. Each task is a tuple: (data, task, answer), with dataset-level documentation in description.md and hints.md.
 
-<<<<<<< HEAD
-- `metadata.yaml`: NEWLY ADDED, for analysis, source provenance, table paths, measured sizes, row/column counts, SHA-256 checksums, and context references.
-- `context/description.md`: FROM `db_description.txt`, table schemas, field descriptions, and dataset relationships.
-- `context/hints.md`: FROM `db_description_withhint.txt`, optional domain and calculation guidance.
-=======
-- `metadata.yaml`: dataset characteristics for research analysis and paper statistics, plus file identity and navigation. Field purposes and counting conventions are defined below.
+- `metadata.yaml`: dataset characteristics for research analysis and paper statistics, plus file identity and navigation.
 - `description.md`: FROM `db_description.txt`, input file paths, table schemas, field descriptions, and dataset relationships.
-- `hints.md`: FROM `db_description_withhint.txt`, optional domain and calculation guidance.
->>>>>>> c59319b (Migrate DataAgentBench workloads)
+- `hints.md`: FROM `db_description_withhint.txt`, optional domain and guidance.
 - `data/<db_name>/<table>.parquet`: FROM `query_dataset`, convert them into parquet file which is widely used for data analysis, input tables, with no `_database` suffix.
 - `tasks/task{1,2,3}/query.md`: FROM `queryN`, task-specific natural-language requests.
 - `tasks/task{1,2,3}/ground_truth.csv` and `validate.py`: hidden answers and validators.
 - `output/<task>/<agent-model>/<backend>/rNNN/`: isolated generation and evaluation outputs.
 
-<<<<<<< HEAD
-## Execution boundary
-
-During solution generation, the runner must expose only input data, the context, metadata, and the current task JSON. Do not mount the whole dataset directory into agent sandbox: the whole dataset directory contains answers and historical runs. Keep solution outputs in an isolated run workspace.
-=======
 ## Metadata for dataset analysis
 
 Metadata describes the adapted dataset, not the machinery used to migrate it. Use a consistent set of fields across datasets:
@@ -49,16 +38,8 @@ Dataset metadata does not include a `subdomain` field. The taxonomy's typical su
 ## Execution boundary
 
 During solution generation, the runner must expose only input data, selected documentation, and the current task query. Keep researcher-side metadata outside the agent sandbox. Do not mount the whole dataset directory into agent sandbox: the whole dataset directory contains answers and historical runs. Keep solution outputs in an isolated run workspace.
->>>>>>> c59319b (Migrate DataAgentBench workloads)
 
 After generation ends, freeze the solution and evaluate it in a separate process/container that can read the selected task directory. Never mount answers into a still-running agent session.
-
-## Evaluation status
-
-<<<<<<< HEAD
-This reorganization preserves the existing queries, ground truths, and validators without strengthening their correctness checks.
-=======
-Except for explicitly approved task revisions recorded in [curation/APPROVED_TASK_REVISIONS.md](curation/APPROVED_TASK_REVISIONS.md), this reorganization preserves the existing queries, ground truths, and validators without strengthening their correctness checks.
 
 ## Experimental modes
 
@@ -86,4 +67,3 @@ Each interact session allows at most 3 successfully processed rounds, at most 10
 
 Missing, empty, or undecodable documents stop preparation before agent execution.
 The exact prompt is saved to `detail/prompt.txt`; `detail/generation.json` records the selected mode, agent-visible inputs, and simulator background files. Delivery does not itself prove that the generated code follows every requirement, and an answer-only validator may not check those rules.
->>>>>>> c59319b (Migrate DataAgentBench workloads)
