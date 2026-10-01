@@ -33,11 +33,3 @@ File: `data/indextrade/index_trade.parquet`
 ## Relationships and interpretation
 
 `index_info.Exchange` stores full exchange names, whereas `index_trade.Index` stores index symbols. The tables do not expose a shared join key. Geographic regions are not stored as explicit columns.
-
-<<<<<<< HEAD:DataAgentBench/stockindex/context/description.md
-`Date` remains a string column; parse its textual values when performing date-based analysis. No date normalization or new mapping columns were introduced during this layout migration.
-
-Additional domain and calculation guidance is available in `context/hints.md` when enabled by the experiment configuration.
-=======
-Additional domain and calculation guidance is available in `hints.md` when enabled by the experiment configuration.
->>>>>>> c59319b (Migrate DataAgentBench workloads):DataAgentBench/stockindex/description.md

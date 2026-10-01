@@ -22,14 +22,8 @@ tables:
   size_bytes: 3850761
   sha256: d6bcdafc4e5640b67125a0972d37c604a49be2e31280777798b7e82bdc4bc079
 context:
-<<<<<<< HEAD
-  description: context/description.md
-  hints: context/hints.md
-  hints_policy: optional; selected by experiment configuration
-=======
   description: description.md
   hints: hints.md
->>>>>>> c59319b (Migrate DataAgentBench workloads)
 tasks:
   directory: tasks
   count: 3
