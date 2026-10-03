@@ -1,15 +1,23 @@
 {
   "files": {
     "output_01.csv": {
-      "key": ["Date", "Dealership"],
+      "key": [
+        "Date",
+        "Dealership"
+      ],
       "columns": {
-        "Total Cars Sold": "number",
-        "Date": "date",
-        "Dealership": "text_exact",
-        "Red Cars": "number",
-        "Silver Cars": "number",
-        "Black Cars": "number",
-        "Blue Cars": "number"
+        "Total Cars Sold": {"type": "integer"},
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Dealership": {"type": "text_exact", "null_values": []},
+        "Red Cars": {"type": "integer"},
+        "Silver Cars": {"type": "integer"},
+        "Black Cars": {"type": "integer"},
+        "Blue Cars": {"type": "integer"}
       }
     }
   }

@@ -1,22 +1,23 @@
 {
-    "files": {
-        "output_01.csv": {
-            "key": [
-                "City",
-                "Date",
-                "Wind Speed - mph",
-                "Max Temperature - Celsius",
-                "Min Temperature - Celsius",
-                "Precipitation - mm"
-            ],
-            "columns": {
-                "City": "text_exact",
-                "Date": "date",
-                "Wind Speed - mph": "number",
-                "Max Temperature - Celsius": "number",
-                "Min Temperature - Celsius": "number",
-                "Precipitation - mm": "number"
-            }
-        }
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "City",
+        "Date"
+      ],
+      "columns": {
+        "City": {"type": "text_exact", "null_values": []},
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Wind Speed - mph": {"type": "integer"},
+        "Max Temperature - Celsius": {"type": "integer"},
+        "Min Temperature - Celsius": {"type": "integer"},
+        "Precipitation - mm": {"type": "integer"}
+      }
     }
+  }
 }

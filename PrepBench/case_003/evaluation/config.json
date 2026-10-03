@@ -4,16 +4,24 @@
       "key": [
         "Payment Date",
         "Name",
-        "Monthly Cost",
-        "Contract Length (months)",
         "Start Date"
       ],
       "columns": {
-        "Payment Date": "date",
-        "Name": "text_exact",
-        "Monthly Cost": "number",
-        "Contract Length (months)": "number",
-        "Start Date": "date"
+        "Payment Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Name": {"type": "text_exact", "null_values": []},
+        "Monthly Cost": {"type": "integer"},
+        "Contract Length (months)": {"type": "integer"},
+        "Start Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        }
       }
     }
   }
