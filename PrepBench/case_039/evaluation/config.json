@@ -1,0 +1,76 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Browser"
+      ],
+      "columns": {
+        "Change in % this month": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Browser": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "This Month Pageviews Value": "integer",
+        "This Month Pageviews %": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "All Time Pageviews Value": "integer",
+        "All Time Pageviews %": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    },
+    "output_02.csv": {
+      "key": [
+        "Operating System"
+      ],
+      "columns": {
+        "Change in % this month": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Operating System": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "This Month Pageviews Value": "integer",
+        "This Month Pageviews %": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "All Time Pageviews Value": "integer",
+        "All Time Pageviews %": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    },
+    "output_03.csv": {
+      "key": [
+        "Origin"
+      ],
+      "columns": {
+        "Change in % pageviews": "integer",
+        "This Month Pageviews %": "integer",
+        "All Time Views %": "integer",
+        "Origin": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "All Time Pageviews": "integer",
+        "This Month Pageviews": "integer"
+      }
+    }
+  }
+}

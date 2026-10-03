@@ -1,0 +1,49 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Store",
+        "Name"
+      ],
+      "columns": {
+        "% Bonus of Salary": {"type": "number"},
+        "Bonus amount": "integer",
+        "Store": {"type": "text_exact", "null_values": []},
+        "Name": {"type": "text_exact", "null_values": []},
+        "Total Salary": "integer"
+      }
+    },
+    "output_02.csv": {
+      "key": [
+        "Store",
+        "Name"
+      ],
+      "columns": {
+        "Correct Salary for Role?": "boolean",
+        "Assumed Position based on Salary Range": {"type": "text_exact", "null_values": []},
+        "Pay Status": {"type": "text_exact", "null_values": []},
+        "End Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Salary Range Minimum": "integer",
+        "Salary Range Maximum": "integer",
+        "Bonus amount": "integer",
+        "Range": {"type": "text_exact"},
+        "% above target for bonus": "integer",
+        "Role": {"type": "text_exact", "null_values": []},
+        "Start Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Salary": "integer",
+        "Store": {"type": "text_exact", "null_values": []},
+        "Name": {"type": "text_exact", "null_values": []}
+      }
+    }
+  }
+}

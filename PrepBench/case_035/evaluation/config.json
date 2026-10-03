@@ -1,0 +1,68 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Supplier",
+        "Product",
+        "Scent"
+      ],
+      "columns": {
+        "Supplier": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Product": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Scent": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Surplus Product": "integer"
+      }
+    },
+    "output_02.csv": {
+      "key": [
+        "Store",
+        "Product",
+        "Scent",
+        "Supplier",
+        "Date Required"
+      ],
+      "columns": {
+        "Store": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Product": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Scent": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Supplier": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Quantity Requested": "integer",
+        "Date Required": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Stock Ready?": "boolean",
+        "Date Fulfilled": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Days Request Delayed": "integer"
+      }
+    }
+  }
+}

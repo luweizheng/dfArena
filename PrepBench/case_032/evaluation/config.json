@@ -1,0 +1,19 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Customer",
+        "Product"
+      ],
+      "columns": {
+        "Property Number": "integer",
+        "Town": {"type": "text_exact", "null_values": []},
+        "Postal Code": {"type": "text_exact", "null_values": []},
+        "Country": {"type": "text_exact", "null_values": []},
+        "Customer": {"type": "text_exact", "null_values": []},
+        "Product": {"type": "text_exact", "null_values": []},
+        "Sales": "integer"
+      }
+    }
+  }
+}

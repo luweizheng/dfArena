@@ -1,0 +1,36 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "VisitID"
+      ],
+      "columns": {
+        "Date of Servce": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "VisitID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "PatientID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Visit Type": "text_exact",
+        "Doctor": "text_exact",
+        "Patient visit number": "integer",
+        "First visit date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Total Patient visits": "integer",
+        "New Patient Flag": "text_exact"
+      }
+    }
+  }
+}
