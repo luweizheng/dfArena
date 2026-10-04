@@ -3,7 +3,7 @@ from datetime import datetime
 from decimal import Decimal, InvalidOperation, localcontext
 import math
 import re
-from .config import DEFAULT_DATE_FORMATS, DEFAULT_DATETIME_FORMATS
+from .config import DEFAULT_DATE_FORMATS, DEFAULT_DATETIME_FORMATS, DEFAULT_TIME_FORMATS
 
 EMPTY = {'', 'none', 'nan', 'null', 'n/a', 'na'}
 DATE_FORMATS = ['%Y-%m-%d', '%Y/%m/%d', '%d/%m/%Y']
@@ -20,15 +20,15 @@ def normalize(raw, rule):
             s = s[1:-1]
     if legacy:
         tokens = {'', 'na', 'n/a', 'null'} if kind in {'date', 'datetime'} else EMPTY
-        # integer is new: no broad legacy null-token aliasing.
-        if kind == 'integer':
+        # New types have no broad legacy null-token aliasing.
+        if kind in {'integer', 'time'}:
             tokens = {''}
         # Quote removal can expose whitespace; trim only for null detection.
         if s.strip().lower() in tokens:
             return None
     else:
         tokens = rule.get('null_values', [''])
-        if kind in {'date', 'datetime'}:
+        if kind in {'date', 'datetime', 'time'}:
             if s.lower() in {token.strip().lower() for token in tokens}:
                 return None
         elif raw in tokens:
@@ -66,10 +66,15 @@ def normalize(raw, rule):
         return value
     formats = rule.get('formats')
     if formats is None:
-        if legacy:
+        if kind == 'time':
+            formats = DEFAULT_TIME_FORMATS
+        elif legacy:
             formats = DATE_FORMATS if kind == 'date' else DATETIME_FORMATS
         else:
             formats = DEFAULT_DATE_FORMATS if kind == 'date' else DEFAULT_DATETIME_FORMATS
+    if kind == 'datetime':
+        # Task formats extend ISO formats; try all to detect ambiguous values.
+        formats = list(dict.fromkeys(DEFAULT_DATETIME_FORMATS + formats))
     if legacy and '/' in s:
         parts = s.split('/')
         if len(parts) == 3 and len(parts[2]) == 3 and parts[2].isdigit():
@@ -89,11 +94,11 @@ def normalize(raw, rule):
             value = datetime.strptime(s, fmt)
             if value.tzinfo is not None:
                 raise ValueError('Timezone-aware dates are not supported in this protocol')
-            parsed.add(value.date() if kind == 'date' else value)
+            parsed.add(value.time() if kind == 'time' else value.date() if kind == 'date' else value)
         except ValueError:
             continue
     if len(parsed) != 1:
-        raise ValueError('Invalid or ambiguous date/datetime for configured formats')
+        raise ValueError('Invalid or ambiguous date/datetime/time for configured formats')
     return parsed.pop()
 
 

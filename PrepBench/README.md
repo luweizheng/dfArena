@@ -103,6 +103,7 @@ PrepBench/
     simulator/
     tests/
   case_XXX/
+    metadata.yaml
     inputs/
     query.md
     query_full.md
@@ -132,6 +133,8 @@ PrepBench/
         solution.py
         outputs/output_*.csv
 ```
+
+Each case has a compact `metadata.yaml` containing its primary domain and the number of input tables and columns.
 
 Run numbers increase independently for each mode/model/backend combination; concurrent run-number allocation is not implemented. New runs no longer write `run.json`, and old runs are not migrated automatically. The run directory supplied to `generate.py` must be empty to prevent stale answers or evaluation results from being reused.
 
