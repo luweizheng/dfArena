@@ -1,0 +1,80 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "NAME"
+      ],
+      "columns": {
+        "Height (m)": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Weight (KGs)": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Jersey Number": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "NAME": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "POS": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "AGE": "integer",
+        "COLLEGE": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "SALARY": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      }
+    },
+    "output_02.csv": {
+      "key": [
+        "NAME"
+      ],
+      "columns": {
+        "Height (m)": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Weight (KGs)": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Jersey Number": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "NAME": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "POS": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "AGE": "integer",
+        "COLLEGE": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "SALARY": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      }
+    }
+  }
+}

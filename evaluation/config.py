@@ -9,9 +9,11 @@ class ConfigError(ValueError):
     pass
 
 
-TYPES = {'number', 'integer', 'text_exact', 'text_norm', 'boolean', 'date', 'datetime'}
+TYPES = {'number', 'integer', 'text_exact', 'text_norm', 'boolean', 'date', 'datetime', 'time'}
+DEFAULT_TIME_FORMATS = ['%H:%M', '%H:%M:%S', '%H:%M:%S.%f']
 DEFAULT_DATE_FORMATS = ['%Y-%m-%d']
 DEFAULT_DATETIME_FORMATS = [
+    '%Y-%m-%d %H:%M', '%Y-%m-%dT%H:%M',
     '%Y-%m-%d %H:%M:%S', '%Y-%m-%dT%H:%M:%S',
     '%Y-%m-%d %H:%M:%S.%f', '%Y-%m-%dT%H:%M:%S.%f',
 ]
@@ -27,7 +29,7 @@ def column_rule(value):
     allowed = {'type', 'null_values'}
     if kind == 'number':
         allowed |= {'abs_tol', 'rel_tol'}
-    if kind in {'date', 'datetime'}:
+    if kind in {'date', 'datetime', 'time'}:
         allowed.add('formats')
     if set(rule) - allowed:
         raise ConfigError(f'Unsupported column options: {sorted(set(rule) - allowed)}')
@@ -37,12 +39,14 @@ def column_rule(value):
     if 'formats' in rule and (not isinstance(rule['formats'], list) or not rule['formats'] or
                              not all(isinstance(x, str) and x for x in rule['formats'])):
         raise ConfigError('formats must be a nonempty list of strptime formats')
-    if kind in {'date', 'datetime'} and not legacy:
-        rule.setdefault('formats', list(DEFAULT_DATE_FORMATS if kind == 'date' else DEFAULT_DATETIME_FORMATS))
+    if kind in {'date', 'datetime', 'time'} and (not legacy or kind == 'time'):
+        rule.setdefault('formats', list(DEFAULT_TIME_FORMATS if kind == 'time' else DEFAULT_DATE_FORMATS if kind == 'date' else DEFAULT_DATETIME_FORMATS))
         for fmt in rule['formats']:
             directives = re.findall(r'%(.)', fmt)
             if any(d not in 'YymdbBjaAwUWGVuHIMSfp%' for d in directives) or fmt.endswith('%'):
                 raise ConfigError('Unsupported date/time directive (including timezones)')
+            if kind == 'time' and any(d not in 'HIMSfp%' for d in directives):
+                raise ConfigError('time formats cannot contain date components')
             if kind == 'date' and any(d in 'HIMSfp' for d in directives):
                 raise ConfigError('date formats cannot contain time components')
             if re.search(r'Z|UTC|GMT|[+-]\d{2}:?\d{2}', fmt):

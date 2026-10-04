@@ -1,0 +1,30 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Date",
+        "Product",
+        "Scent",
+        "Supplier"
+      ],
+      "columns": {
+        "Month Name": {"type": "text_exact", "null_values": []},
+        "Weekday": {"type": "text_exact", "null_values": []},
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Product": {"type": "text_exact", "null_values": []},
+        "Scent": {"type": "text_exact", "null_values": []},
+        "Supplier": {"type": "text_exact", "null_values": []},
+        "Quantity": {"type": "integer"}
+      },
+      "ignore_order": false,
+      "order_by": [
+        {"column": "Date", "direction": "asc", "nulls": "last"}
+      ]
+    }
+  }
+}

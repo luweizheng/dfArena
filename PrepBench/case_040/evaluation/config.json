@@ -1,0 +1,56 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Total Respondents",
+        "Promoter",
+        "Detractor"
+      ],
+      "columns": {
+        "NPS Score": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Total Respondents": "integer",
+        "Promoter": "integer",
+        "Detractor": "integer"
+      }
+    },
+    "output_02.csv": {
+      "key": [
+        "Which three words would you use describe to Sudzilla? (separate with a comma) Split",
+        "Keynote Rating Score",
+        "Food Rating Score",
+        "Timestamp",
+        "On a scale of 0-10, how would you rate Sudzilla?",
+        "___why?",
+        "What was your favourite giveaway at Sudzilla?",
+        "What was your favourite 'Soap Box' (breakout / customer speaker) session?"
+      ],
+      "columns": {
+        "Which three words would you use describe to Sudzilla? (separate with a comma) Split": "text_exact",
+        "Keynote Rating Score": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Food Rating Score": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Timestamp": {
+          "type": "datetime",
+          "formats": [
+            "%m/%d/%Y %I:%M:%S %p"
+          ]
+        },
+        "On a scale of 0-10, how would you rate Sudzilla?": "integer",
+        "___why?": "text_exact",
+        "What was your favourite giveaway at Sudzilla?": "text_exact",
+        "What was your favourite 'Soap Box' (breakout / customer speaker) session?": "text_exact"
+      }
+    }
+  }
+}

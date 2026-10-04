@@ -1,0 +1,33 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Store",
+        "Quarter"
+      ],
+      "columns": {
+        "Variance to Target": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Variance to Target %": "integer",
+        "Target Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Sales": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Store": "text_exact",
+        "Quarter": "integer",
+        "Region": "text_exact",
+        "Target": "text_exact",
+        "Actions": "text_exact"
+      }
+    }
+  }
+}

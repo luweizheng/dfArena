@@ -1,0 +1,72 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_total_respondents_row_count",
+      "kind": "Group-level concept",
+      "node_id": "agg_nps",
+      "op": "aggregate",
+      "intent": "Treat each row of input_02.csv as one respondent. Total Respondents is the number of those rows, including ratings of 7 and 8."
+    },
+    {
+      "id": "2_O3_detailed_output_full_row_dedup_keep_first",
+      "kind": "Operation inconsistent",
+      "node_id": "dedup_out02",
+      "op": "dedup",
+      "intent": "After all detailed-output transformations, remove rows that are identical across every output column, keeping the first occurrence."
+    },
+    {
+      "id": "3_C2_food_rating_text_to_1_5_mapping",
+      "kind": "Row-level concept",
+      "node_id": "prep_compute",
+      "op": "project",
+      "source_text": "Change food rating fields to 1-5 score (bad to good) and average the value.",
+      "intent": "Map Horrendous to 1, Just about edible but I was hungry to 2, Some good, some not so good to 3, Yum! to 4, and Give the team a Michelin star!! to 5."
+    },
+    {
+      "id": "4_C2_keynote_rating_mean_of_opening_and_closing",
+      "kind": "Group-level concept",
+      "node_id": "prep_compute",
+      "op": "project",
+      "source_text": "Form an average score for the keynotes. Rename this to 'Keynote Rating Score'",
+      "intent": "For each respondent, average the opening and closing keynote ratings into Keynote Rating Score."
+    },
+    {
+      "id": "5_O2_food_rating_unmapped_or_missing_as_null",
+      "kind": "Operation incomplete",
+      "node_id": "prep_compute",
+      "op": "project",
+      "intent": "Treat missing or unmapped meal ratings as null and average the available meal scores for each respondent."
+    },
+    {
+      "id": "new_1_three_words_standardization_mapping",
+      "kind": "Row-level concept",
+      "node_id": "prep_words",
+      "op": "project",
+      "source_text": "Split the 'What three words...' field in to individual words and use a grouping technique to clean these words",
+      "intent": "Split on commas and trim whitespace. Remove trailing punctuation except the period in minty.; look up cleaned lowercase words in the canonical mapping specified in query_full.md, retaining the cleaned form for unmapped words. Preserve the mapping's canonical spelling and capitalization."
+    },
+    {
+      "id": "new_2_three_words_unique_per_respondent",
+      "kind": "Operation inconsistent",
+      "node_id": "prep_words",
+      "op": "dedup",
+      "source_text": "The technique used may change row count - try to get close",
+      "intent": "Produce one row for each unique standardized word per respondent, comparing words case-insensitively within that respondent."
+    },
+    {
+      "id": "new_3_nps_score_round_1dp",
+      "kind": "Operation boundary",
+      "node_id": "agg_nps",
+      "op": "project",
+      "source_text": "The calculation is: (Promoters - Detractors) / Number of respondents \u00d7 100",
+      "intent": "Round the calculated NPS Score to one decimal place."
+    },
+    {
+      "id": "new_4_use_input02_as_primary_survey",
+      "kind": "Single-table reference",
+      "node_id": "input_survey",
+      "op": "input",
+      "intent": "Read both input files, but use input_02.csv as the survey source for both outputs; do not combine the two representations."
+    }
+  ]
+}

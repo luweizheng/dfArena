@@ -136,7 +136,8 @@ class TableTests(unittest.TestCase):
         gt = [['A', '2024-01-02 10:30:00']]
         for key in (['ID'], ['ID', 'Value']):
             for value in ('2024-01-02T10:30:00', '2024-01-02T10:30:00.000000',
-                          '2024-01-02 10:30:00.000000'):
+                          '2024-01-02 10:30:00.000000', '2024-01-02 10:30',
+                          '2024-01-02T10:30'):
                 self.assertTrue(self.compare(gt, [['A', value]], cols, key)['passed'])
             code = 'VALUE_MISMATCH' if key == ['ID'] else 'KEY_MISMATCH'
             self.error(self.compare(gt, [['A', '2024-01-02T10:30:00.000001']], cols, key), code)
@@ -144,7 +145,28 @@ class TableTests(unittest.TestCase):
         self.error(self.compare(gt, [['A', '2024-01-02T10:30:00Z']], cols), 'TYPE_ERROR')
         cols['Value']['formats'] = ['%Y-%m-%d %H:%M', '%Y-%m-%d %H:%M:%S']
         self.assertTrue(self.compare(gt, [['A', '2024-01-02 10:30']], cols)['passed'])
-        self.error(self.compare(gt, [['A', '2024-01-02T10:30:00']], cols), 'TYPE_ERROR')
+        self.assertTrue(self.compare(gt, [['A', '2024-01-02T10:30:00']], cols)['passed'])
+
+    def test_datetime_extra_formats_keys_order_and_ambiguity(self):
+        cols = {'ID': {'type': 'datetime', 'formats': ['%d/%m/%Y %H:%M:%S']},
+                'Value': 'integer'}
+        gt = [['05/01/2020 21:31:00', 1], ['06/01/2020 00:00:00', 2]]
+        cand = [['2020-01-05T21:31:00.000000', 1], ['2020-01-06 00:00', 2]]
+        options = dict(ignore_order=False, order_by=[self.order('ID', 'asc')])
+        self.assertTrue(self.compare(gt, cand, cols, **options)['passed'])
+        self.assertTrue(self.compare(cand, gt, cols, **options)['passed'])
+        self.error(self.compare(gt, list(reversed(cand)), cols, **options), 'ROW_ORDER_MISMATCH')
+        # An ISO value must not win just because its format was tried first.
+        cols['ID']['formats'] = ['%Y-%d-%m %H:%M:%S']
+        self.error(self.compare([['2020-01-01 00:00:00', 1]],
+                                [['2020-01-02 00:00:00', 1]], cols), 'TYPE_ERROR', 'candidate')
+        cols['ID']['formats'] = ['%d/%m/%Y %H:%M:%S', '%m/%d/%Y %H:%M:%S']
+        self.error(self.compare([['2020-01-01 00:00:00', 1]],
+                                [['01/02/2020 00:00:00', 1]], cols), 'TYPE_ERROR', 'candidate')
+        self.assertTrue(self.compare([['2020-01-01 00:00:00', 1]],
+                                     [['01/01/2020 00:00:00', 1]], cols)['passed'])
+        cols['ID'] = 'datetime'
+        self.assertTrue(self.compare([['05/01/2020 21:31:00', 1]], [cand[0]], cols)['passed'])
 
     def test_date_contract_and_error_sides(self):
         cols = {'ID': 'text_exact', 'Value': {'type': 'date'}}
@@ -253,6 +275,30 @@ class TableTests(unittest.TestCase):
         cols={'ID':'text_exact','Value':'date'}
         gt=[['A','01/02/2018'],['B','01/01/2019']]
         self.assertTrue(self.compare(gt,gt,cols,ignore_order=False,order_by=[self.order(direction='asc')])['passed'])
+
+    def test_time_semantics_keys_and_order(self):
+        cols = {'ID': {'type': 'time'}, 'Value': 'integer'}
+        gt = [['7:19', 1], ['12:40:00.123', 2]]
+        cand = [['07:19:00', 1], ['12:40:00.123000', 2]]
+        options = dict(ignore_order=False, order_by=[self.order('ID', 'asc')])
+        self.assertTrue(self.compare(gt, cand, cols, **options)['passed'])
+        self.error(self.compare(gt, list(reversed(cand)), cols, **options), 'ROW_ORDER_MISMATCH')
+        self.error(self.compare(gt, [['07:19:01', 1], cand[1]], cols), 'KEY_MISMATCH')
+
+    def test_time_values_formats_and_invalid_inputs(self):
+        for rule in ['time', {'type': 'time'}]:
+            cols = {'ID': 'text_exact', 'Value': rule}
+            self.assertTrue(self.compare([['A', '0:40']], [['A', '00:40:00']], cols)['passed'])
+            self.error(self.compare([['A', '07:19']], [['A', '07:19:00.000001']], cols), 'VALUE_MISMATCH')
+            self.assertTrue(self.compare([['A', '']], [['A', ' ']], cols)['passed'])
+            for bad in ['24:00', '07:60', '07:19:60', '2020-01-01 07:19', '07:19+08:00', 'NA']:
+                self.error(self.compare([['A', '07:19']], [['A', bad]], cols), 'TYPE_ERROR')
+        cols['Value'] = {'type': 'time', 'formats': ['%I:%M %p']}
+        self.assertTrue(self.compare([['A', '7:19 PM']], [['A', '07:19 PM']], cols)['passed'])
+        self.error(self.compare([['A', '7:19 PM']], [['A', '19:19']], cols), 'TYPE_ERROR')
+        for fmt in ['%Y-%m-%d %H:%M', '%H:%M%z', '%H:%M UTC']:
+            cols['Value'] = {'type': 'time', 'formats': [fmt]}
+            self.error(self.compare([['A', '07:19']], [['A', '07:19']], cols), 'CONFIG_ERROR')
 
     def test_config_validation(self):
         for options in [{'ignore_order':False},{'ignore_order':'false'},

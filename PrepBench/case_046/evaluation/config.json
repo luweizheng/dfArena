@@ -1,0 +1,28 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Name"
+      ],
+      "columns": {
+        "List": "text_exact",
+        "Name": "text_exact",
+        "Item": "text_exact",
+        "Family Role": "text_exact",
+        "Elves Build Time (min)": "integer",
+        "Address-1": "text_exact",
+        "Reason": "text_exact"
+      }
+    },
+    "output_02.csv": {
+      "key": [
+        "List"
+      ],
+      "columns": {
+        "Total Hours Build Time": "integer",
+        "List": "text_exact"
+      },
+      "ignore_order": true
+    }
+  }
+}

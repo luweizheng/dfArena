@@ -1,0 +1,31 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Country",
+        "Store",
+        "Name",
+        "Result (First / Latest)"
+      ],
+      "columns": {
+        "Country": "text_exact",
+        "Store": "text_exact",
+        "Name": "text_exact",
+        "Completion Date (Date Time stamp)": {
+          "type": "datetime",
+          "formats": [
+            "%d/%m/%Y %H:%M:%S"
+          ]
+        },
+        "Result (First / Latest)": "text_exact",
+        "Would you recommend C&BS Co to your friends and family?": "integer",
+        "Promoter": "integer",
+        "Passive": "integer",
+        "Detractor": "integer",
+        "Age of Customer": "integer",
+        "If you would, why?": "text_exact",
+        "If you wouldn't, why?": "text_exact"
+      }
+    }
+  }
+}

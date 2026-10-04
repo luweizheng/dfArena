@@ -1,0 +1,47 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Store",
+        "Scent"
+      ],
+      "columns": {
+        "Store": "text_exact",
+        "Scent": "text_exact",
+        "Scent % of Store Sales Volumes": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Scent % of Store Sales Values": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    },
+    "output_02.csv": {
+      "key": [
+        "Store",
+        "Dates"
+      ],
+      "columns": {
+        "Store": "text_exact",
+        "Dates": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Weekday % of Store Sales Volumes": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Weekday % of Store Sales Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    }
+  }
+}

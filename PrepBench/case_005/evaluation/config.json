@@ -10,12 +10,17 @@
         "Customer ID"
       ],
       "columns": {
-        "Statement?": "boolean",
-        "True Date": "date",
-        "Balance?": "boolean",
-        "Complaint?": "boolean",
-        "Policy Number": "integer",
-        "Customer ID": "integer"
+        "Statement?": {"type": "boolean"},
+        "True Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Balance?": {"type": "boolean"},
+        "Complaint?": {"type": "boolean"},
+        "Policy Number": {"type": "integer"},
+        "Customer ID": {"type": "integer"}
       }
     }
   }

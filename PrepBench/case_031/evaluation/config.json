@@ -1,0 +1,56 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Customer"
+      ],
+      "columns": {
+        "Avg Time to Send": {"type": "number"},
+        "Customer": {"type": "text_exact", "null_values": []}
+      }
+    },
+    "output_02.csv": {
+      "key": [
+        "Customer"
+      ],
+      "columns": {
+        "Time to Review from Sending Order": {"type": "number"},
+        "Customer": {"type": "text_exact", "null_values": []}
+      }
+    },
+    "output_03.csv": {
+      "key": [
+        "Order"
+      ],
+      "columns": {
+        "City": {"type": "text_exact", "null_values": []},
+        "Order not sent": {"type": "text_exact", "null_values": []},
+        "Purchased": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Sent": {
+          "type": "date",
+          "formats": [
+            "%Y-%m-%d"
+          ]
+        },
+        "Order": "integer",
+        "Customer": {"type": "text_exact", "null_values": []}
+      }
+    },
+    "output_04.csv": {
+      "key": [
+        "City"
+      ],
+      "columns": {
+        "City": {"type": "text_exact", "null_values": []},
+        "% Orders meeting 3 Day KPI": {"type": "number", "abs_tol": 0.01, "rel_tol": 0},
+        "Time to Send KPI": "integer",
+        "Orders per City": "integer"
+      }
+    }
+  }
+}

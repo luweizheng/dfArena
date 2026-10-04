@@ -34,6 +34,9 @@ The goal is to reshape these fields into separate player and numeric value colum
 
 ## Output
 
+- Use the exact column names listed below. Parenthetical text is part of the column name: `Opponent (clean)` must not be renamed to `Opponent`.
+- Use `W` and `L` as the values of `Win or Loss`, and `Home` and `Away` as the values of `Home or Away`.
+
 - output_01.csv
   - 13 fields:
     - Opponent (clean)

@@ -1,18 +1,22 @@
 {
-    "files": {
-        "output_01.csv": {
-            "key": [
-                "Country",
-                "Month",
-                "Product",
-                "Profit"
-            ],
-            "columns": {
-                "Country": "text_exact",
-                "Month": "date",
-                "Product": "text_exact",
-                "Profit": "number"
-            }
-        }
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Country",
+        "Month",
+        "Product"
+      ],
+      "columns": {
+        "Country": {"type": "text_exact", "null_values": []},
+        "Month": {
+          "type": "date",
+          "formats": [
+            "%Y-%m-%d"
+          ]
+        },
+        "Product": {"type": "text_exact", "null_values": []},
+        "Profit": {"type": "integer"}
+      }
     }
+  }
 }

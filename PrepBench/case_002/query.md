@@ -1,6 +1,6 @@
 ## Context
 
-So what’s the data? We need you decide where you are going to in the UK; London or Edinburgh, purely based on the weather (every Brit’s favourite subject). edit - you need to update to at least version 2019.1 or there are some serious work-arounds to be done!
+Prepare a weather dataset to compare London and Edinburgh using the provided input files.
 
 ## Requirements
 
