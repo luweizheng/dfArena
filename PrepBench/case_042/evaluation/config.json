@@ -1,0 +1,43 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Zip Code"
+      ],
+      "columns": {
+        "City": "text_exact",
+        "Country": "text_exact",
+        "Zip Code": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Store Cost": "integer",
+        "Store Potential Sales": "integer",
+        "Currency": "text_exact",
+        "Value in USD": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": false,
+      "order_by": [
+        {
+          "column": "City",
+          "direction": "asc",
+          "nulls": "last"
+        },
+        {
+          "column": "Country",
+          "direction": "asc",
+          "nulls": "last"
+        },
+        {
+          "column": "Zip Code",
+          "direction": "asc",
+          "nulls": "last"
+        }
+      ]
+    }
+  }
+}

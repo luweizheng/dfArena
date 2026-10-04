@@ -1,0 +1,16 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Item"
+      ],
+      "columns": {
+        "Item": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Profit": "integer"
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+case_id: case_047
+version: '1.0'
+domain: finance
+format: csv
+table_count: 1
+tables:
+- name: input_01
+  path: inputs/input_01.csv
+  columns: 2

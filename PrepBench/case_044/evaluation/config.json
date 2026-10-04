@@ -1,0 +1,38 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Store",
+        "Team Member"
+      ],
+      "columns": {
+        "Estimate Sales per Staff Member": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Store": "text_exact",
+        "Team Member": "text_exact",
+        "Rank": "integer"
+      },
+      "ignore_order": false,
+      "order_by": [
+        {
+          "column": "Store",
+          "direction": "asc",
+          "nulls": "last"
+        },
+        {
+          "column": "Rank",
+          "direction": "asc",
+          "nulls": "last"
+        },
+        {
+          "column": "Team Member",
+          "direction": "asc",
+          "nulls": "last"
+        }
+      ]
+    }
+  }
+}

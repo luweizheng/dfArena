@@ -1,0 +1,36 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Date",
+        "Time",
+        "Date Time"
+      ],
+      "columns": {
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Time": {
+          "type": "time"
+        },
+        "Date Time": {
+          "type": "datetime",
+          "formats": [
+            "%d/%m/%Y %H:%M:%S"
+          ]
+        }
+      },
+      "ignore_order": false,
+      "order_by": [
+        {
+          "column": "Date Time",
+          "direction": "asc",
+          "nulls": "last"
+        }
+      ]
+    }
+  }
+}

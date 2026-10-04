@@ -1,0 +1,44 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Type of Refund"
+      ],
+      "columns": {
+        "Type of Refund": "text_exact",
+        "Money Lost": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    },
+    "output_02.csv": {
+      "key": [
+        "Product",
+        "Scent"
+      ],
+      "columns": {
+        "Product": "text_exact",
+        "Scent": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Stock Remaining": "integer"
+      },
+      "ignore_order": false,
+      "order_by": [
+        {
+          "column": "Product",
+          "direction": "asc",
+          "nulls": "last"
+        },
+        {
+          "column": "Scent",
+          "direction": "asc",
+          "nulls": "last"
+        }
+      ]
+    }
+  }
+}

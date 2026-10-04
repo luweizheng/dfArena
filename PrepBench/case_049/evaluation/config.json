@@ -1,0 +1,62 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Team"
+      ],
+      "columns": {
+        "Rank": "integer",
+        "Team": "text_exact",
+        "W": "integer",
+        "L": "integer",
+        "Pct": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Conf": "text_exact",
+        "Home": "text_exact",
+        "Away": "text_exact",
+        "L10": "text_exact",
+        "Strk": "text_exact"
+      },
+      "ignore_order": false,
+      "order_by": [
+        {
+          "column": "Rank",
+          "direction": "asc",
+          "nulls": "last"
+        }
+      ]
+    },
+    "output_02.csv": {
+      "key": [
+        "Team"
+      ],
+      "columns": {
+        "Rank": "integer",
+        "Team": "text_exact",
+        "W": "integer",
+        "L": "integer",
+        "Pct": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Conf": "text_exact",
+        "Home": "text_exact",
+        "Away": "text_exact",
+        "L10": "text_exact",
+        "Strk": "text_exact"
+      },
+      "ignore_order": false,
+      "order_by": [
+        {
+          "column": "Rank",
+          "direction": "asc",
+          "nulls": "last"
+        }
+      ]
+    }
+  }
+}
