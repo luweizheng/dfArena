@@ -70,7 +70,7 @@ def main(argv=None):
     ap.add_argument('--mode', choices=['direct', 'interact', 'clarified'], default='interact')
     ap.add_argument('--backend', choices=BACKENDS, default='pandas')
     ap.add_argument('--image', default='dfarena-agent-sandbox:latest')
-    ap.add_argument('--simulator-env', type=Path, default=ROOT / '.env')
+    ap.add_argument('--simulator-env', type=Path, default=ROOT.parent / 'runners/configs/simulator/simulator.env')
     ap.add_argument('--timeout', type=int, default=1800)
     ap.add_argument('--dry-run', action='store_true', help='Prepare public workspace only; no Docker/API calls')
     ap.add_argument('--run-dir', type=Path, help='Fresh run directory allocated by run_benchmark.py')
@@ -135,7 +135,7 @@ def main(argv=None):
                     port = sock.getsockname()[1]
                 admin = secrets.token_urlsafe(32)
                 env = dict(os.environ, DFARENA_CASE_ROOT=str(ROOT), DFARENA_ADMIN_TOKEN=admin,
-                           DFARENA_TRACE=str(run / 'logs' / 'interaction.jsonl'), DFARENA_SIMULATOR_ENV=str(args.simulator_env.resolve()))
+                           DFARENA_TRACE=str(run / 'logs' / 'interaction.jsonl'), DFARENA_SIMULATOR_ENV=str(args.simulator_env.expanduser().resolve()))
                 with (run / 'logs' / 'server.log').open('w') as log:
                     server = subprocess.Popen([sys.executable, '-m', 'uvicorn', 'simulator_server:app', '--app-dir', str(ROOT), '--host', '0.0.0.0', '--port', str(port)], env=env, stdout=log, stderr=subprocess.STDOUT)
                 url = f'http://127.0.0.1:{port}'

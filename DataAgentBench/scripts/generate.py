@@ -62,6 +62,7 @@ def main(argv=None):
     p.add_argument('--backend', choices=BACKENDS, default='pandas')
     p.add_argument('--image', default='dfarena-agent-sandbox:latest')
     p.add_argument('--run-dir', type=Path, required=True)
+    p.add_argument('--simulator-env', type=Path, default=ROOT/'runners/configs/simulator/simulator.env')
     p.add_argument('--timeout', type=int, default=600)
     p.add_argument('--mode', choices=['direct', 'clarified', 'interact'], default='interact')
     add_agent_options(p)
@@ -118,7 +119,7 @@ def main(argv=None):
                 admin = secrets.token_urlsafe(32)
                 env = dict(os.environ, DFARENA_DAB_ROOT=str(ds.parent), DFARENA_ADMIN_TOKEN=admin,
                            DFARENA_TRACE=str(run/'logs'/'interaction.jsonl'),
-                           DFARENA_SIMULATOR_ENV=str(Path(__file__).parent.parent/'.env'))
+                           DFARENA_SIMULATOR_ENV=str(a.simulator_env.expanduser().resolve()))
                 log = (run/'logs'/'server.log').open('w')
                 server = subprocess.Popen([__import__('sys').executable, '-m', 'uvicorn', 'simulator_server:app',
                     '--app-dir', str(Path(__file__).parent), '--host', '0.0.0.0', '--port', str(port)],

@@ -1,6 +1,7 @@
 import contextlib
 import io
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -15,7 +16,28 @@ from results import save
 
 
 class PipelineTests(unittest.TestCase):
-    def run_pipeline(self, dataset, *, mode='interact', agent='codex', generation_ok=True, passed=True):
+    def test_shared_simulator_config_and_legacy_fallback(self):
+        from simulator import user_simulator as simulator
+        config = Path(__file__).resolve().parents[3] / 'runners/configs/simulator/simulator.env'
+        self.assertEqual(simulator.REPO_ROOT / 'runners/configs/simulator/simulator.env', config)
+        with tempfile.TemporaryDirectory() as tmp:
+            env_file = Path(tmp) / 'simulator.env'
+            env_file.write_text('SIMULATOR_MODEL=file-model\nSIMULATOR_API_KEY=file-key\n')
+            with patch.dict(os.environ, {
+                'DFARENA_SIMULATOR_ENV': str(env_file),
+                'SIMULATOR_MODEL': 'process-model',
+                'DFARENA_SIMULATOR_MODEL': 'legacy-model',
+            }, clear=True), patch.object(simulator, '_DOTENV_LOADED', False):
+                self.assertEqual(simulator._simulator_env('MODEL'), 'process-model')
+                self.assertEqual(simulator._simulator_env('API_KEY'), 'file-key')
+            with patch.dict(os.environ, {
+                'DFARENA_SIMULATOR_ENV': str(Path(tmp) / 'missing.env'),
+                'DFARENA_SIMULATOR_MODEL': 'legacy-model',
+            }, clear=True), patch.object(simulator, '_DOTENV_LOADED', False):
+                self.assertEqual(simulator._simulator_env('MODEL'), 'legacy-model')
+
+    def run_pipeline(self, dataset, *, mode='interact', agent='codex', generation_ok=True, passed=True,
+                     simulator_env=None):
         calls = []
         generation_bytes = []
 
@@ -40,6 +62,8 @@ class PipelineTests(unittest.TestCase):
                 '--backend', 'polars', '--image', 'local-test-image',
                 '--timeout', '321', '--evaluation-timeout', '45']
         args += ['--mode', mode]
+        if simulator_env is not None:
+            args += ['--simulator-env', str(simulator_env)]
         with patch.object(pipeline, 'settings', return_value={'model': 'test'}), \
              patch.object(pipeline.subprocess, 'run', side_effect=execute), \
              contextlib.redirect_stdout(io.StringIO()):
@@ -70,6 +94,8 @@ class PipelineTests(unittest.TestCase):
                     self.assertEqual(evaluate[evaluate.index('--timeout') + 1], '45')
                     self.assertEqual(generate[generate.index('--agent') + 1], agent)
                     self.assertEqual(generate[generate.index('--model') + 1], 'custom/test' if agent == 'opencode' else 'test')
+                    self.assertEqual(Path(generate[generate.index('--simulator-env') + 1]),
+                                     Path(__file__).resolve().parents[3] / 'runners/configs/simulator/simulator.env')
 
     def test_generation_failure_skips_scoring(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -78,6 +104,12 @@ class PipelineTests(unittest.TestCase):
             self.assertEqual(len(calls), 1)
             self.assertEqual(result['evaluation']['status'], 'skipped')
             self.assertIsNone(result['evaluation']['passed'])
+
+    def test_custom_simulator_config_is_forwarded(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            config = Path(tmp) / 'simulator.env'
+            _, _, calls, _ = self.run_pipeline(Path(tmp), simulator_env=config)
+            self.assertEqual(Path(calls[0][calls[0].index('--simulator-env') + 1]), config.resolve())
 
     def test_scoring_mismatch_and_error_do_not_report_success(self):
         for passed in [False, None]:

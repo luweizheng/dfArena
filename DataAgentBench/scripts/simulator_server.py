@@ -4,10 +4,14 @@ from pathlib import Path
 from fastapi import FastAPI, Header, HTTPException
 from pydantic import BaseModel, Field
 from simulator import LocalUserSimulatorAPI
+from simulator.user_simulator import _load_dotenv
+_load_dotenv()
 repo = Path(os.environ['DFARENA_DAB_ROOT']).resolve()
 app = FastAPI(title='dfArena DataAgentBench Simulator', docs_url=None, redoc_url=None)
 logger = logging.getLogger('uvicorn.error')
-api = LocalUserSimulatorAPI(data_root=repo, max_rounds=int(os.environ.get('DFARENA_SIMULATOR_MAX_ROUNDS','3')), max_questions=int(os.environ.get('DFARENA_SIMULATOR_MAX_QUESTIONS','25')))
+api = LocalUserSimulatorAPI(data_root=repo,
+    max_rounds=int(os.environ.get('SIMULATOR_MAX_ROUNDS') or os.environ.get('DFARENA_SIMULATOR_MAX_ROUNDS', '3')),
+    max_questions=int(os.environ.get('SIMULATOR_MAX_QUESTIONS') or os.environ.get('DFARENA_SIMULATOR_MAX_QUESTIONS', '25')))
 lock = threading.Lock(); admin_token = os.environ['DFARENA_ADMIN_TOKEN']; trace = Path(os.environ['DFARENA_TRACE'])
 class Start(BaseModel):
     dataset_id: str
