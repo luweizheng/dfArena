@@ -162,7 +162,7 @@ The original generation `elapsed_seconds` includes clarification waits. `interac
 
 ## Simulator and isolation
 
-The simulator uses the model and API configured in the host-side `PrepBench/.env`; use `.env.example` as a template. Local credentials are not included when sharing the project. Process environment variables take precedence. Round and question budgets follow the interact protocol above. For reproducible experiments, fix the simulator model, temperature, and related environment settings.
+The host-side simulator uses `runners/configs/simulator/simulator.env` by default. Copy `runners/configs/simulator/simulator.example.env` to that path and set `SIMULATOR_MODEL`, `SIMULATOR_API_KEY`, and `SIMULATOR_BASE_URL`. Use `--simulator-env PATH` to select another file. Process environment variables take precedence over values with the same name in the file; `SIMULATOR_*` values take precedence over legacy `PREPBENCH_SIMULATOR_*` values. The simulator config is not mounted into the coding agent container. For reproducible experiments, fix the simulator model, temperature, and related settings. Round and question budgets follow the interact protocol above.
 
 - `direct` mounts `query.md` read-only at `/workspace/query.md`, starts no simulator, and provides no clarification tool.
 - `clarified` mounts `query_full.md` read-only at `/workspace/query.md` and starts no simulator.

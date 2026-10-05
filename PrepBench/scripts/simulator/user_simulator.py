@@ -15,7 +15,7 @@ import yaml
 
 logger = logging.getLogger(__name__)
 PROMPT_DIR = Path(__file__).parent / "prompts"
-REPO_ROOT = Path(__file__).resolve().parents[2]
+REPO_ROOT = Path(__file__).resolve().parents[3]
 
 
 @dataclass(frozen=True)
@@ -83,7 +83,7 @@ def _load_dotenv() -> None:
     global _DOTENV_LOADED
     if _DOTENV_LOADED:
         return
-    env_path = Path(os.environ.get("DFARENA_SIMULATOR_ENV", str(REPO_ROOT / ".env"))).expanduser()
+    env_path = Path(os.environ.get("DFARENA_SIMULATOR_ENV", str(REPO_ROOT / "runners/configs/simulator/simulator.env"))).expanduser()
     if env_path.exists():
         for line in env_path.read_text(encoding="utf-8").splitlines():
             stripped = line.strip()
@@ -103,6 +103,10 @@ def _env(name: str, default: str = "") -> str:
     _load_dotenv()
     value = os.getenv(name, default)
     return value.strip() if isinstance(value, str) else default
+
+
+def _simulator_env(name: str) -> str:
+    return _env(f"SIMULATOR_{name}") or _env(f"PREPBENCH_SIMULATOR_{name}")
 
 
 def _load_prompt_yaml(name: str) -> dict[str, Any]:
@@ -138,14 +142,13 @@ class OpenAICompatibleClient:
     ) -> None:
         if not api_key:
             raise RuntimeError(
-                "Simulator API key is missing. Set PREPBENCH_SIMULATOR_API_KEY, "
-                "OPENROUTER_API_KEY, or OPENAI_API_KEY. You can copy "
-                ".env.example to .env and fill in the simulator settings."
+                "Simulator API key is missing. Set SIMULATOR_API_KEY in "
+                "runners/configs/simulator/simulator.env."
             )
         if not model_name:
             raise RuntimeError(
-                "Simulator model is missing. Copy .env.example to .env and "
-                "set PREPBENCH_SIMULATOR_MODEL and PREPBENCH_SIMULATOR_API_KEY."
+                "Simulator model is missing. Set SIMULATOR_MODEL in "
+                "runners/configs/simulator/simulator.env."
             )
         self.api_key = api_key
         self.model_name = model_name
@@ -412,7 +415,7 @@ def _format_runtime_feedback(error: str, raw: str) -> str:
 
 
 def _default_base_url() -> str:
-    explicit = _env("PREPBENCH_SIMULATOR_BASE_URL") or _env("OPENAI_BASE_URL")
+    explicit = _simulator_env("BASE_URL") or _env("OPENAI_BASE_URL")
     if explicit:
         return explicit
     if _env("OPENROUTER_API_KEY"):
@@ -436,7 +439,7 @@ def _normalize_thinking_type(value: str) -> str | None:
 
 
 def _default_thinking_type(base_url: str, model_name: str) -> str | None:
-    explicit = _env("PREPBENCH_SIMULATOR_THINKING")
+    explicit = _simulator_env("THINKING")
     if explicit:
         return _normalize_thinking_type(explicit)
     if _is_official_deepseek_v4(base_url, model_name):
@@ -459,35 +462,35 @@ class UserSimulator:
     ) -> None:
         self.model_name = (
             model_name
-            or _env("PREPBENCH_SIMULATOR_MODEL")
+            or _simulator_env("MODEL")
             or _env("LLM_USER_SIMULATOR_MODEL")
             or _env("LLM_MODEL")
         )
         if not self.model_name:
             raise RuntimeError(
-                "Simulator model is missing. Copy .env.example to .env and "
-                "set PREPBENCH_SIMULATOR_MODEL and PREPBENCH_SIMULATOR_API_KEY."
+                "Simulator model is missing. Set SIMULATOR_MODEL in "
+                "runners/configs/simulator/simulator.env."
             )
         self.api_key = (
             api_key
-            or _env("PREPBENCH_SIMULATOR_API_KEY")
+            or _simulator_env("API_KEY")
             or _env("OPENROUTER_API_KEY")
             or _env("OPENAI_API_KEY")
         )
         self.base_url = base_url or _default_base_url()
         self.temperature = float(
-            temperature if temperature is not None else (_env("PREPBENCH_SIMULATOR_TEMPERATURE") or "0")
+            temperature if temperature is not None else (_simulator_env("TEMPERATURE") or "0")
         )
         self.max_tokens = int(
-            max_tokens if max_tokens is not None else (_env("PREPBENCH_SIMULATOR_MAX_TOKENS") or "8192")
+            max_tokens if max_tokens is not None else (_simulator_env("MAX_TOKENS") or "8192")
         )
-        self.timeout = int(timeout if timeout is not None else (_env("PREPBENCH_SIMULATOR_TIMEOUT") or "120"))
+        self.timeout = int(timeout if timeout is not None else (_simulator_env("TIMEOUT") or "120"))
         self.thinking_type = (
             _normalize_thinking_type(thinking_type)
             if thinking_type is not None
             else _default_thinking_type(self.base_url, self.model_name)
         )
-        self.reasoning_effort = reasoning_effort or _env("PREPBENCH_SIMULATOR_REASONING_EFFORT")
+        self.reasoning_effort = reasoning_effort or _simulator_env("REASONING_EFFORT")
         self.client = OpenAICompatibleClient(
             api_key=self.api_key,
             model_name=self.model_name,

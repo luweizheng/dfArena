@@ -17,6 +17,7 @@ def main(argv=None):
     p.add_argument('--task', required=True)
     p.add_argument('--backend', choices=BACKENDS, default='pandas')
     p.add_argument('--image', default='dfarena-agent-sandbox:latest')
+    p.add_argument('--simulator-env', type=Path, default=Path(__file__).resolve().parents[2]/'runners/configs/simulator/simulator.env')
     p.add_argument('--timeout', type=int, default=600)
     p.add_argument('--evaluation-timeout', type=int, default=120)
     p.add_argument('--mode', choices=['direct', 'clarified', 'interact'], default='interact')
@@ -41,7 +42,8 @@ def main(argv=None):
     scripts = Path(__file__).parent
     common = ['--dataset',str(a.dataset.resolve()),'--task',a.task,'--run-dir',str(run),'--image',a.image]
     command = [sys.executable,str(scripts/'generate.py'),*common,'--agent-model',a.agent_model,
-               '--backend',a.backend,'--mode',a.mode,'--timeout',str(a.timeout),*forwarded_options(a)]
+               '--backend',a.backend,'--mode',a.mode,'--timeout',str(a.timeout),
+               '--simulator-env',str(a.simulator_env.expanduser().resolve()),*forwarded_options(a)]
     if a.model:
         command += ['--model',a.model]
     g = subprocess.run(command)

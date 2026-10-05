@@ -19,7 +19,7 @@ def main(argv=None):
     p.add_argument('--mode', choices=['direct', 'interact', 'clarified'], default='interact')
     p.add_argument('--backend', choices=BACKENDS, default='pandas')
     p.add_argument('--image', default='dfarena-agent-sandbox:latest')
-    p.add_argument('--simulator-env', type=Path, default=ROOT/'.env')
+    p.add_argument('--simulator-env', type=Path, default=ROOT.parent/'runners/configs/simulator/simulator.env')
     p.add_argument('--timeout', type=int, default=1800)
     p.add_argument('--dry-run', action='store_true', help='Prepare only; no generation or evaluation')
     add_agent_options(p)

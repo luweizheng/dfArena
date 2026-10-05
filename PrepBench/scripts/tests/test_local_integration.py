@@ -13,6 +13,26 @@ from generate import prepare, next_run
 
 
 class LocalIntegration(unittest.TestCase):
+    def test_shared_simulator_config_and_legacy_fallback(self):
+        from simulator import user_simulator as simulator
+        config = ROOT.parent / 'runners/configs/simulator/simulator.env'
+        self.assertEqual(simulator.REPO_ROOT / 'runners/configs/simulator/simulator.env', config)
+        with tempfile.TemporaryDirectory() as tmp:
+            env_file = Path(tmp) / 'simulator.env'
+            env_file.write_text('SIMULATOR_MODEL=file-model\nSIMULATOR_API_KEY=file-key\n')
+            with patch.dict(os.environ, {
+                'DFARENA_SIMULATOR_ENV': str(env_file),
+                'SIMULATOR_MODEL': 'process-model',
+                'PREPBENCH_SIMULATOR_MODEL': 'legacy-model',
+            }, clear=True), patch.object(simulator, '_DOTENV_LOADED', False):
+                self.assertEqual(simulator._simulator_env('MODEL'), 'process-model')
+                self.assertEqual(simulator._simulator_env('API_KEY'), 'file-key')
+            with patch.dict(os.environ, {
+                'DFARENA_SIMULATOR_ENV': str(Path(tmp) / 'missing.env'),
+                'PREPBENCH_SIMULATOR_MODEL': 'legacy-model',
+            }, clear=True), patch.object(simulator, '_DOTENV_LOADED', False):
+                self.assertEqual(simulator._simulator_env('MODEL'), 'legacy-model')
+
     def test_six_local_assets(self):
         for i in range(1, 7):
             view = load_internal_case_view(ROOT / f'case_{i:03d}', require_reference_solution=True)
@@ -46,8 +66,8 @@ class LocalIntegration(unittest.TestCase):
             'DFARENA_ADMIN_TOKEN': 'test-admin',
             'DFARENA_TRACE': str(Path(tmp) / 'trace.jsonl'),
             'DFARENA_CASE_ROOT': str(ROOT),
-            'PREPBENCH_SIMULATOR_MODEL': 'test-model',
-            'PREPBENCH_SIMULATOR_API_KEY': 'test-key',
+            'SIMULATOR_MODEL': 'test-model',
+            'SIMULATOR_API_KEY': 'test-key',
         }):
             import simulator_server as server
             client = TestClient(server.app)

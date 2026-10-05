@@ -62,4 +62,6 @@ To add an agent, implement and register an adapter, install its CLI in the image
 
 Local settings live in `configs/codex/config.toml` and `configs/opencode/opencode.json`. Start from the [Codex example](configs/codex/config.example.toml) or [OpenCode example](configs/opencode/opencode.example.json), then set the provider, model, reasoning effort, and credentials. Examples are shareable; actual configuration and authentication files are Git-ignored.
 
+The host-side clarification simulator has a separate shared configuration at `configs/simulator/simulator.env`, based on [simulator.example.env](configs/simulator/simulator.example.env). Both benchmarks read its `SIMULATOR_*` settings in interactive mode; their `--simulator-env` option can select another file. Keep this configuration separate from coding-agent model settings.
+
 Defaults resolve relative to this repository. Override them with `--codex-config-dir`, `--opencode-config`, or `--opencode-auth`. Missing local configuration does not fall back to global settings.

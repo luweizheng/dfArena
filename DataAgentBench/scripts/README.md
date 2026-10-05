@@ -2,6 +2,8 @@
 
 Run commands from the dfArena root with Python 3.11+, Docker, and local agent configuration. See [shared runner configuration](../../runners/README.md#configuration). The default image is `dfarena-agent-sandbox:latest` and must contain the selected agent CLI and dataframe dependencies.
 
+For `--mode interact`, configure the host-side user simulator using `runners/configs/simulator/simulator.env`, copied from `runners/configs/simulator/simulator.example.env`. Both benchmarks use `SIMULATOR_*` settings. Use `--simulator-env PATH` to select another file; process environment variables take precedence over values with the same name in that file. Legacy `DFARENA_SIMULATOR_*` provider settings remain a lower-priority fallback. The simulator configuration is not mounted into the coding agent container.
+
 ## Run a task
 
 Prefer explicit `--agent` and `--model` arguments so the command identifies the actual agent and model:

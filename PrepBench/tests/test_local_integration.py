@@ -42,7 +42,7 @@ class LocalIntegration(unittest.TestCase):
     def test_http_routes_with_fake_model(self):
         from fastapi.testclient import TestClient
         from simulator.user_simulator import UserSimulatorResult, UserSimulatorAnswerItem
-        with tempfile.TemporaryDirectory() as tmp, patch.dict(os.environ, {'DFARENA_ADMIN_TOKEN':'test-admin', 'DFARENA_TRACE':str(Path(tmp)/'trace.jsonl'), 'DFARENA_CASE_ROOT':str(ROOT)}):
+        with tempfile.TemporaryDirectory() as tmp, patch.dict(os.environ, {'DFARENA_ADMIN_TOKEN':'test-admin', 'DFARENA_TRACE':str(Path(tmp)/'trace.jsonl'), 'DFARENA_CASE_ROOT':str(ROOT), 'SIMULATOR_MODEL':'test-model', 'SIMULATOR_API_KEY':'test-key'}):
             import simulator_server as server
             client = TestClient(server.app)
             self.assertEqual(client.post('/session/start', json={'case_id':'006','run_id':'test'}).status_code,403)
