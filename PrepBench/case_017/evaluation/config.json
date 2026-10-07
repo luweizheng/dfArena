@@ -1,0 +1,19 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Voting System"
+      ],
+      "columns": {
+        "Voting System": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Winner": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      }
+    }
+  }
+}

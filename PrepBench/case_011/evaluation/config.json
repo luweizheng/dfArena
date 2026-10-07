@@ -1,0 +1,48 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Row"
+      ],
+      "columns": {
+        "Date": {
+          "type": "datetime",
+          "formats": [
+            "%d/%m/%Y %H:%M:%S"
+          ]
+        },
+        "volume": {
+          "type": "integer"
+        },
+        "high": {
+          "type": "number",
+          "abs_tol": 1e-09,
+          "rel_tol": 0
+        },
+        "low": {
+          "type": "number",
+          "abs_tol": 1e-09,
+          "rel_tol": 0
+        },
+        "adjclose": {
+          "type": "number",
+          "abs_tol": 1e-09,
+          "rel_tol": 0
+        },
+        "close": {
+          "type": "number",
+          "abs_tol": 1e-09,
+          "rel_tol": 0
+        },
+        "open": {
+          "type": "number",
+          "abs_tol": 1e-09,
+          "rel_tol": 0
+        },
+        "Row": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}
