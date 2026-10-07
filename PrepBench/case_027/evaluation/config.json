@@ -1,0 +1,32 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Store",
+        "Date"
+      ],
+      "columns": {
+        "Pre / Post Valentines Day": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Store": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Running Total Sales": {
+          "type": "integer"
+        },
+        "Daily Store Sales": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

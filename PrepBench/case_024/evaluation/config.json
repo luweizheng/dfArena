@@ -1,0 +1,34 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Name"
+      ],
+      "columns": {
+        "Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Text": {
+          "type": "integer"
+        },
+        "Number of Words": {
+          "type": "integer"
+        },
+        "Avg Words/Sentence": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Text while at work": {
+          "type": "integer"
+        },
+        "% sent from work": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    }
+  }
+}

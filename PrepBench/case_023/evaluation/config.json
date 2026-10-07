@@ -1,0 +1,41 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Date",
+        "Name",
+        "Value",
+        "Scent",
+        "Product",
+        "Notes"
+      ],
+      "columns": {
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Value": {
+          "type": "integer"
+        },
+        "Scent": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Product": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Notes": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      }
+    }
+  }
+}
