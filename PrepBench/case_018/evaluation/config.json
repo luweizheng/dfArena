@@ -1,0 +1,39 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Genre",
+        "Type"
+      ],
+      "columns": {
+        "Genre": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Type": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Avg Rating": {
+          "type": "number",
+          "abs_tol": 0.01,
+          "rel_tol": 0
+        },
+        "Max Rating": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Avg Viewers": {
+          "type": "number",
+          "abs_tol": 1,
+          "rel_tol": 0
+        },
+        "Prime Example": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      }
+    }
+  }
+}

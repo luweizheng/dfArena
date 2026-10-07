@@ -1,0 +1,21 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Team"
+      ],
+      "columns": {
+        "Team Avg Gap in Mins": {
+          "type": "integer"
+        },
+        "Team": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Number of Riders": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

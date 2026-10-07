@@ -1,0 +1,124 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Account",
+        "Name",
+        "Date"
+      ],
+      "columns": {
+        "Days Beyond Max Credit": {
+          "type": "integer"
+        },
+        "Days Below Zero balance?": {
+          "type": "integer"
+        },
+        "Monthly Avg Transactions": {
+          "type": "integer"
+        },
+        "Monthly Avg Balances": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Month": {
+          "type": "integer"
+        },
+        "Account": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        }
+      }
+    },
+    "output_02.csv": {
+      "key": [
+        "Account",
+        "Name",
+        "Date"
+      ],
+      "columns": {
+        "Beyond Max Credit": {
+          "type": "integer"
+        },
+        "Below Zero balance?": {
+          "type": "integer"
+        },
+        "Quarter": {
+          "type": "integer"
+        },
+        "Account": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Quartlery Avg Transaction": {
+          "type": "integer"
+        },
+        "Quarterly Avg Balance": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        }
+      }
+    },
+    "output_03.csv": {
+      "key": [
+        "Account",
+        "Name",
+        "Date"
+      ],
+      "columns": {
+        "Weekly Avg Transactions": {
+          "type": "integer"
+        },
+        "Weekly Avg Balances": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Days Below Zero balance?": {
+          "type": "integer"
+        },
+        "Days Beyond Max Credit": {
+          "type": "integer"
+        },
+        "Week": {
+          "type": "integer"
+        },
+        "Account": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        }
+      }
+    }
+  }
+}

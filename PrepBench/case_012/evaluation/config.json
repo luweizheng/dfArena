@@ -1,0 +1,44 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "System",
+        "Error Source",
+        "Start Date / Time",
+        "End Date / Time"
+      ],
+      "columns": {
+        "% of system downtime": {
+          "type": "number"
+        },
+        "Total Downtime in Hours": {
+          "type": "number"
+        },
+        "Downtime in Hours": {
+          "type": "number"
+        },
+        "Error Source": {
+          "type": "text_exact"
+        },
+        "Error": {
+          "type": "text_exact"
+        },
+        "Start Date / Time": {
+          "type": "datetime",
+          "formats": [
+            "%d/%m/%Y %H:%M"
+          ]
+        },
+        "End Date / Time": {
+          "type": "datetime",
+          "formats": [
+            "%d/%m/%Y %H:%M"
+          ]
+        },
+        "System": {
+          "type": "text_exact"
+        }
+      }
+    }
+  }
+}

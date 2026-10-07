@@ -1,0 +1,39 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "TicketID",
+        "MemberID"
+      ],
+      "columns": {
+        "Total Ticket Price": {
+          "type": "number",
+          "abs_tol": 0.01,
+          "rel_tol": 0
+        },
+        "Ticket Price Variance to Meal Deal Earnings": {
+          "type": "number",
+          "abs_tol": 0.01,
+          "rel_tol": 0
+        },
+        "Total Meal Deal Earnings": {
+          "type": "number",
+          "abs_tol": 0.01,
+          "rel_tol": 0
+        },
+        "Total Excess": {
+          "type": "number",
+          "abs_tol": 0.01,
+          "rel_tol": 0
+        },
+        "TicketID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "MemberID": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}
