@@ -1,0 +1,47 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Name"
+      ],
+      "columns": {
+        "Cost": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Avg Cost per Day per person": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    },
+    "output_02.csv": {
+      "key": [
+        "Date"
+      ],
+      "columns": {
+        "Avg Cost per Day": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Cost per Day": {
+          "type": "integer"
+        },
+        "Number of Patients": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

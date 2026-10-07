@@ -1,0 +1,40 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Employee",
+        "Observation Interval"
+      ],
+      "columns": {
+        "Task Engagement": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Manager Proximity": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Interaction": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Employee": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Observation Start Time": {
+          "type": "datetime",
+          "formats": [
+            "%d/%m/%Y %H:%M:%S"
+          ]
+        },
+        "Observation Length (mins)": {
+          "type": "integer"
+        },
+        "Observation Interval": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

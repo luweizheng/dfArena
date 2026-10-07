@@ -1,0 +1,47 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Date in Hospital"
+      ],
+      "columns": {
+        "Avg Cost per Day": {
+          "type": "number",
+          "abs_tol": 0.005,
+          "rel_tol": 0
+        },
+        "Total Cost per Day": {
+          "type": "integer"
+        },
+        "Date in Hospital": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Number of Patients": {
+          "type": "integer"
+        }
+      }
+    },
+    "output_02.csv": {
+      "key": [
+        "Patient Name"
+      ],
+      "columns": {
+        "Avg Cost per Day": {
+          "type": "number",
+          "abs_tol": 0.005,
+          "rel_tol": 0
+        },
+        "Total Cost per Day": {
+          "type": "integer"
+        },
+        "Patient Name": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      }
+    }
+  }
+}

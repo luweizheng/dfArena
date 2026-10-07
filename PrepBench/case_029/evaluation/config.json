@@ -1,0 +1,32 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Name"
+      ],
+      "columns": {
+        "Subscription Cost (Per Annum)": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      }
+    },
+    "output_02.csv": {
+      "key": [
+        "Subscription Package"
+      ],
+      "columns": {
+        "Subscription Package": {
+          "type": "integer"
+        },
+        "Product": "text_exact",
+        "Price": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Cocktails",
+        "Ingredient Position"
+      ],
+      "columns": {
+        "Ingredient Position": {
+          "type": "integer"
+        },
+        "Ingredients Split": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Cocktail Price": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Cocktails": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Avg Ingredient Price": {
+          "type": "number",
+          "abs_tol": 1e-09,
+          "rel_tol": 0
+        }
+      }
+    }
+  }
+}

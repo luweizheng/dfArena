@@ -1,0 +1,66 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Artist",
+        "Concert Date",
+        "Concert",
+        "Venue",
+        "Location",
+        "Fellow Artists"
+      ],
+      "columns": {
+        "Longitude": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Latitude": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Fellow Artists": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Artist": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Concert Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Concert": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Venue": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Location": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Hometown": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Home Longitude": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Home Latitude": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    }
+  }
+}
