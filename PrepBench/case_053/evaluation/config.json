@@ -1,0 +1,29 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Month"
+      ],
+      "columns": {
+        "Total Monthly Salary": {
+          "type": "integer"
+        },
+        "Month": {
+          "type": "date",
+          "formats": [
+            "%m/%d/%Y"
+          ]
+        },
+        "Current Employees": {
+          "type": "integer"
+        },
+        "Avg Salary per Current Employee": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

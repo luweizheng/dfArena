@@ -1,0 +1,36 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Week"
+      ],
+      "columns": {
+        "Week": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "UK Sales Value (GBP)": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "US Sales (USD) Best Case": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "US Sales (USD) Worst Case": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "US Sales Potential Variance": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

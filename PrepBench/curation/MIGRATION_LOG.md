@@ -52,13 +52,73 @@
 | 047 | 通过 | 跳过 | 跳过 | 通过 |
 | 048 | 通过 | 通过 | 通过 | 通过 |
 | 049 | 通过 | 通过 | 失败 | 通过 |
-| 050 | 失败（r001） | 失败（r001） | 失败（r001） | 失败（r001） |
+| 050 | 失败 | 失败 | 失败 | 失败 |
+| 051 | 通过 | 通过 | 通过 | 未运行 |
+| 052 | 通过 | 通过 | 通过 | 未运行 |
+| 053 | 通过 | 失败 | 未运行 | 通过 |
+| 054 | 失败 | 通过 | 通过 | 未运行 |
 
 001–006 采用 2026-09-27 首次运行的原始正式评测结果，来源为 `../dfArena/PrepBench/case_00X/runs/interact/codex_gpt-6-astra/<backend>/r001/result.json`；24 次运行均完成生成和评测。此处不采用更早的 `interact_legacy` 实验、后续 run、当前配置离线重评或 2026-10-04 修改题面后的复验结果。原始失败报告：002 Ibis 为 `KEY_MISMATCH`；004 pandas/Ibis/PySpark 为 `MISSING_COLUMNS`，Polars 为 `KEY_MISMATCH`；006 PySpark 为 `MISSING_COLUMNS`。
 
 说明：030 的三个 r001 因模型网关额度不足而生成失败、评测跳过；表中采用后续 r002 状态。030–033 的详细记录见下文。034 的三个 `r001` 均通过当前配置，运行记录及日期字面格式、同日行序的未覆盖项见下文 034 条目；035–037 的运行记录见 `interact_validation_035_037.json`，038–039 见 `interact_validation_038_039.json`，040–044 见 `interact_validation_040_044.json`，045–049 的原始快照见 `interact_validation_045_049.json`。045 的 pandas 有 r001 跳过、r002 失败，表中采用最新 r002；048 的原始 r001 因模型网关额度不足而跳过，已删除，并将四个通过的 r002 归档为 r001（见下文）；049 的四个 r001 因模型网关额度不足而跳过，表中采用后续 r002 的正式评测状态。050 原 r001 四后端均因额度不足跳过，已删除；原 r002 均正式失败，现归档为 r001。该表按现有记录维护，后续重跑或补充 backend 时更新对应单元格。
 
 # PrepBench 迁移与审核日志
+
+
+## 2026-10-08：051–054 初步结果确认
+
+051–054 的 12 次三后端 interact r001 已全部完成生成及正式评估，共 10 次通过、2 次失败；上方总览及下方各题记录保留原始正式结果。051、052 为 pandas/Polars/Ibis 均通过；053 为 pandas/PySpark 通过、Polars 因 Month 保留 Feb-2019 而 TYPE_ERROR；054 为 Polars/Ibis 通过、pandas 因未获得 Week 5–8 范围而多出 bar/Week 1，ROW_COUNT_MISMATCH。
+
+用户确认 052、053 保持当前整理后的任务和评分配置，不为消除失败继续修改。054 当前也保留原始初步结果；pandas 未获得报告范围澄清，与获得正确规则后实现错误区分，隐藏规则可发现性仍记作任务限制。053/054 暂不评分行序，052 的周偏移与精度口径、054 预算版本/周范围依据及两列预算选择矛盾等审核限制继续保留。未重跑或修改候选以筛选通过。
+
+本次提交范围为 case_051–054 的任务资产、NOTES.md 和本日志。下文引用的 JSON 快照、REVIEW_052_054.md 和 runs/ 是本地审核证据，不纳入本次提交，也不是运行依赖；主要结论与待决项已写入本日志。
+
+
+
+## 2026-10-07：NOTES 流程重整与 052–054 导入（初步审核）
+
+按用户确认重整 NOTES.md：以首次整理 case 的六步流程为主线，说明完成标准、资产可见性、评估规则、interact 抽样、错误归因、修改后复验和提交清单。加入 021–023、051 的经验，区分内容通过与排序/字面格式/隐藏规则的覆盖；固定 worktree、环境与配置来源。文档链接、JSON 示例和 diff 空白检查通过。
+
+052–054 来源为相邻 prepbench 仓库的 data/、reference/solutions/ 和 src/evaluate/gt/；完整来源哈希见 import_cases_052_054.json。输入与 GT 逐字节保留。新增标准 metadata、reference 与 evaluation 结构；reference 入口从 case 根目录读 inputs，写忽略的 output/。054 query 删除 Excel 工作簿、禁止手写计算和过期更新时间的背景，改为 supplied CSV；两份 query 的 Week worksheets 改为 weekly sales input files。原有业务歧义与 KB 条目保留，所有 source_text 引用已核对。
+
+评估使用业务 key：052 为 Week，053 为 Month，054 为 Type/Week；显式字段规则替换旧全字段 key 和隐式 2% 容差。052 两位金额先精确比较，053 工资总额/人数为 integer，均值 abs_tol=5e-10、rel_tol=0，Month 解析 %m/%d/%Y 或内置 ISO；054 周号/数量为 integer、金额零容差、Type 为 text_exact。053/054 的源 GT 不符合完整需求的排序要求，052 的标签不能由当前协议按隐藏的年/周排序，暂不评分行序，冲突留人工裁定，不以放宽行序宣布契约已完全一致。
+
+固定镜像 sha256:904f17a0381e9478630368f0a9d5480340e5c1feda5def40e78311e18e62c921 中，054 原 reference 的表头探测遇到 NaN 报 TypeError，改为 fillna("") 后转字符串，未改业务计算。三题 reference 均复现源 GT 内容。标准库独立核算：052 为 153 条汇率、31 条销售、22 条输出，9 个未匹配销售周排除；053 为 17 名员工、13 个月；054 为 108 条销售、16 个产品/周组，输出 5/6 行。32 项 GT 自比、错误字段、重复行及行序检查符合当前评分预期，详见 validation_cases_052_054.json。
+
+人工待决及覆盖限制集中见 本地 `REVIEW_052_054.md`：052 周偏移与金额精度，053/054 GT 排序冲突，054 预算日期和周范围依据、两列预算选择矛盾、阈值等号及互斥规则未触发。保留源业务口径供初步 interact 诊断；未修改共享 evaluator、runner 或 simulator。
+
+抽样计划见 interact_plan_052_054.json：各题种子为 20261007052/053/054；pandas 后分别抽得 Polars/Ibis、Polars/PySpark、Ibis/Polars。Codex gpt-6-astra/low、interact、1800 秒上限；配置显式指向当前 worktree，镜像固定为上述 ID。九组 r001 均完成生成和正式评估，7 通过、2 失败；问题不自动修改为通过。本轮未提交或推送。
+
+| Case | Backend | 正式评估 | 输出行数 | ask_calls | agent 耗时（含 simulator） |
+| --- | --- | --- | --- | --- | --- |
+| 052 | pandas | 通过 | 22 | 2 | 360.61 秒 |
+| 052 | polars | 通过 | 22 | 2 | 189.72 秒 |
+| 052 | ibis | 通过 | 22 | 2 | 159.46 秒 |
+| 053 | pandas | 通过 | 13 | 2 | 142.52 秒 |
+| 053 | polars | 失败 | 13 | 1 | 175.70 秒 |
+| 053 | pyspark | 通过 | 13 | 2 | 201.91 秒 |
+| 054 | pandas | 失败 | 6 / 6 | 2 | 148.80 秒 |
+| 054 | ibis | 通过 | 5 / 6 | 2 | 339.17 秒 |
+| 054 | polars | 通过 | 5 / 6 | 2 | 181.62 秒 |
+
+052 三后端均获得周日周号、同年 Week - 1 关联、缺失周排除、两位金额和周标签的澄清并通过。053 pandas/PySpark 通过；Polars 只问了工资和在职口径，输出 Month 保留 Feb-2019，正式 TYPE_ERROR。临时额外接受 %b-%Y 后冻结输出通过，其他数值正确，但未将该格式写入正式配置，留人工判断。054 pandas 预算表多出 bar/Week 1，正式 ROW_COUNT_MISMATCH；问答未获得隐藏的 Week 5–8 范围，也未追问互斥逻辑。临时副本只过滤 Week 5–8 后两表通过。Polars/Ibis 主动追问预算范围或两个输出关系，获得范围与互斥规则后正式通过。
+
+完整运行摘要、私有资产哈希和问答见 interact_validation_052_054.json；诊断见 diagnostics_052_054.json，未覆盖正式候选或报告。人工复核清单已补充以上两次失败归因和可选处理。输入与 GT 的源哈希再次核对一致。共享代码未改，未新增通用测试或重复运行已有单元测试；本轮验证针对任务资产与真实模型运行。
+
+
+## 2026-10-07：051 导入与三后端 interact 验证
+
+来源为相邻 prepbench 仓库的 data/case_051、reference/solutions/case_051/solution.py、src/evaluate/gt/case_051/。源文件路径及 SHA-256 记录于 import_case_051.json；源目录只读，输入与 GT 逐字节保留。新增标准 case 目录及 sports metadata（1 张输入表、10 列）。
+
+迁移删除原始 query 的 Tableau/Prep 软件版本背景，保留 Standard Competition 与 Modified Competition 的 10/9/9/8 示例；将错误的“three statistics per rank”改为“four statistics per venue”。完整需求改用 supplied dataset，不新增对赛事/对手的筛选。明确 HTf/HTa 的 '-' 和空字段表示缺失，并在 KB 的原有过滤条目补充 intent，不改变歧义条目数量。所有场次先过滤再全局排名，随后按 Venue 汇总。
+
+原 reference 硬编码了十个场馆的分类顺序，该顺序无题面依据，删除固定列表和相关排序，保留计算逻辑；main 入口改为从 case 根目录读 inputs、写忽略的 output/。评估以 Venue 为 key，场次及 best/worst rank 为 integer，Venue 为 text_exact/null_values=[]；Avg. Rank 使用 number、abs_tol=5e-10、rel_tol=0，依据源 GT 九位小数的半个末位单位接受未舍入均值，不沿用旧 2% 相对容差。该规则衡量数值精度，不强制候选执行九位舍入。行序不评分，GT 原有行序不修改。
+
+验证：固定镜像 sha256:904f17a0381e9478630368f0a9d5480340e5c1feda5def40e78311e18e62c921 中 reference 复现源 GT。另用 Python 标准库按 rank=1+分差严格更大的比赛数独立计算，验证 105 场输入排除 2 场，103 场汇总为 10 个场馆，25 组分差存在并列。用 Fraction 精确核对全部均值，GT 在九位精度内一致。11 个定向检查全部符合预期：乱序与未舍入精确均值允许；重复行、场次/最佳/最差排名加 1、均值偏差 1e-9、场馆尾空格、dense rank、场馆内部排名和反向排名均拒绝。详细记录见 validation_case_051.json。
+
+seed=20261007051，从 polars/ibis/pyspark 抽到 Polars/Ibis，加 pandas。Codex gpt-6-astra/low、interact、上述固定镜像、1800 秒上限，Codex/simulator 配置显式使用当前 worktree 路径。三组均为 r001，generation 完成、正式 evaluation 通过，均输出 10 行；详情见 interact_validation_051.json 及各自 runs/。所有 agent 均澄清了全局排名和半场缺失过滤。pandas 未询问均值九位精度，但在容差内通过；Polars/Ibis 收到九位精度回答。simulator 对 Polars 回答无顺序要求，对 Ibis 却额外要求 Venue 升序；这是无充分题面依据的回答差异，未将排序新增为评分项，也未将三后端通过解释为 simulator 完全一致。
+
+本轮未修改公共 evaluator 或 runner，未修改 NOTES.md，未提交 case_051。既有 001–050 提交及未提交日志改动保留。运行记录与来源快照不作为任务运行依赖。
 
 ## 2026-10-07：029 资产审核及三后端 interact
 
