@@ -1,0 +1,68 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Type",
+        "Week"
+      ],
+      "columns": {
+        "Type": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Week": {
+          "type": "integer"
+        },
+        "Sales Volume": {
+          "type": "integer"
+        },
+        "Budget Volume": {
+          "type": "integer"
+        },
+        "Sales Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Budget Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Type",
+        "Week"
+      ],
+      "columns": {
+        "Type": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Week": {
+          "type": "integer"
+        },
+        "Sales Volume": {
+          "type": "integer"
+        },
+        "Sales Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Profit Min Sales Volume": {
+          "type": "integer"
+        },
+        "Profit Min Sales Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}
