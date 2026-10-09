@@ -1,0 +1,61 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Current Status"
+      ],
+      "columns": {
+        "Current Status": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Ticket Count": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Metric"
+      ],
+      "columns": {
+        "Metric": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Total": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    },
+    "output_03.csv": {
+      "key": [
+        "Department"
+      ],
+      "columns": {
+        "Department Rank": {
+          "type": "integer"
+        },
+        "Department": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Achieved %": {
+          "type": "number",
+          "abs_tol": 0.005,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": false,
+      "order_by": [
+        {
+          "column": "Department Rank",
+          "direction": "asc",
+          "nulls": "last"
+        }
+      ]
+    }
+  }
+}
