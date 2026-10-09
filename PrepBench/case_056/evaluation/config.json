@@ -1,0 +1,27 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "LastName"
+      ],
+      "columns": {
+        "Title": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "LastName": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Product": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Priority": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

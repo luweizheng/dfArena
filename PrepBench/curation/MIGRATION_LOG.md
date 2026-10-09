@@ -1,6 +1,6 @@
 ## interact 结果总览
 
-下表是当前 benchmark 的初步审核实验表，不是最终 benchmark 分数。它用不同 backend 的 interact 结果暴露 workload 需求表述、simulator 澄清信息和 evaluator 验证规则中的问题：有些失败来自 agent 的真实计算错误，有些来自需求没有清晰表达，有些来自验证规则覆盖不足。因此，这些结果用于指导后续 curation 和资产修订，不能直接解释为 backend 能力排名。`通过/失败` 指对应运行时配置下 interact 生成后的 evaluator 状态；`跳过` 表示生成记录存在但评测未执行；`未运行` 表示目前没有该 backend 的 interact 结果。
+下表是当前 benchmark 的初步审核实验表，不是最终 benchmark 分数。它用不同 backend 的 interact 结果暴露 workload 需求表述、simulator 澄清信息和 evaluator 验证规则中的问题：有些失败来自 agent 的真实计算错误，有些来自需求没有清晰表达，有些来自验证规则覆盖不足。因此，这些结果用于指导后续 curation 和资产修订，不能直接解释为 backend 能力排名。`通过/失败` 指对应运行时配置下 interact 生成后的 evaluator 状态；`跳过` 表示生成记录存在但评测未执行；`未运行` 表示目前没有该 backend 的 interact 结果；`不纳入` 表示已决定排除出 benchmark，不再安排运行。
 
 | Case | pandas | Polars | Ibis | PySpark |
 | --- | --- | --- | --- | --- |
@@ -57,6 +57,11 @@
 | 052 | 通过 | 通过 | 通过 | 未运行 |
 | 053 | 通过 | 失败 | 未运行 | 通过 |
 | 054 | 失败 | 通过 | 通过 | 未运行 |
+| 055 | 通过 | 通过 | 通过 | 未运行 |
+| 056 | 通过 | 通过 | 未运行 | 通过 |
+| 057 | 不纳入 | 不纳入 | 不纳入 | 不纳入 |
+| 058 | 通过 | 未运行 | 通过 | 通过 |
+| 059 | 失败 | 失败 | 未运行 | 失败 |
 
 001–006 采用 2026-09-27 首次运行的原始正式评测结果，来源为 `../dfArena/PrepBench/case_00X/runs/interact/codex_gpt-6-astra/<backend>/r001/result.json`；24 次运行均完成生成和评测。此处不采用更早的 `interact_legacy` 实验、后续 run、当前配置离线重评或 2026-10-04 修改题面后的复验结果。原始失败报告：002 Ibis 为 `KEY_MISMATCH`；004 pandas/Ibis/PySpark 为 `MISSING_COLUMNS`，Polars 为 `KEY_MISMATCH`；006 PySpark 为 `MISSING_COLUMNS`。
 
@@ -64,6 +69,78 @@
 
 # PrepBench 迁移与审核日志
 
+## 2026-10-09：058 正式容差改为0.01并重评
+
+按用户确认，仅将 Sales 的 abs_tol 从0.005改为0.01，rel_tol保持0。保留源GT、reference、query、query_full、KB和输入，不采用此前提出的精确乘积GT方案。该规则接受相对源GT不超过一分钱的差异（含边界），适用于所有Sales单元格，不仅限于舍入中点；不验证特定舍入算法或严格两位小数字面格式。
+
+修改前的config及三个r001的evaluation.json/result.json保存在忽略的本地 `curation/output/05x/formal_058_tol001_20261009/`。通过正式evaluate.py重评pandas、PySpark、Ibis现有r001，三者均通过并刷新正式evaluation/result；顶部总览采用此次新配置重评结果，下方2026-10-08运行表仍保留首次0.005规则下的失败历史。未重新生成，不称作新的interact运行。哈希确认generation记录、候选代码和CSV均未改变。
+
+定向边界检查：相对GT加减0.01通过，加减0.0101拒绝。详细验证与新config哈希见上述目录的verification.json。058精度口径至此已决定，无需修改GT或继续筛选运行。
+
+
+## 2026-10-09：057 排除出 benchmark
+
+用户确认跳过057，不纳入本次任务资产或正式benchmark。该题核心是装箱规则和Python循环算法，reference中的pandas主要负责CSV读写、行访问和结果组装，DataFrame语义考察较弱；另有箱数优先与空余容量优先的契约冲突。不再修订该题目标或安排interact。
+
+已将本轮导入资产移至忽略的本地审核归档 `curation/output/05x/excluded_case_057/`，`PrepBench/case_057/` 保持空目录，不添加占位文件。上游 `../prepbench` 原始资产未改；既有独立核算和reference验证证据保留。下方057迁移记录为排除决定之前的历史过程，不代表当前仍待迁移。Git不跟踪空目录，因此057任务目录不会进入提交。
+
+
+## 2026-10-09：059 公开部门排名范围
+
+按用户确认，在 query.md 的部门 SLA 排名条目下、Closed cases only 后新增：
+
+> For output_03.csv only, include departments whose SLA Agreement is 18 business days and whose SLA achieved percentage is greater than 0.
+
+将完整需求已有的两个范围限制公开到初始请求，并以 output_03.csv only 限定作用范围。query_full 和 KB 已包含同一规则及全局计数不受限的解释，无需修改；KB 原文引用核对通过。未改变输入、reference、GT 或评分配置。此前三个 r001 的失败结果仍是旧题面历史结果；本次仅修改题面，尚未新建 generation run 验证，不能将旧候选诊断视为新题面通过。
+
+
+
+
+## 2026-10-08：055–059 迁移与验证（curate/prepbench-case-05x）
+
+本轮在主工作目录新建分支，未改 050–054 已有资产或历史候选。055–059 来源为相邻 `../prepbench/data/case_XXX/`、`reference/solutions/case_XXX/solution.py` 和 `src/evaluate/gt/case_XXX/`。inputs 和 GT 均逐字节保留；来源路径及 SHA256 在本地 `curation/output/05x/import.json`。新增 metadata（055 为 public_sector，其余为 business）、标准 reference/evaluation 目录，reference 主入口统一从 case 根目录读取 inputs 并写忽略的 output/。
+
+**055。** 一行代表候选人在一个 Poll/End Date 的结果。初始题面没有 Tableau 操作；两份 query 补充行粒度、精确列名及 Sample Type 标签，不公开日期年份或排名计算答案。完整需求明确保留零得分、前两个候选人结果之差（保留并列），移除原始 query 没有的强制四字段输出排序。无效日期的有效候选人结果保留，同一 Poll 的空日期为一组，这是本轮明确的边界规则，当前输入不触发。KB 补自然语言 intent、同步引用和展示约定；reference 使用 dropna=False，并以 transform 替代 groupby.apply，避免 pandas 3 丢分组列。当前 GT 不变。key 为 Poll/End Date/Candidate；文本精确，Rank 为 integer，Poll Results/Spread 为零容差 number；End Date 按日期值比较并支持 DD/MM/YYYY，行序不评分。
+
+49 条输入去掉平均行，48 组民调展开后删除一个 --，输出 383 行；31 组有得分并列，无榜首并列、单候选人组、无效日期或 Unknown 输出。标准库独立核算全部字段与 GT 一致，固定镜像 reference 复现 GT。12 项评分检查通过，包括错误 min/dense 排名、得分/差值/排名加1、重复行和误删零得分拒绝，乱序与 ISO 日期接受。pandas、Ibis、Polars interact r001 均通过，关键年份/并列/差值规则在问答中正确传达。Ibis 首轮合并缺失处理和排序的问题被拒，拆开追问后获得回答。通过不覆盖未触发边界或日期字面格式。
+
+**056。** 清除 Profile Pane 操作和 2019.3.2 版本说明，明确 input_01 是 256 个笛卡尔组合、input_02 是四个独立属性列表，两者为替代起点，不应拼接为订单。保留全部七条线索和原业务歧义；输出每个客户一行，key 为 LastName，Priority 为 integer，其他文本精确，忽略无要求的行序。独立枚举原始四列表的排列并检查所有七条线索，恰有一个四行解，与 GT 一致；两份输入的属性组合也已核对。reference 在固定镜像复现 GT 内容（其行序与源 GT 不同，不构成错误）。
+
+**057：契约待决定，未启动 interact。** 原 query 要求减少箱数，query_full 背景更明确 primarily minimize number of boxes；reference/GT 却依次分配120/24/6的满箱，仅余数使用一个最小箱。独立枚举证明 GT 对应先最小化空余容量、再最小化箱数。7 个订单中5个与箱数优先不同：17块3箱 vs 1箱，48块2 vs 1，60块4 vs 1，470块10 vs 4，801块11 vs 7。已提出保留 GT 并修正两份题面目标的方案，尚未应用。标准目录、输出文件角色、业务 key（订单；订单/箱号）和精确整数配置已准备；Order Number 为精确文本标识符，保留原表示。修复 KB 中并非原文的 “Soaps in Box - Last Box Per Box Size” 引用，改为真实字段名并补充按订单/箱型计数的 intent。reference/独立核算与7行订单表及33行箱表一致，但这不解决契约冲突。箱号计算顺序按内容验证，不将源 GT 的随机行排列规定为输出顺序。
+
+**058。** 两份 query 公开精确 Secnt 列名及 lookup 的 canonical 标签，保留 Lavendar 拼写；完整需求取消无原始依据的自定义 scent/size 排列，KB 同步。三张输入分别80/320/32行；独立按空白/大小写清理后的 scent、后缀拆分和 ISO 周关联，用 Decimal 乘法核算307行，13个零占比被排除。key 为 Year Week Number/Secnt/Size/Product Type；周号 integer、文本精确、Sales abs_tol=0.005/rel_tol=0。依据是完整需求两位小数而原始 query 未规定舍入；最大未舍入差为0.005，15行落在半分钱边界。该配置允许未舍入值，不声称验证精确舍入算法，不接受相差一分钱的另一舍入结果。行序不评分，reference 保留稳定展示顺序而非新增任务要求。当前数据没有负占比，跨 ISO 年边界和去重分支不据此宣称已覆盖。
+
+**059。** 删除过期“26th Jan 更新输入”的提示，公开三个输出文件角色及 Missed SLA/On Track to Meet SLA 精确标签。保留原 query 的业务歧义；query_full/KB 明确只有部门排名限制 SLA=18，全局两个计数覆盖所有匹配 SLA 的部门。部门先按未舍入百分比降序、名称升序分配连续名次，排名表按名次输出。key 分别为 Current Status、Metric、Department；计数和排名精确 integer，Achieved % abs_tol=0.005/rel_tol=0（百分数单位的半个末位），身份文本精确；仅排名表检查 Department Rank 升序。独立逐日累计工作日秒数，不复用 reference 的 busday_count 公式：2542个事件、665张票，103张已关闭，32超时/71达标，与 GT 三表5/2/5行一致；32个已关闭票的开始、35个结束在周末。SLA=18 的6个部门中 Marketing 达标率为0被排除，留下5个排名部门。SLA=18及排除0%来自原 query_full/KB/reference，而非原 query 明文，保留其隐藏范围可发现性限制。当前无关闭后重开、恰等于 SLA 或调整后负时长，不能验证这些边界；分钟/秒精度的实现差异也不能仅凭汇总通过排除。
+
+**环境与验证证据。** 固定 Docker image `sha256:904f17a0381e9478630368f0a9d5480340e5c1feda5def40e78311e18e62c921`（pandas 3.0.2），研究者侧 reference 验证与 agent 容器分开。056–059 共36项独立核算、GT自比、reference复现、重复行/错误值/容差边界/排名顺序检查全部符合预期；不把057的计算一致视为契约正确。详见本地 `curation/output/05x/validation_056_059.json` 及可复核脚本。初始引用逐条检查，metadata 与真实 CSV 表头一致。未修改共享 evaluator、runner 或 simulator；未扩充任务输入或改写 GT。
+
+**真实 interact 计划。** Codex gpt-6-astra/low，simulator gpt-6-astra/temperature=0，同一固定镜像，1800秒上限。seed 分别20261008055/056/058/059，每题先pandas后两个不重复后端：055 Ibis/Polars；056 PySpark/Polars；058 PySpark/Ibis；059 Polars/PySpark。当前运行与私有资产哈希记录于本地 `curation/output/05x/plan_*.json`，候选和问答保留各 case 的 runs/；这些本地证据不作为任务运行依赖，不提交。不得修补候选 CSV 后记作通过。
+
+**058 精度复核（2026-10-08历史记录；已于10-09决定采用0.01容差）。** 源 GT 与精确 Decimal HALF_UP 有9行差异，与精确 HALF_EVEN 有8行差异；query_full 没有规定舍入模式。pandas/PySpark/Ibis r001 分别有6/7/9个 Sales 与源 GT 相差0.01，其余字段和业务key全部一致，所有候选对精确乘积的最大误差均为0.005。例2259.435，GT2259.43而候选2259.44，二者都距精确值0.005。因此本轮 VALUE_MISMATCH 不直接归因为 agent 业务计算错误。提出以未舍入精确乘积作为 GT、维持0.005容差的方案，本地副本离线比较三后端均通过；尚未采用，不算正式通过，也未覆盖源 GT、候选或正式报告。具体差异和方案见本地 `curation/output/05x/diagnostics.json`、`058_decision.md`、`proposal_058_exact_gt_comparison.json`。若修改完整需求/KB，须新建生成验证；仅旧CSV重评不能宣称新题面interact通过。
+
+**059 澄清可发现性。** pandas r001 两个全局汇总表通过，部门表12行，未获得SLA=18或排除0%的规则。Polars r001 两个全局表通过，部门表6行；它拆分被拒绝的多主题问题并用满三轮，最终获得SLA=18，但未取得排除0%的规则。仅在内存诊断中按隐藏范围过滤并重新排名，两份冻结输出均与GT五部门匹配；正式候选不改，失败保留。这是隐藏过滤条件未获得的交互失败，不能笼统称为收到规则后实现错误。
+
+
+**本轮最终运行结果。** 055/056各三组通过；058/059各三组正式失败，均完成生成，无评估跳过。057当时因契约待决未启动，后于2026-10-09决定排除，不再运行。未通过重复运行筛选成功结果；所有run为当前分支资产下的r001。
+
+| Case | Backend | Run | 正式评估 | 输出行数 | ask次数 | agent秒数 |
+| --- | --- | --- | --- | --- | --- | --- |
+| 055 | ibis | r001 | 通过 | 383 | 2 | 147.88 |
+| 055 | pandas | r001 | 通过 | 383 | 1 | 93.86 |
+| 055 | polars | r001 | 通过 | 383 | 1 | 104.40 |
+| 056 | pandas | r001 | 通过 | 4 | 1 | 97.47 |
+| 056 | polars | r001 | 通过 | 4 | 1 | 83.95 |
+| 056 | pyspark | r001 | 通过 | 4 | 2 | 138.05 |
+| 058 | ibis | r001 | 失败：VALUE_MISMATCH | 307 | 1 | 134.41 |
+| 058 | pandas | r001 | 失败：VALUE_MISMATCH | 307 | 1 | 90.79 |
+| 058 | pyspark | r001 | 失败：VALUE_MISMATCH | 307 | 1 | 104.72 |
+| 059 | pandas | r001 | 失败：ROW_COUNT_MISMATCH | 5/2/12 | 1 | 122.27 |
+| 059 | polars | r001 | 失败：ROW_COUNT_MISMATCH | 5/2/6 | 3 | 205.46 |
+| 059 | pyspark | r001 | 失败：ROW_COUNT_MISMATCH | 5/2/12 | 1 | 193.74 |
+
+056三后端都正确获得优先级方向、相邻关系及属性唯一性；PySpark首轮多主题问题被拒，拆开追问后通过。059 PySpark最终与pandas相同：前两表通过，部门表12行，未获得SLA=18及排除0%规则；内存诊断仅过滤范围并重新排名后匹配GT。三后端正式失败均保留，未修改候选/正式报告。
+
+运行与问答详见 `case_XXX/runs/interact/codex_gpt-6-astra/<backend>/r001/` 的 `result.json`、`detail/evaluation.json`、`logs/interaction.jsonl`。本地汇总为 `curation/output/05x/interact_summary.json`，最终资产SHA256为 `current_assets.json`。当前分支未提交或推送；未执行新的050复验，051–054沿用既有审核。
 
 ## 2026-10-08：051–054 初步结果确认
 
