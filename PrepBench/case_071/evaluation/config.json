@@ -1,0 +1,19 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Number"
+      ],
+      "columns": {
+        "Number": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Numeric Equivalent": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

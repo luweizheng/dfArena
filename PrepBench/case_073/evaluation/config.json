@@ -1,0 +1,54 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Name"
+      ],
+      "columns": {
+        "Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Surf Site": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Swell Direction": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Reliability": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Wind Direction": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Type": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Boards": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Skill Level": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Surf Season": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Rating": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

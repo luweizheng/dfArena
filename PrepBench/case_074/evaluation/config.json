@@ -1,0 +1,46 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Games"
+      ],
+      "columns": {
+        "Start Date": {
+          "type": "date",
+          "formats": [
+            "%m/%d/%Y"
+          ],
+          "null_values": []
+        },
+        "End Date": {
+          "type": "date",
+          "formats": [
+            "%m/%d/%Y"
+          ],
+          "null_values": []
+        },
+        "Games": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Host": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Nations": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Sports": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Events": {
+          "type": "integer",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}
