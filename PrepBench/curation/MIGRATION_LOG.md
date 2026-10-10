@@ -62,6 +62,20 @@
 | 057 | 不纳入 | 不纳入 | 不纳入 | 不纳入 |
 | 058 | 通过 | 未运行 | 通过 | 通过 |
 | 059 | 失败 | 失败 | 未运行 | 失败 |
+| 060 | 通过 | 未运行 | 通过 | 通过 |
+| 061 | 通过 | 未运行 | 通过 | 通过 |
+| 062 | 通过 | 通过 | 未运行 | 通过 |
+| 063 | 失败 | 未运行 | 通过 | 失败 |
+| 064 | 通过 | 通过 | 通过 | 未运行 |
+| 065 | 通过 | 通过 | 通过 | 未运行 |
+| 066 | 通过 | 通过 | 通过 | 未运行 |
+| 067 | 通过 | 失败 | 通过 | 通过 |
+| 068 | 通过 | 未运行 | 通过 | 通过 |
+| 069 | 通过 | 通过 | 未运行 | 通过 |
+
+060–069 于 2026-10-10 补入头表，采用当前 `dfArena-prepbench-curation` worktree 的正式 `result.json`，路径为 `PrepBench/case_XXX/runs/interact/codex_gpt-6-astra/<backend>/<run>/result.json`。060–069 全部采用各后端现存首次生成 r001，已核对 generation.started_at；不以后续通过替换首次失败。063 pandas/PySpark 漏掉 MONEY HEIST，正式失败保留；其中 pandas r001 曾在修正 Rating 容差后对同一候选重评，因此“首次生成”不等于“首次评分配置”，详见下文 060–067 记录。067 采用已确认的新版“同香型增长率之差”资产下各后端 r001：pandas/Ibis/PySpark 通过、Polars 失败。后续 pandas/Polars r002 均通过，仅作复验记录，不计入头表。旧贡献差版本位于 `case_067_bak/`，不混入本表。068 是固定销售数值转长表任务，不代表随机生成能力。
+
+070 尚未纳入本次头表及任务资产提交。其当前 worktree 的记录为 Ibis 通过、PySpark 失败；相邻 `../dfArena` main worktree 的另一组运行是 pandas 通过、Ibis/PySpark 失败，两边任务资产并不完全相同，不能合并为同一组结果。当前 PySpark 与 main Ibis 的已核对差异均为 Edgehill Description 将双空格压成单空格。060–067 的详细初步审核见下文及 `REVIEW_060_067.md`，068–070 见 `REVIEW_068_070.md` 和 `interact_validation_068_070.json`。
 
 001–006 采用 2026-09-27 首次运行的原始正式评测结果，来源为 `../dfArena/PrepBench/case_00X/runs/interact/codex_gpt-6-astra/<backend>/r001/result.json`；24 次运行均完成生成和评测。此处不采用更早的 `interact_legacy` 实验、后续 run、当前配置离线重评或 2026-10-04 修改题面后的复验结果。原始失败报告：002 Ibis 为 `KEY_MISMATCH`；004 pandas/Ibis/PySpark 为 `MISSING_COLUMNS`，Polars 为 `KEY_MISMATCH`；006 PySpark 为 `MISSING_COLUMNS`。
 
@@ -869,3 +883,58 @@ GT 自评通过。应通过的 ISO 等价日期、应失败的 Quantity 加一�
 问答暴露 simulator 一致性问题：pandas/PySpark 被告知使用 UTC，Ibis 被告知需求未指定时区；pandas/PySpark 被要求按 Row 升序，Ibis 被告知需求未要求排序；PySpark 被告知输出九位小数，Ibis 被告知没有保留原始精度的要求。上述 UTC、排序、精度需先确定语义，再同步完整需求/KB，不能自动把 reference 默认行为升级成要求。pandas/PySpark 代码遇到重复 Row/指标会报错，未实现完整需求的取首值规则；当前输入无重复，正式通过不覆盖该行为。
 
 证据：`case_011/runs/interact/codex_gpt-6-astra/{pandas,ibis,pyspark}/r001/` 下的 result.json、workspace/solution.py、输出和 logs/interaction.jsonl。下一步先决定时区、精度和日期字面格式，修订 key/类型/容差并做正反例；如修改澄清资产，需新建 generation run。
+
+
+## 2026-10-08：060–067 迁移、独立核算及三后端 interact
+
+按用户要求先完成 060–064，再完成 065–067，供后续逐题人工审核。资产已导入标准目录，输入/GT 原样保留；来源及导入哈希分别保存在本地 `import_cases_060_064.json`、`import_cases_065_067.json`。完整审核入口为 [REVIEW_060_067.md](REVIEW_060_067.md)，逐题列明契约决定、改动和未覆盖分支。
+
+固定 Docker image `sha256:904f17a0381e9478630368f0a9d5480340e5c1feda5def40e78311e18e62c921`，Codex `gpt-6-astra` / low、interact、simulator `gpt-6-astra` / temperature 0，每次 timeout 1800 秒。每题先 pandas，再以 `20261008000 + case 编号` 为 seed 从 `[polars, ibis, pyspark]` 抽两个不重复后端。8 份 reference Docker 复现 GT；独立 CSV/Decimal 核算全部一致，82 项评分正反例、29 项共享 evaluator 单元测试通过。最终 24 次 generation/evaluation 均 completed，22 通过、2 失败；没有跳过或环境失败。
+
+| Case | pandas | 另两个后端 | 关键决定 / 人工审核事项 |
+| --- | --- | --- | --- |
+| 060 | 通过 | Ibis / PySpark 通过 | 修公式排版及输入行数；Species/Trait key，九位小数精度；尾部空格保留需人工确认 |
+| 061 | 通过 | Ibis / PySpark 通过 | LHSItem/RHSItem key；初始需求统一公开箭头格式，保留指标原公式 |
+| 062 | 通过 | Polars / PySpark 通过 | Store/Category/Scent/Date key；金额精确、工日 integer；自定义展示排序不评分 |
+| 063 | 失败 | PySpark 失败 / Ibis 通过 | pandas/PySpark 均漏 MONEY HEIST；完整需求的 Other 解释及尾部括号清理范围需人工确认 |
+| 064 | 通过 | Ibis / Polars 通过 | 完整需求/reference 修正有效比赛行识别，零出场/90 分钟换入由数据覆盖 |
+| 065 | 通过 | Polars / Ibis 通过 | Games OoP 沿用球员级总数；reference 修复不可解析比分归零分支 |
+| 066 | 通过 | Polars / Ibis 通过 | 单行文本精确评分、空格保留；数字 scaffold 可选 |
+| 067 | 通过* | Ibis / Polars 通过* | *来源完整需求下通过；原始增长率之差与 GT 贡献差定义冲突，契约待人工决定 |
+
+配置改为显式类型，结果值移出业务 key。060/061/064 连续指标容差为 5e-10，依据 GT 九位小数；063 Rating 为 5e-13，依据十二位小数；065 均值为 1e-15，仅容纳当前小量级浮点表示误差；062 金额及 067 已舍入指标零容差。计数、排名和整数分钟精确比较，文本不 trim。所有最终行序不评分：原始 query 均未提出明确排序约束；062/067 的完整需求自定义顺序未伪装为字段字典序。日期按语义比较，不检查字面格式。
+
+063 初版误将 Rating 容差设为 5e-10，pandas r001 后校正为 5e-13，旧 config/result/evaluation 保存在 `case_063_before_precision_review/`，仅重评同一原始 CSV；其余后端开始时已使用最终配置。失败原因不是容差：两份候选只去掉 `Money Heist (La casa de papel) (2020)` 最后一个括号组，漏掉 MONEY HEIST。其余十个 show 的 Rank/Rating 均与 GT 一致，但正式结果保持 ROW_COUNT_MISMATCH。Ibis 去掉连续括号组后通过。
+
+067 修正两份 query 的明显 bps 单位错误为 1 bp = 0.01 percentage point，保持 ×10000 公式。独立算例确认原题与来源 GT 不是等价解释：Orange 的贡献差为 3.64，按香型自身增长率之差为 31.94；按未舍入贡献最后求差为 3.65。暂保留源 GT 并在私有 KB 明确输出专用贡献差公式，未改写初始 Outperformance 定义来掩盖冲突，不能标为业务契约已审核完成。人工决定后如改 query/full/KB，必须新建 generation run。
+
+问答中独立问题打包有时被要求拆问；所有计划运行均完成。063 Ibis simulator 无依据补充 output_01 Device 排序，评估未采纳；060 pandas 的保留物种尾空格规则来自原资产解释，应人工复核。完整问答、候选代码与 CSV 均保留于 `case_XXX/runs/interact/codex_gpt-6-astra/<backend>/r001/`。本地 `interact_validation_060_067.json` 汇总逐次结果/问答，`final_verification_060_067.json` 证明冻结 CSV 按最终配置重验状态一致、源资产/输入/GT 未改、可见输入哈希一致且生成阶段未挂载私有资产。研究者 reference 验证与真实生成容器分离。
+
+
+## 2026-10-09：067 增长率之差对照版本（验证待完成）
+
+按用户要求，将原 `case_067/` 整体移动至 `case_067_bak/`，包括旧贡献差版本的三个 interact r001；备份文件哈希全部核对未变。新 `case_067/` 不复制旧 runs，沿用原 metadata case_id。原有审核索引中的 067/r001 路径指旧版本，现应查 `case_067_bak/runs/`；新目录未来的同名 r001 属于新版本，不得混淆。
+
+新版本只改 query_full、amb_kb、reference 和 output_02 GT 的 Outperformance：分别以各组该香型的 March 销售额为分母算增长率，使用未舍入增长率求差，最后 HALF_UP 两位小数。query、输入、metadata、evaluation config、output_01 GT 和 output_02 两个贡献列均未改变。七个分母均非零，不额外定义零分母业务规则。
+
+新 Outperformance 按 Rose/Orange/Lime/Coconut/Watermelon/Pineapple/Jasmine 顺序为 -10.11、31.94、-4.19、4.48、-5.66、2.16、175.17。GT 使用标准库 Decimal 重算并用精确 Fraction 独立确认舍入；GT 自比通过，旧贡献差 GT 被当前配置拒绝。此次还没有执行更新后的 pandas reference，也没有真实 interact：本会话沙箱拒绝访问 Docker socket，宿主 Python 无 pandas。未以独立核算代替 reference 或模型执行结论。
+
+本地证据为 `curation/output/067_growth_variant/validation.json`。终端运行 `bash PrepBench/curation/run_case_067_growth_variant.sh` 会先在原固定 image 中执行 reference 并正式比较 GT，再依次运行 pandas/Ibis/Polars interact，保留失败结果；不改共享 runner。待三次运行后需核对问答及正式 result/evaluation，再补最终结论。
+
+
+## 2026-10-09：067 新版采用及补充验证
+
+用户确认采用新版增长率差定义，旧贡献差版本保留在 `case_067_bak/`。新版 reference 已在原固定 Docker image 中重放并通过当前 GT，报告为 `reference_067_growth_check.json`。本会话新增 interact：pandas/r002（122.65 秒、1 次澄清）、随机抽中的 Polars/r002（92.45 秒、2 次澄清）及 PySpark/r001（101.86 秒、2 次澄清），三个后端的两份输出均通过。模型为 Codex gpt-6-astra / low。两次补充后端抽样使用系统随机源，从 pandas 之外的三个后端无放回抽取，抽样结果和实际 run 路径记录于此；没有追溯性筛选通过运行。旧版分数不得与新版混合；上节“验证待完成”描述的是当时状态。
+
+Polars/PySpark 均询问 Outperformance 定义，模拟用户明确回复同香型内未舍入增长率之差。两者第一轮均有展示格式与排序打包的问题被要求拆问，后续完成。通过固定输入评分不代表未覆盖业务边界已通过，也不消除模拟用户单条 ref 无法完整表达复合答案依据的局限。
+
+
+## 2026-10-09：068–070 导入与三后端 interact
+
+已完成任务资产、显式评估配置、参考解 Docker 重放、独立核算及 9 次真实 interact。详细记录见 [REVIEW_068_070.md](REVIEW_068_070.md)，来源/导入哈希见 `import_cases_068_070.json`，独立核算及 42 项评分正反例见 `diagnostics_068_070.json`。29 项共享 evaluator 单元测试通过；070 的大小写标签和非粗体小写标题另有 2 项参考解扰动检查。输入及 GT 与来源逐字节一致；宿主私有资产未挂入生成容器。
+
+068 的源题混合随机生成要求和公开的完整固定销售表，源 reference 直接返回固定值。此次明确整理为固定数值转长表，保留公开数值及全部输入，删除随机生成与固定答案并存的矛盾；不能把通过计作随机生成或澄清能力。069 补明答案 token trim、pair 粒度及 dense rank；070 补明源 reference 已有的 Ł→£ 修复，并让 Battle/Victors 大小写匹配与源完整规格一致。key 分别为 Company/Scent/Month、Name、Battle；068 Sales 精确比较，069 分数/排名 integer，070 日期语义比较、文本精确。没有将源全列 key 或旧 number 2% 容差直接沿用。
+
+按每题 seed=20261009000+编号冻结无放回抽样：068 pandas/PySpark/Ibis 均通过；069 pandas/Polars/PySpark 均通过；070 pandas/Ibis 通过、PySpark 失败。模型 Codex gpt-6-astra/low、interact、原固定 Docker image，timeout 1800 秒。所有尝试均为各后端 r001，9 次生成和评分 completed，8 次 passed、1 次 failed。详细问答、时间和挂载审核保存在 `interact_validation_068_070.json`。
+
+070 PySpark 仅 Edgehill Description 将两个空格合并为一个，63 条 key 和其他字段完全一致；当前完整规格要求保留内部空格，因此保留 VALUE_MISMATCH，未改候选或放宽评分。是否将此空格区别作为业务正确性要求需单独审核。该 agent 没有针对 Description 内部空格提问，不能说它忽略了直接澄清；Ibis 则明确询问并保留内部空格。Ibis 4 次 ask 日志中最后一次是额度用尽，只有 3 个处理轮次。070 simulator 对“清洗后仍重名”补充保留记录的建议缺乏明确规则支持，当前输入的完整标题唯一，故不影响这次结果。

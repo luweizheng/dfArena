@@ -1,0 +1,16 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Decoded Message"
+      ],
+      "columns": {
+        "Decoded Message": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}
