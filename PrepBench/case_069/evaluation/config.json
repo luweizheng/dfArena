@@ -1,0 +1,37 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Name"
+      ],
+      "columns": {
+        "Round1": {
+          "type": "integer"
+        },
+        "Round2": {
+          "type": "integer"
+        },
+        "Round3": {
+          "type": "integer"
+        },
+        "Round4": {
+          "type": "integer"
+        },
+        "Round5": {
+          "type": "integer"
+        },
+        "Total Score": {
+          "type": "integer"
+        },
+        "Position": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

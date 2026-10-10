@@ -1,0 +1,45 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "LHSItem",
+        "RHSItem"
+      ],
+      "columns": {
+        "AssociationRule": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "LHSItem": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "RHSItem": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "LHS Support": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        },
+        "RHS Support": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        },
+        "Confidence": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        },
+        "Lift": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

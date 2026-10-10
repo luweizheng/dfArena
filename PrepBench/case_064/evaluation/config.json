@@ -1,0 +1,30 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Player Name"
+      ],
+      "columns": {
+        "In Squad": {
+          "type": "integer"
+        },
+        "Player Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Mins Played": {
+          "type": "integer"
+        },
+        "Appearances": {
+          "type": "integer"
+        },
+        "Mins per Game": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

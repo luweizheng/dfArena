@@ -1,0 +1,56 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Company"
+      ],
+      "columns": {
+        "Company": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Growth": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "April Market Share": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Bps Change": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Soap Scent"
+      ],
+      "columns": {
+        "Soap Scent": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "CBBS Co Contribution to Growth": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Rest of Market Contribution to Growth": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Outperformance": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

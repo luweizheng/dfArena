@@ -1,0 +1,71 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Formation",
+        "Oppo Form."
+      ],
+      "columns": {
+        "Formation": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Oppo Form.": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Games Played": {
+          "type": "integer"
+        },
+        "Liverpool Goals": {
+          "type": "integer"
+        },
+        "Avg Goals Scored": {
+          "type": "number",
+          "abs_tol": 1e-15,
+          "rel_tol": 0
+        },
+        "Opposition Goals": {
+          "type": "integer"
+        },
+        "Avg Goals Conceded": {
+          "type": "number",
+          "abs_tol": 1e-15,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Player Name",
+        "Position Type",
+        "Position Name"
+      ],
+      "columns": {
+        "Player Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Position Type": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Position Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "No Times Played": {
+          "type": "integer"
+        },
+        "Mins Played": {
+          "type": "integer"
+        },
+        "Games OoP": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

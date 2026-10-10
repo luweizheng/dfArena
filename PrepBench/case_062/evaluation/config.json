@@ -1,0 +1,46 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Store",
+        "Category",
+        "Scent",
+        "Date"
+      ],
+      "columns": {
+        "Store": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Category": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Scent": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Sales": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Profit": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Staff days worked": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

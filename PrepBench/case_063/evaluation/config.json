@@ -1,0 +1,39 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Device"
+      ],
+      "columns": {
+        "Device": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Count": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Show"
+      ],
+      "columns": {
+        "Rank": {
+          "type": "integer"
+        },
+        "Show": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Rating": {
+          "type": "number",
+          "abs_tol": 5e-13,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

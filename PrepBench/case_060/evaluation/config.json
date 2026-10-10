@@ -1,0 +1,41 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Trait",
+        "Species"
+      ],
+      "columns": {
+        "Normalised Value": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        },
+        "Max Value": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        },
+        "Min Value": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        },
+        "Value": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        },
+        "Trait": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Species": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

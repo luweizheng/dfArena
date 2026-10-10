@@ -1,0 +1,15 @@
+case_id: case_065
+version: '1.0'
+domain: sports
+format: csv
+table_count: 3
+tables:
+- name: input_01
+  path: inputs/input_01.csv
+  columns: 4
+- name: input_02
+  path: inputs/input_02.csv
+  columns: 1
+- name: input_03
+  path: inputs/input_03.csv
+  columns: 38
