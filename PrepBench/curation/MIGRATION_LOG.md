@@ -83,6 +83,67 @@
 
 # PrepBench 迁移与审核日志
 
+## 2026-10-10：072–073 导入与验证（curation/prepbench-07x）
+
+**状态：资产导入、固定镜像 reference、独立核算及六组真实 interact 完成；4通过、2失败。073本轮验证完成，072存在九位小数舍入契约问题待决定。** 当前主工作目录 dfArena；没有从相邻 curation worktree 复制运行记录。070 按用户决定保留内部空格要求及精确文本评分，不修改其 query_full、KB、reference、GT、config 或失败候选。
+
+来源为 `../prepbench/data/case_072/073`、`reference/solutions/case_072/073/solution.py`、`src/evaluate/gt/case_072/073`。输入与 GT 按原字节复制，来源哈希见本地忽略的 `curation/output/07x/import_072_073.json`；当前资产哈希另存 current_assets_072_073.json。reference 仅修复入口为 case 根目录 inputs/output，业务实现未改。没有共享 runner/evaluator/simulator 代码修改。
+
+**072。** 20个内部ID、47个第三方ID，均各自唯一。先按ID精确匹配，再在未匹配部分按Scent形成候选，按销售差绝对值先为第三方选最近内部ID，再对内部ID去重；不重新分配次优候选。query保留匹配歧义，在Output公开四个精确Status标签及输出粒度；query_full补明一次两阶段筛选、按内部/第三方原行序解决相同差值、精确匹配采用内部Scent、无最终行序要求。KB纠正不存在的pairs_filtered引用并同步规则。key为ID/3rd Party ID，身份空字符串按精确文本保留；Status/Scent精确文本，两个Sales为number，abs_tol=5e-10、rel_tol=0、仅空字符串作为null。依据为GT九位小数的半末位精度，允许输入原精度，不强制九位小数字面格式。独立Decimal逐第三方提名、逐内部选择得到49行：Matched 5、Matched on Scent 13、Unmatched - Internal 2、Unmatched - 3rd Party 29。42个第三方提名因内部冲突保留13个；现有数据没有最小差并列，不宣称验证并列规则或重复源ID行为。
+
+**073。** 三输入分别8/2/4列；site属性CSV有额外前导行、星号分隔行及来源页脚，保留原输入。query/query_full删除重复Input Data项并补输出行含义，不在初始query提前给出top-1规则。query_full/KB补输入header位置、过滤无效站点、trim站点名/人员Skill、重复人员地点保留首条，以及无合适地点时不输出、无最终行序要求。基于skill成员关系、season交集、board交集同时成立筛选，按Rating降序及五级Reliability降序取每人一个地点。key为Name，Rating零容差number，其他字段精确文本；输出显示顺序不评分，选最佳地点的计算排序必须正确。独立集合核算：Tom/Jenny/Carl/Jonathan分别有2/1/7/11个合适地点；最佳分别为Thurlestone Reef/Salcombe/Bigbury Bay/Thurlestone Reef。Carl的两个最高评分地点通过可靠性区分，无最终双重并列；全部4人有结果，源数据不验证无匹配人员、真正重复站点或双重并列的处理。现有query_full未定义评分与可靠性都相等时的唯一选择，记录覆盖限制，不凭reference默认排序增加第三排序字段。
+
+**验证。** 两份reference在镜像 `sha256:904f17a0381e9478630368f0a9d5480340e5c1feda5def40e78311e18e62c921` 执行并通过当前评估，输出49/4行；GT自比、独立结果、重复行拒绝、错误匹配/状态拒绝、销售精度边界、错误最佳站点/评分/文本拒绝等共19项检查通过。证据脚本及报告在本地 `curation/output/07x/verify_072_073.py`、validation_072_073.json、reference_072/073_execution.json、reference_072/073_evaluation.json。
+
+**真实运行计划。** seeds为20261010072/20261010073，两题均抽到Ibis/Polars，加pandas；先各题pandas再启动该题两个抽样后端。Codex gpt-6-astra/low、simulator gpt-6-astra/temperature 0、固定上述镜像、1800秒上限。实际结果如下。未提交或推送。
+
+| Case | Backend | Run | 正式评测 | 行数 | ask次数 | agent秒数 |
+|---|---|---|---|---|---|---|
+| 072 | pandas | r001 | 通过 | 49 | 2 | 64.62 |
+| 072 | ibis | r001 | 失败：VALUE_MISMATCH | 49 | 2 | 84.02 |
+| 072 | polars | r001 | 失败：VALUE_MISMATCH | 49 | 2 | 83.27 |
+| 073 | pandas | r001 | 通过 | 4 | 2 | 80.17 |
+| 073 | ibis | r001 | 通过 | 4 | 1 | 78.13 |
+| 073 | polars | r001 | 通过 | 4 | 1 | 61.22 |
+
+072三组均获得“两阶段去重、不重分配”澄清，49行匹配关系/状态/Scent/空值完全一致。Ibis有3个数值、Polars有2个数值比GT高1e-9，其余数值一致。例：输入78530.3866906395，GT/reference的二进制float格式化得到78530.386690639，Ibis/Polars Decimal得到78530.386690640；输入21304.1041794475也出现同类差异。Ibis另对70989.4678953545使用HALF_UP得到70989.467895355，GT/Polars为70989.467895354。前两例精确Decimal HALF_EVEN和HALF_UP都向上，所以不能仅规定HALF_EVEN来复现全部GT。原query未规定数值舍入，完整需求仅说最多九位小数，未要求复现二进制float的边界偏差；不能把这些差异笼统当作匹配错误。
+
+正式config暂保留abs_tol=5e-10，原失败报告及候选不改。另存 proposed_072_config_abs_tol_1e-9.json，以1e-9容差诊断性重评三份冻结候选全部通过（diagnostic_072_abs_tol_1e-9.json），不计作正式通过。建议按允许不同九位舍入边界的语义将容差定为1e-9，但本轮没有据此改正式配置，待用户决定。完整逐字段差异见diagnostic_072.json。
+
+073三组均得到全部三个适用条件同时满足、精确技能成员关系而非技能等级阈值、每人只取一个最佳地点的正确澄清，输出均与GT一致。pandas使用cross merge、集合交集过滤、去重排序；Ibis/Polars使用各自后端的关联、列表/数组成员及交集、排序选择。当前候选仍有未覆盖的实现限制：073 pandas要求季节映射完整，Ibis/Polars用inner join而非完整需求的left join，现有16个有效地点均有季节映射，故输出不受影响；072 pandas断言精确匹配的两侧Scent相同，当前5对满足，未覆盖题面允许的不同Scent。无API/网络失败。部分多主题提问被拒后拆分重问，成功获取规则；各组ask调用数均为有效轮数。实际结果和问答保留在runs目录及interact_results_072_073.json。
+
+
+
+## 2026-10-09：070–071 导入与静态审核（curation/prepbench-07x）
+
+**状态：权限恢复后，两份固定镜像 reference 已执行并通过；六组真实 interact 已完成，4通过、2失败。** 先前 Docker socket 访问拒绝已解除。reference 使用固定 Docker 镜像中的 pandas 3.0.2，070 输出63行、071输出1行，均通过当前正式配置；执行及评测报告在本地 `curation/output/07x/reference_070/071_*`。主机 .venv 另安装了 pandas 3.0.6，但本轮 reference 验证使用的是 Docker 环境。
+
+来源为相邻 `../prepbench/data/case_070/071`、`reference/solutions/case_070/071/solution.py` 及 `src/evaluate/gt/case_070/071/`。输入与GT逐字节保留，来源哈希在忽略的本地 `curation/output/07x/import.json`。新增metadata、标准reference/evaluation目录。reference仅调整主入口路径，从case根目录读取inputs并写output，业务计算未改。070领域media_culture，1张输入/1列DownloadData；071领域education，3张输入分别1/2/1列。无共享runner/evaluator/simulator修改。
+
+**070。** 网页抓取半结构化文本整理为Date/Battle/War/Victors/Description，每行一个完整战役记录。输入文件虽为.csv，仍按完整原始行解析，不将其中描述逗号误当列分隔。初始query将dateparse软件函数提示改为中性的日期解析表述；两份题面补输出行粒度及精确列名。完整需求补全四个明确日期格式、移除原query未要求的保留输入行序；明确原reference/GT已有的Ł→£纠错、保留&amp;字面形式，以及不从外部知识改写事实。KB修复不连续拼接的source_text引用，同步dateparse替换并补文本规则。未把完整解析算法加入初始query。
+
+标准库独立拆解HTML段和手工月份字典解析日期，65条源记录排除Battle of the Standard（缺War）、Battle of the Braes（不能得到五个完整字段），得到63行，与GT逐字段一致。63个战役名唯一；两场St Albans通过内部标题区分，无需去重。两条日期范围取起始日；991 AD和1578补1月1日。3条War含字面&amp;，1条Description修正英镑符号。Roundway Down结构日期为30 June 1643而叙述为13 July 1643，保留源结构字段、不做历史事实纠正。key为Battle/Date；日期语义比较，追加%d/%m/%Y，文本精确且不自动清理空白；行序不评分，日期字面格式也不评分。Description内部空格保留。源reference部分匹配区分大小写，而query_full称不区分大小写；现有输入没有触发差异，记录为参考实现覆盖限制。标题fallback、未知日期、同名同日重复记录等未由现有数据充分覆盖。
+
+**071。** 按原任务完成字符展开、位置顺序、映射表左关联和条件求和，保留scaffold输入及完整需求中的使用约定；原query无软件操作需删。输出每个给定罗马数字一行，key为Number精确文本，Numeric Equivalent用integer精确比较，不继承旧number的2%容差。独立用“全部符号之和减两倍减法项”核算MMMCDXVII的9个字符，唯一减法项为C(100)，结果3417，与GT一致；mapping7行，scaffold49行。与057不同，该题reference实际使用merge/apply/sum，但仅一个输入字符串和一个输出，属于小规模教学型workload；不宣称能够验证通用Roman语法、未知字符、scaffold不足或多输入行。当前reference读取首行，与原query_full单个字符串约定一致，不额外扩充输入。
+
+**验证。** 两题共18项检查通过，包括独立结果、GT自比、重复行拒绝，070乱序/ISO日期（含0991年）接受、文本尾空格/日期区间末日/HTML实体解码拒绝；071整数.0接受、加1/非整数/未减法结果拒绝。metadata表数列数、KB原文引用和reference语法检查通过。脚本和报告位于本地 `curation/output/07x/prepare.py`、`validate.py`、`validation.json`，不作为运行依赖或提交资产。独立核算通过不等于原reference已经执行。
+
+**运行配置。** seed070=20261009070，pandas后抽到PySpark/Ibis；seed071=20261009071，pandas后抽到Ibis/Polars。使用固定image `sha256:904f17a0381e9478630368f0a9d5480340e5c1feda5def40e78311e18e62c921`、Codex gpt-6-astra/low、simulator gpt-6-astra/temperature 0、1800秒上限。各组均为当前目录新建r001；先完成每题pandas，再启动该题两个抽样后端。计划及结果保存在本地interact_plan.json和各自runs目录。
+
+**真实 interact 结果。** 六组 generation 均完成，正式评估如下；未修改候选、GT或评分规则来消除失败。
+
+| Case | Backend | Run | 正式评测 | ask调用数 | agent耗时（秒） |
+|---|---|---|---|---|---|
+| 070 | pandas | r001 | 通过 | 2 | 108.55 |
+| 070 | pyspark | r001 | 失败：VALUE_MISMATCH | 4 | 492.23 |
+| 070 | ibis | r001 | 失败：VALUE_MISMATCH | 5 | 639.93 |
+| 071 | pandas | r001 | 通过 | 1 | 48.94 |
+| 071 | ibis | r001 | 通过 | 1 | 62.53 |
+| 071 | polars | r001 | 通过 | 1 | 67.18 |
+
+070 的 PySpark/Ibis 均输出63行，逐字段核对唯一差异为 Battle of Edgehill 的 Description：源文本/GT在 `1642.` 后有两个空格，候选合并为一个。当前完整需求要求保留Description内部空格，精确文本评分因此失败；正式失败保留。两组首次 simulator 调用出现RuntimeError，随后模型连接发生持续重连，原run自动恢复后完成；耗时包含故障等待，不适合直接作后端性能比较。PySpark共4次ask（1次错误、3轮有效澄清）；Ibis共5次ask（1次错误、3轮有效澄清、1次quota reached）。关键日期、标题、实体保留、Ł→£规则在问答中传达，但未明确追问Description内部空格规则。071三组均澄清紧邻字符减法规则并输出3417；实际实现包含展开或cross join、lookup join、shift/lead以及分组求和。当前数据仍不覆盖未知字符等行为。详细结果在本地 `curation/output/07x/interact_results.json`，原始问答、代码和正式报告在各自runs目录。未提交或推送。
+
+
 ## 2026-10-09：058 正式容差改为0.01并重评
 
 按用户确认，仅将 Sales 的 abs_tol 从0.005改为0.01，rel_tol保持0。保留源GT、reference、query、query_full、KB和输入，不采用此前提出的精确乘积GT方案。该规则接受相对源GT不超过一分钱的差异（含边界），适用于所有Sales单元格，不仅限于舍入中点；不验证特定舍入算法或严格两位小数字面格式。
@@ -938,3 +999,70 @@ Polars/PySpark 均询问 Outperformance 定义，模拟用户明确回复同香�
 按每题 seed=20261009000+编号冻结无放回抽样：068 pandas/PySpark/Ibis 均通过；069 pandas/Polars/PySpark 均通过；070 pandas/Ibis 通过、PySpark 失败。模型 Codex gpt-6-astra/low、interact、原固定 Docker image，timeout 1800 秒。所有尝试均为各后端 r001，9 次生成和评分 completed，8 次 passed、1 次 failed。详细问答、时间和挂载审核保存在 `interact_validation_068_070.json`。
 
 070 PySpark 仅 Edgehill Description 将两个空格合并为一个，63 条 key 和其他字段完全一致；当前完整规格要求保留内部空格，因此保留 VALUE_MISMATCH，未改候选或放宽评分。是否将此空格区别作为业务正确性要求需单独审核。该 agent 没有针对 Description 内部空格提问，不能说它忽略了直接澄清；Ibis 则明确询问并保留内部空格。Ibis 4 次 ask 日志中最后一次是额度用尽，只有 3 个处理轮次。070 simulator 对“清洗后仍重名”补充保留记录的建议缺乏明确规则支持，当前输入的完整标题唯一，故不影响这次结果。
+
+
+## 2026-10-10：072 按用户要求将正式绝对容差改为0.001
+
+Sales与3rd Party Sales的abs_tol由5e-10改为0.001，rel_tol保持0。只改evaluation/config.json；query、query_full、KB、reference、输入、GT和候选CSV不变。此处覆盖前文“精度口径待决定”的状态：当前按用户选择接受千分之一销售额的数值差异，不再严格验证九位小数舍入结果。原配置及三个run的evaluation/result报告备份在本地 `curation/output/07x/072_before_tol_0_001_20261010_221438/`。
+
+使用正式evaluate.py重评现有pandas/Ibis/Polars r001，三份49行输出全部通过；本次仅重评，没有重新生成或重新调用interact。之前Ibis/Polars因1e-9差值失败的原报告保留在备份目录。存量reference输出也通过；两个字段分别验证±0.001通过、±0.001001与+1拒绝，10项数值边界检查符合预期。报告见本地validation_072_tol_0_001.json。历史interact_results_072_073.json仍表示原5e-10规则下的结果；当前正式状态以各run更新后的result.json及本段为准。未提交或推送。
+
+
+## 2026-10-10：074 导入与验证
+
+**状态：导入、固定镜像reference、独立核算及三后端真实interact全部完成并通过。** 来源 ../prepbench/data/case_074、reference/solutions/case_074/solution.py、src/evaluate/gt/case_074。输入和GT保持原字节，来源与当前版本哈希分别在本地curation/output/07x/import_074.json、current_assets_074.json。metadata为sports、两表11/1列。query将Excel双sheet及Tableau背景改为两个实际CSV；query_full修复单文件表述，明确scaffold是可选辅助、Games保留原罗马数字、Host原文保留、无最终行序要求，KB同步输出规则。reference仅修改入口路径，计算逻辑不变。没有公共Python模块变更。
+
+每行是一届日期完整的奥运会。以Games为key，Start/End Date按日期语义评分（补%m/%d/%Y，接受ISO等价日期，不强制M/D/YYYY字面格式），Games/Host精确文本且无null别名，Nations/Sports/Events为精确integer，最终行序不评分。Host现有28条都含不间断空格，题目未要求修改Host文本，沿用原样保留；不会自动改空格或去标点。
+
+固定镜像 sha256:904f17a0381e9478630368f0a9d5480340e5c1feda5def40e78311e18e62c921 中执行reference，28行与GT一致。独立以符号之和减去两倍减法项计算Roman，按1896+4*(n-1)算年，再用datetime构造真实日期，输出ISO与GT比较通过。34条输入剔除VI/XII/XIII/XXXII/XXXIII/XXXIV六条缺日期记录；8条补起始月份，20条跨月且保留明确起始月份。15项检查通过：reference、GT自比、独立结果、乱序接受、重复行拒绝、三个计数等价.0接受/+1拒绝、跨月错误/取消届次导致年份位移/Host NBSP替换/Games输出阿拉伯数字拒绝。证据为prepare_verify_074.py、validation_074.json及reference_074执行/评估报告。原reference对未知月份或非数字日会抛异常且没有验证日历有效性，现有非空日期均合法，因此未据此宣称覆盖所有坏日期。scaffold原有10行，reference不依赖它；本题Roman及日期主要通过apply调用Python函数，另有列算术、布尔过滤、投影和类型转换，属于混合文本处理任务。
+
+抽样seed=20261010074，选Polars/Ibis，加pandas。Codex gpt-6-astra/low、simulator gpt-6-astra/temperature 0、上述固定镜像、1800秒上限；每个后端新建r001。三组generation均完成、正式evaluation均通过，每组28行；结果如下。未提交或推送。
+
+
+| 074 Backend | Run | 正式评测 | ask次数 | agent秒数 |
+|---|---|---|---|---|
+| pandas | r001 | 通过 | 2 | 73.35 |
+| polars | r001 | 通过 | 1 | 69.72 |
+| ibis | r001 | 通过 | 1 | 72.08 |
+
+三组均澄清Games保留罗马数字、1896起每届递增四年且不跳过停办届次、缺失日期不外部补齐、Host保留原文含NBSP。pandas使用Roman转换map、str.extract、日期向量化构造及dropna；Polars使用字符计数/减法对修正表达式、正则列提取和日期转换；Ibis使用scaffold展开罗马字符、按位置提取相邻字符比较并聚合，再解析日期。问答与正式报告见各自runs；汇总见本地interact_results_074.json。运行期间资产哈希未变化。
+
+
+## 2026-10-10：075 导入与验证
+
+**状态：资产导入、固定镜像reference、独立核算及三后端真实interact全部完成并通过。** 来源为../prepbench/data/case_075、reference/solutions/case_075/solution.py及src/evaluate/gt/case_075。输入与GT原字节保留；来源哈希和当前版本哈希在本地curation/output/07x/import_075.json、current_assets_075.json。metadata为business，三表6/2/3列，100位attendees、90条公司经理映射、4条汇率。query将Excel多sheet改成实际CSV路径，两份query明确明细/国家汇总粒度。query_full删除仅扩展需求增加的output_02排序，KB同步；主表原query要求的经理分组排序保留。reference仅修复入口路径，不修改计算或默认输出顺序。无公共模块改动。
+
+公司名从Email的@后首个点之前提取，忽略大小写关联且输出保留AM表公司大小写。价格按100 GBP乘当地汇率、截断为整数；GBP固定100。Full Refund为负、Credit Note/No Refund为正，其他类型0。主表key为Email（当前100个唯一电子邮件，作为参会者联系身份；重复key仍按行重数评估），Order/Ticket Price Local为integer，其他字段精确文本；允许缺经理/公司/Order/Refund Type的空字符串。经理按人数降序/姓名升序编号，主表按Order升序、缺失置末验序；同经理客户可任意排列。汇总key Country/Currency，Money Gain/Loss精确integer，忽略最终行序。
+
+reference在固定镜像sha256:904f17a0381e9478630368f0a9d5480340e5c1feda5def40e78311e18e62c921执行，100/8行输出与GT一致。独立字典关联、Decimal乘汇率、Counter经理计数和分国家累加复核通过。经理人数Tom30/Jonathan25/Jenny24/Carl21，Order依次1/2/3/4。票价USD125/EUR110/MXN2837/GBP100/CAD170；35位Full Refund、32位Credit Note、33位No Refund。15项检查通过，包括主表逆序拒绝、同经理内部倒序接受、汇总倒序接受、重复客户/错误整数/公司大小写/收支符号拒绝及整数.0等价接受。证据prepare_verify_075.py、validation_075.json、reference_075执行/评估报告。现有数据无经理人数并列、缺经理、缺非GBP汇率、未知退款类型，也未触发带小数当地票价截断；这些规则未由当前数据充分覆盖，不新增样本来冒充原任务覆盖。
+
+抽样seed20261010075，Ibis/Polars加pandas；先运行pandas，再启动两个后端。模型gpt-6-astra/low、simulator gpt-6-astra/temperature0、固定上述镜像、1800秒上限，各组r001。三组均完成生成并正式评估通过，主表100行且order_status=passed、汇总8行。未提交或推送。
+
+
+| 075 Backend | Run | 正式评测 | ask次数 | agent秒数 |
+|---|---|---|---|---|
+| pandas | r001 | 通过 | 1 | 79.35 |
+| ibis | r001 | 通过 | 1 | 95.62 |
+| polars | r001 | 通过 | 1 | 74.90 |
+
+三组均一轮澄清获取退款符号、按参会者行数而非公司数统计经理客户数、Order是经理序号而非客户流水号，以及乘汇率后截断整数的正确规则。现有数据下未发现simulator错答或资产矛盾。原问答、代码、CSV和正式报告在各自runs，汇总在本地interact_results_075.json；输入/GT原字节及运行前资产哈希已复核。
+
+
+## 2026-10-10：076 导入与验证
+
+**状态：资产导入、固定镜像reference、独立核算及三后端真实interact全部完成并通过。** 来源../prepbench/data/case_076、reference/solutions/case_076/solution.py及src/evaluate/gt/case_076。输入和GT原字节复制；来源/当前哈希见本地curation/output/07x/import_076.json、current_assets_076.json。metadata为weather，三表1/1/2列，input_03第二列无标题且全空。完整需求明确仅input_02/03的Data为输出来源，保留input_01四条day-part原始记录供澄清范围，不从资产中删除。query新增固定Forecast Type标签与输出粒度；query_full移除无关的填写姓名提示，补明input_01不入输出、忽略input_03空列、降雨行不参与温度提取、保留标签及无最终行序要求；KB同步。reference只修复入口路径，不改算法。
+
+输出每个forecast entry一行，key为Forecast Type/Date or Time，不强制key唯一、保留重复行重数；文本精确，日期/时间列是Now/Today/Wed 06/0:00等原标签，不能猜年份或归一化为时刻。四个数值字段为nullable integer，CSV空字符串为null，不能替换为0；行序不评分。小时5行+每日5行=10行，Today只填Min Temp=3，其他4个每日最低温均为负数。所有10条有效记录都有降雨概率；空Data、缺降雨、缺温度分支未由当前有效记录充分覆盖。原reference会跳过只有一行的非空hourly Data，而query_full称每个非空Data输出一行，现有Data均多行，不改输入或算法，记录未触发的不一致。
+
+固定镜像sha256:904f17a0381e9478630368f0a9d5480340e5c1feda5def40e78311e18e62c921执行reference通过。独立按度数符号/百分比文字拆解并处理Today，同GT一致。12项检查通过，包括GT自比、乱序接受、重复行拒绝、Today max/min错位、负号丢失、null变0、概率除100、概率误当温度和时间标签变更拒绝，整数4.0接受。证据prepare_verify_076.py、validation_076.json、reference_076执行/评估报告。
+
+此reference主要是iterrows+Python正则与列表构造，pandas用于读表和输出类型转换，DataFrame操作偏少；本轮按用户要求迁移并验证，不能仅凭通过宣称具有复杂DataFrame workload。抽样seed20261010076，Polars/Ibis加pandas，先pandas后两个后端；模型gpt-6-astra/low、simulator gpt-6-astra/temperature0、固定上述镜像、1800秒上限，各组新r001。三组generation完成、正式evaluation均通过，各10行。未提交或推送。
+
+
+| 076 Backend | Run | 正式评测 | ask次数 | agent秒数 |
+|---|---|---|---|---|
+| pandas | r001 | 通过 | 2 | 110.34 |
+| polars | r001 | 通过 | 2 | 70.89 |
+| ibis | r001 | 通过 | 2 | 85.34 |
+
+三组均通过两轮澄清获得输入范围、原标签保留、温度整数/百分比0–100、null而非0和Today仅最低温的规则；第一轮多主题问题被拒后拆分重问，无错误回答或网络失败。候选实际使用后端字符串表达式、条件投影和合并，非照搬reference逐行正则，说明可以表达为DataFrame任务，但10行数据仍属于简单文本清理。pandas候选没有显式过滤空Data单元格，当前大量空物理行由read_csv跳过，不能据通过宣称覆盖真正空单元格分支。候选、交互及正式报告在各自runs；本地汇总interact_results_076.json，资产与输入/GT哈希已复核。
