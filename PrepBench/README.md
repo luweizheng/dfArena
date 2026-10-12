@@ -195,4 +195,4 @@ Both `generate.py` and `run_benchmark.py` support `--agent codex|opencode`, with
   --model custom/gpt-6-astra --image dfarena-agent-sandbox:latest
 ```
 
-OpenCode interact support has not yet been validated with a real model; the recorded OpenCode validation used `clarified` mode. OpenCode saves `logs/agent_events.jsonl`, `logs/agent_stderr.log`, and `detail/agent_exec_timing.json`. The session ID is recorded in `generation.json`, and the session database is archived at `detail/opencode_sessions/opencode.db`. Stage-file and `result.json` paths are unchanged.
+OpenCode saves `logs/agent_events.jsonl`, `logs/agent_stderr.log`, and `detail/agent_exec_timing.json`. The session ID is recorded in `generation.json`, and the session database is archived at `detail/opencode_sessions/opencode.db`. Stage-file and `result.json` paths are unchanged.

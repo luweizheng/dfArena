@@ -16,7 +16,7 @@ import requests
 
 from results import save, summarize, token_usage
 from runners.backends import BACKENDS
-from runners.agents import add_agent_options, add_model_options, settings, label_for, prepare_agent, archive_sessions, agent_log_paths
+from runners.agents import add_agent_options, add_model_options, settings, label_for, prepare_agent, archive_sessions, agent_log_paths, get_agent
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -135,8 +135,15 @@ def main(argv=None):
                     json={'dataset_id': ds.name, 'task_id': a.task, 'run_id': run.name}, timeout=30)
                 response.raise_for_status(); session = response.json(); save(run/'session.json', session)
                 docker_env = ['--add-host=host.docker.internal:host-gateway', '-e', f'DFARENA_SESSION_ID={session["session_id"]}']
-                with (cfg/'config.toml').open('a') as f:
-                    f.write(f'\n[mcp_servers.clarification]\ncommand = "bash"\nargs = ["-c", "exec /usr/local/bin/python /runner/mcp_adapter.py"]\nstartup_timeout_sec = 30\ntool_timeout_sec = 180\nrequired = true\n[mcp_servers.clarification.env]\nDFARENA_CLARIFIER_URL = "http://host.docker.internal:{port}/session/ask"\nDFARENA_SESSION_ID = "{session["session_id"]}"\n')
+                get_agent(a.agent).configure_local_mcp(
+                    config_dir=cfg, name='clarification',
+                    command=['bash', '-c', 'exec /usr/local/bin/python /runner/mcp_adapter.py'],
+                    environment={
+                        'DFARENA_CLARIFIER_URL': f'http://host.docker.internal:{port}/session/ask',
+                        'DFARENA_SESSION_ID': session['session_id'],
+                    },
+                    startup_timeout_seconds=30, tool_timeout_seconds=180,
+                )
             save(run/'detail/generation.json', result)
             cmd = ['docker', 'run', '--rm', '-i', '--name', container, *docker_env,
                    '-v', f'{ds/"data"}:/workspace/data:ro',

@@ -25,6 +25,17 @@ class AgentAdapter(ABC):
         """Write isolated config; return Docker flags and stdin-driven CLI command."""
 
     @abstractmethod
+    def configure_local_mcp(self, config_dir: Path, name: str, command: list[str],
+                            environment: dict[str, str], *,
+                            startup_timeout_seconds: int = 30,
+                            tool_timeout_seconds: int = 180) -> None:
+        """Add a local MCP server to prepared isolated config.
+
+        Timeouts are seconds. Adapters document native timeout differences.
+        The benchmark owns the service command, environment and file mounts.
+        """
+
+    @abstractmethod
     def archive_sessions(self, config_dir: Path, run: Path) -> str | None:
         """After container shutdown, archive session data only; return relative path."""
 
