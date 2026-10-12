@@ -74,6 +74,25 @@ class CodexAgent(AgentAdapter):
             command += ['--model', info['model']]
         return flags, command + ['-']
 
+    def configure_local_mcp(self, config_dir, name, command, environment, *,
+                            startup_timeout_seconds=30, tool_timeout_seconds=180):
+        if not command or startup_timeout_seconds <= 0 or tool_timeout_seconds <= 0:
+            raise ValueError('MCP requires a command and positive timeouts')
+        path = config_dir / 'config.toml'
+        existing = path.read_text()
+        if name in tomllib.loads(existing).get('mcp_servers', {}):
+            raise ValueError(f'MCP server already configured: {name}')
+        # JSON strings with literal Unicode are valid TOML basic strings too.
+        quote = lambda value: json.dumps(value, ensure_ascii=False)
+        section = 'mcp_servers.' + quote(name)
+        lines = [f'\n[{section}]', 'command = ' + quote(command[0]),
+                 'args = ' + quote(command[1:]),
+                 f'startup_timeout_sec = {startup_timeout_seconds}',
+                 f'tool_timeout_sec = {tool_timeout_seconds}', 'required = true',
+                 f'[{section}.env]']
+        lines.extend(quote(k) + ' = ' + quote(v) for k, v in environment.items())
+        path.write_text(existing + '\n'.join(lines) + '\n')
+
     def archive_sessions(self, config_dir, run):
         source = config_dir/'sessions'
         if not source.exists():
