@@ -1,0 +1,94 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_percent_change_formula",
+      "kind": "Group-level concept",
+      "node_id": "compute_change",
+      "op": "project",
+      "source_text": "Find the Percentage difference between their Avg Judge's Score for their first dance and the average for their dances in the final",
+      "intent": "Interpret Percentage difference as percentage change from the first-dance score, using the first-dance score as the denominator: (Final_Avg - First_Avg) / First_Avg. Output the numeric fraction, e.g. 0.25 represents 25%; do not multiply by 100. No fixed decimal places are required; preserve sufficient precision rather than imposing two-decimal rounding.",
+      "ref": "% Change = (Final_Avg - First_Avg) / First_Avg"
+    },
+    {
+      "id": "2_O2_repeated_header_detection",
+      "kind": "Operation incomplete",
+      "node_id": "filter_headers",
+      "op": "filter",
+      "source_text": "The webscraping isn't quite perfect and the table headers are repeated throughout the dataset, make sure these are removed",
+      "intent": "Exclude a repeated header row if Couple equals Couple or Scores equals Scores.",
+      "ref": "mask_header = (df.get(\"Couple\").fillna(\"\") == \"Couple\") | (df.get(\"Scores\").fillna(\"\") == \"Scores\")\ndf = df.loc[~mask_header].copy()"
+    },
+    {
+      "id": "3_O2_drop_uncomputable_avg_judge_score",
+      "kind": "Operation incomplete",
+      "node_id": "filter_valid",
+      "op": "filter",
+      "source_text": "Create an Avg Judge's Score field",
+      "intent": "Use only scored rows for first-dance and final-score calculations; exclude rows where Avg Judge's Score cannot be computed from a numeric total and at least one numeric judge score.",
+      "ref": "df_scored = df.loc[df[\"Avg_Judge_Score\"].notna()].copy()"
+    },
+    {
+      "id": "4_C1_finalist_position_from_result_keywords",
+      "kind": "Row-level concept",
+      "node_id": "final_post",
+      "op": "project",
+      "source_text": "i.e. whether they won, were a runner-up or came third",
+      "intent": "Map spelling and capitalization variants in Result to the canonical output labels Winners, Runners-up, and Third place. Incidental output capitalization and surrounding/repeated whitespace are equivalent presentation, but preserve spelling and meaningful internal spaces and do not substitute other category labels. This does not change grouping by original Series and Couple.",
+      "ref": "if \"winner\" in sl:\n            return \"Winners\"\n        if \"runner\" in sl:\n            return \"Runners-up\"\n        if \"third\" in sl:\n            return \"Third place\""
+    },
+    {
+      "id": "5_C2_final_avg_across_dances",
+      "kind": "Group-level concept",
+      "node_id": "final_post",
+      "op": "aggregate",
+      "source_text": "Couples dance multiple times in the final. Take the average of their Avg Judge's Score",
+      "intent": "For each Series and Couple, take the arithmetic mean of the dance-level Avg Judge's Score values across all scored final dances. No fixed decimal places are required; retain sufficient precision. No output row order is required.",
+      "ref": "Final_Avg = mean(Avg_Judge_Score for all final dances in the Series + Couple group)"
+    },
+    {
+      "id": "6_O3_first_dance_same_week_aggregation",
+      "kind": "Group-level concept",
+      "node_id": "first_dance",
+      "op": "aggregate",
+      "source_text": "Within each series, if a couple has multiple scored dances in its earliest numeric week, use the arithmetic mean of those dances' Avg Judge's Score values as its first-dance score.",
+      "intent": "If a couple has multiple scored dance rows in its earliest numeric week, represent the first-dance score by the arithmetic mean of those rows' Avg Judge's Score values.",
+      "ref": "first_scores = (\n        tmp.loc[tmp[\"Week_num\"] == tmp[\"first_week\"]]\n        .groupby(group_keys, as_index=False)\n        .agg({\"Avg_Judge_Score\": \"mean\"})\n        .rename(columns={\"Avg_Judge_Score\": \"First_Avg\"})\n    )"
+    },
+    {
+      "id": "7_C1_first_dance_is_min_numeric_week",
+      "kind": "Row-level concept",
+      "node_id": "first_dance",
+      "op": "project",
+      "source_text": "couple's first dance (which may not have been in week 1)",
+      "intent": "Define a couple's first dance from the minimum numeric Week among its scored rows within the same Series, rather than assuming Week 1 or relying on source row order.",
+      "ref": "first_week = tmp.groupby(group_keys, as_index=False)[\"Week_num\"].min().rename(columns={\"Week_num\": \"first_week\"})"
+    },
+    {
+      "id": "8_O2_keep_only_couples_with_finalist_position",
+      "kind": "Operation incomplete",
+      "node_id": "output_filter",
+      "op": "filter",
+      "source_text": "This means we're only interested in couples who made it to the final",
+      "intent": "Return one row per Series and Couple with scored actual-final rows and a determined finalist placing from those rows. Average all scored final dances in that group, not just the rows carrying a placing label. Retain numeric Series 1 through 21 inclusive, as specified in query_full.md.",
+      "ref": "final_scores = final_scores.loc[final_scores[\"Finalist Positions\"].notna()].copy()"
+    },
+    {
+      "id": "9_C1_final_week_text_matching_rule",
+      "kind": "Row-level concept",
+      "node_id": "parse_fields",
+      "op": "project",
+      "source_text": "their dances in the final",
+      "intent": "Treat only rows denoting the actual Final as final dances; do not treat Semi-final or Quarter-final rows as final dances merely because their labels contain the word final.",
+      "ref": "Match the standalone Final label, excluding Semi-final, Semifinal, Quarter-final, and Quarterfinal"
+    },
+    {
+      "id": "10_O2_week_number_extraction_pattern",
+      "kind": "Single-table reference",
+      "node_id": "parse_week",
+      "op": "project",
+      "source_text": "Make sure that the Week field is numeric",
+      "intent": "Extract the numeric week identifier from Week labels such as Week 1, while allowing non-week labels to remain null for week-based selection.",
+      "ref": "m = re.search(r\"Week\\s*(\\d+)\", str(week_str))\nreturn int(m.group(1)) if m else None"
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_order_received_based_on_prior_week",
+      "kind": "Row-level concept",
+      "node_id": "inv_calc",
+      "op": "project",
+      "source_text": "Calculate how much Stock was ordered in these weeks",
+      "ref": "orders[i] = (30 - prev_qty) if prev_qty <= 10 else 0",
+      "intent": "An order triggered by the prior snapshot at quantity <= 10 arrives at the start of the current week, in amount 30 minus that prior quantity; otherwise receive zero."
+    },
+    {
+      "id": "2_C2_order_trigger_for_frequency_current_week_qty",
+      "kind": "Row-level concept",
+      "node_id": "inv_calc",
+      "op": "project",
+      "source_text": "Identify weeks where orders were placed for new stock: This occurs whenever the Quantity Available is 10 or less",
+      "ref": "qa_flags = inv_calc.assign(order_trigger=(inv_calc[\"Quantity Available\"] <= 10))\norders_per_group = qa_flags.groupby([\"Store\", \"Product ID\"], as_index=False)[\"order_trigger\"].sum()",
+      "intent": "Count an order-trigger week whenever the current snapshot Quantity Available is <= 10, including the first and last observed weeks. This count determines order frequency."
+    },
+    {
+      "id": "3_C2_sold_prev_plus_order_minus_current",
+      "kind": "Row-level concept",
+      "node_id": "inv_calc",
+      "op": "project",
+      "source_text": "Calculate the Quantity Sold each week, taking into consideration the new stock that has been ordered",
+      "ref": "sales_i = prev_qty + orders[i] - qty[i]",
+      "intent": "For each store/product in chronological order, weekly Sold = max(0, prior quantity + received order - current quantity)."
+    },
+    {
+      "id": "4_O1_sold_floor_at_zero",
+      "kind": "Operation boundary",
+      "node_id": "inv_calc",
+      "op": "project",
+      "intent": "Floor negative inferred weekly sales at zero.",
+      "ref": "sold[i] = max(0, int(sales_i))",
+      "source_text": "Calculate the Quantity Sold each week, taking into consideration the new stock that has been ordered"
+    },
+    {
+      "id": "5_O2_first_week_ordered_zero",
+      "kind": "Operation incomplete",
+      "node_id": "inv_calc",
+      "op": "project",
+      "intent": "The first observed week receives zero ordered units because no preceding snapshot is available.",
+      "ref": "if i == 0:\n                orders[i] = 0",
+      "source_text": "Calculate how much Stock was ordered in these weeks"
+    },
+    {
+      "id": "6_O2_first_week_sold_zero",
+      "kind": "Operation boundary",
+      "node_id": "inv_calc",
+      "op": "project",
+      "intent": "The first observed week has zero inferred sales. Include this zero week in the weekly average and observed-week count.",
+      "ref": "prev_qty = qty[0]\nfor i in range(n):\n    if i == 0:\n        orders[i] = 0\n    sales_i = prev_qty + orders[i] - qty[i]",
+      "source_text": "For each Store + Product ID, set Quantity Sold for the first observed inventory snapshot to 0, and include that zero in Avg Quantity Sold per Week."
+    },
+    {
+      "id": "7_O2_parse_inventory_date_as_date",
+      "kind": "Operation boundary",
+      "node_id": "inv_input",
+      "op": "input",
+      "intent": "Parse Inventory Date as a calendar date (the supplied input uses YYYY-MM-DD).",
+      "ref": "inv = pd.read_csv(inputs_dir / \"input_01.csv\", parse_dates=[\"Inventory Date\"])",
+      "source_text": "Input the data"
+    },
+    {
+      "id": "8_O1_chronological_processing_by_store_product",
+      "kind": "Row-level concept",
+      "node_id": "inv_sort",
+      "op": "sort",
+      "intent": "Process snapshots in chronological order separately within each Store + Product ID. This calculation order does not impose a final output row order.",
+      "ref": "inv = inv.sort_values([\"Store\", \"Product ID\", \"Inventory Date\"]).reset_index(drop=True)",
+      "source_text": "Calculate the Quantity Sold each week"
+    },
+    {
+      "id": "9_D2_join_on_product_id",
+      "kind": "Multi-table alignment",
+      "node_id": "join_final",
+      "op": "join",
+      "source_text": "Join the tables together and remove unnecessary fields",
+      "ref": "out = summary.merge(products, on=\"Product ID\", how=\"left\")",
+      "intent": "Join product metadata on Product ID. Use Category and Product from the product lookup and trim their incidental surrounding whitespace. Supplier fields are not required in the final summary."
+    },
+    {
+      "id": "10_O2_left_join_keep_all_inventory_pairs",
+      "kind": "Operation incomplete",
+      "node_id": "join_final",
+      "op": "join",
+      "intent": "Left join the store/product summary to the product lookup so every inventory pair remains even without metadata; unmatched Category and Product remain missing.",
+      "ref": "out = summary.merge(products, on=\"Product ID\", how=\"left\")",
+      "source_text": "Join the tables together and remove unnecessary fields"
+    },
+    {
+      "id": "11_C2_avg_order_frequency_weeks_div_orders",
+      "kind": "Group-level concept",
+      "node_id": "post_summary",
+      "op": "project",
+      "source_text": "Avg Order Frequency (i.e., if the Order Frequency is 2 then this would mean the Store is ordering once every 2 weeks on average)",
+      "ref": "return w / o",
+      "intent": "Avg Order Frequency = number of observed weekly snapshots / number of current-snapshot order triggers. This is observed weeks per order, not the mean of gaps between successive orders."
+    },
+    {
+      "id": "12_O1_round_only_avg_columns_not_total",
+      "kind": "Operation boundary",
+      "node_id": "post_summary",
+      "op": "project",
+      "source_text": "Round these values to 1 decimal place",
+      "ref": "summary[\"Avg Quantity Sold per Week\"] = summary[\"Avg Quantity Sold per Week\"].round(1)\nsummary[\"Avg Order Frequency\"] = summary[\"Avg Order Frequency\"].round(1)",
+      "intent": "Round both average metrics to the nearest one decimal place. Total Quantity Sold is the exact sum of integer units; 12 and 12.0 are equivalent. CSV trailing zero padding is not required."
+    },
+    {
+      "id": "13_O2_avg_order_frequency_zero_orders_to_zero",
+      "kind": "Operation incomplete",
+      "node_id": "post_summary",
+      "op": "project",
+      "intent": "When no snapshot triggers an order, Avg Order Frequency is 0.0.",
+      "ref": "if o <= 0:\n            return 0.0",
+      "source_text": "Avg Order Frequency"
+    }
+  ]
+}

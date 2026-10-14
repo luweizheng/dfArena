@@ -1,0 +1,18 @@
+case_id: case_285
+version: '1.0'
+domain: general
+format: csv
+table_count: 4
+tables:
+- name: input_01
+  path: inputs/input_01.csv
+  columns: 5
+- name: input_02
+  path: inputs/input_02.csv
+  columns: 1
+- name: input_03
+  path: inputs/input_03.csv
+  columns: 8
+- name: input_04
+  path: inputs/input_04.csv
+  columns: 9

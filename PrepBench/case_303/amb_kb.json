@@ -1,0 +1,67 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_zscore_sample_std",
+      "kind": "Group-level concept",
+      "node_id": "metrics",
+      "op": "project",
+      "source_text": "o=Standard Deviation of Ranking Field within sport",
+      "ref": "std = vals.std(ddof=1)",
+      "intent": "Use sample standard deviation (ddof=1) within each sport. Compute (Ranking Field - within-sport mean) / sample standard deviation; retain precision and do not round before cross-sport ranking."
+    },
+    {
+      "id": "2_O2_zscore_zero_std_defaults",
+      "kind": "Operation boundary",
+      "node_id": "metrics",
+      "op": "project",
+      "intent": "If within-sport standard deviation is 0, set z-scores to 0 for that sport.",
+      "ref": "if std == 0 or np.isclose(std, 0.0):\n        return pd.Series([0.0] * len(vals), index=vals.index)",
+      "source_text": "o=Standard Deviation of Ranking Field within sport"
+    },
+    {
+      "id": "3_C2_conf_record_wins_component",
+      "kind": "Single-table reference",
+      "node_id": "nba_compute",
+      "op": "project",
+      "source_text": "The Conference Record Field is structured Wins-Losses",
+      "ref": "def _parse_conf_record_wins(s: object) -> int:\n    try:\n        if s is None:\n            return 0\n        parts = str(s).strip().split(\"-\")\n        return _safe_to_int(parts[0], 0)\n    except Exception:\n        return 0\n\nnba_df[\"ConfWins\"] = nba_df[\"ConfConference record\"].map(_parse_conf_record_wins)",
+      "intent": "Conference Wins is the numeric wins component before the hyphen in the Wins-Losses conference record."
+    },
+    {
+      "id": "4_O1_games_behind_ascending",
+      "kind": "Operation boundary",
+      "node_id": "nba_sort",
+      "op": "sort",
+      "source_text": "NBA: Tie Breaker 1 = Conference Wins, Tie Breaker 2 = Games Behind",
+      "ref": "nba_df[\"Sport Rank\"] = _rank_with_keys(\n        nba_df, by=[(\"Ranking Field\", True), (\"ConfWins\", True), (\"GB\", False)]\n    )",
+      "intent": "Sort NBA ranking keys by Wins descending, then Conference Wins descending, then numeric Games Behind ascending."
+    },
+    {
+      "id": "5_O3_cross_rank_competition_ties",
+      "kind": "Operation boundary",
+      "node_id": "rank_cross",
+      "op": "project",
+      "source_text": "Create a Cross Sport Rank based on the z-scores and using the Sport Specific Percentile Rank to break ties",
+      "ref": "within = combined.groupby([\"z-score\", \"Sport Specific Percentile Rank\"]).cumcount()\ncombined[\"Cross Sport Rank\"] = (pos - within + 1).astype(int)",
+      "intent": "Across sports, rank by z-score descending and Sport Specific Percentile Rank descending. Teams equal on both receive the same competition rank, with later ranks skipping tied positions. Ranking Field descending and Team ascending can order tied rows but must not split their shared rank. No final CSV row order is required."
+    },
+    {
+      "id": "6_O3_within_sport_competition_rank",
+      "kind": "Operation boundary",
+      "node_id": "rank_sport",
+      "op": "rank",
+      "source_text": "If all ranking fields are equal, teams share the same rank and subsequent ranks skip tied positions (for example, 1, 2, 2, 4).",
+      "intent": "Apply the sport-specific keys and directions in query_full.md. Teams equal on every specified key share their within-sport competition rank; the next distinct key receives its one-based sorted position. Do not add a team-name tie breaker to force unique ranks. The percentile is 1 - Sport Rank / number of team rows in that sport.",
+      "ref": "_rank_with_keys uses _competition_rank_sorted: when cur_vals != last_vals, last_rank = len(ranks) + 1; equal keys retain last_rank."
+    },
+    {
+      "id": "7_C2_average_cross_rank_by_sport",
+      "kind": "Group-level concept",
+      "node_id": "average_cross_rank",
+      "op": "aggregate",
+      "source_text": "output_02.csv` contains one row per sport with the arithmetic mean of its teams’ Cross Sport Rank.",
+      "intent": "Group the team-level results by Sport and take the arithmetic mean of all team Cross Sport Rank values. Count each team once, including tied teams; do not average distinct rank values. Retain numeric precision. Use the published sport labels, accepting incidental capitalization and surrounding/repeated whitespace in output sport/team names while preserving spelling and meaningful spaces.",
+      "ref": "out1.groupby(\"Sport\", as_index=False)[\"Cross Sport Rank\"].mean().rename(columns={\"Cross Sport Rank\": \"Avg Cross Sport Rank\"})"
+    }
+  ]
+}

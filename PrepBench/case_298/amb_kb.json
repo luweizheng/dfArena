@@ -1,0 +1,76 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_category_total_sales_sum",
+      "kind": "Group-level concept",
+      "node_id": "category_totals",
+      "op": "aggregate",
+      "source_text": "Calculate the Total Sales at a Category level",
+      "ref": "category_sales = df.groupby('Category')['Sales'].sum()",
+      "intent": "Trim incidental surrounding Category whitespace before grouping, then sum Price * Quantity for all product records in each category, before filtering."
+    },
+    {
+      "id": "2_C2_cumulative_pct_formula",
+      "kind": "Group-level concept",
+      "node_id": "compute_cumulative",
+      "op": "project",
+      "source_text": "Identify the products which make up the bottom 15% of each category's sales",
+      "ref": "df['Cumulative %'] = df.groupby('Category')['% of Total'].cumsum()",
+      "intent": "Within each category, accumulate each product's unrounded share in ascending Sales order; select the prefix whose cumulative share is <= 0.15. This is neither 15% of the product count nor all products whose individual share is <= 0.15."
+    },
+    {
+      "id": "3_C2_pct_of_total_formula",
+      "kind": "Group-level concept",
+      "node_id": "compute_pct",
+      "op": "project",
+      "source_text": "Work out the Percentage of Total for each Product within a Category",
+      "ref": "df['% of Total'] = (df['Sales'] / df['Category Total Sales'])",
+      "intent": "% of Total = Sales / category total sales as a decimal fraction, not multiplied by 100."
+    },
+    {
+      "id": "4_C2_sales_price_times_quantity",
+      "kind": "Row-level concept",
+      "node_id": "compute_sales",
+      "op": "project",
+      "source_text": "Calculate the Total Sales Value for each Product",
+      "ref": "df['Sales'] = df['Price'] * df['Quantity']",
+      "intent": "For each input product record, Sales = Price * Quantity."
+    },
+    {
+      "id": "5_O1_bottom_15pct_inclusive",
+      "kind": "Operation boundary",
+      "node_id": "filter_bottom",
+      "op": "filter",
+      "source_text": "Identify the products which make up the bottom 15% of each category's sales",
+      "ref": "exact_total = df.groupby('Category')['_Exact Sales'].transform('sum')\nexact_cumulative = df.groupby('Category')['_Exact Sales'].transform(lambda values: values.cumsum())\nworst_sellers = df[exact_cumulative <= Decimal('0.15') * exact_total].copy()",
+      "intent": "Include only records whose cumulative share through that record is <= 0.15; do not include the first record that crosses 0.15."
+    },
+    {
+      "id": "6_O1_pct_of_total_round_2dp",
+      "kind": "Operation boundary",
+      "node_id": "format_output",
+      "op": "project",
+      "intent": "The original request does not require output rounding. A two-decimal share or a more precise share is accepted within 0.005 absolute difference from the two-decimal reference output. Do not round shares before cumulative filtering.",
+      "ref": "output_df['% of Total'] = output_df['% of Total'].round(2)",
+      "source_text": "Work out the Percentage of Total for each Product within a Category"
+    },
+    {
+      "id": "7_D2_join_totals_on_category",
+      "kind": "Multi-table alignment",
+      "node_id": "join_totals",
+      "op": "join",
+      "source_text": "Work out the Percentage of Total for each Product within a Category",
+      "ref": "df = pd.merge(df, category_sales, on='Category')",
+      "intent": "Attach category totals to the original records using the cleaned Category; calculate totals from the complete category, not only the retained products."
+    },
+    {
+      "id": "8_C2_sort_by_sales_asc",
+      "kind": "Row-level concept",
+      "node_id": "sort_by_category_sales",
+      "op": "sort",
+      "source_text": "Identify the products which make up the bottom 15% of each category's sales",
+      "ref": "df = df.sort_values(by=['Category', 'Sales'], ascending=[True, True])",
+      "intent": "Sort by Sales ascending inside each category for the cumulative calculation. Final output row and column order is unrestricted."
+    }
+  ]
+}

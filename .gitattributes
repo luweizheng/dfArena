@@ -1,0 +1,6 @@
+# Preserve the exact bytes of the audited PrepBench task assets and input data.
+PrepBench/case_26[0-9]/** -text
+PrepBench/case_27[0-9]/** -text
+PrepBench/case_28[0-9]/** -text
+PrepBench/case_29[0-9]/** -text
+PrepBench/case_30[0-6]/** -text

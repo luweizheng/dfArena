@@ -1,0 +1,62 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "StaffID"
+      ],
+      "columns": {
+        "StaffID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Salary": {
+          "type": "number",
+          "abs_tol": 1e-08,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Max Tax Rate": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Total Tax Paid": {
+          "type": "number",
+          "abs_tol": 1e-08,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "20% rate tax paid": {
+          "type": "number",
+          "abs_tol": 1e-08,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "40% rate paid": {
+          "type": "number",
+          "abs_tol": 1e-08,
+          "rel_tol": 0,
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "45% rate tax paid": {
+          "type": "number",
+          "abs_tol": 1e-08,
+          "rel_tol": 0,
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

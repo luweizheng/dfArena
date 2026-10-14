@@ -1,0 +1,27 @@
+{
+  "files": {
+    "output_01.csv": {
+      "ignore_order": true,
+      "key": [
+        "Month",
+        "Category"
+      ],
+      "columns": {
+        "Month": "text_exact",
+        "Category": "text_exact",
+        "Actual Spending": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Budget": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Difference": {
+          "type": "integer",
+          "null_values": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Year"
+      ],
+      "columns": {
+        "Year": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Sales": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Profits": {
+          "type": "integer",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

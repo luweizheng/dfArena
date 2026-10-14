@@ -1,0 +1,94 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C1_group_total_score_null",
+      "kind": "Row-level concept",
+      "node_id": "cast_types",
+      "op": "project",
+      "intent": "For group or marathon dances, set Couple to Group and Total Score to missing; preserve the first source row's Judges Scores when collapsing the same performance.",
+      "ref": "df.loc[df['Couple'] == 'Group', 'Total Score'] = None",
+      "source_text": "Update the Couple field to \"Group\""
+    },
+    {
+      "id": "2_O3_final_row_dedup_keep_first",
+      "kind": "Operation inconsistent",
+      "node_id": "dedup_rows",
+      "op": "dedup",
+      "intent": "After music expansion, remove exact duplicates across all thirteen output fields; preserve different songs as separate rows.",
+      "ref": "df = df.groupby(group_by_cols, dropna=False).first().reset_index()",
+      "source_text": "Remove unnecessary fields"
+    },
+    {
+      "id": "3_C1_header_row_filter",
+      "kind": "Row-level concept",
+      "node_id": "f_header",
+      "op": "filter",
+      "source_text": "Remove repeated table headers from the dataset",
+      "ref": "df = df[df['Couple'] != 'Couple'].copy()",
+      "intent": "Filter out repeated header rows whose Couple field is the literal Couple."
+    },
+    {
+      "id": "4_O2_music_missing_keep_row",
+      "kind": "Operation incomplete",
+      "node_id": "music_list_fill",
+      "op": "project",
+      "source_text": "Split the Music field into separate rows for each song",
+      "ref": "        if not songs:\n            music_expanded.append({\n                'idx': idx,\n                'Song': None,\n                'Artist': None\n            })",
+      "intent": "A missing/empty Music field still produces one performance row, with Song and Artist missing."
+    },
+    {
+      "id": "5_O2_scores_missing_placeholder_null",
+      "kind": "Operation incomplete",
+      "node_id": "scores_extract",
+      "op": "project",
+      "source_text": "Split the Score field into Total Score and Judges Scores",
+      "ref": "        if pd.isna(scores) or scores == 'No scoresreceived':\n            return pd.Series([None, None])",
+      "intent": "Missing Scores or No scoresreceived produces missing Total Score and Judges Scores. Parse totals and comma-separated judges from total (judges); bare scores without parentheses have no parsed pair."
+    },
+    {
+      "id": "6_C1_theme_detail_concat_fields",
+      "kind": "Row-level concept",
+      "node_id": "theme_detail",
+      "op": "project",
+      "source_text": "Combine the Film and Musical fields into one (max 1 theme per week)",
+      "ref": "        for col in ['Film', 'Broadway musical', 'Musical', 'Country', 'CelebratingBBC']:\n            val = row.get(col, '')",
+      "intent": "Concatenate non-empty Film, Broadway musical, Musical, Country and CelebratingBBC in that order, separated by spaces; no detail means missing."
+    },
+    {
+      "id": "7_O2_week_theme_from_colon_else_null",
+      "kind": "Row-level concept",
+      "node_id": "week_parse_map",
+      "op": "project",
+      "source_text": "Split the Week field into a numeric value and extra details into Theme Week",
+      "ref": "        if ':' in week_str:\n            theme = week_str.split(':', 1)[1].strip()\n        else:\n            theme = None",
+      "intent": "Extract integer Week. Theme starts after the first colon, otherwise missing. Stage is detected independently from the entire original Week text, including parenthesized Final/Semi-final without a colon."
+    },
+    {
+      "id": "8_group_identity",
+      "kind": "Operation boundary",
+      "node_id": "8_group_identity",
+      "op": "project",
+      "source_text": "Ensure only 1 row per group dance",
+      "intent": "Before splitting music, collapse group dances by Series, numeric Week, Dance and original Music. Retain the first original row's other fields, including Judges Scores. Different series are different performances.",
+      "ref": "group_dances.drop_duplicates(subset=[\"Series\", \"Week\", \"Dance\", \"Music\"], keep=\"first\")"
+    },
+    {
+      "id": "9_music_delimiters",
+      "kind": "Operation boundary",
+      "node_id": "9_music_delimiters",
+      "op": "project",
+      "source_text": "Split the Music field into separate rows for each song",
+      "intent": "Split Music only at comma immediately followed by quote, ampersand followed by optional space and quote, or vertical bar; split Song/Artist at the first em dash. Preserve commas in titles and ampersands in artist names. Remove title quotes; artist missing without separator.",
+      "ref": "process_music; song.split(\"—\", 1)"
+    },
+    {
+      "id": "10_stage_theme",
+      "kind": "Operation boundary",
+      "node_id": "10_stage_theme",
+      "op": "project",
+      "source_text": "further split Theme Week so Final/Semi Final/Quarter Final details go into a Stage field",
+      "intent": "Detect Quarter Final, Semi Final or Final from the entire original Week text, whether preceded by a colon or enclosed in parentheses; absence of a colon must not erase a stated stage. Remove stage words, trailing Week, Night and punctuation from Theme; map Hollywood to Movie; empty Theme is missing.",
+      "ref": "extract_stage_and_theme; clean_theme"
+    }
+  ]
+}

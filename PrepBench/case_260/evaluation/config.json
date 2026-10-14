@@ -1,0 +1,105 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Date",
+        "Customer ID",
+        "Flight Number",
+        "Ticket Price"
+      ],
+      "columns": {
+        "Date": {
+          "type": "text_exact",
+          "null_values": [
+            ""
+          ]
+        },
+        "From": "text_norm",
+        "To": "text_norm",
+        "Flight Number": "text_exact",
+        "Customer ID": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Last Date Flown": {
+          "type": "text_exact",
+          "null_values": [
+            ""
+          ]
+        },
+        "first_name": "text_norm",
+        "last_name": "text_norm",
+        "email": "text_exact",
+        "gender": "text_exact",
+        "Ticket Price": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Date",
+        "Flight Number"
+      ],
+      "columns": {
+        "Flights unbooked as of": {
+          "type": "text_exact",
+          "null_values": [
+            ""
+          ]
+        },
+        "Date": {
+          "type": "text_exact",
+          "null_values": [
+            ""
+          ]
+        },
+        "Flight Number": "text_exact",
+        "From": "text_norm",
+        "To": "text_norm"
+      },
+      "ignore_order": true
+    },
+    "output_03.csv": {
+      "key": [
+        "Customer ID",
+        "Last Date Flown"
+      ],
+      "columns": {
+        "Customer ID": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Customer Category": {
+          "type": "text_exact",
+          "null_values": [],
+          "aliases": {
+            "Recent fliers": "Recent Fliers (less than 3 months since last flight)",
+            "Taking a break": "Taking a break (3-6 months since last flight)",
+            "Been away a while": "Been away a while (6-9 months since last flight)",
+            "Lapsed Customers": "Lapsed (over 9 months since last flight)"
+          }
+        },
+        "Days Since Last Flown": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Last Date Flown": {
+          "type": "text_exact",
+          "null_values": [
+            ""
+          ]
+        },
+        "first_name": "text_norm",
+        "last_name": "text_norm",
+        "email": "text_exact",
+        "gender": "text_exact"
+      },
+      "ignore_order": true
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_count_records",
+      "kind": "Group-level concept",
+      "node_id": "agg_counts",
+      "op": "aggregate",
+      "source_text": "Find the sum of customers that qualify for each type of byte category",
+      "ref": "counts = df.groupby([\"Category\", \"Gender\"], as_index=False).size().rename(columns={\"size\": \"Count\"})",
+      "intent": "Count input records for each category and gender; do not sum sales or count distinct names."
+    },
+    {
+      "id": "2_O2_missing_gender_fill_zero",
+      "kind": "Operation incomplete",
+      "node_id": "pivot_gender",
+      "op": "pivot",
+      "intent": "For any category without one gender, output 0.0 in that gender percentage cell.",
+      "ref": "out[[\"Female\", \"Male\"]] = out[[\"Female\", \"Male\"]].fillna(0.0)",
+      "source_text": "Pivot so that females and males have their own field"
+    },
+    {
+      "id": "3_C1_gender_normalization",
+      "kind": "Row-level concept",
+      "node_id": "proj_enrich",
+      "op": "project",
+      "intent": "Trim gender labels and normalize case to Female and Male.",
+      "ref": "df[\"Gender\"] = df[\"Gender\"].astype(str).str.strip().str.title()",
+      "source_text": "for females and males separately"
+    },
+    {
+      "id": "4_C1_mega_byte_label",
+      "kind": "Row-level concept",
+      "node_id": "proj_enrich",
+      "op": "project",
+      "source_text": "Points that are greater than or equal to 7 categorise them as \"MegaByte\"",
+      "ref": "if x >= 7:\n                return \"MegaByte\"",
+      "intent": "Use MegaByte at rounded loyalty points >=7, Byte at >=5 and <7, otherwise No Byte."
+    },
+    {
+      "id": "5_C2_loyalty_points_fractional_formula",
+      "kind": "Group-level concept",
+      "node_id": "proj_enrich",
+      "op": "project",
+      "source_text": "For every £50 spent they get 1 loyalty point",
+      "ref": "points = sales.astype(float) / 50.0\n        return points.round(1)",
+      "intent": "Divide Sale Total by 50, round points to one decimal; fractional points are retained, not floored to whole points."
+    },
+    {
+      "id": "6_C2_percentage_within_category",
+      "kind": "Group-level concept",
+      "node_id": "proj_percentage",
+      "op": "project",
+      "source_text": "Calculate the percentage of females and males in each category (round the percentages to 1 decimal place)",
+      "ref": "counts[\"Percentage\"] = (counts[\"Count\"] / counts[\"Total\"]) * 100.0",
+      "intent": "Divide gender record count by all customer records within the same category and multiply by100; round percentages to one decimal."
+    }
+  ]
+}

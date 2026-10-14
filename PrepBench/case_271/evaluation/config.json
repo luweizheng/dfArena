@@ -1,0 +1,29 @@
+{
+  "files": {
+    "output_01.csv": {
+      "ignore_order": true,
+      "key": [
+        "Category"
+      ],
+      "columns": {
+        "Category": "text_exact",
+        "Forecasted Spending": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Actual Spending": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Difference": {
+          "type": "integer",
+          "null_values": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Sales Date",
+        "Product"
+      ],
+      "columns": {
+        "Year": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Sales Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": []
+        },
+        "Easter Week Number": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Weekday": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Weekday Order": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Product": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Price": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Quantity Sold": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Sales": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

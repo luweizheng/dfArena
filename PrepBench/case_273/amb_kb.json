@@ -1,0 +1,130 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_wild_minmax_across_habitats",
+      "kind": "Group-level concept",
+      "node_id": "agg_by_name",
+      "op": "aggregate",
+      "source_text": "Reduce the dataset down to a single row per Wildlife Species, with the minimum and maximum temperatures they live in in the wild",
+      "ref": "agg = (\n            s2.groupby([\"Wildlife\", \"Name\"], as_index=False)\n            .agg({\n                \"MinTemp\": \"min\",\n                \"MaxTemp\": \"max\",",
+      "intent": "Group by Wildlife and Name; use the minimum habitat lower bound and maximum habitat upper bound across all listed habitats, in one chosen temperature unit."
+    },
+    {
+      "id": "2_C2_sd_low_high_definition",
+      "kind": "Group-level concept",
+      "node_id": "agg_climate",
+      "op": "aggregate",
+      "source_text": "Reduce the San Diego Climate Table to a single row which describes the temperature range in San Diego",
+      "ref": "sd_low = climate[f\"Low °{temperature_unit}\"].min()\nsd_high = climate[f\"High °{temperature_unit}\"].max()",
+      "intent": "Use the minimum low and maximum high across all climate months in the chosen unit."
+    },
+    {
+      "id": "3_D1_temperature_unit_choice",
+      "kind": "Single-table reference",
+      "node_id": "agg_climate",
+      "op": "aggregate",
+      "source_text": "you may choose to work in either Fahrenheit or Celsius",
+      "ref": "sd_low = climate[f\"Low °{temperature_unit}\"].min()\nsd_high = climate[f\"High °{temperature_unit}\"].max()",
+      "intent": "Either Fahrenheit or Celsius is allowed. Use the corresponding supplied climate columns and habitat values consistently, and report all Degrees outside Ideal values in that same unit. The supplied F and C estimates are not always exact conversions; do not mix them."
+    },
+    {
+      "id": "4_C2_degrees_outside_ideal_signed",
+      "kind": "Group-level concept",
+      "node_id": "compute_notes",
+      "op": "project",
+      "source_text": "Degrees outside Ideal - if the wildlife is not in their ideal temperature range, the signed number of degrees San Diego can be above or below the ideal temperature range",
+      "ref": "if sd_high > maxf:\n                return \"Above\", float(sd_high - maxf)\n            if sd_low < minf:\n                return \"Below\", float(sd_low - minf)",
+      "intent": "Degrees outside Ideal is signed: sd_high minus wild_max for Above; sd_low minus wild_min for Below; zero for Ideal. Keep the signed deviation in the final output; only the ranking intermediate is absolute."
+    },
+    {
+      "id": "5_O1_ideal_inclusive_bounds",
+      "kind": "Operation boundary",
+      "node_id": "compute_notes",
+      "op": "project",
+      "source_text": "Habitat Notes - classifies whether the animal is within its natural temperature range or not",
+      "ref": "if sd_low >= minf and sd_high <= maxf:\n                return \"Ideal\", 0.0",
+      "intent": "Both boundaries are inclusive for Ideal: sd_low >= wild_min and sd_high <= wild_max."
+    },
+    {
+      "id": "6_O3_above_vs_below_precedence",
+      "kind": "Operation inconsistent",
+      "node_id": "compute_notes",
+      "op": "project",
+      "source_text": "Habitat Notes - classifies whether the animal is within its natural temperature range or not",
+      "ref": "if sd_high > maxf:\n                return \"Above\", float(sd_high - maxf)\n            if sd_low < minf:\n                return \"Below\", float(sd_low - minf)",
+      "intent": "If both high and low bounds are violated, Above takes precedence over Below."
+    },
+    {
+      "id": "7_D2_priority_lookup_left_join",
+      "kind": "Multi-table alignment",
+      "node_id": "join_priority",
+      "op": "join",
+      "source_text": "Bring in the Care Priority lookup table (be careful not to lose any wildlife;",
+      "ref": "agg = agg.merge(pr, on=\"Status\", how=\"left\")",
+      "intent": "Left join care priorities on Status without dropping species; missing Status has a null Priority Order in the output; nonempty unrecognized Status uses priority 6 and is ranked."
+    },
+    {
+      "id": "8_D2_habitat_ranges_left_join",
+      "kind": "Multi-table alignment",
+      "node_id": "join_s2_hab",
+      "op": "join",
+      "intent": "Left join habitat ranges on each exploded habitat, preserving unmatched species-habitat rows.",
+      "ref": "s2 = s2.merge(habitat_range, on=\"Habitat\", how=\"left\")",
+      "source_text": "Combine the tables"
+    },
+    {
+      "id": "9_D2_stage1_join_keys_and_inner",
+      "kind": "Multi-table alignment",
+      "node_id": "join_stage_one",
+      "op": "join",
+      "source_text": "Combine this data with the Wildlife Table",
+      "ref": "stage_one = pd.merge(\n            wildlife_map[[\"Wildlife\", \"Name\", \"Region\", \"Habitat\"]],\n            details[[\"Wildlife\", \"Name\", \"Status\", \"Class\"]],\n            on=[\"Wildlife\", \"Name\"],\n            how=\"inner\",",
+      "intent": "Correct the known apostrophe encoding and inner join details to wildlife on Wildlife and Name, with complete one-to-one matching."
+    },
+    {
+      "id": "10_O3_stage1_enforce_one_to_one",
+      "kind": "Operation inconsistent",
+      "node_id": "join_stage_one",
+      "op": "join",
+      "intent": "Enforce a one-to-one relationship on Wildlife and Name; do not silently drop duplicates.",
+      "ref": "validate=\"one_to_one\",",
+      "source_text": "treating the relationship as one-to-one"
+    },
+    {
+      "id": "11_C2_priority_status_order_by_priority_number",
+      "kind": "Group-level concept",
+      "node_id": "priority_order",
+      "op": "script",
+      "source_text": "Create Priority Order by ordering non-null statuses by care Priority number ascending.",
+      "ref": "status_priority = (\n            agg.drop_duplicates(subset=[\"Status\"]).sort_values([\"Priority Number\"])\n        )\n        ordered_statuses = [s for s in status_priority[\"Status\"].tolist() if pd.notna(s)]",
+      "intent": "Rank non-null statuses in ascending care-priority number."
+    },
+    {
+      "id": "12_C2_priority_within_status_abs_degrees_desc",
+      "kind": "Group-level concept",
+      "node_id": "priority_order",
+      "op": "script",
+      "source_text": "Within each status, rank distinct absolute temperature deviations from largest to smallest.",
+      "ref": "unique_abs = (\n                agg.loc[mask, \"abs_degrees\"].dropna().sort_values(ascending=False).unique().tolist()\n            )",
+      "intent": "Within each status, rank distinct absolute temperature deviations descending; all deviations use the same chosen unit."
+    },
+    {
+      "id": "13_C2_priority_offset_continues_across_statuses",
+      "kind": "Group-level concept",
+      "node_id": "priority_order",
+      "op": "script",
+      "source_text": "Start at 1 and continue consecutive rank numbers across statuses; do not restart at 1 for each status.",
+      "ref": "offset = 0\n        for status in ordered_statuses:\n            mask = agg[\"Status\"] == status\n            unique_abs = (\n                agg.loc[mask, \"abs_degrees\"].dropna().sort_values(ascending=False).unique().tolist()\n            )\n            bucket_map = {v: (i + 1 + offset) for i, v in enumerate(unique_abs)}\n            agg.loc[mask, \"Priority Order\"] = agg.loc[mask, \"abs_degrees\"].map(bucket_map)\n            offset += len(unique_abs)",
+      "intent": "Continue consecutive rank numbers across statuses, offsetting by the number of distinct deviations in preceding statuses."
+    },
+    {
+      "id": "14_O3_priority_ties_share_same_order",
+      "kind": "Operation inconsistent",
+      "node_id": "priority_order",
+      "op": "script",
+      "source_text": "Species with the same status and absolute deviation share a rank.",
+      "ref": "bucket_map = {v: (i + 1 + offset) for i, v in enumerate(unique_abs)}\n            agg.loc[mask, \"Priority Order\"] = agg.loc[mask, \"abs_degrees\"].map(bucket_map)",
+      "intent": "Species with the same status and absolute deviation share the same rank; missing Status has null Priority Order."
+    }
+  ]
+}

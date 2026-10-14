@@ -1,0 +1,52 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Champion"
+      ],
+      "columns": {
+        "Rank": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Champion": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Gender": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Total Championships": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Women's Singles": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Men's Singles": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Women's Doubles": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Mixed Doubles": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Men's Doubles": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Most Recent Win": {
+          "type": "integer",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

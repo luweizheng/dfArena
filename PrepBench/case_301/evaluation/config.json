@@ -1,0 +1,85 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Attraction",
+        "Year"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Attraction Rank": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Attraction": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "5 Year Avg Footfall": {
+          "type": "number",
+          "null_values": [],
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Year": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Attraction Footfall": {
+          "type": "number",
+          "null_values": [],
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    },
+    "output_02.csv": {
+      "key": [
+        "Attraction Name"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Attraction Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Attraction Latitude": {
+          "type": "number",
+          "null_values": [],
+          "abs_tol": 1e-12,
+          "rel_tol": 0
+        },
+        "Attraction Longitude": {
+          "type": "number",
+          "null_values": [],
+          "abs_tol": 1e-12,
+          "rel_tol": 0
+        }
+      }
+    },
+    "output_03.csv": {
+      "key": [
+        "Station"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Station": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Station Longitude": {
+          "type": "number",
+          "null_values": [],
+          "abs_tol": 1e-12,
+          "rel_tol": 0
+        },
+        "Station Latitude": {
+          "type": "number",
+          "null_values": [],
+          "abs_tol": 1e-12,
+          "rel_tol": 0
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Category"
+      ],
+      "columns": {
+        "Category": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Female": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Male": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}
