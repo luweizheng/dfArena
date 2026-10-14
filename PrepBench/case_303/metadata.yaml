@@ -1,6 +1,6 @@
 case_id: case_303
 version: '1.0'
-domain: general
+domain: sports
 format: csv
 table_count: 4
 tables:

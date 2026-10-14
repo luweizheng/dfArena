@@ -144,6 +144,21 @@
 
 **共同改动与验证。** 建立标准目录、metadata、输入输出约定，核对KB引用并补必要intent；通常仅适配reference入口，业务或GT变化在逐题说明。输入保持原字节。字段采用经审核的key、类型、数值容差和顺序，不统一放宽。已有固定环境reference、独立计算及正反例报告；交付时再次核对文件、元数据、引用、源哈希、运行版本，使用交付比较器检查GT和冻结候选。
 
+**领域分类补正（2026-10-14）。** 交付复核遗漏了domain分类，本批45题原先均为general；现按根目录README的Workload domain taxonomy补齐一个主领域。按业务主题分类，不按所用算法或是否出现金额分类：工资/客户/销售等运营归business，贷款及预算、财务汇总归finance，运动员收入榜归sports，节目/卡牌/节庆题归media_culture。
+
+| Domain | Case |
+| --- | --- |
+| `business` | 260, 261, 263, 264, 265, 268, 269, 270, 275, 276, 277, 278, 279, 280, 281, 293, 294, 295, 298, 299, 300 |
+| `finance` | 267, 271, 272, 274 |
+| `sports` | 282, 283, 284, 285, 286, 290, 291, 292, 296, 303 |
+| `media_culture` | 262, 287, 297, 305, 306 |
+| `education` | 288, 289 |
+| `science` | 273 |
+| `health` | 304 |
+| `geospatial` | 301 |
+
+此次仅修改metadata.domain及本日志，输入、query/full、KB、reference、GT、config和运行产物均未改变，不重新生成或评分，头表结果不变。逐题“当前任务资产”哈希已更新为分类补正后的交付版本；原运行plan、原哈希和报告保持原样，不能把补正后的metadata称为当时运行版本。本地`delivery_306_260/domain_review.json`保存逐题新旧哈希与检查结果。
+
 **评分器依赖。** 本批包含按列整数标签映射（263）、精确文本标签映射（260）、整表替代GT（273）三项通用机制及其测试/协议文档；未启用时保持旧行为。不同温度答案只能整表选择，不能逐格拼答案。公共实现无case编号特判。交付评分代码聚合SHA256：`574034ea0fc96e96c46e65f6c0eba3504c88b2202cff8e90692e4ab95ef8bafa`。
 
 **记录口径。** 本批结果已并入文首总表，采用的run见头表下方“306—260 头表版本说明”；它是审核状态，不是统一版本benchmark成绩。逐题段落另列全部历史run状态。265的r001为获批config重评后的冻结输出，原失败报告保留；263的r001亦曾因标签兼容重评，最新为新题面r002；280有澄清故障/运行器错误，不能仅因旧输出通过视为交互成功。306的reference入口后补但solve不变，不要求重新生成。
@@ -162,7 +177,7 @@
 
 **限制与失败解释。** 6000条输入得到4269人；457个并列组已核算，但最大Index自身的冲突标签未出现。
 
-**版本与证据。** 当前任务资产聚合SHA256 `c0209ecc02097f3e34e0ee3304deebd204657f584d9052e0f23313ea83dd936b`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/306/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `2fcf0f9e0bc152c83be7864b431f44defdeb78c44973152159d823650566f718`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/306/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 305：舞蹈决赛成绩与进步率
 
@@ -172,7 +187,7 @@
 
 **限制与失败解释。** 62组；当前每组决赛评委数一致，不能区分舞蹈等权与评委加权，超出1—21季的过滤未被实际数据触发。
 
-**版本与证据。** 当前任务资产聚合SHA256 `ac2e71be8c55922baa2d87d5501b6b84f3a9a6386d508b3358d95a559ff4b631`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/305/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `12dc25ffec29053cdfd88f27bf275baf59e6301cbecc9eac913d7ec0a4a9027b`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/305/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 304：各洲寿命变化排名
 
@@ -182,7 +197,7 @@
 
 **限制与失败解释。** 190个匹配国家均有71年数据和两端年份，缺年、零分母及前三边界并列未触发。
 
-**版本与证据。** 当前任务资产聚合SHA256 `810b2c1f7ad6d8624f4674e524642e33351ebc8599777dbc0ce23da00da75eca`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/304/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `d0e523c76fd8da08c5515bb7a8bb06834b147588b6408da6807e800dbe3e7ea4`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/304/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 303：跨运动球队排名
 
@@ -192,7 +207,7 @@
 
 **限制与失败解释。** 真实并列已验证；零标准差和单球队运动未出现，reference近零判断不升级为新业务要求。
 
-**版本与证据。** 当前任务资产聚合SHA256 `364d92084b00545451b63b45fa2c35df0282a679f46032dbcc2c2f4b116c8c4a`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/303/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `a521bcb7d8a6bd2557e477733ce23d06a3ffc607c23470cf2713d0cdcb22c884`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/303/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 302：排除：极小表完全重复记录去重
 
@@ -208,7 +223,7 @@
 
 **限制与失败解释。** 实际平均客流无并列、同一站点无冲突坐标；dense排名和三字段去重仅由研究者边界检查覆盖。
 
-**版本与证据。** 当前任务资产聚合SHA256 `352d226fdbf3a36b94cef72d77773cabc738914c872ae97ef42b8b469e28fbbf`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/301/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `c605195757e53e9e46f32902de7be28466c2db16b7f98f4a35efa6f7280a47a5`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/301/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 300：周库存与采购频率
 
@@ -218,7 +233,7 @@
 
 **限制与失败解释。** r002 pandas因尾空格正式失败，Ibis/PySpark通过；100条序列均有14个连续快照，缺周、零订单等不由当前通过证明。
 
-**版本与证据。** 当前任务资产聚合SHA256 `d7a7be7cb335ab355c9041ce46cebfe5f1611f34451de55e2e6ae7430b9d3e38`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/300/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `8395a184ce5b72515880407692dff4139a7491b574e8a7be1ba6fbf36e0946c4`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/300/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 299：退货退款与月度销售
 
@@ -228,7 +243,7 @@
 
 **限制与失败解释。** r002 pandas/Ibis通过；PySpark将应为空的退款额及次数填0，真实失败保留。实际1.995不区分两种中点规则，专用边界检查单列。
 
-**版本与证据。** 当前任务资产聚合SHA256 `1a251eeb4096e5369e10af67d847657531f2f417a936d2c184d9c4ffa0e10bc0`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/299/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `c2b5a3500b13791782aa2b15d75539f6781f9a6b4ebb01bf710e7adef1053543`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/299/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 298：累计销售占比筛选
 
@@ -238,7 +253,7 @@
 
 **限制与失败解释。** 实际没有同额销售或恰15%边界；研究者反例验证边界，未凭实现顺序新增并列取舍。
 
-**版本与证据。** 当前任务资产聚合SHA256 `310928e018a7fbf64b66df711f4c14a42c07c221fdf5cd130f77ec51234522d6`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/298/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `967df6a203e26818adc6396a37f08940c48b38d092ca13b2947a5ffcb31dae35`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/298/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 297：团体舞去重与歌曲拆分
 
@@ -248,7 +263,7 @@
 
 **限制与失败解释。** r001三后端失败均受21个Stage的GT空值错误影响，Polars还漏清理姓名数字；修正Stage资产后另做r002，不能将旧失败全部归因于模型。r002三者Stage均正确，pandas/Polars仅因Alex & Kevin1未去数字失败，PySpark追问后通过。当前不存在跨Series同周同舞同歌冲突，跨届隔离由专用检查验证；候选未做的最终全行去重未被当前输入触发。
 
-**版本与证据。** 当前任务资产聚合SHA256 `ee61c7d764142672d6e79a48b22a1b08d860be4d9d48dcf14ccd8b757f0dd156`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/297/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `7d5b71e09570fa9866e1bd8db7f9a8b8a20c3d56a24b079102437c09c162f361`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/297/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 296：运动员收入网页表清理
 
@@ -258,7 +273,7 @@
 
 **限制与失败解释。** 130位运动员金额均可解析；一行总收入与分项和不同，按题意分别保留，非法金额分支只经研究者检查。
 
-**版本与证据。** 当前任务资产聚合SHA256 `7265623eb1164ef5292405140e2e8e65521fed33f595e9dd4ae21752e6d4578e`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/296/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `ea3c7f0c1f56eaeaa5ddb6821f94635a9ee66e85e81d8373aa0eb662ce5c57f5`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/296/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 295：用户事件与耗时汇总
 
@@ -268,7 +283,7 @@
 
 **限制与失败解释。** 当前无首次时间并列、未匹配用户或负耗时；并列边界仅单独验证。
 
-**版本与证据。** 当前任务资产聚合SHA256 `5c1ff4fafea89c2fef5319e1b8ba0a58876e23ab36ea9b5609f2612e3844f718`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/295/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `aad9c7fcb2e726abe1917e3a29a67cda15c4813fda9ad23820f3249e452cb8bb`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/295/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 294：工作日收益与名次
 
@@ -278,7 +293,7 @@
 
 **限制与失败解释。** 693条输入、635条参与收益并列；competition与dense差异实际被覆盖，周末-only及同日情形由专用检查验证。
 
-**版本与证据。** 当前任务资产聚合SHA256 `c419c7284d190f4dcf68d25b17f3724f58d654584eb2ae917ddbea95f888c996`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/294/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `d5d434a792d94ccbc2a722ce23a36f43ad5b683b26cca706d67d11e8872d7f86`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/294/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 293：等级日期区间清理
 
@@ -288,7 +303,7 @@
 
 **限制与失败解释。** 真实40条逆序区间和266条重叠删除，比较对象不同会改变6次决定；起点恰等前终点未在正式输入触发。
 
-**版本与证据。** 当前任务资产聚合SHA256 `906b9a697a3bf1ef482148acea7540260651e8dd11fa650377c356e85d9d5828`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/293/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `54f03d8f0edd2d7cb11238694e3d617a3658a7abb4a672e2f04a448e55f83025`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/293/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 292：比赛日积分榜与近期战绩
 
@@ -298,7 +313,7 @@
 
 **限制与失败解释。** 每队每Matchday恰一场；缺比分、同日多赛未覆盖。reference在固定pandas2.3.3验证，未承诺pandas3兼容。
 
-**版本与证据。** 当前任务资产聚合SHA256 `47708d649ae3a0007646e2171d782497a34c76bab293a2ee260e47aaa00a9fc4`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/292/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `146554e92ef903bf5f1b0ddb80ad329dfdba23e51ac2570fc440d653b7a961bb`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/292/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 291：比赛日累计积分榜
 
@@ -308,7 +323,7 @@
 
 **限制与失败解释。** 当前无赛程空缺或同一Matchday多场；reference有被覆盖的多余排序，未将其视为独立业务要求。
 
-**版本与证据。** 当前任务资产聚合SHA256 `a2daba9cc7a9cb1c666dbe40e67630c76a021e9ca19e952346fd7dc55fdca8ec`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/291/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `e7be135cfa7a120755ddbda4dad104c5402608bb15db416bcbca915d51d49310`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/291/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 290：半结构化比赛记录解析
 
@@ -318,7 +333,7 @@
 
 **限制与失败解释。** 当前赛事均可解析且含FT标记；参考解析器的任意网页/格式泛化能力未验证。
 
-**版本与证据。** 当前任务资产聚合SHA256 `4be5fd45a818c992e498342bb9ebb9e3978ccf609868a5d76f7f22b358ac189b`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/290/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `9e3598403a4413e25757064f038a91223de61d9bd40ac9df965017e928f3a8d1`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/290/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 289：生日蛋糕与银行假日
 
@@ -328,7 +343,7 @@
 
 **限制与失败解释。** 无2月29日、缺失生日或空校历；姓名＋生日去重不代表真实人物身份消歧。
 
-**版本与证据。** 当前任务资产聚合SHA256 `861237784e31dc4fcf0c66420d43c8475f344ff53bd88803303e13a0381cb5a7`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/289/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `a17f902dfd283da30e710c5c93390ba842653510e50fa978a08d34f45eb869d4`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/289/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 288：生日蛋糕与学期安排
 
@@ -338,7 +353,7 @@
 
 **限制与失败解释。** 1000名学生唯一，无闰日生日；无上一学期/无合格周五分支只经研究者检查。
 
-**版本与证据。** 当前任务资产聚合SHA256 `841c26d5a0e62167d670c7fe4b4d0c8683974e52d270a5d2d4da07854a6bbf9a`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/288/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `5e7dd54ff5580944ba9355da5940998af0554dac9f0a82692cea8052a9f555e7`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/288/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 287：卡牌与图鉴排序
 
@@ -348,7 +363,7 @@
 
 **限制与失败解释。** 实际卡牌均有图鉴匹配、完整排序键不同；小数形态代码及fallback未由实际输入验证。
 
-**版本与证据。** 当前任务资产聚合SHA256 `711566dbd06ab097cdd128d171932adb6b04920f33c121cf8a7be8f6c23f97e6`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/287/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `e3a9f8d619a17273c731e094af31402f0dd118ac28314a3744f3471648bedff8`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/287/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 286：田径成绩宽转长
 
@@ -358,7 +373,7 @@
 
 **限制与失败解释。** Performance混合距离、秒数与冒号时间，当前text_exact无法接受全部语义等价表示；此为已记录比较器限制。
 
-**版本与证据。** 当前任务资产聚合SHA256 `3742a67c17924f7281c9658db8b4a82bf0782e8fb66e354e6a486cbc9692905d`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/286/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `2454a8923dffefaebc0a82c245f39c02c7bd8c89fd82ae41f147802e3dc1860b`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/286/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 285：足球分时段预期进球
 
@@ -368,7 +383,7 @@
 
 **限制与失败解释。** 8个源赛事名映射为7类，169场Championship归Gold Cup；只输出实际出现的分段，不补13个未出现组合，0.005容差不验证舍入算法。
 
-**版本与证据。** 当前任务资产聚合SHA256 `9af65a5b7616de93acccfaac9a3cecdf8a291f0fb2d7facd1d568a2bc275de1c`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/285/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `6132925c1dc630958e86fd82ed0a446635ca29bd1a724ea5a00ad80fe8299991`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/285/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 284：车手最快圈速
 
@@ -378,7 +393,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 当前20人最快圈速无并列且lookup唯一；将来出现并列需另定业务口径，不能凭原实现顺序取舍。
 
-**版本与证据。** 当前任务资产聚合SHA256 `3afbbc877af9ab631345141631a98698cd9ac2b22297a699db0b09611d63607a`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/284/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `ac245a6115c58c5ec51ba35091eddc4194eaf6a94a521df026ad057036d43d66`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/284/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 283：网球冠军类别与排名
 
@@ -388,7 +403,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 有9组总数并列；姓名按清理后的输入文字识别，不做外部别名映射。
 
-**版本与证据。** 当前任务资产聚合SHA256 `9610f92aafa3f6bcc8cab86b86056ab3c8c3082e8c98b92a2117f67d14b2595a`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/283/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `822e8641c18a3799d468ef5a51fe4dfb3793cd921d0e4d527c9587e4b62eb187`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/283/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 282：环法赛段与胜场关联
 
@@ -398,7 +413,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 验证范围限于给定赛段、赛季及既有代码映射，未扩充输入。
 
-**版本与证据。** 当前任务资产聚合SHA256 `f0898ee6c413b97a800f91223e40b44925775d5ffa4114a41aba1676e5b05021`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/282/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `0d194ecac28f3e52593e586bcdfb684bf11c857661be1261f673bb26289bff83`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/282/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 281：投诉布尔字段与结案日期
 
@@ -408,7 +423,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 输入仅含True/False；输出布尔兼容不等于扩大输入词汇映射，未知输入词未验证。
 
-**版本与证据。** 当前任务资产聚合SHA256 `4faa963b4c1627f98bcef1e4857d26c2e297fd0439e6924d79f560e3a0fbdfe1`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/281/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `a19f91256d24c289ee04006c5faf5510098f8ca7f20830ed71ad39152492d04e`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/281/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 280：投诉描述拆分与日期筛选
 
@@ -418,7 +433,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** pandas r001通过；Polars/PySpark r001虽输出通过但澄清服务故障，不作为完整交互验收。恢复后Polars r002、PySpark r003通过；PySpark r002运行器错误保留。
 
-**版本与证据。** 当前任务资产聚合SHA256 `89fc1ad9542491b98ca0665934a9dec6c48333e18eeb6850e03804b28ab34725`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/280/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `ddf3c7baf3c2eb88758be1971e3e888fe87df7b88d451b73fbf76715ea5b4b51`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/280/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 279：经理周薪及年度费用占比
 
@@ -428,7 +443,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 830周、16年；候选对非法记录的拒绝/跳过行为不完全相同，当前有效输入不触发，DD/MM/YYYY字面格式不强制评分。
 
-**版本与证据。** 当前任务资产聚合SHA256 `827fb4ada4bdfc98aab271a70c359bf18bfc5758601d1cde82c5a000e6d4be11`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/279/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `16f9bfdef53d8fd02b4122bd2fc9d7e12658b843a74c3e288fe3f6fb809c86e0`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/279/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 278：在职经理工资异常
 
@@ -438,7 +453,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 16位经理、10位在职、3个异常；无精确半整数，代码审阅不能替代中点数据验证。
 
-**版本与证据。** 当前任务资产聚合SHA256 `0baeba19576450a63cca47a7c24fbd99b5a260e834f2264b83096549def073b6`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/278/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `9a68188eacabbf80af6e5d886d21ae2125a40b9446e0a9965a41b6c1dad64f81`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/278/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 277：门店客户忠诚积分排名
 
@@ -448,7 +463,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 65行；DD/MM/YYYY与ISO输出等价，不把当前匹配结果当作同名客户消歧能力。
 
-**版本与证据。** 当前任务资产聚合SHA256 `6e7382d62b005a2f1f80356f36732d0a94b66e24f6360af01901f6a48c1b5431`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/277/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `2a96384808994b4156a95a0533fdc7fa6e00a5a5e4c9dbe1954d2274ea739b6a`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/277/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 276：忠诚类别性别比例
 
@@ -458,7 +473,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 当前数据未触发两种中点规则的输出差异；已记录模拟用户限制，不据此重开题意。
 
-**版本与证据。** 当前任务资产聚合SHA256 `9db91021c8a5d80134a14c45a13e3b8f604b8323e6e333b2a36d7a52ca3c2920`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/276/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `6ccd43816e85b071caf5d1de21dbc679cf53bada644499be237efad8fc0e030d`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/276/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 275：周一交易排名
 
@@ -468,7 +483,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 151行、两组同额销售，收据号只排展示顺序，不拆并列名次；当前全部客户匹配，不证明未匹配交易保留分支。
 
-**版本与证据。** 当前任务资产聚合SHA256 `754e2ba57603b50c1181aad6b6fb056e8a8bdc8c0049dd90285e4a3ab39ae4dd`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/275/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `0cf148ed9b58508237a9b223e516c4bab551d3170c17c777dba5cb772c5098aa`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/275/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 274：年度金额单位转换
 
@@ -478,7 +493,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 当前换算值均为整数，不能区分小数中点规则。
 
-**版本与证据。** 当前任务资产聚合SHA256 `823bc42e5ecf573d43d956adbce7422e3a15ca77ca2dfc285cedea3d3478e0bc`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/274/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `f6481b04e0e198fea0f053ff63f4f3ebfa30c284218ae0d4c25f237b84f457e1`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/274/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 273：物种栖息地温度与优先级
 
@@ -488,7 +503,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 326物种、80非理想记录，37个负温差、4个缺状态名次为空；本轮三候选均选F，C只有独立/参考验证，非正式模型C运行。
 
-**版本与证据。** 当前任务资产聚合SHA256 `4f21bd7c429dbbaadfccf6f63056f3366a64c555dc4845a5bc3278cd47cd1751`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/273/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `1ba8776cdafd0aff742e0725c2e6ed1b45c61d157d96afa6f7efc38e4fbae71a`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/273/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 272：年度超预算与月度最大超支
 
@@ -498,7 +513,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 三候选均漏内部TransactionFees映射，但12个月均不影响最大项，因此输出通过；这是已观察内部处理限制，不宣称解题过程完全正确。
 
-**版本与证据。** 当前任务资产聚合SHA256 `e6024fb77313eeaa6bb819dc6387190533ecf70660e377b870bd52170c7753b7`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/272/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `10bfd3fae1979a135dd86bf9bd2261f0d86c1c672ea7a56fa4630b57267fd549`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/272/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 271：预算与实际支出
 
@@ -508,7 +523,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** Polars9行通过，pandas/Ibis各漏交易费而仅8行，ROW_COUNT_MISMATCH保留；拒答及名称说明差异不全归为计算错误。
 
-**版本与证据。** 当前任务资产聚合SHA256 `e828d2b13ed8a49441f7c79951f24e1ff30950a90546212d7f3ab51f3d5a5bd5`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/271/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `4a199339261984c4b25f6daafc0ec982060224cf2d10e37e41ff7f13771e82e3`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/271/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 270：召回移除速度及超时
 
@@ -518,7 +533,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 只有日期无日内时刻；模拟用户额外中点规则对当前答案无影响，保留观察而不新增题意。
 
-**版本与证据。** 当前任务资产聚合SHA256 `0a7c2802c6c84e690342eeb70ba26d5f800bc0cc1ebd5ea25cbe3b4b1b626b97`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/270/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `009999504e3415782c74894588dd5d9f9ff05493079c5064258bd9fea5aad4e9`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/270/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 269：召回损失与门店优先级
 
@@ -528,7 +543,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 保留当前输入验证边界，不凭未出现数据扩充业务规则。
 
-**版本与证据。** 当前任务资产聚合SHA256 `0e8e3924d2a4ad62ebd28a2dbd73d19cd9232925f2e3af8093bdb406d049d079`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/269/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `6cfd6acd1d150f430fdeed059185dfbbd774e50d09174793962e5c1eb6c76d9c`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/269/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 268：复活节相对周销售
 
@@ -538,7 +553,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 2020—2024五年1752行，周序1—12；无重复日期/产品键或非午夜时刻。
 
-**版本与证据。** 当前任务资产聚合SHA256 `99a8dadc17fc83038a9e3c83c8b9efda559477121dc129940c69113cd0831234`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/268/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `631b963afad9bcf0bab09b3f43b01a6a37e7a230d78f5cebc87ef479990294d2`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/268/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 267：逐年借款、利息与还款
 
@@ -548,7 +563,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 只评分请求的35000快照及单行汇总，不代表所有贷款参数均验证。
 
-**版本与证据。** 当前任务资产聚合SHA256 `52917b420fb975b7b0d3db3ac9b4c6d0e78e947dcd57305f9868017718c13f10`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/267/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `9013d7edbe0c0309f719fbab672931541f526d0ec188d13a767d87470a9b6ab9`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/267/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 266：排除：固定28天月份日历
 
@@ -564,7 +579,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 当前数量都是整数且无缺价/零价/负价，不能验证fractional floor分支；模拟用户额外half-even在当前四位小数上无影响，不作为新要求。
 
-**版本与证据。** 当前任务资产聚合SHA256 `dd54e169f3c3e496bc8499b7aceb65655b94acf6f8ee61c922b0e4fb6c096e30`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/265/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `d4d8d21a3c93330ede5f9e0bbfb0a31387c6335af0db5712ba3c9fbdc75a9f79`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/265/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 264：航班预订累计
 
@@ -574,7 +589,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 实际最新日期无并列，非取消记录客户ID非空；候选额外按Flight Date关联在当前数据不改变结果。
 
-**版本与证据。** 当前任务资产聚合SHA256 `f48bba6cffadc395cb2db4f1c2cb032fd83bedbac67eb5dda3f512a63279133a`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/264/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `617a91e67aa7f492286ebc17c183e3afdefed218fbf40dcf50d36cd0fafb17a9`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/264/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 263：两种会员方案年度成本
 
@@ -584,7 +599,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 6行/3行；成本abs_tol=1e-8仅容纳算术表示误差，不接受舍入到分。无重复规则福利对，候选未显式去重；零成本且有费用匹配的福利计数保留。
 
-**版本与证据。** 当前任务资产聚合SHA256 `8149eb9966e47a927fb83cfad5a412329e98282612096ce2ccdac4a60f39cffa`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/263/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `2ad8beb9d78a9ea596e6a74d0b7f9067a98cd2f253c2c2fac24832b12c5f5f38`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/263/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 262：情侣情人节次数与礼物
 
@@ -594,7 +609,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 输出字段及排序严格核对，未因行数/礼物匹配的历史失败放宽评分。
 
-**版本与证据。** 当前任务资产聚合SHA256 `153b52b67443b801e1cd50eecd4400f37d637f172b1b02f3d8661fb78611b0d8`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/262/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `5f51cee584c8eb94d521bf5106f03e4b594ff874459b7d64c82beb6460e87131`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/262/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 261：最新员工工资及税档
 
@@ -604,7 +619,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 模拟用户有时额外要求保持输入行序，未采纳为评分要求；当前CSV无嵌入换行，Spark按物理行解析的泛化未验证。
 
-**版本与证据。** 当前任务资产聚合SHA256 `20e1befbb53bf317081733c85af54e7460ab77027774cf828d7d759e92fe3b74`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/261/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `b9538590b6e1b3b69f6604fd960aaba4d1adcdeea8a505f53d5280f411835916`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/261/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 ### 260：航班预订及未预订客户
 
@@ -614,7 +629,7 @@ query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独�
 
 **限制与失败解释。** 三表44768/296/1260行；未预订客户无非法、缺失或未来最后飞行日期，-1/Recent分支保持但未被实际输入触发。
 
-**版本与证据。** 当前任务资产聚合SHA256 `bea4d0a078b228332e3b688bcbd56f30d077701cc845bbe62be9a9effa015323`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/260/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+**版本与证据。** 当前任务资产聚合SHA256 `d080846ad76e8b994bec90ff9dc968a139436ae9cd1c16f3e4429a714b9afb4d`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/260/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
 
 
 ## 2026-10-10：072–073 导入与验证（curation/prepbench-07x）

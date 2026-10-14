@@ -1,6 +1,6 @@
 case_id: case_277
 version: '1.0'
-domain: general
+domain: business
 format: csv
 table_count: 3
 tables:

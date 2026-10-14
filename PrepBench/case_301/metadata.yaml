@@ -1,6 +1,6 @@
 case_id: case_301
 version: '1.0'
-domain: general
+domain: geospatial
 format: csv
 table_count: 3
 tables:

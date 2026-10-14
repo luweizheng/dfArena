@@ -1,6 +1,6 @@
 case_id: case_304
 version: '1.0'
-domain: general
+domain: health
 format: csv
 table_count: 2
 tables:

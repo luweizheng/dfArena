@@ -1,6 +1,6 @@
 case_id: case_297
 version: '1.0'
-domain: general
+domain: media_culture
 format: csv
 table_count: 1
 tables:

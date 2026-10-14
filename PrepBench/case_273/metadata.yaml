@@ -1,6 +1,6 @@
 case_id: case_273
 version: '1.0'
-domain: general
+domain: science
 format: csv
 table_count: 6
 tables:
