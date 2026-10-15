@@ -175,7 +175,7 @@ key 中的 number 同样使用该列的容差规则；非数值字段使用规�
 
 以下记录当前代码行为；最终排序协议仍待讨论，本次不改变实现。
 
-`ignore_order` 缺省或为 true 时不检查顺序；显式 false 时必须提供非空 `order_by`。每项声明列、asc/desc 和 nulls first/last。排序列必须在 columns 中，不要求属于 key，也不要求唯一。为防止静默忽略，true 与非空 order_by 同时存在会报 CONFIG_ERROR。
+`ignore_order` 缺省或为 true 时不检查顺序；默认fields模式下，显式 false 时必须提供非空 `order_by`（显式GT位置模式见下文）。每项声明列、asc/desc 和 nulls first/last。排序列必须在 columns 中，不要求属于 key，也不要求唯一。为防止静默忽略，true 与非空 order_by 同时存在会报 CONFIG_ERROR。
 
 先验证 GT 是否满足排序配置（不满足时报 GT_ORDER_ERROR），内容比较通过后检查 candidate 原始相邻行是否按多字段字典序有逆序；禁止先排序 candidate。全部排序字段相等时允许换位。并列判断不使用内容数值容差；空值位置独立于升降序；文本采用该列规范化后的 Unicode 字典序。不支持 locale 排序、隐藏排序列、稳定保留输入顺序或额外排序表达式；这些需求需要另行适配，不能当作已验证。日期字符串排序可用精确文本列规则表达，但不能同时假定该列按日期格式等价比较。
 
@@ -183,7 +183,7 @@ key 中的 number 同样使用该列的容差规则；非数值字段使用规�
 
 例如仅按 Revenue 降序时，Revenue 都为 100 的两行可以互换；如果还规定 Customer 升序，那么这两行还必须满足 Customer 的顺序。排序字段无需唯一，也无需属于 key。内容比较的数值容差不会把两个不同的 Revenue 值变成排序并列。
 
-当前没有直接按 GT 行位置逐行验证顺序，也不会从 query 或 GT 自动推断 `order_by`。配置生成阶段需要明确标注排序列、方向和空值位置。evaluator 不会重排 candidate 来使结果通过。
+默认字段排序模式不会直接按 GT 行位置验证顺序，也不会从 query 或 GT 自动推断 `order_by`。配置生成阶段需要明确标注排序列、方向和空值位置。evaluator 不会重排 candidate 来使结果通过。
 
 待讨论的替代思路是“以 GT 的组间顺序为准，允许并列组内部换位”。这种方式可以考虑只标注定义并列的排序字段，省略方向和空值位置，但依赖 GT 顺序正确，并且仍需知道用哪些字段判断并列。仅凭 GT 的行顺序无法区分“只按 Revenue 排序”和“Revenue 后再按 Customer 排序”。该替代方案尚未实现，不是当前配置支持的额外模式。
 
@@ -204,3 +204,9 @@ python -m unittest discover -s evaluation/tests -v
 测试涵盖六个现有 case 的 GT 自比较和行逆序比较，以及数值/整数边界、日期和空值、key 歧义、并列与多列排序、GT 排序错误、文件/字段/类型错误和 CLI。GT 自比较通过只验证评估链路，不证明 GT 满足任务需求。
 
 `time` 表示一天内的时刻，不表示时长。`7:19`、`07:19` 和 `07:19:00` 等价；秒和微秒仍精确比较。显式 `formats` 替换默认格式，不能包含日期或时区。非法时间（如 `24:00`）报 TYPE_ERROR，不自动折算到次日。简写 `"time"` 同样使用这些默认格式，默认仅将空白映射为空值。
+
+## 显式 GT 位置顺序（v7）
+
+当题目明确规定最终行位置（例如固定统计块及块内自定义顺序），且研究者已独立核验 GT 顺序时，可配置 `ignore_order: false, order_mode: "gt_position"`，不设置 `order_by`。仍先检查行数、key组及组内内容多重集，再逐位置比较全部已声明字段，沿用字段类型和容差；不重排候选。内容正确但位置不符报 `ROW_ORDER_MISMATCH`，content_status保持passed。相同的重复行仍需保留数量；数值等价表示允许。
+
+此模式不从字段推导排序，无法自行证明GT顺序满足题意，必须先独立审核；不能用于仅要求按某字段排序、允许其他不同值并列换位的任务。不能与ignore_order=true、非空order_by或alternative_gt合用。不启用时原比较行为不变。

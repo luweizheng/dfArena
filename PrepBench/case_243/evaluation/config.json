@@ -1,0 +1,34 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Subject"
+      ],
+      "columns": {
+        "Subject": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Drop Outs": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Active": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Total Enrolled": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Drop Out Rate": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0,
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "List",
+        "Toy",
+        "Week"
+      ],
+      "columns": {
+        "List": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Number of Children": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Toy": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Production Manager": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Quota": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Week": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": []
+        },
+        "Toys Produced": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Running Sum of Toys Produced": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Over or Under Quota?": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "List",
+        "Toy"
+      ],
+      "columns": {
+        "List": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Toy": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Quota": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Toys Produced": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Toys Ready to be Gifts": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Spare Toys": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Toys Over/Under Quota": {
+          "type": "integer",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

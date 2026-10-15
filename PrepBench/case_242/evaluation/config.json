@@ -1,0 +1,76 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Player of Interest",
+        "Tournament",
+        "Round",
+        "Date",
+        "Winner",
+        "Loser"
+      ],
+      "columns": {
+        "Player of Interest": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Tournament": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Round": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": []
+        },
+        "Win/Loss": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Win Number": {
+          "type": "integer",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "NA",
+            "N/A",
+            "null",
+            "None"
+          ]
+        },
+        "Days Since Last Win": {
+          "type": "integer",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "NA",
+            "N/A",
+            "null",
+            "None"
+          ]
+        },
+        "Winner": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Loser": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Comment": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

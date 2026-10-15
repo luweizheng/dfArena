@@ -1,0 +1,76 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O1_simulate_12_months",
+      "kind": "Operation boundary",
+      "node_id": "expand_months",
+      "op": "project",
+      "intent": "Simulate twelve months per provider.",
+      "ref": "for month in range(1, 13):",
+      "source_text": "Simulate 12 months for each provider, with Month numbered from 1 to 12."
+    },
+    {
+      "id": "2_O1_planned_deposit_value_300",
+      "kind": "Operation boundary",
+      "node_id": "proj_clean",
+      "op": "project",
+      "source_text": "For this output, use a Customer Planned Deposit of 300 per month for every provider.",
+      "ref": "planned_monthly_deposit = 300.0",
+      "intent": "Use planned monthly deposit 300 for this output."
+    },
+    {
+      "id": "3_C2_cap_monthly_deposit_and_leftover",
+      "kind": "Row-level concept",
+      "node_id": "proj_metrics",
+      "op": "project",
+      "source_text": "If this value is greater than the Max Monthly Deposit allowed by the Provider",
+      "ref": "monthly_deposit = min(planned_monthly_deposit, max_monthly)",
+      "intent": "Interest-bearing deposit is min(300, provider cap); leftover is max(300 minus deposit, 0)."
+    },
+    {
+      "id": "4_C2_monthly_interest_rate",
+      "kind": "Row-level concept",
+      "node_id": "proj_metrics",
+      "op": "project",
+      "intent": "Use annual decimal interest divided by 12.",
+      "ref": "monthly_rate = apr / 12.0",
+      "source_text": "Input the data"
+    },
+    {
+      "id": "5_O1_deposit_then_interest_sequence",
+      "kind": "Operation boundary",
+      "node_id": "proj_metrics",
+      "op": "project",
+      "source_text": "make sure these leftovers are added on after the interest has been applied",
+      "ref": "interest_balance += monthly_deposit; interest_amount = interest_balance * monthly_rate",
+      "intent": "Each month add interest-bearing deposit, apply interest, then add leftover to a separate balance which never earns interest."
+    },
+    {
+      "id": "6_C2_max_possible_savings_end_month_12",
+      "kind": "Group-level concept",
+      "node_id": "proj_summary",
+      "op": "project",
+      "source_text": "Max Possible Savings",
+      "ref": "max_possible_savings = month_savings_list[-1]",
+      "intent": "Max Possible Savings is month twelve total savings."
+    },
+    {
+      "id": "7_C2_total_interest_sum",
+      "kind": "Group-level concept",
+      "node_id": "proj_summary",
+      "op": "project",
+      "source_text": "Total Interest",
+      "ref": "total_interest_accrued += interest_amount",
+      "intent": "Total Interest is sum of interest credited to the interest-bearing balance."
+    },
+    {
+      "id": "8_O3_dense_rank_tie_handling",
+      "kind": "Operation inconsistent",
+      "node_id": "proj_summary",
+      "op": "project",
+      "source_text": "Providers Ranked by Max Savings",
+      "ref": "summary_df[\"Max Possible Savings\"].rank(method=\"dense\", ascending=False)",
+      "intent": "Dense descending ranks of full-precision provider summary amounts, before output rounding."
+    }
+  ]
+}

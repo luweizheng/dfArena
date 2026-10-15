@@ -1,0 +1,42 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Flow Card?",
+        "Quarter"
+      ],
+      "columns": {
+        "Flow Card?": {
+          "type": "boolean",
+          "null_values": []
+        },
+        "Quarter": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Economy": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0
+        },
+        "Premium": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0
+        },
+        "Business": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0
+        },
+        "First": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": false,
+      "order_mode": "gt_position"
+    }
+  }
+}

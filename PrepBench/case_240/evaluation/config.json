@@ -1,0 +1,47 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Sequence ID"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Customer": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Book": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": []
+        },
+        "Sequence ID": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Quantity": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Bigger Order?": {
+          "type": "integer",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "NA",
+            "N/A",
+            "null",
+            "None"
+          ]
+        }
+      }
+    }
+  }
+}

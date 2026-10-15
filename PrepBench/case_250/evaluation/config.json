@@ -1,0 +1,129 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "id",
+        "Term"
+      ],
+      "columns": {
+        "Rank": {
+          "type": "integer",
+          "null_values": []
+        },
+        "id": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Student Name": {
+          "type": "text_exact",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "Term": {
+          "type": "text_exact",
+          "null_values": [],
+          "aliases": {
+            "1": "Term 1",
+            "2": "Term 2",
+            "3": "Term 3",
+            "4": "Term 4",
+            "5": "Term 5",
+            "6": "Term 6"
+          }
+        },
+        "Term Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": []
+        },
+        "GPA": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "3 Term GPA Moving Average": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        }
+      },
+      "ignore_order": false,
+      "order_by": [
+        {
+          "column": "Rank",
+          "direction": "asc",
+          "nulls": "last"
+        }
+      ]
+    },
+    "output_02.csv": {
+      "key": [
+        "id",
+        "Term"
+      ],
+      "columns": {
+        "id": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Student Name": {
+          "type": "text_exact",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "Term": {
+          "type": "text_exact",
+          "null_values": [],
+          "aliases": {
+            "1": "Term 1",
+            "2": "Term 2",
+            "3": "Term 3",
+            "4": "Term 4",
+            "5": "Term 5",
+            "6": "Term 6"
+          }
+        },
+        "Term Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": []
+        },
+        "GPA": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "3 Term GPA Moving Average": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

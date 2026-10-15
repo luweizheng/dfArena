@@ -1,0 +1,50 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Day of the Week"
+      ],
+      "columns": {
+        "Rank": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Day of the Week": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Minutes Late": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Seconds Late": {
+          "type": "integer",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Student ID"
+      ],
+      "columns": {
+        "Rank": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Student ID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "% Days Very Late": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

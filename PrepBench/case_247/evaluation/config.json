@@ -1,0 +1,37 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Date"
+      ],
+      "columns": {
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": []
+        },
+        "Event": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Day of Week": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "After School Club": {
+          "type": "text_exact",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}
