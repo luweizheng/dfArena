@@ -16,7 +16,7 @@ You need to produce a single, correctly ordered list of Pokémon Trading Card Ga
   - Ensure there is at most one Pokédex row per `Pokemon Name` before joining (do not duplicate any rows in the Pokémon cards as a result of this lookup).
   - Left-join Pokédex data onto Pokémon cards by `Pokemon Name` to obtain `Pokedex_Num`. If no match exists, keep the Pokémon card row and treat its `Pokedex_Num` as 0 for sorting purposes.
 - Combine the Trainer Cards Input with the processed Pokémon cards into one table, aligning columns by name.
-- Use the `Table Names` field to identify the `Card Type` as either `Pokemon` or `Trainer` (the final output must contain a `Card Type` field with these values).
+- Use the source input file to identify the `Card Type`: assign `Trainer` to cards from `input_01.csv` and `Pokemon` to cards from `input_02.csv` (the final output must contain a `Card Type` field with these values).
 - Any rows that do not have a `Leader` must be assigned the leader value `"Leftover Trainers"` (this applies to trainer cards with missing leader).
 - Combine the combined card table with the Leader Order Input (input_03.csv):
   - Left-join on `Leader` to bring in the leader’s gym `Order`.
