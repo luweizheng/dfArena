@@ -1,0 +1,22 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O2_combine_year_tables_by_append",
+      "kind": "Row-level concept",
+      "node_id": "union_all",
+      "op": "union",
+      "source_text": "Bring all the year tables together into a single table",
+      "ref": "out = pd.concat(frames, ignore_index=True)",
+      "intent": "Append all thirteen standardized year tables, retaining every athlete-year row. Map Nation/Nationality/Country to Country, Total/Total earnings to Total earnings and Salary/winnings to Salary/Winnings. Read each monetary column independently; do not recompute Total earnings as the other two fields summed. Monetary comparison accepts at most0.000001 dollar absolute floating serialization error; cent-level errors are rejected."
+    },
+    {
+      "id": "2_D2_broadcast_source_to_rows",
+      "kind": "Multi-table alignment",
+      "node_id": "y_join_src",
+      "op": "join",
+      "source_text": "Bring in the source information so that it is associated with each row",
+      "ref": "df[\"Source\"] = source_url",
+      "intent": "Read the source URL from input_14.csv and repeat it on all output rows. The source table is metadata, not another athlete table."
+    }
+  ]
+}

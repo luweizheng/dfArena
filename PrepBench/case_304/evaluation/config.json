@@ -1,0 +1,37 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Continent",
+        "Country"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Continent": {
+          "type": "text_norm",
+          "null_values": []
+        },
+        "Rank": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Country": {
+          "type": "text_norm",
+          "null_values": []
+        },
+        "% Years Above Continent Avg": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "% Change": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        }
+      }
+    }
+  }
+}

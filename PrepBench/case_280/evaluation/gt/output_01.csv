@@ -1,0 +1,51 @@
+Complaint ID,Receipt Number,Customer ID,Date Received,Date Resolved,Timely Response,Response to Consumer,Issue Type,Product Category,Product ID,Complaint Description
+54-009-2490,4334891349,22-309-3946,17/01/2023,25/07/2023,True,In Progress,Item Size Issue,Home,HO8575,The size of the home product doesn't fit as expected.
+41-946-8307,7154721456,46-018-3770,12/01/2023,28/08/2023,False,Closed with Explanation,Faulty,Electronic,EL9846,The electronic product is malfunctioning.
+28-332-8360,8657000695,67-194-5451,03/04/2023,12/10/2023,True,Closed with Explanation,Changed Mind,Home,HO8575,"Changed mind about the home product, no longer want it."
+74-957-8616,8094639490,91-602-5646,26/06/2023,27/08/2023,True,Closed with Monetary Relief,Item Size Issue,Beauty,BE5681,The size of the beauty product is not suitable.
+83-348-7266,6967010786,78-272-9545,14/03/2023,12/09/2023,True,Closed with Non-Monetary Relief,Item Size Issue,Electronic,EL2859,The electronic product size is not what I expected.
+10-745-1342,431458243,18-449-1413,12/07/2023,14/08/2023,True,Closed with Monetary Relief,Product not what I expected,Home,HO1212,The home product received is not what I anticipated.
+39-616-3628,751826030,64-329-1333,09/06/2023,21/12/2023,True,In Progress,Product not what I expected,Clothes,CL1864,The clothes received are not what I expected.
+97-853-1841,4539394800,23-143-2854,08/09/2023,30/12/2023,False,Closed with Explanation,Faulty,Home,HO2617,The home product is defective.
+75-886-5419,6785823269,45-496-3428,19/09/2023,28/09/2023,False,Closed with Non-Monetary Relief,Faulty,Clothes,CL5675,The clothes received are defective.
+18-420-2838,5285420997,88-458-5077,22/05/2023,22/12/2023,True,Closed with Monetary Relief,Item Size Issue,Beauty,BE9568,The size of the beauty product doesn't fit as expected.
+50-295-4419,8364485008,15-486-5433,30/01/2023,29/09/2023,False,Closed with Monetary Relief,Faulty,Home,HO8575,The home product is defective.
+92-751-4973,4247765620,00-166-6876,29/03/2023,19/09/2023,False,Closed with Explanation,Faulty,Beauty,BE9568,The beauty product is defective.
+89-505-3321,8675859252,60-567-2710,25/01/2023,09/04/2023,False,Closed with Non-Monetary Relief,Changed Mind,Beauty,BE9568,"Changed mind about the beauty product, no longer want it."
+68-120-1414,7568670880,87-838-4715,08/03/2023,22/08/2023,False,Closed with Monetary Relief,Faulty,Groceries,GR1571,The grocery product received is faulty.
+42-857-1867,7045526792,14-826-9093,09/03/2023,04/10/2023,True,In Progress,Item Size Issue,Beauty,BE4227,The size of the beauty product is not as expected.
+20-702-3785,720769027,24-666-5520,13/09/2023,18/09/2023,False,Closed with Monetary Relief,Other,Groceries,GR1571,Encountered an unspecified issue with the grocery product.
+57-072-7579,4489631898,28-949-3138,12/03/2023,25/07/2023,False,Closed with Non-Monetary Relief,Faulty,Clothes,CL4454,The clothes received are faulty.
+19-631-9593,7116799427,96-000-7544,10/02/2023,05/04/2023,False,Closed with Explanation,Item Size Issue,Groceries,GR1571,The size of the grocery product doesn't fit as expected.
+66-536-6587,8212180220,44-917-4024,05/07/2023,24/12/2023,True,In Progress,Changed Mind,Clothes,CL1828,"Changed mind about the clothes, no longer want them."
+54-583-0938,4883685659,15-859-4303,25/07/2023,10/09/2023,True,Closed with Explanation,Faulty,Clothes,CL4454,The clothes received are faulty.
+35-876-4193,6148328348,16-111-4180,19/05/2023,04/10/2023,False,Closed with Explanation,Faulty,Electronic,EL2859,The electronic product is faulty.
+60-831-1557,88189341,53-306-1602,09/03/2023,10/07/2023,True,In Progress,Faulty,Groceries,GR2429,The grocery product is defective.
+44-970-2372,8177643339,77-340-4458,02/09/2023,16/10/2023,False,In Progress,Product not what I expected,Clothes,CL9489,The clothes received are not what I expected.
+97-005-7744,2452004545,09-499-0484,28/03/2023,09/11/2023,False,In Progress,Other,Home,HO2617,Encountered an unspecified issue with the home product.
+93-190-0483,2696536236,55-690-1341,11/03/2023,04/07/2023,False,Closed with Non-Monetary Relief,Other,Electronic,EL5291,Encountered an unspecified issue with the electronic product.
+59-219-6572,2113798123,38-711-1512,27/01/2023,14/03/2023,True,Closed with Explanation,Item Size Issue,Home,HO1212,The size of the home product is not what I expected.
+18-488-7345,3455807542,35-896-7115,20/03/2023,20/09/2023,True,Closed with Explanation,Faulty,Home,HO8575,The home product is defective.
+73-928-9640,9155117422,11-734-1459,25/02/2023,24/03/2023,False,Closed with Non-Monetary Relief,Other,Beauty,BE9568,Encountered an unspecified issue with the beauty product.
+64-918-4192,3292965594,24-381-9593,29/05/2023,20/07/2023,False,Closed with Explanation,Faulty,Clothes,CL4454,The clothes received are faulty.
+00-990-6983,6061430825,36-731-7944,25/02/2023,11/11/2023,True,Closed with Monetary Relief,Changed Mind,Groceries,GR3688,"Changed mind about the grocery product, no longer want it."
+19-219-4447,3750928843,60-650-2823,04/01/2023,26/02/2023,True,Closed with Monetary Relief,Changed Mind,Home,HO4293,"Changed mind about the home product, no longer want it."
+80-173-0303,6666319958,39-207-9586,13/01/2023,28/06/2023,True,Closed with Explanation,Item Size Issue,Electronic,EL4339,The size of the electronic product doesn't fit as expected.
+08-580-1896,2299740066,29-565-1520,26/01/2023,17/02/2023,False,Closed with Non-Monetary Relief,Product not what I expected,Beauty,BE5626,The beauty product received is not what I anticipated.
+95-434-5384,9378143423,69-837-6062,08/03/2023,07/05/2023,True,Closed with Monetary Relief,Other,Clothes,CL9489,Encountered an unspecified issue with the clothes.
+92-106-0753,1233597434,10-504-0816,21/06/2023,17/12/2023,True,Closed with Monetary Relief,Faulty,Home,HO2617,The home product is defective.
+26-438-8457,5545564187,49-314-1211,12/07/2023,30/12/2023,True,Closed with Non-Monetary Relief,Faulty,Beauty,BE9159,The beauty product is defective.
+46-442-3725,9918693185,39-126-0773,17/01/2023,13/04/2023,True,Closed with Non-Monetary Relief,Other,Clothes,CL9489,Encountered an unspecified issue with the clothes.
+48-090-0684,6119371346,87-360-2023,02/02/2023,05/04/2023,False,Closed with Non-Monetary Relief,Product not what I expected,Clothes,CL9489,The clothes received are not what I expected.
+97-414-6433,5426007837,21-838-3294,19/02/2023,13/09/2023,True,In Progress,Item Size Issue,Beauty,BE4227,The size of the beauty product is not as expected.
+42-274-8255,7765583522,43-438-8948,20/03/2023,25/06/2023,False,Closed with Monetary Relief,Other,Clothes,CL9489,Encountered an unspecified issue with the clothes.
+79-230-2624,7892745505,04-037-2681,05/04/2023,01/12/2023,True,Closed with Monetary Relief,Item Size Issue,Beauty,BE5626,The size of the beauty product doesn't fit as expected.
+05-374-6389,6429439968,74-725-8751,08/11/2023,09/12/2023,True,Closed with Explanation,Item Size Issue,Clothes,CL9489,The size of the clothes doesn't fit as expected.
+33-249-0208,8382576885,39-459-7177,30/03/2023,19/07/2023,False,In Progress,Changed Mind,Home,HO4293,"Changed mind about the home product, no longer want it."
+41-221-0265,6762310311,98-249-0286,07/04/2023,14/06/2023,False,Closed with Explanation,Item Size Issue,Home,HO8575,The size of the home product doesn't fit as expected.
+70-004-4670,1460890973,56-320-8194,25/02/2023,05/11/2023,True,Closed with Explanation,Faulty,Home,HO1212,The home product is defective.
+69-717-6472,3677298849,21-256-6645,24/09/2023,10/12/2023,False,Closed with Monetary Relief,Item Size Issue,Beauty,BE9159,The size of the beauty product is not suitable.
+36-348-1011,7531947013,66-216-8373,07/04/2023,25/10/2023,False,Closed with Monetary Relief,Other,Beauty,BE4227,Encountered an unspecified issue with the beauty product.
+78-682-0670,7829990425,72-370-3286,03/02/2023,03/10/2023,False,Closed with Monetary Relief,Faulty,Groceries,GR4215,The grocery product is defective.
+35-143-4329,2856856020,45-686-3032,25/07/2023,21/09/2023,False,Closed with Non-Monetary Relief,Other,Clothes,CL9489,Encountered an unspecified issue with the clothes.
+05-046-7973,3564223584,58-911-5423,19/03/2023,09/11/2023,True,Closed with Monetary Relief,Item Size Issue,Home,HO4293,The size of the home product doesn't fit as expected.

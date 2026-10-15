@@ -1,0 +1,35 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Battle",
+        "Date"
+      ],
+      "columns": {
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Battle": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "War": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Victors": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Description": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

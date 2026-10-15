@@ -1,0 +1,45 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "ID",
+        "3rd Party ID"
+      ],
+      "columns": {
+        "Status": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "ID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "3rd Party ID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Scent": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Sales": {
+          "type": "number",
+          "abs_tol": 0.001,
+          "rel_tol": 0,
+          "null_values": [
+            ""
+          ]
+        },
+        "3rd Party Sales": {
+          "type": "number",
+          "abs_tol": 0.001,
+          "rel_tol": 0,
+          "null_values": [
+            ""
+          ]
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

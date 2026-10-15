@@ -1,0 +1,62 @@
+{
+  "files": {
+    "output_01.csv": {
+      "ignore_order": true,
+      "key": [
+        "Complaint ID"
+      ],
+      "columns": {
+        "Complaint ID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Receipt Number": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Customer ID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Date Received": {
+          "type": "date",
+          "null_values": [],
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Date Resolved": {
+          "type": "date",
+          "null_values": [],
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Timely Response": {
+          "type": "boolean",
+          "null_values": []
+        },
+        "Response to Consumer": {
+          "type": "text_norm",
+          "null_values": []
+        },
+        "Issue Type": {
+          "type": "text_norm",
+          "null_values": []
+        },
+        "Product Category": {
+          "type": "text_norm",
+          "null_values": []
+        },
+        "Product ID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Complaint Description": {
+          "type": "text_norm",
+          "null_values": []
+        }
+      }
+    }
+  }
+}

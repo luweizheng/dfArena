@@ -1,0 +1,42 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Couple"
+      ],
+      "columns": {
+        "Couple": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Number of Valentine's Days as a Couple": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Gift": {
+          "type": "text_exact",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        }
+      },
+      "ignore_order": false,
+      "order_by": [
+        {
+          "column": "Number of Valentine's Days as a Couple",
+          "direction": "asc",
+          "nulls": "last"
+        },
+        {
+          "column": "Couple",
+          "direction": "asc",
+          "nulls": "last"
+        }
+      ]
+    }
+  }
+}

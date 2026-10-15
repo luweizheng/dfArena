@@ -1,0 +1,41 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Matchday",
+        "Team"
+      ],
+      "columns": {
+        "Matchday": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Team": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Goals For (RT)": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Goals Against (RT)": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Goal Difference (RT)": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Points (RT)": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Position": {
+          "type": "integer",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

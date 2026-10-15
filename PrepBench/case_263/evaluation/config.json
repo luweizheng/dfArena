@@ -1,0 +1,80 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Tier"
+      ],
+      "columns": {
+        "Tier": {
+          "type": "integer",
+          "null_values": [],
+          "aliases": {
+            "Tier 0": "0",
+            "Tier 1": "1",
+            "Tier 2": "2",
+            "Tier 3": "3",
+            "Tier 4": "4",
+            "Tier 5": "5",
+            "Tier 6": "6"
+          }
+        },
+        "Year Cost": {
+          "type": "number",
+          "abs_tol": 1e-08,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Number of Customers": {
+          "type": "integer",
+          "null_values": []
+        }
+      },
+      "ignore_order": false,
+      "order_by": [
+        {
+          "column": "Tier",
+          "direction": "asc",
+          "nulls": "last"
+        }
+      ]
+    },
+    "output_02.csv": {
+      "key": [
+        "Tier"
+      ],
+      "columns": {
+        "Tier": {
+          "type": "integer",
+          "null_values": [],
+          "aliases": {
+            "Tier 0": "0",
+            "Tier 1": "1",
+            "Tier 2": "2",
+            "Tier 3": "3",
+            "Tier 4": "4",
+            "Tier 5": "5",
+            "Tier 6": "6"
+          }
+        },
+        "Year Cost": {
+          "type": "number",
+          "abs_tol": 1e-08,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Number of Customers": {
+          "type": "integer",
+          "null_values": []
+        }
+      },
+      "ignore_order": false,
+      "order_by": [
+        {
+          "column": "Tier",
+          "direction": "asc",
+          "nulls": "last"
+        }
+      ]
+    }
+  }
+}

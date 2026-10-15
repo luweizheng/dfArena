@@ -1,0 +1,89 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Athlete",
+        "Event No."
+      ],
+      "columns": {
+        "Sort": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Position": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Athlete": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Nationality": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Total Points": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Event Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Event Type": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Event No.": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Event Time/Distance": {
+          "type": "text_exact",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "Event Points": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Event Position": {
+          "type": "integer",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "Rolling Total Points": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Position After Event": {
+          "type": "integer",
+          "null_values": []
+        }
+      },
+      "ignore_order": false,
+      "order_by": [
+        {
+          "column": "Position",
+          "direction": "asc",
+          "nulls": "last"
+        },
+        {
+          "column": "Event No.",
+          "direction": "asc",
+          "nulls": "last"
+        }
+      ]
+    }
+  }
+}

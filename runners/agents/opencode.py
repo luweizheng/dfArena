@@ -143,6 +143,22 @@ class OpenCodeAgent(AgentAdapter):
             command += ['--variant', args.variant]
         return (flags, command)
 
+    def configure_local_mcp(self, config_dir, name, command, environment, *,
+                            startup_timeout_seconds=30, tool_timeout_seconds=180):
+        if not command or startup_timeout_seconds <= 0 or tool_timeout_seconds <= 0:
+            raise ValueError('MCP requires a command and positive timeouts')
+        path = config_dir / 'opencode.json'
+        config = json.loads(path.read_text())
+        servers = config.setdefault('mcp', {})
+        if name in servers:
+            raise ValueError(f'MCP server already configured: {name}')
+        # OpenCode exposes one timeout in milliseconds, not Codex's two knobs.
+        # Use the tool budget; startup_timeout_seconds has no separate mapping.
+        servers[name] = {'type': 'local', 'command': command,
+                         'environment': environment, 'enabled': True,
+                         'timeout': tool_timeout_seconds * 1000}
+        path.write_text(json.dumps(config))
+
     def archive_sessions(self, config_dir, run):
         source = config_dir/'data/opencode.db'
         if not source.is_file():

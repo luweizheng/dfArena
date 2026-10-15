@@ -1,0 +1,42 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Flight Number",
+        "Flight Date",
+        "Class",
+        "Customer ID",
+        "Date",
+        "Row",
+        "Seat"
+      ],
+      "columns": {
+        "Flight Number": "text_exact",
+        "Flight Date": "date",
+        "Class": "text_norm",
+        "Total Seats booked over time": {
+          "type": "integer"
+        },
+        "Capacity": {
+          "type": "integer"
+        },
+        "Capacity %": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0
+        },
+        "Customer ID": {
+          "type": "integer"
+        },
+        "Action": "text_exact",
+        "Date": "date",
+        "Row": {
+          "type": "integer"
+        },
+        "Seat": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "files": {
+    "output_01.csv": {
+      "ignore_order": true,
+      "key": [
+        "Wildlife",
+        "Name"
+      ],
+      "columns": {
+        "Wildlife": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Class": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Region": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Habitat": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Status": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      }
+    },
+    "output_02.csv": {
+      "ignore_order": true,
+      "key": [
+        "Wildlife",
+        "Name"
+      ],
+      "columns": {
+        "Wildlife": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Priority Order": {
+          "type": "integer",
+          "null_values": [
+            ""
+          ]
+        },
+        "Habitat Notes": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Degrees outside Ideal": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Status": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Class": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Region": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Habitat": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "alternative_gt": {
+        "celsius": "celsius/output_02.csv"
+      }
+    }
+  }
+}

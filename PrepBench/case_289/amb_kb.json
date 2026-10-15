@@ -1,0 +1,76 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C1_academic_year_bounds",
+      "kind": "Group-level concept",
+      "node_id": "include_bounds",
+      "op": "aggregate",
+      "intent": "Academic-year bounds are the earliest start and latest end across included teaching terms.",
+      "ref": "min_day = min(s for s, _ in include_intervals)\nmax_day = max(e for _, e in include_intervals)",
+      "source_text": "new school-year schedule"
+    },
+    {
+      "id": "2_O1_calendar_bounds_inclusive",
+      "kind": "Operation boundary",
+      "node_id": "include_days_expanded",
+      "op": "project",
+      "intent": "Calendar Starts/Ends are inclusive.",
+      "ref": "if s <= d <= e:",
+      "source_text": "Input the data"
+    },
+    {
+      "id": "3_C1_weekday_only_school_days",
+      "kind": "Row-level concept",
+      "node_id": "school_days",
+      "op": "filter",
+      "intent": "Only Monday through Friday can be school days.",
+      "ref": "if d.weekday() >= 5: return False",
+      "source_text": "new school-year schedule"
+    },
+    {
+      "id": "4_C1_exclusions_override_inclusions",
+      "kind": "Row-level concept",
+      "node_id": "school_days_raw",
+      "op": "join",
+      "intent": "A school day is in at least one teaching term and no excluded interval; exclusions override inclusions.",
+      "ref": "if not within_any(d, include_intervals): return False\nif within_any(d, exclude_intervals): return False",
+      "source_text": "new school-year schedule"
+    },
+    {
+      "id": "5_C1_academic_year_birthday_year",
+      "kind": "Row-level concept",
+      "node_id": "students_mapped_birthday",
+      "op": "project",
+      "intent": "Map birth month/day to earliest-term-start year for September–December and latest-term-end year for January–August.",
+      "ref": "year = min_day.year if md[0] >= 9 else max_day.year",
+      "source_text": "new school-year schedule"
+    },
+    {
+      "id": "6_C1_teaching_term_name_pattern",
+      "kind": "Row-level concept",
+      "node_id": "terms_with_ord",
+      "op": "project",
+      "intent": "Teaching terms match Autumn/Spring/Summer, Term N case-insensitively; other calendar rows are exclusions.",
+      "ref": "re.search(r\"^(autumn|spring|summer),\\s*term\\s*\\d+\\s*$\", name_l)",
+      "source_text": "Input the data"
+    },
+    {
+      "id": "7_C1_roll_back_to_previous_school_day",
+      "kind": "Operation boundary",
+      "node_id": "valid_pairs",
+      "op": "filter",
+      "intent": "Roll any non-school birthday backward to the nearest previous school day, including a non-Friday term end. Drop students if adjustment precedes the first term start.",
+      "ref": "while not is_school_day(cur): cur = cur - timedelta(days=1)",
+      "source_text": "new school-year schedule"
+    },
+    {
+      "id": "8_duplicate_pupils",
+      "kind": "Group-level concept",
+      "node_id": "students",
+      "op": "distinct",
+      "source_text": "Watch out for duplicate rows!",
+      "intent": "Deduplicate by pupil first name, pupil last name and Date of Birth before scheduling. Different pupils with the same birthday still count separately.",
+      "ref": "students.drop_duplicates(subset=[\"pupil first name\", \"pupil last name\", \"Date of Birth\"])"
+    }
+  ]
+}

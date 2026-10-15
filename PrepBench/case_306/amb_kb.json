@@ -1,0 +1,31 @@
+{
+  "ambiguities": [
+    {
+      "id": "2_o3_latest_by_max_index",
+      "kind": "Operation boundary",
+      "node_id": "latest_per_name",
+      "op": "dedup",
+      "source_text": "If there is an even split between naughty and nice mentions, the latest mention",
+      "ref": "latest = (\n        df.sort_values([\"Name\", \"Index\"])\n        .groupby(\"Name\", as_index=False)\n        .tail(1)[[\"Name\", \"ListLabel\"]]\n        .rename(columns={\"ListLabel\": \"latest_label\"})\n    )",
+      "intent": "When Naughty and Nice occurrence counts for a Name are equal, use the list label of the record with the largest Index for that Name. This tie-break does not override an unequal count."
+    },
+    {
+      "id": "3_c2_index_formula",
+      "kind": "Row-level concept",
+      "node_id": "proj_index_label",
+      "op": "project",
+      "source_text": "Create an Index field combining the File Path number and id",
+      "ref": "df[\"Index\"] = df[\"FileNo\"] * 1000 + df[\"id\"]",
+      "intent": "Parse the numeric file sequence from File Paths. Compute Index = FileNo * 1000 + numeric id; for example, file 1 and id 7 give 1007."
+    },
+    {
+      "id": "4_d1_name_from_first_name",
+      "kind": "Single-table reference",
+      "node_id": "proj_rename",
+      "op": "project",
+      "source_text": "leaves Name and 'Naughty or Nice' field",
+      "ref": "df = df.rename(columns={\"first_name\": \"Name\"})",
+      "intent": "The output Name is the input first_name. Count occurrences by this name and produce one final list assignment per name. Use each distinct original first_name value for grouping. Output row order is not constrained. For output Name and list-label values, capitalization, surrounding whitespace, and repeated whitespace are equivalent presentation differences; preserve spelling and meaningful internal spaces, and use the categories Naughty and Nice. This allowance does not change source grouping or permit category synonyms."
+    }
+  ]
+}

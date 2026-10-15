@@ -1,0 +1,59 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Date"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Date": {
+          "type": "date",
+          "null_values": [],
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Revenue": {
+          "type": "number",
+          "null_values": [],
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Total Returns Value": {
+          "type": "number",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ],
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Number of Returns": {
+          "type": "integer",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "Avg Days to Return": {
+          "type": "number",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ],
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    }
+  }
+}

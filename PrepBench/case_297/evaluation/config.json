@@ -1,0 +1,129 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Series",
+        "Week",
+        "Couple",
+        "Dance",
+        "Song",
+        "Artist"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Year": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Series": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Week": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Stage": {
+          "type": "text_norm",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "Theme": {
+          "type": "text_norm",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "Theme Detail": {
+          "type": "text_norm",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "Couple": {
+          "type": "text_norm",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "Total Score": {
+          "type": "integer",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "Judges Scores": {
+          "type": "text_norm",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "Dance": {
+          "type": "text_norm",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "Song": {
+          "type": "text_norm",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "Artist": {
+          "type": "text_norm",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "Result": {
+          "type": "text_norm",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        }
+      }
+    }
+  }
+}

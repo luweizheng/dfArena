@@ -1,0 +1,48 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Store"
+      ],
+      "columns": {
+        "Rank": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Store": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Days to Removal": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Hours to Removal": {
+          "type": "integer",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Store"
+      ],
+      "columns": {
+        "Store": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Avg Days Overdue": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Quantity": {
+          "type": "integer",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

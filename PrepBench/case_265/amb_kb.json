@@ -1,0 +1,111 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O2_closed_days_by_missing_dates",
+      "kind": "Operation incomplete",
+      "node_id": "complete_calendar",
+      "op": "project",
+      "source_text": "Create additional rows of data for the days the store was closed",
+      "ref": "Add rows for dates missing from transaction range"
+    },
+    {
+      "id": "2_D2_loyalty_join_key",
+      "kind": "Multi-table alignment",
+      "node_id": "join_loyalty",
+      "op": "join",
+      "source_text": "Join the Loyalty Table",
+      "ref": "transactions = transactions.merge(loyalty, on=\"Loyalty_Number\", how=\"left\")"
+    },
+    {
+      "id": "3_O2_loyalty_left_join",
+      "kind": "Operation incomplete",
+      "node_id": "join_loyalty",
+      "op": "join",
+      "source_text": "Join the Loyalty Table",
+      "ref": "how='left'"
+    },
+    {
+      "id": "4_D2_product_join_keys",
+      "kind": "Multi-table alignment",
+      "node_id": "join_txn_prod",
+      "op": "join",
+      "source_text": "Join the Product Table",
+      "ref": "Join on Product_Type + Product_Scent + Product_Size"
+    },
+    {
+      "id": "5_O2_product_left_join",
+      "kind": "Operation incomplete",
+      "node_id": "join_txn_prod",
+      "op": "join",
+      "source_text": "Join the Product Table",
+      "ref": "how='left'"
+    },
+    {
+      "id": "6_C2_loyalty_discount_decimal_rate",
+      "kind": "Row-level concept",
+      "node_id": "loy_prep",
+      "op": "project",
+      "source_text": "Update the Loyalty_Discount to be a numeric field",
+      "ref": "Divide by 100 to get decimal rate"
+    },
+    {
+      "id": "7_O2_loyalty_tier_spelling_normalization",
+      "kind": "Row-level concept",
+      "node_id": "loy_prep",
+      "op": "project",
+      "source_text": "Group together the Loyalty_Tiers into Gold, Silver and Bronze",
+      "ref": "def _normalize_tier(value):\n        if pd.isna(value):\n            return pd.NA\n        token = str(value).strip().lower()\n        if not token:\n            return pd.NA\n        if \"gold\" in token or \"goald\" in token:\n            return \"Gold\"\n        if \"silv\" in token or \"sliv\" in token:\n            return \"Silver\"\n        if \"bron\" in token:\n            return \"Bronze\"\n        return pd.NA",
+      "intent": "Trim surrounding whitespace and match tier names case-insensitively. Normalize Gold, Silver and Bronze to their canonical names; correct the supplied spelling variants Goald to Gold, Sliver to Silver and Bronz to Bronze. Missing or unrecognized values remain null."
+    },
+    {
+      "id": "8_C2_sales_after_discount_formula",
+      "kind": "Row-level concept",
+      "node_id": "quantity_and_sales",
+      "op": "project",
+      "source_text": "Create a Sales_After_Discount field to apply the Loyalty_Discount for transactions with a Loyalty_Number\n  - If Loyalty_Number, Loyalty_Discount, or Sales_Before_Discount is missing, leave Sales_After_Discount null. Keep these transaction records.",
+      "ref": "discount_mask = (\n        transactions[\"Loyalty_Number\"].notna()\n        & transactions[\"Loyalty_Discount\"].notna()\n        & transactions[\"Sales_Before_Discount\"].notna()\n    )\nsales_after_values = (\n        transactions.loc[discount_mask, \"Sales_Before_Discount\"].map(lambda x: Decimal(str(x)))\n        * (Decimal(1) - transactions.loc[discount_mask, \"Loyalty_Discount\"].map(lambda x: Decimal(str(x))))\n    )",
+      "intent": "Apply Sales_Before_Discount * (1 - Loyalty_Discount) only when Loyalty_Number, Loyalty_Discount and Sales_Before_Discount are all present. Otherwise leave Sales_After_Discount null and retain the transaction row; do not substitute zero discount or the original sales amount."
+    },
+    {
+      "id": "9_C2_profit_formula",
+      "kind": "Row-level concept",
+      "node_id": "quantity_and_sales",
+      "op": "project",
+      "source_text": "Calculate the Profit, defined as:\n  - Sales_After_Discount - (Unit_Cost * Quantity)\n  - If Sales_After_Discount is null, leave Profit null.\n  - Round Profit to 2 decimal places using half-up rounding.",
+      "ref": "profit_mask = (\n        transactions[\"_sales_after_raw\"].notna()\n        & transactions[\"Unit_Cost\"].notna()\n        & transactions[\"Quantity\"].notna()\n    )\nprofit_values = (\n        transactions.loc[profit_mask, \"_sales_after_raw\"]\n        - transactions.loc[profit_mask, \"Unit_Cost\"].map(lambda x: Decimal(str(x)))\n        * transactions.loc[profit_mask, \"Quantity\"].map(lambda x: Decimal(str(x)))\n    )\ndef _round_half_up(series: pd.Series, decimals: int = 0) -> pd.Series:\n        quantum = Decimal(1).scaleb(-decimals)\n        return series.map(lambda value: float(value.quantize(quantum, rounding=ROUND_HALF_UP))\n                          if pd.notna(value) else np.nan)\ntransactions.loc[profit_mask, \"Profit\"] = _round_half_up(\n        profit_values, decimals=2\n    )",
+      "intent": "Profit is Sales_After_Discount - (Unit_Cost * Quantity), using the unrounded discount calculation as specified in the full requirements. If Sales_After_Discount is null, leave Profit null; do not replace missing profit with zero. Round the final Profit to 2 decimal places using half-up rounding (ROUND_HALF_UP), not half-to-even."
+    },
+    {
+      "id": "10_O1_quantity_floor",
+      "kind": "Operation boundary",
+      "node_id": "quantity_and_sales",
+      "op": "project",
+      "source_text": "Calculate the Quantity of each transaction",
+      "ref": "Quantity = floor(Sales_Before / Selling_Price)"
+    },
+    {
+      "id": "11_O2_quantity_null_if_price_missing_or_zero",
+      "kind": "Operation incomplete",
+      "node_id": "quantity_and_sales",
+      "op": "project",
+      "intent": "If Selling_Price is missing or zero, Quantity = null.",
+      "ref": "valid_price = price.notna() & price.ne(0)"
+    },
+    {
+      "id": "12_O2_cash_or_card_invalid_null",
+      "kind": "Operation incomplete",
+      "node_id": "txn_clean",
+      "op": "project",
+      "intent": "If Cash_or_Card is not 1/2 (or their string forms), map it to null.",
+      "ref": "cash_map = {1: \"Card\", 2: \"Cash\", \"1\": \"Card\", \"2\": \"Cash\"}\ntransactions[\"Cash_or_Card\"] = transactions[\"Cash_or_Card\"].map(cash_map)"
+    },
+    {
+      "id": "13_D2_split_product_id_on_dash",
+      "kind": "Single-table reference",
+      "node_id": "txn_split",
+      "op": "project",
+      "source_text": "You'll need to prepare the join clause fields first",
+      "ref": "Split on '-'"
+    }
+  ]
+}

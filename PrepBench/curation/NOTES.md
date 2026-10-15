@@ -29,7 +29,7 @@
 | --- | --- | --- |
 | `metadata.yaml` | 任务领域、输入表数和列数；不存审核结论 | 是否与输入结构一致 |
 | `inputs/` | agent 可以读取的输入 CSV | query、reference、GT 及受影响的规则 |
-| `query.md` | 初始需求；direct 和 interact 的 agent 可见 | 输出约定、KB 的原文引用、是否意外消除了业务歧义 |
+| `query.md` | 初始需求；direct 和 interact 的 agent 可见 | 必要业务规则与偏好要求是否明确、输出约定、KB 的原文引用 |
 | `query_full.md` | 完整需求；clarified 的 agent 可见，interact 时仅 simulator 可见 | KB、reference、GT 和评分范围 |
 | `amb_kb.json` | 私有澄清知识库，供 simulator 使用 | 与两份 query 的关系、规则依据及引用准确性 |
 | `reference/solution.py` | 私有参考实现，供研究者验证及 simulator 理解规则 | 完整需求、输入、GT；实现习惯是否被误当作要求 |
@@ -51,7 +51,9 @@
 
 先说明每张输出表“一行代表什么”，再检查过滤、聚合、关联、并列、缺失和输出规则。至少对照 query、query_full、amb_kb.json、reference、GT，特别标出仅在完整需求或实现中出现的精度、排序、空白和固定标签要求。
 
-原始 query 可以保留需要交互澄清的业务歧义；query_full 给出完整解释，KB 记录对应规则及依据。不要为了让所有模式直接通过，就把全部隐藏业务规则塞进 query。
+必要业务规则和影响答案的偏好要求应尽量写进 query，使 query、query_full、KB、reference、GT 和评分规则保持一致。例如温差是否保留符号、是否只检查在职员工、half-to-even 舍入。不能仅因 query 省略公式或细节就一律补齐；没有明确误导的细节可继续保留在 full/KB，已明确决定不补充的逐题事项按迁移日志执行。
+
+公开的是有依据的任务规则，不是参考代码、具体输出答案或库默认行为。full/GT 本身有冲突时先审查依据，不机械地把 full 全文搬入 query。一般等价输出表示继续兼容。已运行题目的 query/KB 改变后必须另起生成，旧资产和原结果保留；旧通过记录不代表已按修改后的要求重新验收。
 
 所有模式共同需要的交付约定，应在两份 query 的 Output 部分明确：文件名、文件角色、完整列名及约定的固定类别名称。括号属于列名时也要保留。公开类别名称不等于公开每行答案。
 

@@ -24,7 +24,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT.parent))
 from runners.backends import BACKENDS
 from runners.results import save, summarize, token_metrics, token_usage
-from runners.agents import add_agent_options, add_model_options, settings, label_for, prepare_agent, archive_sessions, agent_log_paths
+from runners.agents import add_agent_options, add_model_options, settings, label_for, prepare_agent, archive_sessions, agent_log_paths, get_agent
 
 
 def prepare(case, run, mode, backend):
@@ -151,11 +151,15 @@ def main(argv=None):
                 session = response.json()
                 save(run / 'session.json', session)
                 docker_env = ['-e', f'DFARENA_SESSION_ID={session["session_id"]}']
-                # Codex starts the MCP adapter inside Docker and communicates via stdio.
-                # The adapter forwards ask calls over HTTP to the host-side simulator;
-                # host.docker.internal lets the container reach the port selected above.
-                with (cfg / 'config.toml').open('a') as config_file:
-                    config_file.write(f'''\n[mcp_servers.clarification]\ncommand = "bash"\nargs = ["-c", "exec /usr/local/bin/python /runner/mcp_adapter.py 2>/workspace/work/mcp_stderr.log"]\nstartup_timeout_sec = 30\ntool_timeout_sec = 180\nrequired = true\n[mcp_servers.clarification.env]\nDFARENA_CLARIFIER_URL = "http://host.docker.internal:{port}/session/ask"\nDFARENA_SESSION_ID = "{session["session_id"]}"\n''')
+                get_agent(args.agent).configure_local_mcp(
+                    config_dir=cfg, name='clarification',
+                    command=['bash', '-c', 'exec /usr/local/bin/python /runner/mcp_adapter.py 2>/workspace/work/mcp_stderr.log'],
+                    environment={
+                        'DFARENA_CLARIFIER_URL': f'http://host.docker.internal:{port}/session/ask',
+                        'DFARENA_SESSION_ID': session['session_id'],
+                    },
+                    startup_timeout_seconds=30, tool_timeout_seconds=180,
+                )
             # Run the agent in Docker with mounted task inputs, a writable workspace, and temporary agent configuration.
             cmd = ['docker', 'run', '--rm', '-i', '--name', container, '--add-host=host.docker.internal:host-gateway', *docker_env,
                    '-v', f'{case / ("query_full.md" if args.mode == "clarified" else "query.md")}:/workspace/query.md:ro',
