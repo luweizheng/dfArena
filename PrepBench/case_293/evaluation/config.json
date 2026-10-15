@@ -1,0 +1,51 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Initials",
+        "Engagement Order"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Engagement Start Date": {
+          "type": "date",
+          "null_values": [],
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Engagement End Date": {
+          "type": "date",
+          "null_values": [],
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Initials": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Engagement Order": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Grade Name": {
+          "type": "text_exact",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "Day Rate": {
+          "type": "number",
+          "null_values": [],
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    }
+  }
+}

@@ -14,6 +14,8 @@ FALSE = {'false', '0', 'no', 'n', 'f', '否'}
 
 def normalize(raw, rule):
     kind, legacy = rule['type'], rule['legacy']
+    # Explicit exact labels only; the configured type still validates the target.
+    raw = rule.get('aliases', {}).get(raw, raw)
     s = raw.strip()
     if legacy and kind in {'text_exact', 'text_norm'}:
         if len(s) >= 2 and s[0] == s[-1] and s[0] in {'"', "'"}:

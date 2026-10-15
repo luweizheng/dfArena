@@ -1,0 +1,81 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Year",
+        "Stage Number"
+      ],
+      "columns": {
+        "Stage Won?": {
+          "type": "text_exact",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "Stage Number": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Origin - Destination": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Time Trial?": {
+          "type": "text_exact",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "General Classification Finishing Position": {
+          "type": "text_exact",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "Points Finishing Position": {
+          "type": "integer",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "Year": {
+          "type": "integer",
+          "null_values": []
+        },
+        "KM": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Stage Type": {
+          "type": "text_exact",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

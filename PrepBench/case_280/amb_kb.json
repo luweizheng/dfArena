@@ -1,0 +1,67 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O1_strict_after",
+      "kind": "Operation boundary",
+      "node_id": "filter_date_order",
+      "op": "filter",
+      "source_text": "Filter the dataset to only contain rows where the Date Resolved happens after the Date Received",
+      "ref": "mask_after = res_parsed > rec_parsed",
+      "intent": "Keep only strictly later resolution dates; equal dates are excluded."
+    },
+    {
+      "id": "2_O2_drop_unparseable_dates",
+      "kind": "Operation incomplete",
+      "node_id": "filter_date_order",
+      "op": "filter",
+      "intent": "Exclude records if either date cannot be parsed using the complete requirements formats.",
+      "ref": "return pd.NaT\nmask_after = res_parsed > rec_parsed\ndf = df[mask_after].copy()",
+      "source_text": "Filter the dataset to only contain rows where the Date Resolved happens after the Date Received"
+    },
+    {
+      "id": "3_C1_category_code_mapping",
+      "kind": "Row-level concept",
+      "node_id": "proj_category",
+      "op": "project",
+      "source_text": "Use this Category Code to join on the Product Category from the lookup table",
+      "ref": "code_to_category = {\n        \"BE\": \"Beauty\",\n        \"CL\": \"Clothes\",\n        \"EL\": \"Electronic\",\n        \"GR\": \"Groceries\",\n        \"HO\": \"Home\",\n    }",
+      "intent": "Map BE to Beauty, CL to Clothes, EL to Electronic, GR to Groceries, HO to Home."
+    },
+    {
+      "id": "4_O2_timely_response_boolean",
+      "kind": "Operation incomplete",
+      "node_id": "proj_dates_pre",
+      "op": "project",
+      "intent": "Output Timely Response as a boolean.",
+      "ref": "if df[\"Timely Response\"].dtype != bool:\n        df[\"Timely Response\"] = df[\"Timely Response\"].astype(\n            str).str.strip().str.lower().map({\"true\": True, \"false\": False})",
+      "source_text": "Timely Response"
+    },
+    {
+      "id": "5_C1_complaint_description_structure",
+      "kind": "Row-level concept",
+      "node_id": "proj_regex",
+      "op": "project",
+      "source_text": "Split the Complaint Description field into:",
+      "ref": "pat = re.compile(r\"^\\s*([A-Z]{2}\\d{4})\\s*-\\s*([^:]+):\\s*(.*)\\s*$\")",
+      "intent": "Parse Product ID - Issue Type: Complaint Description and remove matching outer quotes around the description."
+    },
+    {
+      "id": "6_O2_complaint_description_mismatch_policy",
+      "kind": "Operation incomplete",
+      "node_id": "proj_regex",
+      "op": "project",
+      "intent": "If the expected structure does not match, leave Product ID and Issue Type missing and retain the original description text.",
+      "ref": "m = pat.match(text)\n        if not m:\n            return None, None, text.strip()",
+      "source_text": "Split the Complaint Description field into:"
+    },
+    {
+      "id": "7_O2_date_parse_priority",
+      "kind": "Operation incomplete",
+      "node_id": "script_dates",
+      "op": "script",
+      "intent": "Parse dates in order: YYYY-MM-DD HH:MM:SS, M/D/YYYY, YYYY-MM-DD; YYYY-MM-DD is year-month-day and must not swap month and day.",
+      "ref": "for fmt in (\"%Y-%m-%d %H:%M:%S\", \"%m/%d/%Y\", \"%Y-%m-%d\"):\n            try:\n                return pd.Timestamp(datetime.strptime(s_strip, fmt))\n            except ValueError:\n                continue\n        return pd.NaT",
+      "source_text": "Filter the dataset to only contain rows where the Date Resolved happens after the Date Received"
+    }
+  ]
+}

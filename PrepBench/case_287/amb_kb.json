@@ -1,0 +1,85 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O1_sort_order_one_based",
+      "kind": "Operation boundary",
+      "node_id": "add_sort_order",
+      "op": "project",
+      "intent": "Sort Order is a1-based sequential number assigned after the required card sorting.",
+      "ref": "sorted_df['Sort Order'] = sorted_df.index + 1",
+      "source_text": "Sort Order"
+    },
+    {
+      "id": "2_O2_pokedex_join_unmatched_policy",
+      "kind": "Operation incomplete",
+      "node_id": "poke_join_pokedex",
+      "op": "join",
+      "intent": "Left join card Pokemon names to the Pokedex; keep unmatched cards.",
+      "ref": "how='left'",
+      "source_text": "Use the Pokémon Input to bring in information about the Pokédex Number"
+    },
+    {
+      "id": "3_O2_pokedex_missing_default_zero",
+      "kind": "Operation incomplete",
+      "node_id": "poke_set_keys",
+      "op": "project",
+      "intent": "Missing Pokedex numbers use0 for sorting.",
+      "ref": ".fillna(0).astype(int)",
+      "source_text": "Use the Pokémon Input to bring in information about the Pokédex Number"
+    },
+    {
+      "id": "4_O2_pokedex_number_parse_fail_default",
+      "kind": "Operation incomplete",
+      "node_id": "pokedex_cast_num",
+      "op": "project",
+      "intent": "Non-numeric Pokedex numbers use0 for sorting.",
+      "ref": "pd.to_numeric(..., errors='coerce').fillna(0).astype(int)",
+      "source_text": "Use the Pokémon Input to bring in information about the Pokédex Number"
+    },
+    {
+      "id": "5_O3_pokedex_duplicate_name_resolution",
+      "kind": "Operation inconsistent",
+      "node_id": "pokedex_dedup",
+      "op": "dedup",
+      "source_text": "make sure not to duplicate any rows",
+      "ref": "df_pokedex = df_pokedex.drop_duplicates(subset=[\"Pokemon Name\"])",
+      "intent": "Keep the first lookup row per Pokemon Name before joining. Supplied duplicate names have the same Pokedex number."
+    },
+    {
+      "id": "6_O2_missing_leader_order_default_999",
+      "kind": "Operation incomplete",
+      "node_id": "prepare_sort_keys",
+      "op": "project",
+      "intent": "Left join on Leader; missing numeric Order sorts as999.",
+      "ref": ".fillna(999).astype(int)",
+      "source_text": "Combine with the Leader Order Input"
+    },
+    {
+      "id": "7_O1_pokemon_tiebreaker_after_level",
+      "kind": "Operation boundary",
+      "node_id": "sort_rows",
+      "op": "sort",
+      "source_text": "Using the Pokémon level in the bottom left corner of the card, where a leader has multiple of the same Pokémon",
+      "ref": "sorted_df = combined_df.sort_values(\n        by=['Order', 'SortKey1', 'Trainer_Sort_Num',\n            'Set_Order', 'Pokedex_Sort_Num', 'level', 'Number'],...",
+      "intent": "After leader, card category, Pokedex and level, use card Number ascending for any remaining Pokemon tie."
+    },
+    {
+      "id": "8_C1_gym_leader_card_identification",
+      "kind": "Row-level concept",
+      "node_id": "trainer_keys",
+      "op": "project",
+      "source_text": "With the Gym Leader card first",
+      "ref": "(df_trainer['Leader'] != 'Leftover Trainers') & (\n                df_trainer['Card'] == df_trainer['Leader']),",
+      "intent": "A leader card has Card exactly equal to its non-leftover Leader."
+    },
+    {
+      "id": "9_C1_gym_card_identification",
+      "kind": "Row-level concept",
+      "node_id": "trainer_keys",
+      "op": "project",
+      "source_text": "Followed by their Gym card",
+      "ref": "(df_trainer['Leader'] != 'Leftover Trainers') & (\n                df_trainer['Card'].str.contains(' Gym', na=False))",
+      "intent": "A Gym card has a non-leftover Leader and Card containing the substring \" Gym\"."
+    }
+  ]
+}

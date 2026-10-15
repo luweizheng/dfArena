@@ -1,0 +1,60 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "City",
+        "Store",
+        "Email Address",
+        "Date"
+      ],
+      "columns": {
+        "City": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Store": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Rank": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Email Address": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "First Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Last Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Loyalty Points": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": []
+        },
+        "Postcode": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "address": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

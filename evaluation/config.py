@@ -27,6 +27,8 @@ def column_rule(value):
     rule = dict(rule)
     kind = rule['type']
     allowed = {'type', 'null_values'}
+    if kind in {'integer', 'text_exact'}:
+        allowed.add('aliases')
     if kind == 'number':
         allowed |= {'abs_tol', 'rel_tol'}
     if kind in {'date', 'datetime', 'time'}:
@@ -36,6 +38,27 @@ def column_rule(value):
     if 'null_values' in rule and (not isinstance(rule['null_values'], list) or
                                  not all(isinstance(x, str) for x in rule['null_values'])):
         raise ConfigError('null_values must be an explicit list of strings')
+    if 'aliases' in rule:
+        aliases = rule['aliases']
+        if not isinstance(aliases, dict) or not aliases:
+            raise ConfigError('aliases must be a nonempty string-to-string object')
+        for label, target in aliases.items():
+            if (not isinstance(label, str) or not label.strip()
+                    or label in rule.get('null_values', [''])
+                    or not isinstance(target, str) or not target.strip()
+                    or target in rule.get('null_values', [''])):
+                raise ConfigError('Aliases require nonempty, non-null string labels and targets')
+            if kind == 'integer':
+                if not re.fullmatch(r'[+-]?[0-9]+', target):
+                    raise ConfigError('Integer aliases require integer-string targets')
+                try:
+                    Decimal(label.strip())
+                except InvalidOperation:
+                    pass
+                else:
+                    raise ConfigError('Integer aliases cannot remap numeric representations')
+            elif target in aliases:
+                raise ConfigError('Text aliases must point directly to canonical text, without chains or cycles')
     if 'formats' in rule and (not isinstance(rule['formats'], list) or not rule['formats'] or
                              not all(isinstance(x, str) and x for x in rule['formats'])):
         raise ConfigError('formats must be a nonempty list of strptime formats')
@@ -80,8 +103,18 @@ def load_config(path):
     for name, spec in raw['files'].items():
         if not name or '/' in name or '\\' in name or not name.lower().endswith('.csv'):
             raise ConfigError(f'Expected a plain CSV filename: {name!r}')
-        if not isinstance(spec, dict) or set(spec) - {'columns', 'key', 'ignore_order', 'order_by'}:
+        if not isinstance(spec, dict) or set(spec) - {'columns', 'key', 'ignore_order', 'order_by', 'alternative_gt'}:
             raise ConfigError(f'Invalid file options for {name}')
+        alternatives = spec.get('alternative_gt', {})
+        if not isinstance(alternatives, dict):
+            raise ConfigError(f'{name}: alternative_gt must map labels to relative CSV paths')
+        for label, relative in alternatives.items():
+            if (not isinstance(label, str) or not re.fullmatch(r'[A-Za-z0-9_-]+', label)
+                    or label == 'primary' or not isinstance(relative, str)
+                    or not relative or '\\' in relative or ':' in relative
+                    or relative.startswith('/') or not relative.lower().endswith('.csv')
+                    or any(p in {'', '.', '..'} for p in relative.split('/'))):
+                raise ConfigError(f'{name}: invalid alternative_gt label or relative CSV path')
         cols = spec.get('columns')
         if not isinstance(cols, dict) or not cols or not all(isinstance(c, str) and c for c in cols):
             raise ConfigError(f'{name}: columns must be a nonempty object')
@@ -107,4 +140,6 @@ def load_config(path):
                 raise ConfigError(f'{name}: order_by requires distinct declared columns, direction asc/desc, nulls first/last')
             seen.add(item['column'])
         result[name] = {'columns': cols, 'key': key, 'ignore_order': ignore, 'order_by': order}
+        if alternatives:
+            result[name]['alternative_gt'] = dict(alternatives)
     return {'files': result}

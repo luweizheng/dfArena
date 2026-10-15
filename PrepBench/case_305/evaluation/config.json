@@ -1,0 +1,37 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Series",
+        "Couple"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Series": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Couple": {
+          "type": "text_norm",
+          "null_values": []
+        },
+        "Finalist Positions": {
+          "type": "text_norm",
+          "null_values": []
+        },
+        "Avg Judge's Score": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "% Change": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0,
+          "null_values": []
+        }
+      }
+    }
+  }
+}

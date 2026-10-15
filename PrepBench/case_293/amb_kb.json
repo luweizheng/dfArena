@@ -1,0 +1,49 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_date_end_columns",
+      "kind": "Single-table reference",
+      "node_id": "compute_core",
+      "op": "project",
+      "source_text": "Create an engagement start date and an engagement end date (the year is 2024 in case you are doing this task after the normal release week)",
+      "ref": "engagements[\"Engagement End Date\"] = to_date(\"Engagement End Day\", \"Engagement End Month\")",
+      "intent": "Construct Engagement End Date from Engagement End Day and Engagement End Month, fixed year2024."
+    },
+    {
+      "id": "2_date_start_columns",
+      "kind": "Single-table reference",
+      "node_id": "compute_core",
+      "op": "project",
+      "source_text": "Create an engagement start date and an engagement end date (the year is 2024 in case you are doing this task after the normal release week)",
+      "ref": "engagements[\"Engagement Start Date\"] = to_date(\"Engagement Start Day\", \"Engagement Start Month\")",
+      "intent": "Construct Engagement Start Date from Engagement Start Day and Engagement Start Month, fixed year2024."
+    },
+    {
+      "id": "3_drop_inverted_date_ranges",
+      "kind": "Operation boundary",
+      "node_id": "filter_invalid_ranges",
+      "op": "filter",
+      "intent": "Compute each person's minimum numeric Grade over all original engagements first, including those later excluded. Then remove inverted ranges before assigning order or comparing overlaps.",
+      "ref": "engagements = engagements[engagements[\"Engagement End Date\"] >= engagements[\"Engagement Start Date\"]].copy()",
+      "source_text": "Create an engagement start date and an engagement end date"
+    },
+    {
+      "id": "4_sort_ties_by_end_date_ascending",
+      "kind": "Row-level concept",
+      "node_id": "sort1",
+      "op": "sort",
+      "source_text": "Create an 'Engagement Order' based on the Engagement Start Date",
+      "ref": "df = df.sort_values([\"Initials\", \"Engagement Start Date\", \"Engagement End Date\"], ascending=[True, True, True]).reset_index(drop=True)",
+      "intent": "Sort each person's valid ranges by start date ascending, then end date ascending. Assign sequential1-based Engagement Order before overlap filtering; retain these original numbers after filtering."
+    },
+    {
+      "id": "5_overlap_filter_previous_end",
+      "kind": "Operation boundary",
+      "node_id": "filter_overlaps",
+      "op": "filter",
+      "source_text": "For each individual person (identified by unique initials), remove any engagements where the start date occurs before the previous Engagement End Date",
+      "ref": "mask_valid = df[\"prev_end\"].isna() | (df[\"Engagement Start Date\"] >= df[\"prev_end\"])",
+      "intent": "Compare each valid-range row with the immediately preceding row in the sorted sequence, even if that preceding row is itself removed for overlap. Keep equality start==previous end. This is not a greedy comparison against the last retained row."
+    }
+  ]
+}

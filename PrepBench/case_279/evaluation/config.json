@@ -1,0 +1,57 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Week"
+      ],
+      "columns": {
+        "Week": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": []
+        },
+        "Salary Payments": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        }
+      },
+      "ignore_order": false,
+      "order_by": [
+        {
+          "column": "Week",
+          "direction": "asc",
+          "nulls": "last"
+        }
+      ]
+    },
+    "output_02.csv": {
+      "key": [
+        "Year"
+      ],
+      "columns": {
+        "Year": {
+          "type": "integer",
+          "null_values": []
+        },
+        "% Spent on Manager Salaries": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        }
+      },
+      "ignore_order": false,
+      "order_by": [
+        {
+          "column": "Year",
+          "direction": "asc",
+          "nulls": "last"
+        }
+      ]
+    }
+  }
+}

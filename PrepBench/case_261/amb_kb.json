@@ -1,0 +1,58 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_D1_annual_salary_from_month_cols",
+      "kind": "Row-level concept",
+      "node_id": "compute_all",
+      "op": "project",
+      "source_text": "Find each team member's annual salary",
+      "ref": "month_cols = [str(i) for i in range(1, 13)]; df[\"Salary\"] = df[month_cols].sum(axis=1)",
+      "intent": "Sum months 1 through 12 on the retained row; missing columns or nonnumeric monthly values contribute zero."
+    },
+    {
+      "id": "2_O1_max_tax_rate_threshold",
+      "kind": "Operation boundary",
+      "node_id": "compute_all",
+      "op": "project",
+      "source_text": "Find each team member's maximum tax band based on their annual salary",
+      "ref": "if row_salary > higher_upper: return \"45% rate\"",
+      "intent": "Salary >125140 maps to 45% rate; else >50270 to 40% rate; otherwise 20% rate."
+    },
+    {
+      "id": "3_C2_tax_band_formulas",
+      "kind": "Row-level concept",
+      "node_id": "compute_all",
+      "op": "project",
+      "source_text": "Work out how much tax an individual paid for each of the % bands.",
+      "ref": "taxable_20 = (df[\"Salary\"] - allowance).clip(lower=0).clip(upper=(basic_upper - allowance)) * 0.20",
+      "intent": "Apply only the simplified bands given in this task: 20% of the portion above 12570 up to 50270; 40% above 50270 up to 125140; 45% above 125140."
+    },
+    {
+      "id": "4_O2_tax_band_null_handling",
+      "kind": "Operation incomplete",
+      "node_id": "compute_all",
+      "op": "project",
+      "intent": "Keep 40% rate paid blank unless salary exceeds 50270, and 45% rate tax paid blank unless it exceeds 125140. The 20% field is always populated.",
+      "ref": "tax40_out = tax40.where(max_rate_flags.isin([\"40\", \"45\"]), np.nan)",
+      "source_text": "Leave `40% rate paid` blank/null when Salary does not exceed £50,270, and leave `45% rate tax paid` blank/null when Salary does not exceed £125,140."
+    },
+    {
+      "id": "5_O2_total_tax_null_treatment",
+      "kind": "Operation incomplete",
+      "node_id": "compute_all",
+      "op": "project",
+      "intent": "Treat blank bands as zero only when summing Total Tax Paid.",
+      "ref": "total_tax = (tax20_out.fillna(0) + tax40_out.fillna(0) + tax45_out.fillna(0))",
+      "source_text": "Input the data"
+    },
+    {
+      "id": "6_O1_row_number_dedup",
+      "kind": "Group-level concept",
+      "node_id": "dedup_latest",
+      "op": "dedup",
+      "source_text": "Find the latest row (largest row number) to capture the individuals correct salary information",
+      "ref": "df.sort_values(\"__row_number__\").drop_duplicates(subset=[\"StaffID\"], keep=\"last\")",
+      "intent": "Use the last row in original file order per StaffID."
+    }
+  ]
+}

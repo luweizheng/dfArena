@@ -1,0 +1,44 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Gym Set",
+        "Number"
+      ],
+      "columns": {
+        "Sort Order": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Leader": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Gym Set": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Number": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Card": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Card Type": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": false,
+      "order_by": [
+        {
+          "column": "Sort Order",
+          "direction": "asc",
+          "nulls": "last"
+        }
+      ]
+    }
+  }
+}

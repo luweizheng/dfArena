@@ -1,0 +1,81 @@
+Wildlife,Name,Priority Order,Habitat Notes,Degrees outside Ideal,Status,Class,Region,Habitat
+Animal,African Pygmy Goose,21,Above,1,Stable,Birds,Africa,Rivers and Lakes
+Animal,Agouti,7,Below,-10,Some Endangered,Mammals,"Central America, South America",Tropical Rainforest
+Animal,Axolotl,5,Above,1,Endangered,Amphibians,North America,Rivers and Lakes
+Animal,Banded Archer Fish,21,Above,1,Stable,Ray-finned fishes,Australia and New Zealand,Rivers and Lakes
+Animal,Binturong,7,Below,-10,Some Endangered,Mammals,Asia,Tropical Rainforest
+Animal,Bonobo,2,Below,-10,Endangered,Mammals,Africa,Tropical Rainforest
+Animal,Bowerbird,15,Below,-10,Some Threatened,Birds,Australia and New Zealand,Tropical Rainforest
+Animal,Capybara,17,Above,1,Some Threatened,Mammals,"Central America, South America","Rivers and Lakes, Wetlands"
+Animal,Chimpanzee,2,Below,-10,Endangered,Mammals,Africa,Tropical Rainforest
+Animal,Chinchilla,5,Above,1,Endangered,Mammals,South America,Mountains
+Animal,Chinese Giant Salamander,5,Above,1,Endangered,Amphibians,Asia,Rivers and Lakes
+Animal,Cichlid,10,Above,1,Some Endangered,Ray-finned fishes,"Africa, Asia, Central America, South America",Rivers and Lakes
+Animal,Coquerel's Sifaka,2,Below,-10,Endangered,Mammals,Africa,Tropical Rainforest
+Animal,Crane,10,Above,1,Some Endangered,Birds,"Africa, Asia, Australia and New Zealand, Europe, North America","Rivers and Lakes, Wetlands"
+Animal,Crocodilian,9,Above,4,Some Endangered,Reptiles,"Africa, Asia, Australia and New Zealand, Caribbean, Central America, Middle East, North America, Pacific Islands, South America",Wetlands
+Animal,Dragonfly and Damselfly,21,Above,1,Stable,Insects,"Africa, Asia, Australia and New Zealand, Caribbean, Central America, Europe, Middle East, North America, Pacific Islands, South America",Rivers and Lakes
+Animal,Flamingo,17,Above,1,Some Threatened,Birds,"Africa, Asia, Australia and New Zealand, Caribbean, Central America, Europe, Middle East, North America, Pacific Islands, South America",Rivers and Lakes
+Animal,Galápagos Tortoise,1,Below,-11,Endangered,Reptiles,South America,Island
+Animal,Gelada,17,Above,1,Some Threatened,Mammals,Africa,Mountains
+Animal,Giant African Millipede,18,Below,-10,Stable,Millipedes,Africa,Tropical Rainforest
+Animal,Giant Panda,13,Above,7,Threatened,Mammals,Asia,Temperate Forest and Taiga
+Animal,Harpy Eagle,12,Below,-10,Threatened,Birds,"Central America, North America, South America",Tropical Rainforest
+Animal,Hippo,14,Above,1,Threatened,Mammals,Africa,Rivers and Lakes
+Animal,Jacana,16,Above,4,Some Threatened,Birds,"Asia, Australia and New Zealand, Central America, North America, Pacific Islands, South America",Wetlands
+Animal,Kangaroo and Wallaby,7,Below,-10,Some Endangered,Mammals,"Australia and New Zealand, Pacific Islands","Island, Tropical Rainforest"
+Animal,Kiwi,6,Below,-11,Some Endangered,Birds,Australia and New Zealand,Island
+Animal,Koala,13,Above,7,Threatened,Mammals,Australia and New Zealand,Temperate Forest and Taiga
+Animal,Koi,21,Above,1,Stable,Ray-finned fishes,Asia,Rivers and Lakes
+Animal,Laughing Kookaburra,19,Above,7,Stable,Birds,Australia and New Zealand,Temperate Forest and Taiga
+Animal,Lord Howe Island Stick Insect,1,Below,-11,Endangered,Insects,Australia and New Zealand,Island
+Animal,Magpie Goose,20,Above,4,Stable,Birds,Australia and New Zealand,Wetlands
+Animal,Mandrill,12,Below,-10,Threatened,Mammals,Africa,Tropical Rainforest
+Animal,Mantella,7,Below,-10,Some Endangered,Amphibians,Africa,Tropical Rainforest
+Animal,Nile Lechwe,4,Above,4,Endangered,Mammals,Africa,Wetlands
+Animal,Okapi,2,Below,-10,Endangered,Mammals,Africa,Tropical Rainforest
+Animal,Orangutan,2,Below,-10,Endangered,Mammals,Asia,Tropical Rainforest
+Animal,Panamanian Golden Frog,2,Below,-10,Endangered,Amphibians,South America,Tropical Rainforest
+Animal,Peafowl,8,Above,7,Some Endangered,Birds,Asia,Temperate Forest and Taiga
+Animal,Platypus,17,Above,1,Some Threatened,Mammals,Australia and New Zealand,"Rivers and Lakes, Wetlands"
+Animal,Poison Frog,7,Below,-10,Some Endangered,Amphibians,"Central America, South America",Tropical Rainforest
+Animal,Pumpkinseed Sunfish,21,Above,1,Stable,Ray-finned fishes,"Europe, North America",Rivers and Lakes
+Animal,Pygmy Slow Loris,7,Below,-10,Some Endangered,Mammals,Asia,Tropical Rainforest
+Animal,Rodrigues Flying Fox,2,Below,-10,Endangered,Mammals,Africa,Tropical Rainforest
+Animal,Shoebill,14,Above,1,Threatened,Birds,Africa,"Rivers and Lakes, Wetlands"
+Animal,Siamang,2,Below,-10,Endangered,Mammals,Asia,Tropical Rainforest
+Animal,Snow Leopard,14,Above,1,Threatened,Mammals,Asia,Mountains
+Animal,Sun Bear,12,Below,-10,Threatened,Mammals,Asia,Tropical Rainforest
+Animal,Surinam Toad,18,Below,-10,Stable,Amphibians,South America,Tropical Rainforest
+Animal,Takin,13,Above,7,Threatened,Mammals,Asia,Temperate Forest and Taiga
+Animal,Thick-billed Parrot,3,Above,7,Endangered,Birds,Central America,Temperate Forest and Taiga
+Animal,Toucan,7,Below,-10,Some Endangered,Birds,"Central America, South America",Tropical Rainforest
+Animal,Tree Pangolin,12,Below,-10,Threatened,Mammals,Africa,Tropical Rainforest
+Animal,Two-toed Sloth,18,Below,-10,Stable,Mammals,"Central America, South America",Tropical Rainforest
+Animal,West African Lungfish,21,Above,1,Stable,Sarcopterygii,Africa,Rivers and Lakes
+Plant,African Tulip Tree,18,Below,-10,Stable,Magnoliopsida,Africa,Tropical Rainforest
+Plant,"Alula, Cabbage on a Stick",1,Below,-11,Endangered,Magnoliopsida,Pacific Islands,Island
+Plant,American Pitcher Plant,9,Above,4,Some Endangered,Magnoliopsida,North America,Wetlands
+Plant,Australian Flame Tree,18,Below,-10,Stable,Magnoliopsida,Australia and New Zealand,Tropical Rainforest
+Plant,Bonsai,,Above,7,,,"Africa, Asia, Australia and New Zealand, Caribbean, Central America, Europe, Middle East, North America, Pacific Islands, South America",Temperate Forest and Taiga
+Plant,Cacao,,Below,-10,,Magnoliopsida,"Central America, North America, South America",Tropical Rainforest
+Plant,Calla Lily,21,Above,1,Stable,Liliopsida,Africa,"Rivers and Lakes, Wetlands"
+Plant,Cape Chestnut,19,Above,7,Stable,Magnoliopsida,Africa,Temperate Forest and Taiga
+Plant,Cattail,,Above,1,,Liliopsida,"Africa, Asia, Caribbean, Central America, Europe, Middle East, North America","Rivers and Lakes, Wetlands"
+Plant,Epiphyllum,7,Below,-10,Some Endangered,Magnoliopsida,"Central America, South America",Tropical Rainforest
+Plant,Fishtail Palm,18,Below,-10,Stable,Liliopsida,"Asia, Australia and New Zealand, Pacific Islands","Island, Tropical Rainforest"
+Plant,Ginger,7,Below,-10,Some Endangered,Liliopsida,"Africa, Asia, Caribbean, Central America, South America",Tropical Rainforest
+Plant,Horsetail Reed,21,Above,1,Stable,Polypodiospida,"Asia, Europe, North America","Rivers and Lakes, Wetlands"
+Plant,Howea Palm (Kentia Palm),11,Below,-11,Threatened,Liliopsida,Australia and New Zealand,Island
+Plant,Japanese Wisteria,,Above,7,,Magnoliopsida,Asia,Temperate Forest and Taiga
+Plant,Maple,8,Above,7,Some Endangered,Magnoliopsida,"Africa, Asia, Europe, North America",Temperate Forest and Taiga
+Plant,Orchid Tree,7,Below,-10,Some Endangered,Magnoliopsida,"Africa, Asia, Australia and New Zealand, Caribbean, Central America, South America","Island, Tropical Rainforest"
+Plant,Papyrus,21,Above,1,Stable,Liliopsida,Africa,"Rivers and Lakes, Wetlands"
+Plant,Pentas,21,Above,1,Stable,Magnoliopsida,"Africa, Middle East",Mountains
+Plant,Pink Trumpet Tree,19,Above,7,Stable,Asterids,"Central America, North America, South America",Temperate Forest and Taiga
+Plant,Queensland Umbrella Tree,18,Below,-10,Stable,Magnoliopsida,"Australia and New Zealand, Pacific Islands",Tropical Rainforest
+Plant,Sundew,9,Above,4,Some Endangered,Magnoliopsida,"Africa, Asia, Australia and New Zealand, Europe, North America, South America",Wetlands
+Plant,Tropical Pitcher Plant,7,Below,-10,Some Endangered,Magnoliopsida,"Africa, Asia, Australia and New Zealand",Tropical Rainforest
+Plant,Venus Flytrap,4,Above,4,Endangered,Magnoliopsida,North America,Wetlands
+Plant,Western Sword Fern,21,Above,1,Stable,Pteridopsida,North America,"Mountains, Temperate Forest and Taiga"
+Plant,Wood Fern,16,Above,4,Some Threatened,Pteridopsida,"Africa, Asia, Europe, North America","Temperate Forest and Taiga, Wetlands"

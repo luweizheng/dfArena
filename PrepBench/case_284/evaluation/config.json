@@ -1,0 +1,63 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "driver_number"
+      ],
+      "columns": {
+        "Position": {
+          "type": "integer",
+          "null_values": []
+        },
+        "driver_number": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "driver_code": {
+          "type": "text_exact",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "driver_name": {
+          "type": "text_exact",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "constructor_sponsor_name": {
+          "type": "text_exact",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "lap_duration": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        }
+      },
+      "ignore_order": false,
+      "order_by": [
+        {
+          "column": "Position",
+          "direction": "asc",
+          "nulls": "last"
+        }
+      ]
+    }
+  }
+}

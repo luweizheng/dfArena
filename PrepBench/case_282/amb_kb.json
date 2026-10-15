@@ -1,0 +1,130 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O3_dedup_wins_per_year_stage",
+      "kind": "Operation inconsistent",
+      "node_id": "dedup_wins",
+      "op": "dedup",
+      "intent": "Deduplicate Tour de France wins to one match per Year and Stage Number.",
+      "ref": "wins_key = wins[[\"Year\", \"Stage Number\"]].drop_duplicates()",
+      "source_text": "Join in the 'Wins' data."
+    },
+    {
+      "id": "2_O2_exclude_rest_days",
+      "kind": "Operation incomplete",
+      "node_id": "flt_stages",
+      "op": "filter",
+      "intent": "Remove non-racing rest days before output.",
+      "ref": "stages = stages[~stages[\"Stage\"].fillna(\"\").str.contains(\"Restday\", case=False, na=False)]",
+      "source_text": "Input the data"
+    },
+    {
+      "id": "3_O2_drop_unparseable_stage_number",
+      "kind": "Operation incomplete",
+      "node_id": "flt_stages",
+      "op": "filter",
+      "intent": "Exclude rows whose stage number cannot be derived.",
+      "ref": "stages = stages[[\n        \"Year\",\n        \"Stage Number\",\n        \"Origin - Destination\",\n        \"Time Trial?\",\n        \"KM\",\n        \"Stage Type\",\n    ]].dropna(subset=[\"Stage Number\"]).copy()",
+      "source_text": "Create an 'Origin - Destination' field and a 'Stage Number' field"
+    },
+    {
+      "id": "4_C1_filter_wins_to_tdf_stages",
+      "kind": "Row-level concept",
+      "node_id": "flt_wins_tdf",
+      "op": "filter",
+      "source_text": "Join in the 'Wins' data.",
+      "ref": "wins = wins[wins[\"Race\"].str.contains(r\"Tour de France \\| Stage\", regex=True, na=False)]",
+      "intent": "Only Tour de France stage wins count."
+    },
+    {
+      "id": "5_D2_join_grand_on_year",
+      "kind": "Multi-table alignment",
+      "node_id": "join_all",
+      "op": "join",
+      "source_text": "Join the races started to the overall data set",
+      "ref": "out = out.merge(ans, on=\"Year\", how=\"left\")",
+      "intent": "Join Tour de France finishing positions by Year."
+    },
+    {
+      "id": "6_O2_join_grand_left_keep_all_stages",
+      "kind": "Operation incomplete",
+      "node_id": "join_all",
+      "op": "join",
+      "source_text": "Join the races started to the overall data set",
+      "ref": "out = out.merge(ans, on=\"Year\", how=\"left\")",
+      "intent": "Use a left join preserving every stage."
+    },
+    {
+      "id": "7_D2_join_stage_type_on_identifier",
+      "kind": "Multi-table alignment",
+      "node_id": "join_stage_type",
+      "op": "join",
+      "source_text": "Join together the Stages and Stage Type table",
+      "ref": "df_stage_types[\"Stage Type ID\"] = df_stage_types[\"Stage Type ID\"].astype(float)\nid_to_type = dict(zip(df_stage_types[\"Stage Type ID\"], df_stage_types[\"Stage Type\"]))\nstages[\"Stage Type\"] = stages[\"Stage Type\"].astype(float).map(id_to_type)",
+      "intent": "Match the numeric stage-type identifier to Stage Type ID."
+    },
+    {
+      "id": "8_O2_join_stage_type_keep_all_stages",
+      "kind": "Operation incomplete",
+      "node_id": "join_stage_type",
+      "op": "join",
+      "source_text": "Join together the Stages and Stage Type table",
+      "ref": "stages[\"Stage Type\"] = stages[\"Stage Type\"].astype(float).map(id_to_type)",
+      "intent": "Preserve unmatched stages with missing Stage Type."
+    },
+    {
+      "id": "9_D2_join_wins_on_year_and_stage_number",
+      "kind": "Multi-table alignment",
+      "node_id": "join_stages_wins",
+      "op": "join",
+      "source_text": "Join in the 'Wins' data.",
+      "ref": "out = stages.merge(wins_key, on=[\"Year\", \"Stage Number\"], how=\"left\")",
+      "intent": "Left join wins on Year and Stage Number; matched stages are Yes, others missing."
+    },
+    {
+      "id": "10_C2_origin_destination_from_pipe_suffix",
+      "kind": "Row-level concept",
+      "node_id": "proj_stages_prep",
+      "op": "project",
+      "source_text": "Create an 'Origin - Destination' field",
+      "ref": "def parse_origin_dest(stage_str: str) -> str:\n    s = str(stage_str)\n    if \"|\" in s:\n        return s.split(\"|\", 1)[1].strip()",
+      "intent": "Take the text after the pipe separator, trimming surrounding spaces."
+    },
+    {
+      "id": "11_C2_stage_number_extract_from_stage_text",
+      "kind": "Row-level concept",
+      "node_id": "proj_stages_prep",
+      "op": "project",
+      "source_text": "Create an 'Origin - Destination' field and a 'Stage Number' field",
+      "ref": "def parse_stage_number(stage_str: str) -> int:\n    s = str(stage_str)\n    if s.startswith(\"Prologue\"):\n        return 0\n    try:\n        after = s.split(\"Stage \", 1)[1]\n        num_part = after.split(\" \", 1)[0]\n        return int(num_part)\n    except Exception:\n        return None",
+      "intent": "Prologue is stage 0; otherwise extract the stage number."
+    },
+    {
+      "id": "12_C2_time_trial_label_individual_team_blank",
+      "kind": "Row-level concept",
+      "node_id": "proj_stages_prep",
+      "op": "project",
+      "source_text": "Create a field called 'Time Trial ?'",
+      "ref": "def parse_time_trial(stage_str: str) -> str:\n    s = str(stage_str)\n    if \"(ITT)\" in s:\n        return \"Individual\"\n    if \"(TTT)\" in s:\n        return \"Team\"\n    return \"\"",
+      "intent": "Stage descriptions containing (ITT) map to Individual, (TTT) to Team, otherwise blank."
+    },
+    {
+      "id": "13_C2_wins_year_from_win_date",
+      "kind": "Row-level concept",
+      "node_id": "proj_wins_keys",
+      "op": "project",
+      "source_text": "Join in the 'Wins' data.",
+      "ref": "wins[\"Year\"] = pd.to_datetime(wins[\"Date\"]).dt.year",
+      "intent": "Derive win Year from its Date."
+    },
+    {
+      "id": "14_C2_wins_stage_number_from_race_text",
+      "kind": "Row-level concept",
+      "node_id": "proj_wins_keys",
+      "op": "project",
+      "source_text": "Join in the 'Wins' data.",
+      "ref": "wins[\"Stage Number\"] = wins[\"Race\"].str.extract(r\"Stage\\s+(\\d+)\").astype(int)",
+      "intent": "Extract stage number from the Tour de France Race description."
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O1_month_representation_first_day",
+      "kind": "Operation boundary",
+      "node_id": "enrich",
+      "op": "project",
+      "source_text": "MiniBytes want one output to be able to see, for each month:",
+      "ref": "df[\"Sold Month\"] = df[\"Date Sold\"].dt.to_period(\"M\").dt.to_timestamp()",
+      "intent": "Report all 12 months January through December 2023 using each month's first day. Revenue uses the corrected sale month; all return metrics use the corrected return month. A month with no returns has missing Total Returns Value, Number of Returns and Avg Days to Return, not zeros. DD/MM/YYYY and equivalent ISO calendar dates are accepted; final row order is unrestricted."
+    },
+    {
+      "id": "2_O1_days_to_return_integer",
+      "kind": "Operation boundary",
+      "node_id": "enrich",
+      "op": "project",
+      "source_text": "Calculate the number of days between the Date Sold and Date Returned",
+      "ref": "df[\"Days to Return\"] = (df[\"Date Returned\"] - df[\"Date Sold\"]).dt.days",
+      "intent": "After correcting reversed dates, subtract Date Sold from Date Returned to obtain an integer calendar-day count. Input dates are DD/MM/YYYY."
+    },
+    {
+      "id": "3_O2_missing_days_refund_missing",
+      "kind": "Operation incomplete",
+      "node_id": "enrich",
+      "op": "project",
+      "intent": "A missing return date means no return: days and refund are missing, and the row contributes only to sales revenue.",
+      "ref": "if pd.isna(days): return np.nan",
+      "source_text": "Calculate the number of days between the Date Sold and Date Returned"
+    },
+    {
+      "id": "4_O1_refund_day_ranges_inclusive",
+      "kind": "Operation boundary",
+      "node_id": "enrich",
+      "op": "project",
+      "source_text": "For returns within 60 days, customers get a full refund.",
+      "ref": "if days <= 60:\n    return price\nif days <= 100:\n    return round_half_up(price / Decimal(2))\nreturn Decimal('0.00')",
+      "intent": "Refund the full price for days <= 60, half the price for 61 through 100 inclusive, and zero for days > 100. A returned item with no refund still counts as a return."
+    },
+    {
+      "id": "5_O1_half_refund_rounding",
+      "kind": "Operation boundary",
+      "node_id": "enrich",
+      "op": "project",
+      "source_text": "customers will be refunded half (rounded to the nearest penny)",
+      "ref": "return Decimal(str(value)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)\nreturn round_half_up(price / Decimal(2))",
+      "intent": "Round each half-price refund to the nearest penny before monthly aggregation using ordinary half-up rounding. Exact halfway values round up: 1.985 becomes 1.99 and 1.995 becomes 2.00. Ties-to-even is not accepted. Use the same half-up rule for the final Revenue, Total Returns Value and Avg Days to Return at two decimals. Number of Returns is an integer count; numeric trailing zero padding is not required."
+    }
+  ]
+}

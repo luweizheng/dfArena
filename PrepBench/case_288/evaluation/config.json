@@ -1,0 +1,27 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Cake Needed On Date"
+      ],
+      "columns": {
+        "Cake Needed On Date": {
+          "type": "date",
+          "null_values": [],
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Cake Weekday": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Count of Cakes": {
+          "type": "integer",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

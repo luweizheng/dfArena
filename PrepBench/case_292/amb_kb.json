@@ -1,0 +1,49 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_D1_home_away_goals_mapping",
+      "kind": "Single-table reference",
+      "node_id": "side",
+      "op": "project",
+      "intent": "Home row: Goals For=Home Score and Goals Against=Away Score; away row reverses them.",
+      "ref": "home[\"Goals For\"] = home[\"home_score\"]; away[\"Goals For\"] = away[\"away_score\"]",
+      "source_text": "Goals For (definition: goals scored by the team in the record)"
+    },
+    {
+      "id": "2_D1_expand_fixture_to_two_rows",
+      "kind": "Row-level concept",
+      "node_id": "long_union",
+      "op": "union",
+      "intent": "Each fixture produces two records, one for each team, retaining the fixture Matchday.",
+      "ref": "pd.concat([home, away], ignore_index=True)",
+      "source_text": "Recreate the logic to form a data set of"
+    },
+    {
+      "id": "3_C2_points_scoring_rule",
+      "kind": "Row-level concept",
+      "node_id": "with_metrics",
+      "op": "project",
+      "intent": "Three points for a win, one for a draw, zero for a loss.",
+      "ref": "if gf > ga: return 3",
+      "source_text": "Points"
+    },
+    {
+      "id": "4_C2_result_char_encoding",
+      "kind": "Row-level concept",
+      "node_id": "with_metrics",
+      "op": "project",
+      "source_text": "Create calculations to capture the last 5 games results",
+      "ref": "if gf > ga: return \"W\"",
+      "intent": "Encode win/draw/loss as W/D/L; order by Matchday, include current and previous four games, oldest first, pad missing earlier results on the left with hyphens."
+    },
+    {
+      "id": "5_C2_position_rank_within_matchday",
+      "kind": "Group-level concept",
+      "node_id": "with_position",
+      "op": "project",
+      "source_text": "Determine Position based on",
+      "ref": "ranked.sort_values([\"Points (RT)\", \"Goal Difference (RT)\", \"Team\"], ascending=[False, False, False])",
+      "intent": "Rank separately within each Matchday by cumulative Points descending, cumulative Goal Difference descending, then Team descending (Z to A); consecutive integer positions start at1."
+    }
+  ]
+}

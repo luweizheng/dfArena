@@ -1,0 +1,48 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O1_budget_rounding_bankers",
+      "kind": "Operation boundary",
+      "node_id": "budget_parse",
+      "op": "project",
+      "source_text": "Round both the monthly budget and monthly Actual Spending to the nearest whole number using round half to even",
+      "ref": "df_budget[\"MonthlyBudget\"] = (df_budget[\"AnnualBudget\"] / 12.0).round().astype(int)",
+      "intent": "Round the monthly budget and monthly actual spending separately to nearest integers, using half-to-even at exact midpoints; then Difference = rounded Actual Spending - rounded Budget. This rounding rule is now explicit in query."
+    },
+    {
+      "id": "2_O1_actual_rounding_bankers",
+      "kind": "Operation boundary",
+      "node_id": "compute_fields",
+      "op": "project",
+      "source_text": "Round both the monthly budget and monthly Actual Spending to the nearest whole number using round half to even",
+      "ref": "long_actual[\"Actual Spending\"] = long_actual[\"Actual Spending\"].round().astype(int)",
+      "intent": "Round the monthly budget and monthly actual spending separately to nearest integers, using half-to-even at exact midpoints; then Difference = rounded Actual Spending - rounded Budget. This rounding rule is now explicit in query."
+    },
+    {
+      "id": "4_O1_annual_budget_at_or_above",
+      "kind": "Operation boundary",
+      "node_id": "filter_above",
+      "op": "filter",
+      "source_text": "Exclude any area that is below budget at an annual level",
+      "ref": "df_above = df_above[df_above[\"AnnualActual\"] >= df_above[\"AnnualBudget\"]]",
+      "intent": "Exclude only categories whose annual actual spending is below their annual budget. Retain categories exactly at budget as well as those above budget, using AnnualActual >= AnnualBudget."
+    },
+    {
+      "id": "5_O2_budget_categories_canonical_set",
+      "kind": "Operation incomplete",
+      "node_id": "join_above",
+      "op": "join",
+      "intent": "When comparing annual actual vs budget, restrict to categories that exist in the budget table (drop actual-only categories).",
+      "ref": "df_above = annual_actual.merge(df_budget, on=\"Category\", how=\"inner\")"
+    },
+    {
+      "id": "6_O3_ties_pick_first_in_input_order",
+      "kind": "Operation inconsistent",
+      "node_id": "pick_best_per_month",
+      "op": "dedup",
+      "source_text": "If multiple categories tie for the highest overspending in a month, output only the first one in the combined input processing order (monthly-file processing order, then category order within each month).",
+      "ref": "idx = long_actual.groupby(\"Month\")[\"Difference\"].idxmax()",
+      "intent": "For a monthly tie in maximum Difference, select exactly one category: the first in combined input processing order, based on monthly-file processing order and category order within each month. This selection rule is explicit in query and does not prescribe final output row ordering."
+    }
+  ]
+}

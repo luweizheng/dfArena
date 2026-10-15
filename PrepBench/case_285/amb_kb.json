@@ -1,0 +1,94 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_expected_goals_formula_per_match",
+      "kind": "Group-level concept",
+      "node_id": "compute_expected",
+      "op": "project",
+      "source_text": "Calculate the Expected number of Goals for each Segment, Competition and Decade",
+      "ref": "Expected Goals = Total Goals / Matches in Decade per Competition",
+      "intent": "Divide segment goal count by all distinct eligible matches in that competition and decade, including matches without goal records. Two decimal places are sufficient precision."
+    },
+    {
+      "id": "2_O2_expected_goals_divide_by_zero_default",
+      "kind": "Operation boundary",
+      "node_id": "compute_expected",
+      "op": "project",
+      "intent": "If the denominator is zero, use0. Current observed groups all have positive denominators.",
+      "ref": "if den == 0:\n            return 0.0",
+      "source_text": "Calculate the Expected number of Goals for each Segment, Competition and Decade"
+    },
+    {
+      "id": "3_O2_drop_goals_with_unusable_minute_for_segment",
+      "kind": "Operation incomplete",
+      "node_id": "filter_goals",
+      "op": "filter",
+      "intent": "Drop goals with missing, invalid or negative minute; a missing scorer name alone does not remove a goal.",
+      "ref": "joined[\"Segment\"] = joined[\"minute\"].apply(minute_to_segment)\njoined = joined.dropna(subset=[\"Segment\"]).copy()",
+      "source_text": "Filter out goals that cannot be assigned to a time segment"
+    },
+    {
+      "id": "4_O1_segment_bin_boundaries",
+      "kind": "Operation boundary",
+      "node_id": "goals_with_segment",
+      "op": "project",
+      "source_text": "Join on the Segment table based on what segment of time the goal was scored in",
+      "ref": "0-15: <15, 15-30: 15<=x<30, ..., 90+: >=90",
+      "intent": "Bins are left-closed/right-open:0<=m<15,15<=m<30,...,75<=m<90;90+ includes90 and above."
+    },
+    {
+      "id": "5_D2_join_goals_to_results",
+      "kind": "Multi-table alignment",
+      "node_id": "joined_goals_results",
+      "op": "join",
+      "source_text": "join the Goal Scorers table to the dataset",
+      "ref": "joined = df_goals.merge(\n        df_results[[\"date\", \"home_team\", \"away_team\", \"Competition\", \"Decade\", \"Match ID\"]],\n        on=[\"date\", \"home_team\", \"away_team\"],\n        how=\"inner\",\n    )",
+      "intent": "Inner join on date, home_team and away_team."
+    },
+    {
+      "id": "6_C2_match_count_distinctness_by_match_id",
+      "kind": "Group-level concept",
+      "node_id": "match_counts",
+      "op": "aggregate",
+      "source_text": "Calculate the number of matches in each Decade, in each Competition",
+      "ref": "Match count = nunique(Match ID)",
+      "intent": "Count distinct Match IDs before joining goals, so matches with no assigned goals remain in the denominator."
+    },
+    {
+      "id": "7_O2_exclude_non_fifa_competitions",
+      "kind": "Operation incomplete",
+      "node_id": "results_filter",
+      "op": "filter",
+      "intent": "Exclude qualification, CONIFA and Viva World Cup; retain only supported competition mappings.",
+      "ref": "valid_competitions = set(df_comp_map[\"Competition\"].unique())\ndf_results = df_results[df_results[\"Competition\"].isin(valid_competitions)].copy()",
+      "source_text": "Join to the International Competitions table"
+    },
+    {
+      "id": "8_C1_concacaf_championship_mapped_to_gold_cup",
+      "kind": "Row-level concept",
+      "node_id": "results_with_competition",
+      "op": "project",
+      "source_text": "ensure correct Football Association and Competition for CONCACAF Championship",
+      "ref": "CONCACAF Championship -> Gold Cup",
+      "intent": "Retain Championship matches and map them to Football Association CONCACAF and Competition Gold Cup, as specified in the complete task. Eight source competition entries therefore map to seven output competition labels."
+    },
+    {
+      "id": "9_C2_decade_computation",
+      "kind": "Row-level concept",
+      "node_id": "results_with_decade",
+      "op": "project",
+      "source_text": "Create a field for the Decade the competition took place in",
+      "ref": "Decade = year // 10 * 10",
+      "intent": "Decade is integer(year/10)*10; retain1950 and later."
+    },
+    {
+      "id": "10_C2_match_id_construction_format",
+      "kind": "Row-level concept",
+      "node_id": "results_with_match_id",
+      "op": "project",
+      "source_text": "Create a Match ID field so every row in the data has a unique identifier",
+      "ref": "Match ID = date|home_team|away_team",
+      "intent": "A match is identified by date, home_team and away_team. The reference concatenates these with |; the intermediate literal string need not be output."
+    }
+  ]
+}

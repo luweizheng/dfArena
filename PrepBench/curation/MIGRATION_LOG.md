@@ -72,6 +72,57 @@
 | 067 | 通过 | 失败 | 通过 | 通过 |
 | 068 | 通过 | 未运行 | 通过 | 通过 |
 | 069 | 通过 | 通过 | 未运行 | 通过 |
+| 260 | 通过 | 未运行 | 通过 | 通过 |
+| 261 | 通过 | 未运行 | 通过 | 通过 |
+| 262 | 通过 | 通过 | 未运行 | 通过 |
+| 263 | 通过 | 未运行 | 通过 | 通过 |
+| 264 | 通过 | 通过 | 通过 | 未运行 |
+| 265 | 通过 | 通过 | 通过 | 未运行 |
+| 266 | 不纳入 | 不纳入 | 不纳入 | 不纳入 |
+| 267 | 通过 | 通过 | 未运行 | 通过 |
+| 268 | 通过 | 未运行 | 通过 | 通过 |
+| 269 | 通过 | 通过 | 未运行 | 通过 |
+| 270 | 通过 | 未运行 | 通过 | 通过 |
+| 271 | 失败 | 通过 | 失败 | 未运行 |
+| 272 | 通过 | 通过 | 通过 | 未运行 |
+| 273 | 通过 | 通过 | 通过 | 未运行 |
+| 274 | 通过 | 未运行 | 通过 | 通过 |
+| 275 | 通过 | 未运行 | 通过 | 通过 |
+| 276 | 通过 | 通过 | 未运行 | 通过 |
+| 277 | 通过 | 未运行 | 通过 | 通过 |
+| 278 | 通过 | 未运行 | 通过 | 通过 |
+| 279 | 通过 | 未运行 | 通过 | 通过 |
+| 280 | 通过 | 通过 | 未运行 | 通过 |
+| 281 | 通过 | 未运行 | 通过 | 通过 |
+| 282 | 通过 | 通过 | 未运行 | 通过 |
+| 283 | 通过 | 通过 | 未运行 | 通过 |
+| 284 | 通过 | 通过 | 通过 | 未运行 |
+| 285 | 通过 | 通过 | 未运行 | 通过 |
+| 286 | 通过 | 未运行 | 通过 | 通过 |
+| 287 | 通过 | 通过 | 未运行 | 通过 |
+| 288 | 通过 | 通过 | 通过 | 未运行 |
+| 289 | 通过 | 通过 | 未运行 | 通过 |
+| 290 | 通过 | 未运行 | 通过 | 通过 |
+| 291 | 通过 | 未运行 | 通过 | 通过 |
+| 292 | 通过 | 未运行 | 通过 | 通过 |
+| 293 | 通过 | 通过 | 未运行 | 通过 |
+| 294 | 通过 | 通过 | 未运行 | 通过 |
+| 295 | 通过 | 通过 | 通过 | 未运行 |
+| 296 | 通过 | 未运行 | 通过 | 通过 |
+| 297 | 失败 | 失败 | 未运行 | 通过 |
+| 298 | 通过 | 通过 | 未运行 | 通过 |
+| 299 | 通过 | 未运行 | 通过 | 失败 |
+| 300 | 失败 | 未运行 | 通过 | 通过 |
+| 301 | 通过 | 未运行 | 通过 | 通过 |
+| 302 | 不纳入 | 不纳入 | 不纳入 | 不纳入 |
+| 303 | 通过 | 通过 | 未运行 | 通过 |
+| 304 | 通过 | 通过 | 未运行 | 通过 |
+| 305 | 通过 | 未运行 | 通过 | 通过 |
+| 306 | 通过 | 通过 | 通过 | 未运行 |
+
+**306—260 头表版本说明（2026-10-14）。** 头表统一按题号升序排列，本批逐题说明仍按306→260倒序；采用当前交付任务对应的正式验证状态，不按最好成绩选择运行；与上方老师历史批次的取样口径分别记录，不合并解释为统一版本分数。题面或澄清信息变化后采用新生成；仅评分配置变化时采用原始冻结输出的获批重评，旧报告保留。未抽中的后端记“未运行”，302/266记“不纳入”。
+
+本批采用的run：306、305、300、299、297、294、279、275、273、267、263、261的三个后端均为r002；262均为r003；280分别为pandas r001、Polars r002、PySpark r003（旧澄清故障/运行器错误见逐题记录）；其余保留题均为r001。265 r001采用数值等价配置重评，263旧r001标签重评不是本次采用的新题面r002。共有135份当前候选，129通过、6失败；300/pandas、299/PySpark、297/pandas与Polars、271/pandas与Ibis的失败如实保留。完整历史及改动依据见下文“306—260 倒序审核交付”。
 
 060–069 于 2026-10-10 补入头表，采用当前 `dfArena-prepbench-curation` worktree 的正式 `result.json`，路径为 `PrepBench/case_XXX/runs/interact/codex_gpt-6-astra/<backend>/<run>/result.json`。060–069 全部采用各后端现存首次生成 r001，已核对 generation.started_at；不以后续通过替换首次失败。063 pandas/PySpark 漏掉 MONEY HEIST，正式失败保留；其中 pandas r001 曾在修正 Rating 容差后对同一候选重评，因此“首次生成”不等于“首次评分配置”，详见下文 060–067 记录。067 采用已确认的新版“同香型增长率之差”资产下各后端 r001：pandas/Ibis/PySpark 通过、Polars 失败。后续 pandas/Polars r002 均通过，仅作复验记录，不计入头表。旧贡献差版本位于 `case_067_bak/`，不混入本表。068 是固定销售数值转长表任务，不代表随机生成能力。
 
@@ -82,6 +133,504 @@
 说明：030 的三个 r001 因模型网关额度不足而生成失败、评测跳过；表中采用后续 r002 状态。030–033 的详细记录见下文。034 的三个 `r001` 均通过当前配置，运行记录及日期字面格式、同日行序的未覆盖项见下文 034 条目；035–037 的运行记录见 `interact_validation_035_037.json`，038–039 见 `interact_validation_038_039.json`，040–044 见 `interact_validation_040_044.json`，045–049 的原始快照见 `interact_validation_045_049.json`。045 的 pandas 有 r001 跳过、r002 失败，表中采用最新 r002；048 的原始 r001 因模型网关额度不足而跳过，已删除，并将四个通过的 r002 归档为 r001（见下文）；049 的四个 r001 因模型网关额度不足而跳过，表中采用后续 r002 的正式评测状态。050 原 r001 四后端均因额度不足跳过，已删除；原 r002 均正式失败，现归档为 r001。该表按现有记录维护，后续重跑或补充 backend 时更新对应单元格。
 
 # PrepBench 迁移与审核日志
+
+## 2026-10-14：306—260 倒序审核交付
+
+本批覆盖306至260共47题：45题保留，302/266按用户决定排除，不创建可运行目录；259及以下不在本次提交。流程经老师确认：先静态审核和必要修正，再interact、诊断及复验。以下按题号倒序记录最终决定，历史失败不删除，不把复验通过冒充首次通过。
+
+**来源与环境。** 原始只读来源为本机`D:/DataFrameStudy/prepbench`：题面/KB/输入在`data/case_XXX`，reference在`reference/solutions/case_XXX`，GT/config在`src/evaluate/gt/case_XXX`。整理起点为老师提交`0eaf29d97288b8e264822d26ab65f976d5e4f2c0`；本次交付基于最新`a4c2f54`，完整保留老师新增070—076及交互适配修复。实验仍对应原运行器与下列固定镜像，未将历史运行冒称在最新适配器重新生成。
+
+固定镜像`sha256:89b6eb5a3313c26423d8bbebe9edea96e22a3d3de580a4626c671ebcb2f83570`，Python3.11.16/pandas2.3.3；与老师历史镜像不同。解题为ChatGPT订阅的gpt-6-astra/low，模拟用户gpt-6-astra/temperature0（nowcoding.ai），每组1800秒；pandas必选，另两后端抽样后固定。source_manifest、每轮plan与正式result均本地保留。reference验证与解题隔离，GT/KB/reference/config不直接提供给interact解题模型。
+
+**共同改动与验证。** 建立标准目录、metadata、输入输出约定，核对KB引用并补必要intent；通常仅适配reference入口，业务或GT变化在逐题说明。输入保持原字节。字段采用经审核的key、类型、数值容差和顺序，不统一放宽。已有固定环境reference、独立计算及正反例报告；交付时再次核对文件、元数据、引用、源哈希、运行版本，使用交付比较器检查GT和冻结候选。
+
+**领域分类补正（2026-10-14）。** 交付复核遗漏了domain分类，本批45题原先均为general；现按根目录README的Workload domain taxonomy补齐一个主领域。按业务主题分类，不按所用算法或是否出现金额分类：工资/客户/销售等运营归business，贷款及预算、财务汇总归finance，运动员收入榜归sports，节目/卡牌/节庆题归media_culture。
+
+| Domain | Case |
+| --- | --- |
+| `business` | 260, 261, 263, 264, 265, 268, 269, 270, 275, 276, 277, 278, 279, 280, 281, 293, 294, 295, 298, 299, 300 |
+| `finance` | 267, 271, 272, 274 |
+| `sports` | 282, 283, 284, 285, 286, 290, 291, 292, 296, 303 |
+| `media_culture` | 262, 287, 297, 305, 306 |
+| `education` | 288, 289 |
+| `science` | 273 |
+| `health` | 304 |
+| `geospatial` | 301 |
+
+此次仅修改metadata.domain及本日志，输入、query/full、KB、reference、GT、config和运行产物均未改变，不重新生成或评分，头表结果不变。逐题“当前任务资产”哈希已更新为分类补正后的交付版本；原运行plan、原哈希和报告保持原样，不能把补正后的metadata称为当时运行版本。本地`delivery_306_260/domain_review.json`保存逐题新旧哈希与检查结果。
+
+**评分器依赖。** 本批包含按列整数标签映射（263）、精确文本标签映射（260）、整表替代GT（273）三项通用机制及其测试/协议文档；未启用时保持旧行为。不同温度答案只能整表选择，不能逐格拼答案。公共实现无case编号特判。交付评分代码聚合SHA256：`574034ea0fc96e96c46e65f6c0eba3504c88b2202cff8e90692e4ab95ef8bafa`。
+
+**记录口径。** 本批结果已并入文首总表，采用的run见头表下方“306—260 头表版本说明”；它是审核状态，不是统一版本benchmark成绩。逐题段落另列全部历史run状态。265的r001为获批config重评后的冻结输出，原失败报告保留；263的r001亦曾因标签兼容重评，最新为新题面r002；280有澄清故障/运行器错误，不能仅因旧输出通过视为交互成功。306的reference入口后补但solve不变，不要求重新生成。
+
+本批各保留题选取三个后端，共135份当前候选；生成/评分完成不等于所有候选通过。共享比较器仍不拒绝额外列，实际schema单独核对；候选通过也不证明缺失、并列、未知类别等未触发分支。
+
+`curation/output/`和`case_XXX/runs/`的引用均指研究者本地证据，按提交清单不入Git，不是仓库运行依赖。原始长日志及未交付题记录保留在本地交付快照；本节将已决定事项整理为最终口径，不保留已解决的“待决定”措辞。
+
+**交付前复核。** 2026-10-14在最新main基础上重新核对408个来源文件、128个输入哈希，45题metadata/字段数及现有KB引文均一致（少数原条目本来只含intent/ref，没有source_text，未为整理擅自增加）。45题GT自比通过；135份当前冻结候选重新评分，129通过、6失败，与逐题正式状态一致，失败未修补。老师既有75题GT自比全部通过。公共评分器40项测试、共享运行器10项测试通过；PrepBench脚本14项测试分别在固定镜像和具备FastAPI依赖的本地环境完成，覆盖的14项均通过。固定镜像缺FastAPI导致的单项导入错误由本地假模型HTTP测试补验，不调用外部模型；Windows沙箱临时目录权限失败不计作程序回归。详细交付报告保留在研究者本地delivery_306_260/。
+
+### 306：姓名名单汇总
+
+按原始姓名分组，先比较Naughty/Nice次数，只有并列才取最大合成Index。full/KB明确最终行序不限及文本等价呈现；输入和GT不改，reference仅适配入口。r001与修订后r002分别保留。
+
+**验证与运行。** GT行数：output_01.csv=4269。历史记录：pandas r001通过, r002通过；polars r001通过, r002通过；ibis r001通过, r002通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 6000条输入得到4269人；457个并列组已核算，但最大Index自身的冲突标签未出现。
+
+**版本与证据。** 当前任务资产聚合SHA256 `2fcf0f9e0bc152c83be7864b431f44defdeb78c44973152159d823650566f718`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/306/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 305：舞蹈决赛成绩与进步率
+
+清理重复表头及不可计算评分，按Series/Couple汇总决赛均分和相对首次评分周的变化率。最终query公开首次周多支舞取均值，KB同步；原GT保留，评分按九位小数精度容差而非固定格式。题面变化后新建r002。
+
+**验证与运行。** GT行数：output_01.csv=62。历史记录：pandas r001通过, r002通过；ibis r001通过, r002通过；pyspark r001通过, r002通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 62组；当前每组决赛评委数一致，不能区分舞蹈等权与评委加权，超出1—21季的过滤未被实际数据触发。
+
+**版本与证据。** 当前任务资产聚合SHA256 `12dc25ffec29053cdfd88f27bf275baf59e6301cbecc9eac913d7ec0a4a9027b`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/305/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 304：各洲寿命变化排名
+
+标准化多表关联、国家/大洲对比与排名输出，保留既有1950—2020窗口及完整需求。公开交付字段，配置显式类型与精度；按用户决定不追加大洲来源说明。
+
+**验证与运行。** GT行数：output_01.csv=18。历史记录：pandas r001通过；polars r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 190个匹配国家均有71年数据和两端年份，缺年、零分母及前三边界并列未触发。
+
+**版本与证据。** 当前任务资产聚合SHA256 `d0e523c76fd8da08c5515bb7a8bb06834b147588b6408da6807e800dbe3e7ea4`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/304/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 303：跨运动球队排名
+
+原query的唯一名次与full/reference/GT并列规则冲突，获批改为允许并列并跳号；Magic/Pacers真实完全并列保留。样本标准差等既有计算规则保持，不公开补充用户已否决的细节。
+
+**验证与运行。** GT行数：output_01.csv=92, output_02.csv=4。历史记录：pandas r001通过；polars r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 真实并列已验证；零标准差和单球队运动未出现，reference近零判断不升级为新业务要求。
+
+**版本与证据。** 当前任务资产聚合SHA256 `a521bcb7d8a6bd2557e477733ce23d06a3ffc607c23470cf2713d0cdcb22c884`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/303/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 302：排除：极小表完全重复记录去重
+
+用户决定不纳入：5行客户数据仅按ID删除完全相同记录，剩3行，无冲突合并或其他处理，区分能力过弱。原始资料本地保留，不提交为可运行case。
+
+未安排interact。
+
+### 301：站点客流与坐标
+
+导入站点客流和位置关联任务，明确文件角色、输出字段与数据粒度，显式配置数值精度、身份key及无要求的行序忽略。reference入口适配，保留业务和GT。
+
+**验证与运行。** GT行数：output_01.csv=90, output_02.csv=20, output_03.csv=267。历史记录：pandas r001通过；ibis r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 实际平均客流无并列、同一站点无冲突坐标；dense排名和三字段去重仅由研究者边界检查覆盖。
+
+**版本与证据。** 当前任务资产聚合SHA256 `c605195757e53e9e46f32902de7be28466c2db16b7f98f4a35efa6f7280a47a5`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/301/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 300：周库存与采购频率
+
+按每周快照推导销售和采购频率；获批在query公开首次周的零值参与平均，KB同步并新建r002。用户决定保持精确文本，不因pandas标签尾空格放宽评分。
+
+**验证与运行。** GT行数：output_01.csv=100。历史记录：pandas r001通过, r002失败；ibis r001通过, r002通过；pyspark r001通过, r002通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** r002 pandas因尾空格正式失败，Ibis/PySpark通过；100条序列均有14个连续快照，缺周、零订单等不由当前通过证明。
+
+**版本与证据。** 当前任务资产聚合SHA256 `8395a184ce5b72515880407692dff4139a7491b574e8a7be1ba6fbf36e0946c4`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/300/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 299：退货退款与月度销售
+
+获批采用HALF_UP四舍五入至分，修改完整需求/KB及reference的舍入实现；保留旧r001，新建r002。空退款额/次数仍为空，不以0代替；年度日历与边界按既有契约。
+
+**验证与运行。** GT行数：output_01.csv=12。历史记录：pandas r001失败, r002通过；ibis r001通过, r002通过；pyspark r001通过, r002失败。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** r002 pandas/Ibis通过；PySpark将应为空的退款额及次数填0，真实失败保留。实际1.995不区分两种中点规则，专用边界检查单列。
+
+**版本与证据。** 当前任务资产聚合SHA256 `c2b5a3500b13791782aa2b15d75539f6781f9a6b4ebb01bf710e7adef1053543`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/299/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 298：累计销售占比筛选
+
+审核累计占比及15%阈值，修复reference浮点边界判断，保留当前GT；百分比按两位小数精度设置容差，不强制尾零或具体舍入算法。
+
+**验证与运行。** GT行数：output_01.csv=11。历史记录：pandas r001通过；polars r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 实际没有同额销售或恰15%边界；研究者反例验证边界，未凭实现顺序新增并列取舍。
+
+**版本与证据。** 当前任务资产聚合SHA256 `967df6a203e26818adc6396a37f08940c48b38d092ca13b2947a5ffcb31dae35`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/298/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 297：团体舞去重与歌曲拆分
+
+获批按Series＋Week＋Dance＋原始Music判定同场团体舞，保留首条其他字段再拆歌；同步full/KB/reference/GT。GroupLindy Hop冲突评分保留首条Judges Scores，Total Score缺失；另修复标点正则使7行Theme去引号，GT由2524改为2523行，保留逐项差异。新建r002保留r001。
+
+**验证与运行。** GT行数：output_01.csv=2523。历史记录：pandas r001失败, r002失败；polars r001失败, r002失败；pyspark r001失败, r002通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** r001三后端失败均受21个Stage的GT空值错误影响，Polars还漏清理姓名数字；修正Stage资产后另做r002，不能将旧失败全部归因于模型。r002三者Stage均正确，pandas/Polars仅因Alex & Kevin1未去数字失败，PySpark追问后通过。当前不存在跨Series同周同舞同歌冲突，跨届隔离由专用检查验证；候选未做的最终全行去重未被当前输入触发。
+
+**版本与证据。** 当前任务资产聚合SHA256 `7d5b71e09570fa9866e1bd8db7f9a8b8a20c3d56a24b079102437c09c162f361`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/297/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 296：运动员收入网页表清理
+
+将网页抓取操作改为处理已给输入，公开缺失的年份与文件对应信息；拆分金额并保留独立来源收入列，不为使分项相加一致而改源总额。
+
+**验证与运行。** GT行数：output_01.csv=130。历史记录：pandas r001通过；ibis r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 130位运动员金额均可解析；一行总收入与分项和不同，按题意分别保留，非法金额分支只经研究者检查。
+
+**版本与证据。** 当前任务资产聚合SHA256 `ea3c7f0c1f56eaeaa5ddb6821f94635a9ee66e85e81d8373aa0eb662ce5c57f5`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/296/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 295：用户事件与耗时汇总
+
+保留首次时间、逐记录向上取整及均值向上取整的既有规则，整理输入输出契约、评分key与类型；不将ceil问题改成HALF_UP或HALF_EVEN偏好。
+
+**验证与运行。** GT行数：output_01.csv=5。历史记录：pandas r001通过；polars r001通过；ibis r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 当前无首次时间并列、未匹配用户或负耗时；并列边界仅单独验证。
+
+**版本与证据。** 当前任务资产聚合SHA256 `aad9c7fcb2e726abe1917e3a29a67cda15c4813fda9ad23820f3249e452cb8bb`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/295/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 294：工作日收益与名次
+
+完整题意明确两层competition排名（并列后跳号），取消无依据的最终展示排序；reference计算与GT不变。最终按用户确认在query公开Calendar Days=end−start（不加1），收入仍按包含起止两端的工作日计算，KB引用同步后新建r002。Initials空值别名修订仅重评冻结输出，原配置及报告保留。
+
+**验证与运行。** GT行数：output_01.csv=693。历史记录：pandas r001通过, r002通过；polars r001通过, r002通过；pyspark r001通过, r002通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 693条输入、635条参与收益并列；competition与dense差异实际被覆盖，周末-only及同日情形由专用检查验证。
+
+**版本与证据。** 当前任务资产聚合SHA256 `d5d434a792d94ccbc2a722ce23a36f43ad5b683b26cca706d67d11e8872d7f86`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/294/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 293：等级日期区间清理
+
+保留每级最小值、先去无效逆序区间、再按起止日期排序的原规则；重叠比较对象是排序后紧邻的原记录而非最后保留记录，Order允许空缺。
+
+**验证与运行。** GT行数：output_01.csv=693。历史记录：pandas r001通过；polars r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 真实40条逆序区间和266条重叠删除，比较对象不同会改变6次决定；起点恰等前终点未在正式输入触发。
+
+**版本与证据。** 当前任务资产聚合SHA256 `54f03d8f0edd2d7cb11238694e3d617a3658a7abb4a672e2f04a448e55f83025`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/293/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 292：比赛日积分榜与近期战绩
+
+比赛按双方展开，按Matchday累计并排名，生成当前及前四场战绩；保留既有末级队名取舍，不将最终展示排序额外强制评分。
+
+**验证与运行。** GT行数：output_01.csv=760。历史记录：pandas r001通过；ibis r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 每队每Matchday恰一场；缺比分、同日多赛未覆盖。reference在固定pandas2.3.3验证，未承诺pandas3兼容。
+
+**版本与证据。** 当前任务资产聚合SHA256 `146554e92ef903bf5f1b0ddb80ad329dfdba23e51ac2570fc440d653b7a961bb`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/292/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 291：比赛日累计积分榜
+
+比赛展开为两队记录，累计积分、进失球并按完整需求排名；明确计算顺序与最终CSV行序不同，保持无要求的输出行序兼容。
+
+**验证与运行。** GT行数：output_01.csv=760。历史记录：pandas r001通过；ibis r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 当前无赛程空缺或同一Matchday多场；reference有被覆盖的多余排序，未将其视为独立业务要求。
+
+**版本与证据。** 当前任务资产聚合SHA256 `e7be135cfa7a120755ddbda4dad104c5402608bb15db416bcbca915d51d49310`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/291/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 290：半结构化比赛记录解析
+
+按CSV记录而非物理换行编号，首条公告不计入，后续公告/空记录计数；解析比赛日、日期、比分与队名，保留原语义。
+
+**验证与运行。** GT行数：output_01.csv=380。历史记录：pandas r001通过；ibis r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 当前赛事均可解析且含FT标记；参考解析器的任意网页/格式泛化能力未验证。
+
+**版本与证据。** 当前任务资产聚合SHA256 `9e3598403a4413e25757064f038a91223de61d9bd40ac9df965017e928f3a8d1`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/290/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 289：生日蛋糕与银行假日
+
+用户决定保留既有最近上学日安排及五月银行假日调整，不为统一288而修改。明确两题独立：97个暑假生日在本题安排至7月22日，而288采用7月18日。
+
+**验证与运行。** GT行数：output_01.csv=185。历史记录：pandas r001通过；polars r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 无2月29日、缺失生日或空校历；姓名＋生日去重不代表真实人物身份消歧。
+
+**版本与证据。** 当前任务资产聚合SHA256 `a17f902dfd283da30e710c5c93390ba842653510e50fa978a08d34f45eb869d4`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/289/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 288：生日蛋糕与学期安排
+
+保留假期生日安排至上一学期最后周五的规则及原校历，不额外引入289的银行假日修订；按学生人数计数，不按不同生日数计数。
+
+**验证与运行。** GT行数：output_01.csv=186。历史记录：pandas r001通过；polars r001通过；ibis r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 1000名学生唯一，无闰日生日；无上一学期/无合格周五分支只经研究者检查。
+
+**版本与证据。** 当前任务资产聚合SHA256 `5e7dd54ff5580944ba9355da5940998af0554dac9f0a82692cea8052a9f555e7`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/288/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 287：卡牌与图鉴排序
+
+按原query的馆主、道馆、宝可梦及图鉴/等级/编号等排序组织卡牌，保留lookup去重和未匹配保留规则，显式检查要求的最终排序。
+
+**验证与运行。** GT行数：output_01.csv=252。历史记录：pandas r001通过；polars r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 实际卡牌均有图鉴匹配、完整排序键不同；小数形态代码及fallback未由实际输入验证。
+
+**版本与证据。** 当前任务资产聚合SHA256 `e3a9f8d619a17273c731e094af31402f0dd118ac28314a3744f3471648bedff8`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/287/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 286：田径成绩宽转长
+
+填充运动员标识，将七项赛事成绩展开，NM保留为空；按原要求检查Position/Event No.顺序，身份与名次严格核对。
+
+**验证与运行。** GT行数：output_01.csv=126。历史记录：pandas r001通过；ibis r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** Performance混合距离、秒数与冒号时间，当前text_exact无法接受全部语义等价表示；此为已记录比较器限制。
+
+**版本与证据。** 当前任务资产聚合SHA256 `2454a8923dffefaebc0a82c245f39c02c7bd8c89fd82ae41f147802e3dc1860b`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/286/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 285：足球分时段预期进球
+
+保留无进球比赛进入分母、分钟区间、赛事合并与已有HALF_UP规则。独立精确23/40=0.575发现三处GT为0.57，修正为0.58，与reference一致；未改输入。
+
+**验证与运行。** GT行数：output_01.csv=351。历史记录：pandas r001通过；polars r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 8个源赛事名映射为7类，169场Championship归Gold Cup；只输出实际出现的分段，不补13个未出现组合，0.005容差不验证舍入算法。
+
+**版本与证据。** 当前任务资产聚合SHA256 `6132925c1dc630958e86fd82ed0a446635ca29bd1a724ea5a00ad80fe8299991`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/285/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 284：车手最快圈速
+
+query/full均要求最短有效圈速，源GT三位车手误用较慢圈；独立最小值与reference一致，修正GT的11/27/31号车手圈速，名次不变。移除full无依据的并列先后兜底。
+
+**验证与运行。** GT行数：output_01.csv=20。历史记录：pandas r001通过；polars r001通过；ibis r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 当前20人最快圈速无并列且lookup唯一；将来出现并列需另定业务口径，不能凭原实现顺序取舍。
+
+**版本与证据。** 当前任务资产聚合SHA256 `ac245a6115c58c5ec51ba35091eddc4194eaf6a94a521df026ad057036d43d66`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/284/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 283：网球冠军类别与排名
+
+双打逐人展开、清理国家注记，混双计入双打，按单打/双打资格筛选并累计冠军数；competition并列不由最近夺冠年份打破。
+
+**验证与运行。** GT行数：output_01.csv=58。历史记录：pandas r001通过；polars r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 有9组总数并列；姓名按清理后的输入文字识别，不做外部别名映射。
+
+**版本与证据。** 当前任务资产聚合SHA256 `822e8641c18a3799d468ef5a51fe4dfb3793cd921d0e4d527c9587e4b62eb187`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/283/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 282：环法赛段与胜场关联
+
+对环法赛事、赛段类型、胜场和完赛数据关联，保留赛段/序幕及非休息日的原筛选，整理明确输出角色、key和字段类型。reference业务与GT不改。
+
+**验证与运行。** GT行数：output_01.csv=294。历史记录：pandas r001通过；polars r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 验证范围限于给定赛段、赛季及既有代码映射，未扩充输入。
+
+**版本与证据。** 当前任务资产聚合SHA256 `0d194ecac28f3e52593e586bcdfb684bf11c857661be1261f673bb26289bff83`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/282/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 281：投诉布尔字段与结案日期
+
+获批以query/reference/GT一致的映射为准，修正full及三个KB intent；评分采用显式类型，日期与布尔输出接受语义等价，保留原文本规范化。
+
+**验证与运行。** GT行数：output_01.csv=53。历史记录：pandas r001通过；ibis r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 输入仅含True/False；输出布尔兼容不等于扩大输入词汇映射，未知输入词未验证。
+
+**版本与证据。** 当前任务资产聚合SHA256 `a19f91256d24c289ee04006c5faf5510098f8ca7f20830ed71ad39152492d04e`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/281/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 280：投诉描述拆分与日期筛选
+
+原reference交换部分年月日，与完整题意冲突。获批按标准年月日修复reference并重建GT，53行变50行，保留旧版及逐条差异。三种规定日期格式独立核验。
+
+**验证与运行。** GT行数：output_01.csv=50。历史记录：pandas r001通过；polars r001通过, r002通过；pyspark r001通过, r002runner_error / skipped, r003通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** pandas r001通过；Polars/PySpark r001虽输出通过但澄清服务故障，不作为完整交互验收。恢复后Polars r002、PySpark r003通过；PySpark r002运行器错误保留。
+
+**版本与证据。** 当前任务资产聚合SHA256 `ddf3c7baf3c2eb88758be1971e3e888fe87df7b88d451b73fbf76715ea5b4b51`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/280/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 279：经理周薪及年度费用占比
+
+周日对齐展开任期，周薪汇总与年度费用内连接；用户保留等价日期兼容。最终在query公开周表Week升序、年表Year升序，只改query并新建r002。
+
+**验证与运行。** GT行数：output_01.csv=830, output_02.csv=16。历史记录：pandas r001通过, r002通过；ibis r001通过, r002通过；pyspark r001通过, r002通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 830周、16年；候选对非法记录的拒绝/跳过行为不完全相同，当前有效输入不触发，DD/MM/YYYY字面格式不强制评分。
+
+**版本与证据。** 当前任务资产聚合SHA256 `16f9bfdef53d8fd02b4122bd2fc9d7e12658b843a74c3e288fe3f6fb809c86e0`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/279/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 278：在职经理工资异常
+
+按批准口径在query公开仅检查在职经理及向偶数舍入，具体工资公式继续留在full/KB。应付工资与差额精确评分，未使用的日期重映射按用户决定保持。
+
+**验证与运行。** GT行数：output_01.csv=3。历史记录：pandas r001通过；ibis r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 16位经理、10位在职、3个异常；无精确半整数，代码审阅不能替代中点数据验证。
+
+**版本与证据。** 当前任务资产聚合SHA256 `9a68188eacabbf80af6e5d886d21ae2125a40b9446e0a9965a41b6c1dad64f81`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/278/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 277：门店客户忠诚积分排名
+
+保留姓名/邮箱匹配、门店关联、店内积分排名与top筛选；按用户决定保持日期值兼容，不强化full的字面格式要求，不新增题意。
+
+**验证与运行。** GT行数：output_01.csv=65。历史记录：pandas r001通过；ibis r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 65行；DD/MM/YYYY与ISO输出等价，不把当前匹配结果当作同名客户消歧能力。
+
+**版本与证据。** 当前任务资产聚合SHA256 `2a96384808994b4156a95a0533fdc7fa6e00a5a5e4c9dbe1954d2274ea739b6a`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/277/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 276：忠诚类别性别比例
+
+修复reference缺失性别百分比单元格填0，使其符合既有full/KB；保留当前输入/GT。评分核对类别、计数与百分比，未将模拟用户额外中点偏好升级为要求。
+
+**验证与运行。** GT行数：output_01.csv=3。历史记录：pandas r001通过；polars r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 当前数据未触发两种中点规则的输出差异；已记录模拟用户限制，不据此重开题意。
+
+**版本与证据。** 当前任务资产聚合SHA256 `6ccd43816e85b071caf5d1de21dbc679cf53bada644499be237efad8fc0e030d`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/276/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 275：周一交易排名
+
+按姓名关联客户、解析交易渠道和星期，以Sales作competition排名。最终获批公开Sales降序、Receipt Number升序，KB引用同步；只改query/KB后新建r002。
+
+**验证与运行。** GT行数：output_01.csv=151。历史记录：pandas r001通过, r002通过；ibis r001通过, r002通过；pyspark r001通过, r002通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 151行、两组同额销售，收据号只排展示顺序，不拆并列名次；当前全部客户匹配，不证明未匹配交易保留分支。
+
+**版本与证据。** 当前任务资产聚合SHA256 `0cf148ed9b58508237a9b223e516c4bab551d3170c17c777dba5cb772c5098aa`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/275/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 274：年度金额单位转换
+
+解析年度文件的K/M金额单位并汇总Sales/Profits，公开输入输出角色，采用显式整数/数值规则；reference业务和GT不改。
+
+**验证与运行。** GT行数：output_01.csv=5。历史记录：pandas r001通过；ibis r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 当前换算值均为整数，不能区分小数中点规则。
+
+**版本与证据。** 当前任务资产聚合SHA256 `f6481b04e0e198fea0f053ff63f4f3ebfa30c284218ae0d4c25f237b84f457e1`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/274/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 273：物种栖息地温度与优先级
+
+获批query公开有符号温差及排名口径；保留Ray-finned fishes连字符，修复reference/GT额外清洗。按输入两套单位分别独立核算F/C整表答案，配置只能整表择一，禁止混搭单元格；信息变化后新建r002。
+
+**验证与运行。** GT行数：output_01.csv=326, output_02.csv=80。历史记录：pandas r001失败, r002通过；polars r001失败, r002通过；ibis r001失败, r002通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 326物种、80非理想记录，37个负温差、4个缺状态名次为空；本轮三候选均选F，C只有独立/参考验证，非正式模型C运行。
+
+**版本与证据。** 当前任务资产聚合SHA256 `1ba8776cdafd0aff742e0725c2e6ed1b45c61d157d96afa6f7efc38e4fbae71a`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/273/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 272：年度超预算与月度最大超支
+
+原query只排除年度低于预算，full却排除小于等于预算；获批以query为准，将full/KB/reference改为年度相等也保留，当前GT不变。query公开月预算与月实际支出均先half-to-even取整后求差，并列最高超支只取合并输入处理顺序中的首项。金额与差额精确整数评分；独立核算108个年月类别值、12行结果。
+
+**验证与运行。** GT行数：output_01.csv=12。历史记录：pandas r001通过；polars r001通过；ibis r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 三候选均漏内部TransactionFees映射，但12个月均不影响最大项，因此输出通过；这是已观察内部处理限制，不宣称解题过程完全正确。
+
+**版本与证据。** 当前任务资产聚合SHA256 `10bfd3fae1979a135dd86bf9bd2261f0d86c1c672ea7a56fa4630b57267fd549`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/272/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 271：预算与实际支出
+
+修正已批准的类别名称，Forecasted/Actual采用零容差number、Difference采用integer，拒绝旧百分比容差放过的真实金额差。用户否决再补TransactionFees名称澄清，保持题面及原失败。
+
+**验证与运行。** GT行数：output_01.csv=9。历史记录：pandas r001失败；polars r001通过；ibis r001失败。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** Polars9行通过，pandas/Ibis各漏交易费而仅8行，ROW_COUNT_MISMATCH保留；拒答及名称说明差异不全归为计算错误。
+
+**版本与证据。** 当前任务资产聚合SHA256 `4a199339261984c4b25f6daafc0ec982060224cf2d10e37e41ff7f13771e82e3`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/271/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 270：召回移除速度及超时
+
+保留日期级截止、分组平均及排名规则；最终行序不是原query要求，忽略展示排序但仍精确检查Rank。reference业务及GT保持。
+
+**验证与运行。** GT行数：output_01.csv=10, output_02.csv=10。历史记录：pandas r001通过；ibis r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 只有日期无日内时刻；模拟用户额外中点规则对当前答案无影响，保留观察而不新增题意。
+
+**版本与证据。** 当前任务资产聚合SHA256 `009999504e3415782c74894588dd5d9f9ff05493079c5064258bd9fea5aad4e9`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/270/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 269：召回损失与门店优先级
+
+导入召回数据与成本/门店关联、损失计算和优先级任务，公开文件角色，显式配置key、数值精度和类别；reference业务及GT保持。
+
+**验证与运行。** GT行数：output_01.csv=5, output_02.csv=10。历史记录：pandas r001通过；polars r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 保留当前输入验证边界，不凭未出现数据扩充业务规则。
+
+**版本与证据。** 当前任务资产聚合SHA256 `6cfd6acd1d150f430fdeed059185dfbbd774e50d09174793962e5c1eb6c76d9c`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/269/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 268：复活节相对周销售
+
+删除依赖缺失图表的描述，保留按每年真实复活节对齐第12周、逐记录保留及Price×Quantity Sold。用户决定接受等价日期，不强制DD/MM/YYYY。
+
+**验证与运行。** GT行数：output_01.csv=1752。历史记录：pandas r001通过；ibis r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 2020—2024五年1752行，周序1—12；无重复日期/产品键或非午夜时刻。
+
+**版本与证据。** 当前任务资产聚合SHA256 `631b963afad9bcf0bab09b3f43b01a6a37e7a230d78f5cebc87ef479990294d2`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/268/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 267：逐年借款、利息与还款
+
+虽仅两张各2行输入，但确有跨表关联、年度展开、利息及还款，用户决定保留。最终在query明确余额取还款后，KB同步并新建r002，旧首轮失败保留。
+
+**验证与运行。** GT行数：output_01.csv=1。历史记录：pandas r001失败, r002通过；polars r001失败, r002通过；pyspark r001失败, r002通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 只评分请求的35000快照及单行汇总，不代表所有贷款参数均验证。
+
+**版本与证据。** 当前任务资产聚合SHA256 `9013d7edbe0c0309f719fbab672931541f526d0ec188d13a767d87470a9b6ab9`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/267/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 266：排除：固定28天月份日历
+
+用户决定不纳入：主要按2024年生成28天月份日历，reference不使用输入内容，数据处理区分能力不足。原始资料本地保留，不提交为可运行case。
+
+未安排interact。
+
+### 265：交易、会员与产品清洗
+
+原浮点数量/利润计算与完整规则不一致，获批以Decimal向下取整数量、计算折后销售额和HALF_UP利润；GT修正2078个Quantity和3037个Profit数值。full/KB修正Goald/Sliver/Bronz规范化与原query的冲突；query公开缺会员/折扣/原销售额时销售额和利润为空及利润HALF_UP两位。Decimal独立核对39254行。按批准配置Sales Before Discount精确数值比较，接受14.7/14.70，Date与Quantity继续精确文本；冻结r001重新评分，不重新解题。
+
+**验证与运行。** GT行数：output_01.csv=39254。历史记录：pandas r001通过；polars r001通过；ibis r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 当前数量都是整数且无缺价/零价/负价，不能验证fractional floor分支；模拟用户额外half-even在当前四位小数上无影响，不作为新要求。
+
+**版本与证据。** 当前任务资产聚合SHA256 `d4d8d21a3c93330ede5f9e0bbfb0a31387c6335af0db5712ba3c9fbdc75a9f79`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/265/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 264：航班预订累计
+
+公开累计处理的必要顺序，按最新动作保留取消/预订状态并关联航班；兼容语义相同数字ID表示，保留业务值严格评分。
+
+**验证与运行。** GT行数：output_01.csv=500。历史记录：pandas r001通过；polars r001通过；ibis r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 实际最新日期无并列，非取消记录客户ID非空；候选额外按Flight Date关联在当前数据不改变结果。
+
+**版本与证据。** 当前任务资产聚合SHA256 `617a91e67aa7f492286ebc17c183e3afdefed218fbf40dcf50d36cd0fafb17a9`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/264/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 263：两种会员方案年度成本
+
+以飞行数分档，继承所有低等级福利，汇总各等级成本及不同客户数。获批整数与Tier n标签兼容；最终query公开两表Tier升序，新建r002，保留原TYPE_ERROR及标签重评。
+
+**验证与运行。** GT行数：output_01.csv=6, output_02.csv=3。历史记录：pandas r001通过, r002通过；ibis r001通过, r002通过；pyspark r001通过, r002通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 6行/3行；成本abs_tol=1e-8仅容纳算术表示误差，不接受舍入到分。无重复规则福利对，候选未显式去重；零成本且有费用匹配的福利计数保留。
+
+**版本与证据。** 当前任务资产聚合SHA256 `2ad8beb9d78a9ea596e6a74d0b7f9067a98cd2f253c2c2fac24832b12c5f5f38`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/263/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 262：情侣情人节次数与礼物
+
+用户要求将既有次数/姓名排序公开到query，KB同步；删除公开说明中提前透露的未匹配礼物保留规则，该细节仍可交互获得。最终版本为r003，r001失败及r002均保留。
+
+**验证与运行。** GT行数：output_01.csv=10。历史记录：pandas r001失败, r002通过, r003通过；polars r001失败, r002通过, r003通过；pyspark r001失败, r002通过, r003通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 输出字段及排序严格核对，未因行数/礼物匹配的历史失败放宽评分。
+
+**版本与证据。** 当前任务资产聚合SHA256 `5f51cee584c8eb94d521bf5106f03e4b594ff874459b7d64c82beb6460e87131`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/262/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 261：最新员工工资及税档
+
+按原行位置选员工最新记录，汇总工资并计算题设税档；获批query用英文明确未达到税档的字段留空，KB同步并新建r002。
+
+**验证与运行。** GT行数：output_01.csv=803。历史记录：pandas r001通过, r002通过；ibis r001通过, r002通过；pyspark r001失败, r002通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 模拟用户有时额外要求保持输入行序，未采纳为评分要求；当前CSV无嵌入换行，Spark按物理行解析的泛化未验证。
+
+**版本与证据。** 当前任务资产聚合SHA256 `b9538590b6e1b3b69f6604fd960aaba4d1adcdeea8a505f53d5280f411835916`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/261/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
+### 260：航班预订及未预订客户
+
+按批准固定天数分档，取消full多余最终排序，兼容ID及四类名称，金额精确；五个日期字段明确采用严格YYYY-MM-DD。用户否决额外补公开全年范围，保持现契约。
+
+**验证与运行。** GT行数：output_01.csv=44768, output_02.csv=296, output_03.csv=1260。历史记录：pandas r001通过；ibis r001通过；pyspark r001通过。当前采用版本见头表下方的本批版本说明。
+
+**限制与失败解释。** 三表44768/296/1260行；未预订客户无非法、缺失或未来最后飞行日期，-1/Recent分支保持但未被实际输入触发。
+
+**版本与证据。** 当前任务资产聚合SHA256 `d080846ad76e8b994bec90ff9dc968a139436ae9cd1c16f3e4429a714b9afb4d`（按仓库相对路径排序，以`路径:文件SHA256`加换行聚合）。本地`curation/output/260/review.json`、`source_manifest.json`、各轮`interact_plan*.json`及`final_review*.json`记录原始来源、独立/边界检查、资产和评估版本；正式候选及问答在该题`runs/interact/codex_gpt-6-astra/<backend>/<run>/`。
+
 
 ## 2026-10-10：072–073 导入与验证（curation/prepbench-07x）
 

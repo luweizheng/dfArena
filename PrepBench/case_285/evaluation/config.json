@@ -1,0 +1,40 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Competition",
+        "Decade",
+        "Segment"
+      ],
+      "columns": {
+        "Competition": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Decade": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Segment": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Total Goals": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Matches in a Decade per Competition": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Expected number of Goals": {
+          "type": "number",
+          "abs_tol": 0.005,
+          "rel_tol": 0,
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

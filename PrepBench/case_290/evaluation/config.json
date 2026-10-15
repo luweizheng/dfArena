@@ -1,0 +1,45 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Matchday",
+        "Home Team",
+        "Away Team"
+      ],
+      "columns": {
+        "Away Score": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Away Team": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Home Score": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Home Team": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Matchday": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Source Row Number": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Date": {
+          "type": "date",
+          "null_values": [],
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

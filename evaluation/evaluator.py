@@ -36,6 +36,13 @@ class Evaluator:
         except (ConfigError, OSError) as exc:
             self._error(EvaluationFailure('CONFIG_ERROR', str(exc), 'config'))
             return self.report
+        if any(s.get('alternative_gt') for s in cfg['files'].values()):
+            self.report['protocol_version'] = 'dfarena-table-v4'
+        if any(c.get('aliases') for s in cfg['files'].values() for c in s['columns'].values()):
+            self.report['protocol_version'] = 'dfarena-table-v5'
+        if any(c['type'] == 'text_exact' and c.get('aliases')
+               for s in cfg['files'].values() for c in s['columns'].values()):
+            self.report['protocol_version'] = 'dfarena-table-v6'
         try:
             gt = self._files(self.gt_dir, 'gt')
             cand = self._files(self.cand_dir, 'candidate')
@@ -77,7 +84,8 @@ class Evaluator:
     def _read(self, path, side, columns):
         try:
             data = path.read_bytes()
-            self.report['assets'].setdefault(side, {})[path.name] = hashlib.sha256(data).hexdigest()
+            asset_name = path.relative_to(self.gt_dir).as_posix() if side == 'gt' else path.name
+            self.report['assets'].setdefault(side, {})[asset_name] = hashlib.sha256(data).hexdigest()
             try:
                 text = data.decode('utf-8-sig')
             except UnicodeDecodeError:
@@ -210,6 +218,8 @@ class Evaluator:
                 break  # first unequal sort field decides lexicographic order
 
     def _evaluate(self, gt_path, cand_path, spec):
+        if spec.get('alternative_gt'):
+            return self._evaluate_alternatives(gt_path, cand_path, spec)
         cols = spec['columns']
         gt = self._read(gt_path, 'gt', cols)
         cand = self._read(cand_path, 'candidate', cols)
@@ -226,3 +236,48 @@ class Evaluator:
         if not spec['ignore_order']:
             self._check_order(cand, spec['order_by'], 'candidate')
             status['order_status'] = 'passed'
+
+    def _evaluate_alternatives(self, gt_path, cand_path, spec):
+        """Accept one complete approved table, never choose a variant per row."""
+        paths = {'primary': gt_path}
+        for label, relative in spec['alternative_gt'].items():
+            path = self.gt_dir / relative
+            if not path.resolve().is_relative_to(self.gt_dir.resolve()):
+                fail('CONFIG_ERROR', 'Alternative GT must stay inside the GT directory', 'config', variant=label)
+            paths[label] = path
+        cols = spec['columns']
+        # Validate EVERY approved asset, even when the primary already matches.
+        golds = {}
+        for label, path in paths.items():
+            try:
+                golds[label] = self._read(path, 'gt', cols)
+                if not spec['ignore_order']:
+                    self._check_order(golds[label], spec['order_by'], 'gt')
+            except EvaluationFailure as exc:
+                exc.detail['variant'] = label
+                raise
+        cand = self._read(cand_path, 'candidate', cols)
+        status = self.report['files'][gt_path.name]
+        status.update(candidate_rows=len(cand), gt_rows=len(golds['primary']),
+                      accepted_variants=list(paths))
+        failures = []
+        for label, gt in golds.items():
+            try:
+                if len(gt) != len(cand):
+                    fail('ROW_COUNT_MISMATCH', 'Row counts differ', 'candidate', gold=len(gt), candidate=len(cand))
+                for _, gi, ci in self._align(gt, cand, spec['key'], cols):
+                    self._compare_group(gt, cand, gi, ci, spec['key'], cols)
+                if not spec['ignore_order']:
+                    self._check_order(cand, spec['order_by'], 'candidate')
+                status.update(content_status='passed', matched_variant=label, gt_rows=len(gt))
+                if not spec['ignore_order']:
+                    status['order_status'] = 'passed'
+                return
+            except EvaluationFailure as exc:
+                failures.append((label, exc))
+        first = failures[0][1]
+        first.detail['alternative_errors'] = [
+            {'variant': label, 'error_type': exc.code, 'message': exc.message,
+             'side': exc.side, 'detail': dict(exc.detail)} for label, exc in failures
+        ]
+        raise first

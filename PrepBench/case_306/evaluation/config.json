@@ -1,0 +1,20 @@
+{
+  "files": {
+    "output_01.csv": {
+      "ignore_order": true,
+      "key": [
+        "Name"
+      ],
+      "columns": {
+        "Naughty or Nice": {
+          "type": "text_norm",
+          "null_values": []
+        },
+        "Name": {
+          "type": "text_norm",
+          "null_values": []
+        }
+      }
+    }
+  }
+}

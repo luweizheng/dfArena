@@ -1,0 +1,59 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Sport",
+        "Team"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Sport": {
+          "type": "text_norm",
+          "null_values": []
+        },
+        "Cross Sport Rank": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Team": {
+          "type": "text_norm",
+          "null_values": []
+        },
+        "z-score": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Ranking Field": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Sport Specific Percentile Rank": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0,
+          "null_values": []
+        }
+      }
+    },
+    "output_02.csv": {
+      "key": [
+        "Sport"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Sport": {
+          "type": "text_norm",
+          "null_values": []
+        },
+        "Avg Cross Sport Rank": {
+          "type": "number",
+          "abs_tol": 5e-15,
+          "rel_tol": 0,
+          "null_values": []
+        }
+      }
+    }
+  }
+}
