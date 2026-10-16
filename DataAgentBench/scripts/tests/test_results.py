@@ -196,6 +196,7 @@ class PromptDeliveryTests(unittest.TestCase):
             for name in ['description.md', 'hints.md']:
                 self.assertIn((root / name).read_text(encoding='utf-8'), sent[0])
             generation = json.loads((run / 'detail/generation.json').read_text(encoding='utf-8'))
+            self.assertEqual(generation['artifacts']['agent_log'], 'logs/agent_events.jsonl')
             delivery = generation['input_delivery']
             self.assertEqual(delivery['agent_inputs'], ['data/', 'context/description.md', 'query.md', 'context/hints.md'])
             self.assertFalse((run / 'detail/input_delivery.json').exists())

@@ -169,7 +169,7 @@ class OpenCodeAgent(AgentAdapter):
         with sqlite3.connect(source.resolve().as_uri()+'?mode=ro', uri=True) as original:
             with sqlite3.connect(destination/'opencode.db') as archived:
                 original.backup(archived)
-        return str(destination.relative_to(run))
+        return destination.relative_to(run).as_posix()
 
     def metrics(self, events, completed, source):
         return opencode_metrics(events, completed, source=source+':step_finish.part.tokens')

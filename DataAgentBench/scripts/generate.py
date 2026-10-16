@@ -97,7 +97,7 @@ def main(argv=None):
               'elapsed_seconds_excluding_simulator': None,
               'timing_scope_excluding_simulator': None,
               'artifacts': {'solution': 'solution/solution.py', 'answer': 'solution/answer.json',
-                            'agent_log': str(agent_logs['events'].relative_to(run))},
+                            'agent_log': agent_logs['events'].relative_to(run).as_posix()},
               **token_usage(agent_logs['events'], False, agent=a.agent)}
     save(run/'detail/generation.json', result)
     summarize(run)
