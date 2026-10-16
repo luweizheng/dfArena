@@ -1,0 +1,101 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "dc_nbr",
+        "month_end_date",
+        "employee_id",
+        "guid",
+        "hire_date"
+      ],
+      "columns": {
+        "dc_nbr": {
+          "type": "integer",
+          "null_values": []
+        },
+        "month_end_date": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "employee_id": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "guid": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "hire_date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "leave_date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "tenure_months": {
+          "type": "integer",
+          "null_values": []
+        },
+        "tenure_years": {
+          "type": "integer",
+          "null_values": []
+        },
+        "age_range": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "dc_nbr",
+        "month_end_date",
+        "demographic_type",
+        "demographic_detail"
+      ],
+      "columns": {
+        "dc_nbr": {
+          "type": "integer",
+          "null_values": []
+        },
+        "month_end_date": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "demographic_type": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "demographic_detail": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "ee_count": {
+          "type": "integer",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

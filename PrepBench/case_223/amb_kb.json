@@ -1,0 +1,67 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_D1_student_grouping_keys",
+      "kind": "Single-table reference",
+      "node_id": "a_avg",
+      "op": "aggregate",
+      "source_text": "Calculate the average grade for each year for each student",
+      "ref": "id_cols = [\"student_id\", \"first_name\", \"last_name\", \"Gender\", \"D.O.B\"]",
+      "intent": "Group each student using student_id and the demographic fields first_name, last_name, Gender and D.O.B."
+    },
+    {
+      "id": "2_D2_join_keys_2021_2022_long",
+      "kind": "Multi-table alignment",
+      "node_id": "j_merge",
+      "op": "join",
+      "intent": "Align the two years on the student identifier/demographic fields and category.",
+      "ref": "on=id_cols + [\"category\"], how=\"inner\"",
+      "source_text": "Join the 2021-long and 2022-long results using an inner join on:"
+    },
+    {
+      "id": "3_O2_join_unmatched_policy_inner",
+      "kind": "Operation incomplete",
+      "node_id": "j_merge",
+      "op": "join",
+      "intent": "Use an inner join for the two years of category records.",
+      "ref": "how=\"inner\"",
+      "source_text": "Join the 2021-long and 2022-long results using an inner join on:"
+    },
+    {
+      "id": "4_C2_difference_direction",
+      "kind": "Row-level concept",
+      "node_id": "p_diff",
+      "op": "project",
+      "source_text": "`Difference = 2022 - 2021`",
+      "ref": "df_avg[\"Difference\"] = df_avg[\"2022\"] - df_avg[\"2021\"]",
+      "intent": "Calculate Difference as 2022 mean minus 2021 mean."
+    },
+    {
+      "id": "5_C2_category_name_derivation",
+      "kind": "Row-level concept",
+      "node_id": "p_fix",
+      "op": "project",
+      "intent": "Remove the year prefix from each grade column to identify its category.",
+      "ref": "df_2021_long[\"category\"] = df_2021_long[\"category\"].str.replace(\"2021-\", \"\"); df_2022_long[\"category\"] = df_2022_long[\"category\"].str.replace(\"2022-\", \"\")",
+      "source_text": "a `category` field derived from the four 2021 columns (`2021-attainment`, `2021-effort`, `2021-attendance`, `2021-behaviour`) by removing the `2021-` prefix"
+    },
+    {
+      "id": "6_D1_grade_columns_mapping",
+      "kind": "Single-table reference",
+      "node_id": "p_long",
+      "op": "pivot",
+      "source_text": "Reshape the grade data so that, for each student, there are 4 rows (one per category) and the two years’ grades appear in separate fields:",
+      "ref": "value_vars=[\"2021-attainment\", \"2021-effort\", \"2021-attendance\", \"2021-behaviour\"]",
+      "intent": "Use the four categories attainment, attendance, effort and behaviour in each year."
+    },
+    {
+      "id": "7_O1_output_sort_order",
+      "kind": "Row-level concept",
+      "node_id": "s_sort",
+      "op": "sort",
+      "intent": "Sort final rows by student_id ascending.",
+      "ref": "df_output.sort_values(\"student_id\")",
+      "source_text": "Prepare the output with exactly the fields listed in the Output section, and sort the resulting rows by `student_id` in ascending order."
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "dc_nbr",
+        "month_end_date"
+      ],
+      "columns": {
+        "dc_nbr": {
+          "type": "integer",
+          "null_values": []
+        },
+        "month_end_date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": []
+        },
+        "ee_count": {
+          "type": "integer",
+          "null_values": []
+        },
+        "ee_leaving": {
+          "type": "integer",
+          "null_values": []
+        },
+        "ee_leaving_p12": {
+          "type": "integer",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "NA",
+            "N/A",
+            "null",
+            "None"
+          ]
+        },
+        "avg_ee_month": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "NA",
+            "N/A",
+            "null",
+            "None"
+          ]
+        },
+        "avg_ee_p12": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "NA",
+            "N/A",
+            "null",
+            "None"
+          ]
+        },
+        "turnover_month": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "NA",
+            "N/A",
+            "null",
+            "None"
+          ]
+        },
+        "turnover_p12": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "NA",
+            "N/A",
+            "null",
+            "None"
+          ]
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

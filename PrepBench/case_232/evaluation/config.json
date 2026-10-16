@@ -1,0 +1,51 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Store",
+        "Quarter"
+      ],
+      "columns": {
+        "Store": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Quarter": {
+          "type": "integer",
+          "null_values": [],
+          "aliases": {
+            "Q1": "1",
+            "Q2": "2",
+            "Q3": "3",
+            "Q4": "4"
+          }
+        },
+        "Sales": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "% Difference Q on Q": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "NA",
+            "N/A",
+            "null",
+            "None"
+          ]
+        },
+        "Store Evaluation": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

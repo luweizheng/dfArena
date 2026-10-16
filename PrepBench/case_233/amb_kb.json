@@ -1,0 +1,31 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O2_read_dim_as_text",
+      "kind": "Row-level concept",
+      "node_id": "dim_in",
+      "op": "input",
+      "intent": "Read the employee table without coercing identifier/date formats (treat all fields as text to preserve original formatting).",
+      "ref": "dim_df = pd.read_csv(dim_path, dtype=str)",
+      "source_text": "Read fields without coercing identifier/date formats (treat values as text so original formatting is preserved)."
+    },
+    {
+      "id": "2_O2_lookup_exclude_both_missing",
+      "kind": "Operation incomplete",
+      "node_id": "lookup_nonnull",
+      "op": "filter",
+      "source_text": "Filter out any rows where one of the IDs is missing",
+      "ref": "lookup = lookup[(lookup[\"employee_id\"].notna()) | (lookup[\"guid\"].notna())]\nlookup = lookup[lookup[\"employee_id\"].notna() & lookup[\"guid\"].notna()]",
+      "intent": "Build the identifier mapping only from rows where both employee_id and guid are present; remove duplicate pairs."
+    },
+    {
+      "id": "3_O2_read_monthly_as_text",
+      "kind": "Row-level concept",
+      "node_id": "monthly_in",
+      "op": "input",
+      "intent": "Read the monthly snapshot table without coercing identifier/date formats (treat all fields as text to preserve original formatting).",
+      "ref": "monthly_df = pd.read_csv(monthly_path, dtype=str)",
+      "source_text": "Read fields without coercing identifier/date formats (treat values as text so original formatting is preserved)."
+    }
+  ]
+}

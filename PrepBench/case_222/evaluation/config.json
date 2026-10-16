@@ -1,0 +1,32 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Type"
+      ],
+      "columns": {
+        "Type": {
+          "type": "text_exact",
+          "null_values": [],
+          "aliases": {
+            "Meat based": "Meat-based",
+            "Veggie": "Vegetarian"
+          }
+        },
+        "Average Price": {
+          "type": "number",
+          "abs_tol": 0.005,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Percent of Total": {
+          "type": "number",
+          "abs_tol": 0.5,
+          "rel_tol": 0,
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

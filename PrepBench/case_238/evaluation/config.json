@@ -1,0 +1,36 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "dc_nbr"
+      ],
+      "columns": {
+        "dc_nbr": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "ee_count": {
+          "type": "integer",
+          "null_values": []
+        },
+        "xfer_count": {
+          "type": "integer",
+          "null_values": []
+        },
+        "xfer_pct": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "avg_tenure_months": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}
