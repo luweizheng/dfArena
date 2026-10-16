@@ -28,7 +28,7 @@ You have three input tables: (1) a master list of surf sites with their attribut
   - For each person (`Name`), rank candidate sites by:
     1) `Rating` descending (higher is better)
     2) `Reliability` descending using the ordered scale above (Very Consistent best → Rarely Breaks worst)
-  - Select the **single top-ranked** surf site per person after applying the ranking and tie-break rules.
+  - Select the **single top-ranked** surf site per person after applying the ranking and tie-break rules. Retain all output fields from that same site row, including any missing values.
 - Omit people without any suitable site. No final output row order is required.
 - Output the data
   - The output must have **one row per person** (one best site per `Name`) and contain exactly the specified fields.

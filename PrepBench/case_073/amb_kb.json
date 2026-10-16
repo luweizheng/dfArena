@@ -6,7 +6,8 @@
       "node_id": "dedup_top_per_name",
       "op": "dedup",
       "source_text": "Rank the top sites in terms of rating for each person.",
-      "ref": "top_sites = result_df.groupby(\"Name\").first().reset_index()"
+      "ref": "top_sites = result_df.drop_duplicates(subset=[\"Name\"], keep=\"first\").reset_index(drop=True)",
+      "intent": "Select one whole best-ranked site row per matched person. Preserve its missing fields; do not fill them from a lower-ranked site."
     },
     {
       "id": "2_C1_all_requirements_must_match",

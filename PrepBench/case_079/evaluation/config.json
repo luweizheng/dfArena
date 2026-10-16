@@ -1,0 +1,23 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Scent"
+      ],
+      "columns": {
+        "Profitability Rank": {
+          "type": "integer"
+        },
+        "Scent": {
+          "type": "text_exact"
+        },
+        "Total Profit": {
+          "type": "number",
+          "abs_tol": 1e-09,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

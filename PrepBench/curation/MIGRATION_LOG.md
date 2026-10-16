@@ -1,5 +1,7 @@
 ## interact 结果总览
 
+**070 头表补录（2026-10-16）：** 采用 origin/main 带入的“2026-10-09：070–071 导入与静态审核（curation/prepbench-07x）”中各后端 r001 结果：pandas 通过，Ibis/PySpark 因 Description 内部空格差异失败，Polars 未运行。不采用早先本地 068–070 批次中 Ibis 通过的另一组记录；本次仅补录，不是重新运行或重评。
+
 下表是当前 benchmark 的初步审核实验表，不是最终 benchmark 分数。它用不同 backend 的 interact 结果暴露 workload 需求表述、simulator 澄清信息和 evaluator 验证规则中的问题：有些失败来自 agent 的真实计算错误，有些来自需求没有清晰表达，有些来自验证规则覆盖不足。因此，这些结果用于指导后续 curation 和资产修订，不能直接解释为 backend 能力排名。`通过/失败` 指对应运行时配置下 interact 生成后的 evaluator 状态；`跳过` 表示生成记录存在但评测未执行；`未运行` 表示目前没有该 backend 的 interact 结果；`不纳入` 表示已决定排除出 benchmark，不再安排运行。
 
 | Case | pandas | Polars | Ibis | PySpark |
@@ -72,6 +74,16 @@
 | 067 | 通过 | 失败 | 通过 | 通过 |
 | 068 | 通过 | 未运行 | 通过 | 通过 |
 | 069 | 通过 | 通过 | 未运行 | 通过 |
+| 070 | 通过 | 未运行 | 失败 | 失败 |
+| 071 | 未运行 | 未运行 | 通过 | 通过 |
+| 072 | 通过 | 失败 | 失败 | 未运行 |
+| 073 | 通过 | 通过 | 通过 | 未运行 |
+| 074 | 未运行 | 未运行 | 通过 | 通过 |
+| 075 | 通过 | 通过 | 通过 | 未运行 |
+| 076 | 通过 | 通过 | 未运行 | 未运行 |
+| 077 | 失败 | 未运行 | 失败 | 失败 |
+| 078 | 通过 | 通过 | 未运行 | 通过 |
+| 079 | 通过 | 通过 | 通过 | 未运行 |
 | 240 | 通过 | 未运行 | 通过 | 通过 |
 | 241 | 通过 | 未运行 | 通过 | 通过 |
 | 242 | 通过 | 未运行 | 通过 | 通过 |
@@ -1846,3 +1858,143 @@ reference在固定镜像sha256:904f17a0381e9478630368f0a9d5480340e5c1feda5def40e
 | ibis | r001 | 通过 | 2 | 85.34 |
 
 三组均通过两轮澄清获得输入范围、原标签保留、温度整数/百分比0–100、null而非0和Today仅最低温的规则；第一轮多主题问题被拒后拆分重问，无错误回答或网络失败。候选实际使用后端字符串表达式、条件投影和合并，非照搬reference逐行正则，说明可以表达为DataFrame任务，但10行数据仍属于简单文本清理。pandas候选没有显式过滤空Data单元格，当前大量空物理行由read_csv跳过，不能据通过宣称覆盖真正空单元格分支。候选、交互及正式报告在各自runs；本地汇总interact_results_076.json，资产与输入/GT哈希已复核。
+
+## 当前 worktree 本地审核历史（与 main 的独立运行分开解释）
+
+## 2026-10-10：删除 067 旧版本地备份
+
+按用户要求，确认新版 case_067 资产齐全、参考解已保存输出通过当前 GT，且 pandas r002、Polars r002、Ibis r001、PySpark r001 的生成均完成、公开资产哈希匹配、原候选按当前配置重评均通过后，删除当前 worktree 未跟踪的 `case_067_bak/`（含旧版任务和旧运行记录）。新版及其运行记录保留。以上是已有输出复核，不是新生成；首次结果头表仍保留新版 Polars r001 失败。本文此前的备份路径是历史记录，不再指向现存目录。
+
+
+## 2026-10-10：078–079 迁移及首次 interact
+
+导入 078 店长向下填充、079 周三至周二库存损耗/利润排名任务，来源 `../prepbench`，输入和 GT 逐字节保留。来源及导入哈希见本地 `import_cases_078_079.json`，完整审核见 `REVIEW_078_079.md`。078 删除 Tableau Script Step 限制，改为 DataFrame fill-down；完整需求明确按输入行序填充和清理列名；reference 将 dropna 限于三个必需字段，修复额外无关列有空值时误删有效行的问题。079 删除过时数据编辑提示，修复 KB 原文引用、补充自然语言解释，保留题目明确的 Profit=Weekly Sales−Cost×Waste 公式，不额外扣已售成本。两份 reference 主入口改为 case 根目录 inputs/output。
+
+078 用 Store 作为 key，目标值 integer；079 用 Scent 作为 key，排名 integer，Total Profit abs_tol=1e-9、rel_tol=0，仅容纳浮点表示误差，一分钱偏差拒绝。两题不评物理输出行序，078 填充顺序仍是业务逻辑。独立 CSV/Decimal 核算与 GT 一致，Docker reference 重放通过，18 项评分正反例及 29 项共享 evaluator 测试通过。078 的参考解另用合成输入验证前导空经理、后续新增经理、缺少必需字段和无关空列；不将参考解分支验证当作模型覆盖。079 实际为 17 周×5 香型、85 个完整七天分组，无缺失 lookup/order、负 waste 或并列利润，相关边界未覆盖。
+
+Codex gpt-6-astra/low、interact，固定 image sha256:904f17a0381e9478630368f0a9d5480340e5c1feda5def40e78311e18e62c921，timeout 1800 秒。每题先 pandas，再以 seed=20261010000+编号从 polars/ibis/pyspark 无放回抽两种：078 PySpark/Polars，079 Ibis/Polars。六次均为当前 worktree 首次 r001，generation/evaluation 全部 completed 且 passed；没有重试筛选。头表仅采用这些首次结果。资产和源哈希核对通过，生成容器未挂载私有 case 材料，详细路径/问答/计时见 `interact_validation_078_079.json`。
+
+078 pandas 的模拟用户把“输出 integer”扩展为小数目标截断及非法数值转换失败；完整需求没有明确这两个边界，当前输入也未触发，不将这些回复升级为已审核业务规则。078 Polars/PySpark 正确确认按 CSV 输入顺序而非 Row ID 排序填充。079 pandas/Ibis 确认不额外扣已售成本，Ibis 确认每周订单量分别适用于每个香型。079 的并列利润排序缺少固定 tie-breaker，当前无并列，不声称已验证。
+
+
+## 2026-10-10：077 源资产预审，待任务契约决定
+
+已在独立 Docker 容器重放源 reference，三表按无序行多重集合与源 GT 精确一致（1242/28/33202 行）。尚未导入 runtime case_077，也未运行真实 agent。审核发现：20 个 host 日期的 GT 按非 ISO 年-日-月解释；Cycling Road→Cycling Track 及按年份/事件合并规则未完整写入完整规格；项目名称存在额外空格/x/×规则，唯一对齐诊断子集中有209条田径记录与基础文字替换不同。完整规格的排序要求与 GT 行序也不一致。两条英国特殊国家名称实际属于2016年，和两条Ivory Coast一样无法通过精确国家表补全，按完整需求即可删除；不能误判为无依据删除2012奖牌。
+
+详细审核见 `REVIEW_077.md`，源哈希、差异样例及重放输出保存在本地 `curation/output/077_audit/`。保留源资产，暂不把未公开规则造成的差异记作 agent 失败；需先决定保留源约定补全规格，还是统一规则并重建真值。077 尚无 interact 结果，不填通过/失败。
+
+
+## 2026-10-11：077 源规则诊断 interact 首次运行
+
+按用户要求导入 case_077，原始 query/query_full/KB/reference/input/GT 不变；config 改为显式精确文本、整数和日期类型，汇总 key=Country/Year、host key=Games/Year、明细全字段 key，行序忽略。源 reference 已存输出通过该配置。此为待审核源规则的诊断任务，并非契约已定稿。Codex gpt-6-astra/low、pandas、interact r001，生成 completed，约116.33秒、3次澄清；正式评估失败 KEY_MISMATCH。output_01（1242行）和output_02（28行）通过，output_03（33202行）失败，首个差异为2016 Usain Bolt 100m 与候选100 m。模拟用户明确要求100 metres→100 m、保留空格，故此差异属于澄清/真值约定冲突，不能直接当作 agent 计算错误。源资产、候选和正式报告未作修补。详细差异见 `case_077_pandas_r001_diagnosis.json`，导入身份见 `import_case_077_diagnostic.json`。
+
+
+## 2026-10-11：077 Event 空格手动修正诊断
+
+按用户要求复制 pandas interact r001 的三份输出，仅在副本 output_03 的 Athletics Event 中删除数字与米单位 m 之间的空格（不处理 km），共改变239行。使用原 evaluation/config.json 和原 GT 重评，三份表全部通过：1242/28/33202行。证据为 `curation/output/077_event_spacing_recheck/evaluation.json` 和 `summary.json`。哈希确认原候选CSV、result.json、正式evaluation.json均未改变；头表仍保留首次失败。这是手动修正后的诊断通过，不是新的模型运行或原始结果通过。
+
+## 2026-10-11：077 田径米单位空格规则 v1.1
+
+按用户确认，田径 Event 中数字与米单位 `m` 在所有年份统一保留一个空格，接力距离亦如此；`km` 和接力 `x/×` 规则不变。已同步 `query.md`、`query_full.md`、`amb_kb.json`、reference，并将 metadata 版本设为 1.1。修改前资产与哈希存于本地 `curation/output/077_before_metre_spacing/`。输入、evaluation config 及 output_01/02 的 GT 值不变；重放 reference 后 output_03 GT 的 33,202 行中有 2,343 行仅 Event 改变。独立字段核对、奖牌汇总核算、Docker reference 重放、正式 evaluator 自检，以及紧凑、双空格和错误距离的反例检查均见 `curation/output/077_metre_spacing_v1_1/validation.json`。首次 pandas interact r001 及正式报告原样保留，头表仍记首次失败；新版 r002 的结果另记。主办日期与自行车/其他项目命名的完整契约仍待单独审核。
+
+新版 pandas interact r002（Codex gpt-6-astra/low）生成 completed，130.15秒，3次澄清共11个问题；正式 evaluation completed、passed=false，KEY_MISMATCH。output_01/02 通过；output_03 的3,831条田径记录均符合新版米单位空格规则，但303条自行车 Discipline 为 Cycling Road（GT 为 Cycling Track），另9条田径保留20kilometres/50kilometres walk（GT 为20km/50km walk）。仅在内存应用这两类替换后全表多重集合与GT一致，未改候选或正式结果。模拟用户被问到精确映射时仅给出 Track cycling/Road cycling→Cycling Track，未披露 reference 更广的映射；紧贴数字的 kilometres 替换在 query_full 有规定，但本次未问到且整词替换漏掉。第二轮3个问题被拒绝，第三轮拆分再问。详细诊断见 `curation/output/077_metre_spacing_v1_1/r002_diagnosis.json`、`REVIEW_077.md`。共享 evaluator 29项测试及 git diff --check 通过；不将本次记录为修复后整题通过。
+
+## 2026-10-11：077 v1.1 随机追加两个 backend interact
+
+按用户要求以 seed=20261011077 从 polars/ibis/pyspark 无放回抽中 PySpark、Ibis，均为当前 worktree 对应 backend 首次 r001，不重试。使用 case_077 v1.1、Codex gpt-6-astra/low、interact、timeout 1800秒和固定 image sha256:904f17a0381e9478630368f0a9d5480340e5c1feda5def40e78311e18e62c921。PySpark 生成 completed，121.71秒、2次澄清/7个问题；Ibis 生成 completed，301.19秒、3次请求/6个问题。两者正式 evaluation completed、passed=false，均在 output_01 首先报 VALUE_MISMATCH。头表更新两者首次失败；pandas 仍保留旧版 r001 首次失败，不能把三个单元格视为同版比较。
+
+为避免正式 fail-fast 掩盖后续文件，使用临时单文件配置和原样候选副本分别诊断，不覆写正式评估：两者 output_01 均仅有992个缺失奖牌单元格被写成0（Gold 426、Silver 310、Bronze 256）；output_02 均有20个日期单元格不同（Start Date 6、End Date 14）。两者模拟用户明确要求 ISO-looking 日期按年-月-日解析，与 reference/GT 的年-日-月冲突，属于澄清/资产冲突。PySpark output_03 报 READ_ERROR，CSV 引号转义不符合 evaluator 读取要求，明细内容未通过检验；Ibis output_03 的33,202行正式规则单文件诊断通过，其澄清获得了 road/track 均归 Cycling Track 的映射。未修改任务资产、生成代码或候选输出。运行前后资产哈希及公开资产身份一致；已检查生成容器挂载，私有资产未暴露。抽样、资产哈希、完整结果和逐表诊断见本地 `curation/output/077_metre_spacing_v1_1/backend_plan.json`、`backend_results.json`、`*_r001_per_file.json`。
+
+## 2026-10-12：071–076 筛选与迁移
+
+按用户要求排除 DataFrame 处理很少的 workload：076 主要逐条解析天气文本，随后组装/union；074 主要罗马数字解码与逐行日期字符串转换；071 的实际输入只有一个罗马数字，scaffold/join/sum 是标量转换的表格式实现。这是任务范围筛选，不是运行失败；三题在当前 worktree 尚未导入，故不创建 runtime case、不安排模型运行，上游原件不删。来源哈希、范围判断见 `import_cases_073_076.json`、`import_cases_071_072.json` 与相应 REVIEW。073 虽然源参考解使用循环，但业务包含多表关联、条件匹配、去重和分组选优，因此保留；075 和072也保留。
+
+075 将 Excel 多页签描述改为实际 CSV 文件；保留源定价和退款符号约定。完整需求/KB 删除公开题面未要求的汇总表物理排序，客户经理分组顺序仍按题意检查：Order 升序、缺失最后，组内可交换。key=Email 与 Country/Currency，金额/排名均精确整数。独立 CSV/Decimal 核对100人、4位经理（Tom30/Jonathan25/Jenny24/Carl21）和8组国家币种汇总一致；当前没有未匹配经理或人数并列。参考解只改主入口路径，GT不变。
+
+073 补明第二物理行才是表头、banner/footer非数据、站点名和Skill周边空白需清理。完整需求/KB 明确选择完整站点行、无适合站点者不输出，reference由groupby.first改为排名后按Name保留整行，防止跨站点拼接非空字段；当前GT不变。独立集合匹配核对16站点、4人，候选数Tom2/Jenny1/Carl7/Jonathan11，四个最优结果唯一且与GT一致。key=Name，Rating零容差数值，其他文本精确，不评分输出行序；无候选、缺失季节、冲突重复行及完全并列边界未覆盖。
+
+072 保留两阶段匹配：精确ID关联后，同香型构造候选，按差额排序，先按第三方ID去重，再从保留下来的记录按内部ID去重，不回填、不做全局最优指派。补明精确匹配取内部Scent，修正KB引用不存在的pairs_filtered为pairs_join，reference只改主入口。独立Decimal核对20条内部/47条第三方、145个候选，输出49行（Matched5/Matched on Scent13/Unmatched - Internal2/Unmatched - 3rd Party29），差额无并列。key=ID/3rd Party ID，Sales abs_tol=5e-10、rel_tol=0，依据完整规格小数后9位的半个末位；GT与原值最大差恰为5e-10，数值评分不强制字面格式或特定舍入算法。stable tie的跨后端候选顺序仍未覆盖。
+
+三题输入和GT均逐字节保留；固定Docker镜像重放reference全部通过；独立核算及49项定向评分检查通过（07522/07314/07213），共享evaluator29项测试通过。每题先pandas，再用seed=20261012000+编号从Polars/Ibis/PySpark无放回抽两个，本批三题均抽中Polars/Ibis；Codex gpt-6-astra/low、interact、固定image sha256:904f17a0381e9478630368f0a9d5480340e5c1feda5def40e78311e18e62c921、timeout1800秒。首次r001结果完整保留，不重试筛选。最终结果在后文追加。
+
+073与075的pandas/Polars/Ibis首次r001全部通过，generation/evaluation均completed。073耗时104.92/108.47/86.60秒；075耗时106.77/92.71/144.41秒，各一次澄清。资产身份及生成挂载allowlist核对通过，私有资产未挂载，详细问答及路径见`interact_validation_073_076.json`。075三次均获得Credit Note为正、票价截断整数、经理分组排名口径；073三次均获得三个匹配条件同时满足、只选一条、保留站点完整列表的规则。完全并列时回复keep_first，但未指定额外候选顺序，当前无此边界。
+
+072最终首次结果：pandas r001通过（99.54秒、1次澄清）；Polars r001失败（139.57秒、2次澄清），Ibis r001失败（138.33秒、2次澄清），均生成/评测completed，失败为VALUE_MISMATCH。独立逐键核对：49条匹配/未匹配关系、状态、Scent全部正确，Polars仅2个、Ibis仅3个数值单元格与GT相差1e-9；均为小数后9位舍入中点，GT和候选距原始值都是5e-10。例如78530.3866906395，GT为78530.386690639，而Polars/Ibis为78530.386690640，精确HALF_EVEN/HALF_UP都支持后者；21304.1041794475同类。Ibis另将70989.4678953545舍入到70989.467895355，GT/HALF_EVEN为70989.467895354。源GT包含二进制浮点舍入影响，不能当成严格十进制HALF_EVEN标准。当前以GT为中心的5e-10容差无法同时接纳两个相反半末位选择，题面未规定中点策略，属于精度契约待决而非ID匹配错误。本轮不为通过而改GT/容差，不重试，头表保留首次失败；证据见`case_072_rounding_diagnosis.json`。两次非pandas均拆分被拒的多主题问题后取得精度要求；回答认可内部输入行序后第三方行序处理并列，当前无差额并列，未据此宣称覆盖。
+
+本批完成071–076：保留072/073/075，排除071/074/076；九次首次interact共7通过、2失败，PySpark未抽中。`interact_validation_073_076.json`与`interact_validation_071_072.json`记录全部来源/导入/运行公开资产哈希一致及生成挂载隔离核对；上游六题资产未变。未提交Git，未修改既有077或其他任务资产。
+
+## 2026-10-14：077 v1.2 公开日期格式与自行车归类
+
+按用户确认，将日期格式和完整Cycling归类规则同时写入query、query_full和KB。斜杠主办日期明确MM/DD/YYYY，年份开头明确YYYY-DD-MM，忽略时间部分；输出DD/MM/YYYY，Year取Start Date。未把reference的日期fallback防御分支升级为业务要求。独立解析全部56个日期（34个斜杠、22个年份开头）及Year，与现有GT一致。
+
+Cycling规则直接公开：仅Sport=Cycling，Discipline包含四种road/track变体，或Year≤1992，或Event包含road race/time trial时归Cycling Track，文本模式忽略大小写；其余保留其他明确重命名后的Discipline。替换query_full中不完整映射与无条件保留BMX/Mountain Bike的冲突描述，KB同步当前reference的完整条件。任务版本1.2，输入/reference/GT/config未改，历史运行未改。此版公开了此前需澄清的规则，不能与v1.1作为相同query条件比较；尚未运行v1.2 interact，头表仍保留历史首次结果。备份/哈希及验证见本地curation/output/077_explicit_dates_cycling_v1_2/。其他Event命名及源排序约定仍有此前记录的审核项，不能据此宣称整题完全定稿。
+
+## 2026-10-14：恢复071、074、076并测试两个随机后端
+
+按用户确认恢复三题，撤销此前排除决定。不能仅因源reference使用循环/apply就否定表处理价值：071覆盖字符展开、lookup join、相邻值和聚合（实际仅一个输入）；074覆盖派生列、日期解析、过滤和类型转换；076覆盖文本列提取、条件赋值、nullable整数和统一schema合并。保留此前排除日志作为历史记录。
+
+输入和GT逐字节保留；reference只适配case根目录inputs/output路径。074将Excel页签描述改为CSV输入；076删去完整需求中无关的姓名/挑战登记提示。key分别为Number、Games、Forecast Type/Date or Time；数值均integer，074日期明确按%m/%d/%Y解析；文本精确，最终行序不评分。三份reference在固定Docker镜像重放通过，标准库独立计算复现1/28/10行，12项定向比较检查通过。071只处理一个罗马数字；074异常日期和076缺失/单行文本边界未据此验证，源reference的防御行为不代表完整契约已覆盖。
+
+各题从pandas/polars/ibis/pyspark无放回抽两种（seed=20261014000+编号）：071 Ibis/PySpark；074 PySpark/Ibis；076 pandas/Polars。Codex gpt-6-astra/low、interact、timeout1800秒、固定image sha256:904f17a0381e9478630368f0a9d5480340e5c1feda5def40e78311e18e62c921。来源/导入哈希、抽样及验证见import_cases_071_074_076.json、interact_plan_071_074_076.json、reference_checks_071_074_076.json、validation_071_074_076.json。072资产和正式精度配置不变。
+
+六次首次r001均generation/evaluation completed且passed；没有重试或修改候选输出。来源/导入/公开运行资产哈希一致，输入GT与上游字节一致，生成容器挂载allowlist核对通过，私有资产未挂载。完整路径、问答和挂载证据见interact_validation_071_074_076.json。
+
+| Case | Backend | Run | 结果 | Agent秒 | ask calls |
+| --- | --- | --- | --- | ---: | ---: |
+| case_071 | ibis | r001 | 通过 | 104.58 | 3 |
+| case_071 | pyspark | r001 | 通过 | 77.88 | 1 |
+| case_074 | pyspark | r001 | 通过 | 90.46 | 1 |
+| case_074 | ibis | r001 | 通过 | 98.24 | 2 |
+| case_076 | pandas | r001 | 通过 | 106.07 | 2 |
+| case_076 | polars | r001 | 通过 | 104.52 | 3 |
+
+生成代码补充证据：071 Ibis使用cross_join、lookup left_join、lead窗口与sum聚合；074 PySpark用列表达式、正则、日期转换和filter；076 pandas使用str.extractall/unstack、条件赋值和concat，Polars使用str/list表达式、when和concat，未照搬reference逐行循环。支持保留三题的DataFrame测试价值，但固定小输入通过不代表复杂边界覆盖。
+
+模拟用户边界记录：074 Ibis被告知保留输入行序，076两后端被告知小时在前/天在后并保留源行序，这些不是初始题面明确排序要求，本次未据此添加排序评分。071未映射字符规则有追问，实际输入没有此情况。076 reference对单行小时文本可能跳过，完整需求说每个非空Data单元一行；当前数据没有触发，作为未覆盖边界保留，不把本轮通过视为完全验证。未改072资产/正式容差，未提交Git。
+
+## 2026-10-15：当前 worktree 合并 origin/main
+
+合并 origin/main（8f1d930），保留双方历史审核记录。071–076在main中已有独立修订；本worktree合并前未提交的版本作为本地未提交改动恢复，未覆盖研究资产或runs。特别是072：main记录为0.001容差，本worktree仍按本会话要求保留5e-10，头表本地首次结果不被main另一组记录替换。以上历史记录按各自worktree和资产版本解释。重叠文件备份：/tmp/dfarena-before-main-merge-20261015-203113。
+
+## 2026-10-15：071–079 对齐与复验
+
+按用户确认采用 origin/main `8f1d930` 为 071–076 基线。071、072、074、075、076 的跟踪资产与该基线一致；073 只保留 reference 整行选取修正及 query_full/KB 对应说明：用 drop_duplicates 保留排名第一的完整站点行，避免 groupby.first 用次优站点的非空字段补入该行。输入、GT、配置不变。合成样例验证冠军 Wind Direction 为空、次名 East 时仍输出空；现有数据 reference 回放也通过。
+
+072 采用 main 的 Sales/3rd Party Sales abs_tol=0.001、rel_tol=0，覆盖上一段合并阶段暂留 5e-10 的状态。历史正式运行报告不覆盖；复验另存。071–079 九个 reference 在固定镜像 `sha256:904f17a0381e9478630368f0a9d5480340e5c1feda5def40e78311e18e62c921` 中回放均通过。071–076、078–079 的 21 份本地历史输出按最终配置离线评测均通过（各 case 份数依次为 2/3/3/2/3/2/3/3）；这些候选生成时使用旧 query/KB，不能当作 main 新 query 的 interact 结果。此前本地排除或暂存 071/074/076 的记录保留为历史，当前三题均保留。
+
+077–079 独立保留为待提交资产；078/079 本轮未修改资产。对齐前 071–079 完整资产及 runs 备份在 `curation/output/reconcile_main_20261015_215117/`。研究证据、验证脚本、最终资产 SHA256 清单在 `curation/output/reconciled_reference/`；reference 与历史输出复验报告为 `validation.json`，073 合成测试为 `check_073_whole_row.json`。研究回放允许读取 reference；正式 generation 仅挂载公开 query、inputs、独立工作目录和运行适配器，不挂载私有评测材料。共享 evaluator 单测 40 项通过。
+
+## 2026-10-15：077 v1.2 三后端 interact 复验
+
+保持 v1.2 资产不变，Codex gpt-6-astra/low、固定镜像及 1800 秒超时，新建 pandas r003、Ibis r002、PySpark r002，三组 generation 均 completed，但正式 evaluation 均失败。未修补候选或覆盖历史结果。下表为按原配置逐文件隔离诊断，不能替换正式整题评测：
+
+| Backend / Run | output_01 奖牌汇总 | output_02 主办信息 | output_03 明细 |
+| --- | --- | --- | --- |
+| pandas r003 | 失败：1244 行，GT 1242 | 通过 | 失败：比 GT 多 4 行，另有内容差异 |
+| Ibis r002 | 失败：空奖牌数写为 0 | 通过 | 失败：KEY_MISMATCH |
+| PySpark r002 | 通过 | 通过 | 失败：KEY_MISMATCH |
+
+pandas 对未能用 lookup 补齐 Code 的记录未按规则剔除；其最后一次追问超出三轮预算，未获答案。Ibis/PySpark 获得了剔除未匹配记录的澄清。三组日期表均通过，表明本次明确日期格式后这些运行没有再现旧日期错误；不意味着整题已审核完成。明细原始行多重集差异分别为 pandas 缺1217/多1221、Ibis 缺1437/多1437、PySpark 缺1867/多1867；样例涉及泳接力分隔符、Cycling `25 km` 与 `25km`、射击距离空格等。模拟用户的一些 Event 格式回答过宽或遗漏例外，仍需独立审核规则与 reference/GT 的一致性，不能把这些失败全部归因于 backend。没有为通过评测继续修改资产或重跑。
+
+正式阶段记录及问答见各 run；逐文件评测、挂载检查与差异样例见本地 `curation/output/reconciled_reference/077_v1_2_results.json`、`077_detail_differences.json`。生成挂载不含 reference、GT、evaluation config 或 KB。头表保留历史首次结果，本段是 v1.2 新运行。077 待继续审核，078/079 现有资产与冻结输出复验通过。
+
+## 2026-10-15：077 v1.3 简化游泳接力与射击 Event 格式
+
+按用户确认，query 与 query_full 使用相同的两条简短规则：Use ` x ` between swimming relay distances, e.g. `4×100m` → `4 x 100m`；Standardize metre spacing in Shooting events, e.g. `50m pistol` → `50 m pistol`。reference 将游泳数字之间 x/× 统一为带两侧空格的小写 x，保留接力单位间距；删除射击枪种/次数的格式例外，统一数字与 m 间一个空格。KB同步。删除 query_full 三个输出的附加排序要求，KB明确无行序要求；evaluator原本忽略行序，配置不变。日期、Cycling、Athletics 规则不变。版本升至1.3。
+
+固定镜像回放通过。独立使用CSV/正则从旧GT及原始泳接力文本推导新明细，与新reference多重集完全一致：766行Shooting、1434行Aquatics的Event改变；其他字段及行重数不变，output_01/02内容按无序比较不变，保留两份GT原字节。仅更新output_03 GT。该变化影响实验可比性，历史候选与报告未覆盖。备份、独立核对脚本、报告及哈希见本地curation/output/077_v1_3/。旧GT保存在before/evaluation/gt/。
+
+新版 pandas interact r004 正式通过：三份输出分别为1242/28/33202行；generation completed，evaluation passed，3次澄清，agent进程169.03秒。模型gpt-6-astra/low，固定镜像同前。公开query/inputs及私有澄清资产在生成期间未改动；新GT在生成期间完成独立核对并写入，正式评测使用v1.3 GT（哈希见报告），未暴露给agent。旧运行报告未改写。此为v1.3新运行，不替换头表首次失败。40项evaluator单测与diff检查通过；本轮未重跑Ibis/PySpark。
+
+## 2026-10-15：077 v1.3 Ibis / PySpark interact 复验
+
+沿用gpt-6-astra/low、固定镜像sha256:904f17a0381e9478630368f0a9d5480340e5c1feda5def40e78311e18e62c921、1800秒超时；新建Ibis r003与PySpark r003，无重试。两组generation completed，正式evaluation均失败，保留原始候选和阶段报告。Ibis进程214.84秒、3次ask；PySpark186.54秒、4次ask（最后一次已超过三轮预算）。
+
+| 后端 | output_01 | output_02 | output_03 |
+| --- | --- | --- | --- |
+| Ibis r003 | 失败：992个空奖牌数写为0 | 通过 | 失败：3行Cycling `25 km`写成`25km` |
+| PySpark r003 | 通过 | 通过 | 失败：18行Event差异 |
+
+逐文件隔离评测与完整CSV多重集比较确认：两个后端的明细非Event字段及行重数全部一致；本轮修改的游泳接力和射击格式没有剩余差异。Ibis汇总仅差Gold426/Silver310/Bronze256个空值写0，未询问空奖牌计数规则；其simulator明确说Cycling用紧连km，却遗漏25 km例外，因而3行差异涉及澄清不完整。PySpark的18行由同样3行Cycling空格、9行`20km race walk`误改`20km walk`、6行`marathon 10km`误改`10km marathon`组成；后两项与得到的保留措辞/紧缩空格澄清不符，是候选额外改写。25 km例外仍只见reference而未在query_full充分公开，不因新规则通过就宣称整题契约完整。
+
+本轮未修改任务资产、未修补候选、未覆盖历史结果。生成前后全部资产SHA256一致，run公开资产哈希一致，挂载检查未发现reference/GT/config/KB泄露。证据：curation/output/077_v1_3/backend_assets_before.json、backend_results.json及check_backends.py；原始问答和正式报告见各run。连同pandas r004，v1.3当前结果为pandas通过、Ibis/PySpark失败；头表仍保留历史首次运行，不替换成新版结果。

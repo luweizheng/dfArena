@@ -1,0 +1,21 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Store"
+      ],
+      "columns": {
+        "Store Manager": {
+          "type": "text_exact"
+        },
+        "Store": {
+          "type": "text_exact"
+        },
+        "Sales Target": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Country",
+        "Year"
+      ],
+      "columns": {
+        "Country": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Gold": {
+          "type": "integer"
+        },
+        "Silver": {
+          "type": "integer"
+        },
+        "Bronze": {
+          "type": "integer"
+        },
+        "Year": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Games",
+        "Year"
+      ],
+      "columns": {
+        "Year": {
+          "type": "integer"
+        },
+        "Host City": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Host Country": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Start Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "End Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Games": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Nations": {
+          "type": "integer"
+        },
+        "Sports": {
+          "type": "integer"
+        },
+        "Events": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    },
+    "output_03.csv": {
+      "key": [
+        "Country",
+        "Code",
+        "Sport",
+        "Medal",
+        "Event",
+        "Athlete",
+        "Year",
+        "Event_Gender",
+        "Discipline"
+      ],
+      "columns": {
+        "Country": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Code": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Sport": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Medal": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Event": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Athlete": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Year": {
+          "type": "integer"
+        },
+        "Event_Gender": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Discipline": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}
