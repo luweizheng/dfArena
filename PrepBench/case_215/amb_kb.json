@@ -1,0 +1,84 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O3_roi_month_conflict_resolution",
+      "kind": "Operation inconsistent",
+      "node_id": "agg_roi",
+      "op": "aggregate",
+      "intent": "Keep the first ROI Reporting Month in input order when aligned dates combine records from multiple ROI reporting months.",
+      "ref": "    roi_agg = roi_renamed.groupby(\"Reporting Date\", as_index=False).agg({\n        \"ROI New Customers\": \"sum\",\n        \"ROI Reporting Month\": \"first\"\n    })",
+      "source_text": "For `ROI Reporting Month`, keep the first value in input order within each aligned `Reporting Date`."
+    },
+    {
+      "id": "3_D1_january_2024_filter_field",
+      "kind": "Single-table reference",
+      "node_id": "filter_rm",
+      "op": "filter",
+      "source_text": "Filter out January 2024 dates",
+      "ref": "uk_agg = uk_agg[uk_agg[\"Reporting Month\"] != \"January-2024\"].copy()",
+      "intent": "Filter by the derived UK Reporting Month: exclude January-2024, not merely rows whose original date is in January."
+    },
+    {
+      "id": "4_D2_combine_uk_roi_join_key",
+      "kind": "Multi-table alignment",
+      "node_id": "join_uk_roi",
+      "op": "join",
+      "source_text": "Combine with UK data",
+      "ref": "result = roi_agg.merge(\n        uk_agg,\n        on=\"Reporting Date\",\n        how=\"right\"\n    )",
+      "intent": "Join UK and aligned ROI aggregates on Reporting Date."
+    },
+    {
+      "id": "5_O2_combine_uk_roi_join_coverage",
+      "kind": "Operation incomplete",
+      "node_id": "join_uk_roi",
+      "op": "join",
+      "source_text": "Combine with UK data",
+      "ref": "result = roi_agg.merge(\n        uk_agg,\n        on=\"Reporting Date\",\n        how=\"right\"\n    )",
+      "intent": "Preserve all UK aggregated reporting dates after the January-2024 reporting-month filter; fill missing customer counts with zero."
+    },
+    {
+      "id": "6_C1_misalignment_flag_rule",
+      "kind": "Row-level concept",
+      "node_id": "proj_flag",
+      "op": "project",
+      "source_text": "Create a flag to find which dates have differing reporting months",
+      "ref": "def get_misalignment_flag(row):\n        if pd.isna(row[\"ROI Reporting Month\"]) or str(row[\"ROI Reporting Month\"]) == \"nan\":\n            return \"X\"\n        uk_month_prefix = str(row[\"Reporting Month\"])[:3] if pd.notna(row[\"Reporting Month\"]) else \"\"\n        roi_month_prefix = str(row[\"ROI Reporting Month\"])[:3] if pd.notna(row[\"ROI Reporting Month\"]) else \"\"\n        if uk_month_prefix != roi_month_prefix:\n            return \"X\"\n        return \"\"",
+      "intent": "Compare the first three characters of UK and ROI reporting-month labels; output X when different or when ROI month is missing, otherwise an empty field."
+    },
+    {
+      "id": "7_O1_next_reporting_day_inclusive",
+      "kind": "Operation boundary",
+      "node_id": "proj_uk3",
+      "op": "project",
+      "source_text": "For non-reporting days, assign the customers to the next reporting day",
+      "ref": "query_full.md: continue lookup beyond the last input date; reference/solution.py: find_next_reporting_date uses is_reporting_date and advances until a working date.",
+      "intent": "Use the first UK working day on or after each UK/ROI input date, continuing past the input range if necessary; exclude weekends and supplied UK bank holidays."
+    },
+    {
+      "id": "new_1_final_sort_reporting_date",
+      "kind": "Operation inconsistent",
+      "node_id": "sort_final",
+      "op": "sort",
+      "intent": "Sort final rows by Reporting Date ascending before formatting output.",
+      "ref": "result[\"Reporting Date_temp\"] = result[\"Reporting Date\"]\nresult = result.sort_values(\"Reporting Date_temp\")"
+    },
+    {
+      "id": "holiday_year_fill_down",
+      "kind": "Operation incomplete",
+      "node_id": "holiday_cleaning",
+      "op": "fill",
+      "source_text": "Fill down the years and create a date field for the UK bank holidays",
+      "intent": "Fill Year downward in input order before filtering. Combine the filled year with the month and day of Date. Exclude rows without a valid date or a valid filled year; do not discard holiday rows merely because their original Year cell is empty.",
+      "ref": "query.md Requirements: fill down the years; query_full.md input_03 cleaning and holiday-date construction."
+    },
+    {
+      "id": "calendar_month_last_working_day",
+      "kind": "Operation boundary",
+      "node_id": "reporting_month",
+      "op": "project",
+      "source_text": "Calculate the reporting month, as per the definition above",
+      "intent": "The last UK working day of each calendar month belongs to the following reporting month. Determine that day from the calendar and supplied holidays, not the maximum observed reporting date. Apply the January-2024 reporting-month exclusion after assigning months.",
+      "ref": "query.md Context: monthly reporting on last working day; query_full.md Last Day; reference/solution.py last_reporting_date_of_month."
+    }
+  ]
+}

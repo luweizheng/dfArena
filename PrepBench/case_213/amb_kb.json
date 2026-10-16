@@ -1,0 +1,70 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_sum_daily_transaction_value",
+      "kind": "Group-level concept",
+      "node_id": "agg_total_tx",
+      "op": "aggregate",
+      "source_text": "Aggregate the data so we have a single balance for each day already in the dataset, for each account",
+      "ref": "query_full.md Requirements; reference/solution.py solve.",
+      "intent": "Sum signed transaction values for each account and date. Use the balance after all daily transactions, calculated from the opening snapshot plus cumulative signed transactions, rather than the first input balance."
+    },
+    {
+      "id": "2_O2_parse_balance_date_dd_mm_yyyy",
+      "kind": "Row-level concept",
+      "node_id": "cast",
+      "op": "project",
+      "intent": "Parse Balance Date using the DD/MM/YYYY date format.",
+      "ref": "query_full.md Requirements; reference/solution.py solve."
+    },
+    {
+      "id": "3_O1_scaffold_date_range_fixed_to_2023_01_31_2023_02_14",
+      "kind": "Row-level concept",
+      "node_id": "compute_date",
+      "op": "project",
+      "source_text": "Scaffold the data so each account has a row between 31st Jan and 14th Feb",
+      "ref": "query_full.md Requirements; reference/solution.py solve."
+    },
+    {
+      "id": "4_O1_scaffold_date_range_inclusive_endpoints",
+      "kind": "Operation boundary",
+      "node_id": "compute_date",
+      "op": "project",
+      "intent": "Include both the start date and end date in the scaffolded daily date series.",
+      "ref": "query_full.md Requirements; reference/solution.py solve."
+    },
+    {
+      "id": "5_O2_balance_forward_fill_missing_dates",
+      "kind": "Operation incomplete",
+      "node_id": "ffill_balance",
+      "op": "script",
+      "intent": "For scaffolded dates with no Balance, set Balance to the most recent prior date's Balance for the same account.",
+      "ref": "query_full.md Requirements; reference/solution.py solve."
+    },
+    {
+      "id": "6_O2_initialize_first_balance_from_earliest_available",
+      "kind": "Operation incomplete",
+      "node_id": "ffill_balance",
+      "op": "script",
+      "intent": "Initialize from the supplied 2023-01-31 opening snapshot for each account; it is not a transaction.",
+      "ref": "query_full.md Requirements; reference/solution.py solve."
+    },
+    {
+      "id": "7_O1_default_selected_date_2023_02_01",
+      "kind": "Row-level concept",
+      "node_id": "filter_target_date",
+      "op": "filter",
+      "intent": "Default the selected (parameter) date to 2023-02-01 when filtering the scaffolded rows.",
+      "ref": "query_full.md Requirements; reference/solution.py solve."
+    },
+    {
+      "id": "end_of_day_balance",
+      "kind": "Group-level concept",
+      "node_id": "daily_balance",
+      "op": "aggregate",
+      "source_text": "Aggregate the data so we have a single balance for each day already in the dataset, for each account",
+      "intent": "A daily balance is the closing balance after all transactions that day: previous day balance plus the signed daily transaction total. Missing transaction dates carry forward the balance and have null Transaction Value.",
+      "ref": "query_full.md daily aggregation and scaffold requirements; reference/solution.py solve."
+    }
+  ]
+}

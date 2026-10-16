@@ -1,0 +1,18 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Transaction ID"
+      ],
+      "columns": {
+        "Transaction ID": {
+          "type": "text_exact"
+        },
+        "IBAN": {
+          "type": "text_exact"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

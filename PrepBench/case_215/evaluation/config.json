@@ -1,0 +1,36 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Reporting Date"
+      ],
+      "columns": {
+        "Misalignment Flag": {
+          "type": "text_exact"
+        },
+        "Reporting Month": {
+          "type": "text_exact"
+        },
+        "Reporting Day": {
+          "type": "integer"
+        },
+        "Reporting Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "New Customers": {
+          "type": "integer"
+        },
+        "ROI New Customers": {
+          "type": "integer"
+        },
+        "ROI Reporting Month": {
+          "type": "text_exact"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

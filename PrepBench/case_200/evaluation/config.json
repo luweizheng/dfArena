@@ -1,0 +1,53 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "candidate_id",
+        "position_id"
+      ],
+      "columns": {
+        "candidate_id": {
+          "type": "integer"
+        },
+        "position_id": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "text_exact"
+        },
+        "ts": {
+          "type": "datetime",
+          "formats": [
+            "%d/%m/%Y %H:%M:%S",
+            "%d/%m/%Y %H:%M:%S.%f"
+          ]
+        },
+        "filename": {
+          "type": "text_exact"
+        }
+      },
+      "ignore_order": true,
+      "alternative_gt": {
+        "full_precision": "full_precision/output_01.csv"
+      }
+    },
+    "output_02.csv": {
+      "key": [
+        "candidate_id",
+        "position_id"
+      ],
+      "columns": {
+        "candidate_id": {
+          "type": "integer"
+        },
+        "position_id": {
+          "type": "integer"
+        },
+        "current_status": {
+          "type": "text_exact"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

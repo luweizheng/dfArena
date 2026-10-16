@@ -1,0 +1,24 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Preference"
+      ],
+      "columns": {
+        "Preference": {
+          "type": "text_exact",
+          "aliases": {
+            "Mobile App Fans": "Mobile App Fan",
+            "Mobile App Superfans": "Mobile App Superfan"
+          }
+        },
+        "% of Total": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

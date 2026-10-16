@@ -1,0 +1,33 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "ID"
+      ],
+      "columns": {
+        "ID": {
+          "type": "text_exact"
+        },
+        "Joining Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Account Type": {
+          "type": "text_exact"
+        },
+        "Date of Birth": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Ethnicity": {
+          "type": "text_exact"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

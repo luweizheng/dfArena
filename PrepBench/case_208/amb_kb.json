@@ -1,0 +1,49 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C1_bank_parse_before_hyphen",
+      "kind": "Row-level concept",
+      "node_id": "p1a",
+      "op": "project",
+      "source_text": "Create the bank code by splitting out off the letters from the Transaction code",
+      "ref": "df['Bank'] = df['Transaction Code'].str.split('-', n=1, expand=True)[0].str.strip()",
+      "intent": "Extract Bank from the Transaction Code prefix before the first hyphen."
+    },
+    {
+      "id": "2_C1_transaction_date_month_name",
+      "kind": "Row-level concept",
+      "node_id": "p1a",
+      "op": "project",
+      "source_text": "Change transaction date to the just be the month of the transaction",
+      "ref": "df['Transaction Date'] = df['Transaction Date'].dt.strftime('%B')",
+      "intent": "Use the full English month name for Transaction Date."
+    },
+    {
+      "id": "3_O3_rank_ties_min_method",
+      "kind": "Operation boundary",
+      "node_id": "rank",
+      "op": "project",
+      "source_text": "Rank each bank for their value of transactions each month against the other banks.",
+      "ref": "aggregated['Bank Rank per Month'] = aggregated.groupby('Transaction Date')['Value'].rank(method='min', ascending=False)",
+      "intent": "Use minimum/competition ranking within each month; tied amounts share rank and subsequent ranks skip."
+    },
+    {
+      "id": "4_O1_round_averages_9dp",
+      "kind": "Operation boundary",
+      "node_id": "round",
+      "op": "project",
+      "intent": "Round the two averages to nine decimal places.",
+      "ref": "avg_rank_per_bank['Avg Rank per Bank'].round(9)",
+      "source_text": "Round **Avg Rank per Bank** and **Avg Transaction Value per Rank** to **9 decimal places**."
+    },
+    {
+      "id": "new_1_final_sort_month_rank",
+      "kind": "Operation inconsistent",
+      "node_id": "sort_final",
+      "op": "sort",
+      "intent": "Sort by month name ascending then bank rank ascending, as stated in the full requirement.",
+      "ref": "output = output.sort_values(\n        ['Transaction Date', 'Bank Rank per Month']).reset_index(drop=True)",
+      "source_text": "Output the final dataset containing exactly the required fields. For deterministic output, sort rows by **Transaction Date** (month name) ascending, then by **Bank Rank per Month** ascending."
+    }
+  ]
+}

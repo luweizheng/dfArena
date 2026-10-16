@@ -1,0 +1,64 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Bank"
+      ],
+      "columns": {
+        "Bank": {
+          "type": "text_exact"
+        },
+        "Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Bank",
+        "Online or In-Person",
+        "Transaction Date"
+      ],
+      "columns": {
+        "Bank": {
+          "type": "text_exact"
+        },
+        "Online or In-Person": {
+          "type": "text_exact"
+        },
+        "Transaction Date": {
+          "type": "text_exact"
+        },
+        "Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    },
+    "output_03.csv": {
+      "key": [
+        "Bank",
+        "Customer Code"
+      ],
+      "columns": {
+        "Bank": {
+          "type": "text_exact"
+        },
+        "Customer Code": {
+          "type": "text_exact"
+        },
+        "Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

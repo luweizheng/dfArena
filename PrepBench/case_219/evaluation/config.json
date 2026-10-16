@@ -1,0 +1,52 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Country"
+      ],
+      "columns": {
+        "Country": {
+          "type": "text_exact"
+        },
+        "Population Density 2021": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        },
+        "Rank Population Density 2021": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Country"
+      ],
+      "columns": {
+        "Country": {
+          "type": "text_exact"
+        },
+        "Population Density 2000": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        },
+        "Population Density 2021": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        },
+        "% Change in Population Density": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        },
+        "Rank % Change": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

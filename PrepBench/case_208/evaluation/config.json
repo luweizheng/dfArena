@@ -1,0 +1,37 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Transaction Date",
+        "Bank"
+      ],
+      "columns": {
+        "Transaction Date": {
+          "type": "text_exact"
+        },
+        "Bank": {
+          "type": "text_exact"
+        },
+        "Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Bank Rank per Month": {
+          "type": "integer"
+        },
+        "Avg Transaction Value per Rank": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        },
+        "Avg Rank per Bank": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

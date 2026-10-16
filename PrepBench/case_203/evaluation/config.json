@@ -1,0 +1,54 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "employee_id"
+      ],
+      "columns": {
+        "position_id": {
+          "type": "text_exact"
+        },
+        "employee_id": {
+          "type": "text_exact"
+        },
+        "title": {
+          "type": "text_exact"
+        },
+        "department": {
+          "type": "text_exact"
+        },
+        "supervisor_id": {
+          "type": "text_exact"
+        },
+        "team_id": {
+          "type": "text_exact"
+        },
+        "direct_reports": {
+          "type": "integer"
+        },
+        "team_name": {
+          "type": "text_exact"
+        },
+        "team_hierarchy": {
+          "type": "text_exact"
+        },
+        "employee_id_hierarchy": {
+          "type": "text_exact"
+        },
+        "dependent_team_ids": {
+          "type": "text_exact"
+        },
+        "hierarchy_level": {
+          "type": "integer"
+        },
+        "subdept_team_id": {
+          "type": "text_exact"
+        },
+        "subdept_name": {
+          "type": "text_exact"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

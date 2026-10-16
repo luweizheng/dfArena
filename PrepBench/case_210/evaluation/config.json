@@ -1,0 +1,63 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Transaction ID",
+        "Account Number",
+        "Name"
+      ],
+      "columns": {
+        "Transaction ID": {
+          "type": "integer"
+        },
+        "Account To": {
+          "type": "integer"
+        },
+        "Transaction Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Name": {
+          "type": "text_exact"
+        },
+        "Date of Birth": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Contact Number": {
+          "type": "text_exact"
+        },
+        "First Line of Address": {
+          "type": "text_exact"
+        },
+        "Account Number": {
+          "type": "integer"
+        },
+        "Account Type": {
+          "type": "text_exact"
+        },
+        "Balance Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Balance": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

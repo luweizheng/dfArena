@@ -1,0 +1,15 @@
+case_id: case_212
+version: '1.0'
+domain: finance
+format: csv
+table_count: 3
+tables:
+- name: input_01
+  path: inputs/input_01.csv
+  columns: 5
+- name: input_02
+  path: inputs/input_02.csv
+  columns: 4
+- name: input_03
+  path: inputs/input_03.csv
+  columns: 3
