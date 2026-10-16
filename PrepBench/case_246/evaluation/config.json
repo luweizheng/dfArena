@@ -1,0 +1,49 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Full Name"
+      ],
+      "columns": {
+        "Full Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Year Attendance Rate": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Rank": {
+          "type": "integer",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Year Group",
+        "Full Name"
+      ],
+      "columns": {
+        "Year Group": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Full Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Year Attendance Rate": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

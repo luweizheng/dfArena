@@ -1,0 +1,27 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Classroom"
+      ],
+      "columns": {
+        "Nationality": {
+          "type": "text_exact",
+          "null_values": [],
+          "aliases": {
+            "Brazil": "Brasil"
+          }
+        },
+        "Classroom": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Name": {
+          "type": "integer",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

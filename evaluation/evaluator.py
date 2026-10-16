@@ -43,6 +43,8 @@ class Evaluator:
         if any(c['type'] == 'text_exact' and c.get('aliases')
                for s in cfg['files'].values() for c in s['columns'].values()):
             self.report['protocol_version'] = 'dfarena-table-v6'
+        if any(s.get('order_mode') == 'gt_position' for s in cfg['files'].values()):
+            self.report['protocol_version'] = 'dfarena-table-v7'
         try:
             gt = self._files(self.gt_dir, 'gt')
             cand = self._files(self.cand_dir, 'candidate')
@@ -225,7 +227,8 @@ class Evaluator:
         cand = self._read(cand_path, 'candidate', cols)
         status = self.report['files'][gt_path.name]
         status.update(gt_rows=len(gt), candidate_rows=len(cand))
-        if not spec['ignore_order']:
+        positional = spec.get('order_mode') == 'gt_position'
+        if not spec['ignore_order'] and not positional:
             self._check_order(gt, spec['order_by'], 'gt')
         if len(gt) != len(cand):
             fail('ROW_COUNT_MISMATCH', 'Row counts differ', 'candidate', gold=len(gt), candidate=len(cand))
@@ -234,7 +237,14 @@ class Evaluator:
             self._compare_group(gt, cand, gt_rows, cand_rows, spec['key'], cols)
         status['content_status'] = 'passed'
         if not spec['ignore_order']:
-            self._check_order(cand, spec['order_by'], 'candidate')
+            if positional:
+                for i, (gold, candidate) in enumerate(zip(gt, cand)):
+                    for col, rule in cols.items():
+                        if not equal(gold[col], candidate[col], rule):
+                            fail('ROW_ORDER_MISMATCH', 'Row differs from the required GT position',
+                                 'candidate', row=i, column=col)
+            else:
+                self._check_order(cand, spec['order_by'], 'candidate')
             status['order_status'] = 'passed'
 
     def _evaluate_alternatives(self, gt_path, cand_path, spec):

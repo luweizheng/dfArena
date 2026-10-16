@@ -1,0 +1,27 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Year Group",
+        "Song Recommendation"
+      ],
+      "columns": {
+        "Number of Votes": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Year Group": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Song Recommendation": {
+          "type": "text_exact",
+          "null_values": [
+            ""
+          ]
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

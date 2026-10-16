@@ -103,7 +103,7 @@ def load_config(path):
     for name, spec in raw['files'].items():
         if not name or '/' in name or '\\' in name or not name.lower().endswith('.csv'):
             raise ConfigError(f'Expected a plain CSV filename: {name!r}')
-        if not isinstance(spec, dict) or set(spec) - {'columns', 'key', 'ignore_order', 'order_by', 'alternative_gt'}:
+        if not isinstance(spec, dict) or set(spec) - {'columns', 'key', 'ignore_order', 'order_by', 'order_mode', 'alternative_gt'}:
             raise ConfigError(f'Invalid file options for {name}')
         alternatives = spec.get('alternative_gt', {})
         if not isinstance(alternatives, dict):
@@ -127,7 +127,12 @@ def load_config(path):
         if type(ignore) is not bool:
             raise ConfigError(f'{name}: ignore_order must be a boolean')
         order = spec.get('order_by', [])
-        if not isinstance(order, list) or (not ignore and not order):
+        mode = spec.get('order_mode', 'fields')
+        if mode not in ('fields', 'gt_position'):
+            raise ConfigError(f'{name}: unknown order_mode')
+        if mode == 'gt_position' and (ignore or order or alternatives):
+            raise ConfigError(f'{name}: gt_position requires ignore_order=false and no order_by or alternative_gt')
+        if not isinstance(order, list) or (not ignore and not order and mode == 'fields'):
             raise ConfigError(f'{name}: ignore_order=false requires nonempty order_by')
         if ignore and order:
             raise ConfigError(f'{name}: order_by requires ignore_order=false')
@@ -140,6 +145,8 @@ def load_config(path):
                 raise ConfigError(f'{name}: order_by requires distinct declared columns, direction asc/desc, nulls first/last')
             seen.add(item['column'])
         result[name] = {'columns': cols, 'key': key, 'ignore_order': ignore, 'order_by': order}
+        if mode == 'gt_position':
+            result[name]['order_mode'] = mode
         if alternatives:
             result[name]['alternative_gt'] = dict(alternatives)
     return {'files': result}

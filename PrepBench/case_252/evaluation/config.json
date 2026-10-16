@@ -1,0 +1,72 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Provider",
+        "Interest",
+        "Max Monthly Deposit",
+        "Month"
+      ],
+      "columns": {
+        "Providers Ranked by Max Savings": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Providers Ranked by Total Interest": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Provider": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Interest": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Max Monthly Deposit": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Month": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Savings each month": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Max Possible Savings": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Total Interest": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Sort": {
+          "type": "integer",
+          "null_values": []
+        }
+      },
+      "ignore_order": false,
+      "order_by": [
+        {
+          "column": "Sort",
+          "direction": "asc",
+          "nulls": "last"
+        }
+      ]
+    }
+  }
+}

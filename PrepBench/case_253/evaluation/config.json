@@ -1,0 +1,101 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Provider",
+        "Interest",
+        "Max Monthly Deposit",
+        "Month"
+      ],
+      "columns": {
+        "Providers Ranked by Max Savings": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Providers Ranked by Total Interest": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Provider": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Interest": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Max Monthly Deposit": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Customer Planned Deposit": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Monthly Deposit": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Leftover Savings which won't receive interest": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Month": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Savings each month": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Max Possible Savings": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Total Interest": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        }
+      },
+      "ignore_order": false,
+      "order_by": [
+        {
+          "column": "Providers Ranked by Max Savings",
+          "direction": "asc",
+          "nulls": "last"
+        },
+        {
+          "column": "Providers Ranked by Total Interest",
+          "direction": "asc",
+          "nulls": "last"
+        },
+        {
+          "column": "Provider",
+          "direction": "asc",
+          "nulls": "last"
+        },
+        {
+          "column": "Month",
+          "direction": "asc",
+          "nulls": "last"
+        }
+      ]
+    }
+  }
+}

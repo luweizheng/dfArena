@@ -1,0 +1,13 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_D2_join_key_includes_class",
+      "kind": "Multi-table alignment",
+      "node_id": "anti",
+      "op": "join",
+      "source_text": "Join on the Seating Plan data to ensure you have a data set for every seat on the plane",
+      "ref": "merged = plan.merge(booked_keys, on=[\"Class\", \"Seat\", \"Row\"], how=\"left\", indicator=True)",
+      "intent": "Seat identity is Class, Seat and Row. A seat appearing in any of the three extracts is booked; retain only seating-plan records with no match. Output row order is unrestricted; the reference solution sorts only for stable display, not as a task requirement."
+    }
+  ]
+}

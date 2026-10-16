@@ -1,0 +1,49 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_present_days_denominator",
+      "kind": "Group-level concept",
+      "node_id": "agg_by_student",
+      "op": "aggregate",
+      "source_text": "Rank the students by the percentage of days they were \"very late\" (more than 5 minutes) during the year",
+      "ref": "present_days=(\"ArrivalDT\", \"count\")",
+      "intent": "Denominator is present records, excluding absent rows. Very late is strictly more than 300 seconds."
+    },
+    {
+      "id": "2_O1_clip_negative_avg_lateness",
+      "kind": "Operation boundary",
+      "node_id": "project_out1_post",
+      "op": "project",
+      "intent": "Round each weekday mean to whole seconds, then clamp a negative mean to zero for output 1.",
+      "ref": "grp[\"LatenessSecondsRounded\"] = grp[\"LatenessSecondsRounded\"].clip(lower=0)",
+      "source_text": "Input the data"
+    },
+    {
+      "id": "6_C2_datetime_combine",
+      "kind": "Row-level concept",
+      "node_id": "project_times",
+      "op": "project",
+      "source_text": "Turn the Scheduled Start Time and Arrival Time fields into Date Time fields",
+      "ref": "df[\"ScheduledDT\"] = pd.to_datetime(df[\"Date\"] + \" \" + df[\"Scheduled Start Time\"])",
+      "intent": "Combine Date with scheduled and arrival clock times before subtraction."
+    },
+    {
+      "id": "7_C2_lateness_in_total_seconds",
+      "kind": "Row-level concept",
+      "node_id": "project_times",
+      "op": "project",
+      "source_text": "Calculate how many minutes late each student is each day",
+      "ref": "df[\"LatenessSeconds\"] = (df[\"ArrivalDT\"] - df[\"ScheduledDT\"]).dt.total_seconds()",
+      "intent": "Use signed total elapsed seconds, retaining early negative arrivals in the average."
+    },
+    {
+      "id": "8_O3_student_rank_tie_breaker",
+      "kind": "Operation incomplete",
+      "node_id": "sort_out2",
+      "op": "sort",
+      "intent": "Rank students by rounded percentage descending, then Student ID ascending.",
+      "ref": "per_student = per_student.sort_values([\"% Days Very Late\", \"Student ID\"], ascending=[False, True])",
+      "source_text": "Input the data"
+    }
+  ]
+}

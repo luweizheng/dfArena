@@ -1,0 +1,130 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Date",
+        "Flight Number",
+        "From",
+        "To",
+        "Class",
+        "Price",
+        "Flow Card?",
+        "Bags Checked",
+        "Meal Type"
+      ],
+      "columns": {
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": []
+        },
+        "Flight Number": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "From": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "To": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Class": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Price": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0,
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "Flow Card?": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Bags Checked": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Meal Type": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Date",
+        "Flight Number",
+        "From",
+        "To",
+        "Class",
+        "Price",
+        "Flow Card?",
+        "Bags Checked",
+        "Meal Type"
+      ],
+      "columns": {
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": []
+        },
+        "Flight Number": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "From": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "To": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Class": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Price": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0,
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "Flow Card?": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Bags Checked": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Meal Type": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

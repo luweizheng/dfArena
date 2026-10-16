@@ -1,0 +1,40 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O2_pivot_missing_class_nulls",
+      "kind": "Operation incomplete",
+      "node_id": "pv_class",
+      "op": "pivot",
+      "source_text": "Pivot the data to have a column per class for each quarter and Flow Card? status",
+      "ref": "for col in ['Economy','Premium','Business','First']:\n            if col not in wide.columns:\n                wide[col] = pd.NA",
+      "intent": "Include all four class columns after pivoting; use null if a class is absent."
+    },
+    {
+      "id": "2_O1_custom_sort_order_blocks_rows",
+      "kind": "Operation boundary",
+      "node_id": "sort_blocks",
+      "op": "sort",
+      "intent": "Stack median, maximum, minimum blocks, and use the exact published eight-pair sequence within each block. Do not add an aggregation-label column.",
+      "ref": "desired_order = [\n        ('Yes', 2), ('No', 1), ('No', 4), ('Yes', 3),\n        ('Yes', 1), ('No', 2), ('No', 3), ('Yes', 4),\n    ]",
+      "source_text": "Within each block, use this exact (Flow Card?, Quarter) row order: (Yes, 2), (No, 1), (No, 4), (Yes, 3), (Yes, 1), (No, 2), (No, 3), (Yes, 4)."
+    },
+    {
+      "id": "3_O1_union_append_no_dedup",
+      "kind": "Operation boundary",
+      "node_id": "u_all",
+      "op": "union",
+      "intent": "Union the input files by appending rows without deduplicating.",
+      "ref": "df = pd.concat(df_list, ignore_index=True)",
+      "source_text": "Union the files together"
+    },
+    {
+      "id": "4_O1_union_block_stack_order",
+      "kind": "Operation boundary",
+      "node_id": "u_all_blocks",
+      "op": "union",
+      "source_text": "Union these three flows back together by stacking rows in this block order: median first, maximum second, minimum third.",
+      "ref": "agg_funcs = [\n        ('median', 'median'),\n        ('max', 'max'),\n        ('min', 'min'),\n    ]\nout = pd.concat(flows, ignore_index=True)",
+      "intent": "Append the median block, then maximum block, then minimum block; preserve repeated rows."
+    }
+  ]
+}

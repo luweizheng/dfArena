@@ -1,0 +1,76 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_count_rows_long",
+      "kind": "Group-level concept",
+      "node_id": "agg_counts",
+      "op": "aggregate",
+      "source_text": "Reshape the data so we can see how many challenges each Technique appears in, broken down by Level (as per the output)",
+      "ref": "reference/solution.py: groupby followed by size",
+      "intent": "Count theme occurrences after splitting, trimming, normalization and removal of empty themes; do not deduplicate by challenge and canonical technique."
+    },
+    {
+      "id": "2_C1_normalization_pass1_mapping_table",
+      "kind": "Row-level concept",
+      "node_id": "clean_map1",
+      "op": "project",
+      "source_text": "Group the themes together to account for inaccuracies",
+      "ref": "reference/solution.py: clean1_map, then clean2_map",
+      "intent": "Clarification availability: the initial request does not contain the classification tables. The source-to-category pairs below are answerable business classification rules, not computed output rows, raw input records, source code, or a request to reveal the whole hidden task. When asked about classification, state the actual requested source and replacement labels in the answer; never refer the solver to a table, task section, or file it cannot access. If asked for both complete normalization passes, explain all pairs below in pass order using natural-language label mappings, with no omissions; a request limited to one label or family needs only its relevant rules. A compact semicolon-separated rule list may be long because the requested business rule has many entries. Do not provide calculated category counts, priorities, output tables, reference code, hidden file paths, or unrelated task rules. Trim surrounding whitespace, then apply these exact two passes in order, once per pass; keep unmatched labels unchanged and make no additional merges. These are task-specific classification conventions. Pass 1: \"Aggregate to deduplicate\" becomes \"Aggregate to Deduplicate\"; \"Merge Fields\" becomes \"Merge fields\"; \"Date calcs\" becomes \"Date Calcs\"; \"Date Calc\" becomes \"Date Calcs\"; \"String calculations\" becomes \"String Calculations\"; \"Moving average\" becomes \"Moving Average\"; \"% of total\" becomes \"% of Total\"; \"Fill Down\" becomes \"Fill down\"; \"Date Calculation\" becomes \"Date Calculations\"; \"Simple join\" becomes \"Simple Join\"; \"Simple Joins\" becomes \"Simple Join\"; \"Simple joins\" becomes \"Simple Join\"; \"Logical calcs\" becomes \"Logical Calcs\"; \"Logical calc\" becomes \"Logical Calcs\"; \"Pivot rows to cols\" becomes \"Pivot Rows to Cols\"; \"Pivot Rows to cols\" becomes \"Pivot Rows to Cols\"; \"Left Joins\" becomes \"Left Join\"; \"% Difference From\" becomes \"Difference From\"; \"<= Join clause\" becomes \">= Join Clause\"; \"<= Join Clause\" becomes \">= Join Clause\"; \"Wildcard union\" becomes \"Wildcard Union\"; \"Full Outer Join\" becomes \"Full outer join\"; \"Numeric calcs\" becomes \"Numeric Calcs\"; \"Numeric Calc\" becomes \"Numeric Calcs\"; \"Non-equal join clause\" becomes \"Non equal join clause\"; \"Non equal Join Clause\" becomes \"Non equal join clause\"; \"Non-equal Join Clause\" becomes \"Non equal join clause\"; \"Right only Join\" becomes \"Right Only Join\"; \"Joins\" becomes \"Join\"; \"Mutliptle Join Clause\" becomes \"Multiple Join Clause\"; \"Multiple join clause\" becomes \"Multiple Join Clause\"; \"Mutliple Join Clause\" becomes \"Multiple Join Clause\"; \"multiple join clause\" becomes \"Multiple Join Clause\"; \"Clean Step Only\" becomes \"Clean step only\"; \"Ranks\" becomes \"Rank\"; \"Multiple pivot\" becomes \"Multiple Pivot\"; \"Mutliple Pivot\" becomes \"Multiple Pivot\"; \"Date Conversions\" becomes \"Date Conversion\"; \"Data Interpretor\" becomes \"Data Interpreter\"; \"Data interpreter\" becomes \"Data Interpreter\"; \"IF Statements\" becomes \"IF statements\"; \"IF Statement\" becomes \"IF statements\"; \"IF statement\" becomes \"IF statements\"; \"ID statment\" becomes \"IF statements\"; \"IF Statments\" becomes \"IF statements\"; \"Appends\" becomes \"Append\"; \"String calcs\" becomes \"String Calcs\"; \"Parameters\" becomes \"Parameter\"; \"Left Only Join\" becomes \"Left only join\"; \"Left only Join\" becomes \"Left only join\"; \"Aggregates\" becomes \"Aggregate\"; \"Aggrgegate\" becomes \"Aggregate\"; \"Aggrgeate\" becomes \"Aggregate\"; \"Splits\" becomes \"Split\"; \"Right Joins\" becomes \"Right Join\"; \"Multiple clause Join\" becomes \"Multiple Clause Join\"; \"Multiple clause join\" becomes \"Multiple Clause Join\"; \"Mutiple Clause Join\" becomes \"Multiple Clause Join\". Pass 2: \"Pivot Cols\" becomes \"Pivot Cols to Rows\"; \"Wildcard Input\" becomes \"Wildcard Union\"; \"String functions\" becomes \"String Calcs\"; \"String Calculations\" becomes \"String Calcs\"; \"Scaffold\" becomes \"Scaffolding\"; \"Scaffolding (through all dimension combinations)\" becomes \"Scaffolding\"; \"Moving Calc\" becomes \"Moving Calculation\"; \"Moving Average\" becomes \"Moving Calculation\"; \">= Join Clause\" becomes \"Non Equal Join Clause\"; \"Non equal join clause\" becomes \"Non Equal Join Clause\"; \"Non-equal Join Clause\" becomes \"Non Equal Join Clause\"; \"Non-equal Join Clause/Scaffolding\" becomes \"Non Equal Join Clause\"; \"Aggregation\" becomes \"Aggregate\"; \"Clean functions\" becomes \"Cleaning calcs\"; \"Convert Dates\" becomes \"Date Calcs\"; \"Create Date Field\" becomes \"Date Calcs\"; \"Date Calculations\" becomes \"Date Calcs\"; \"Date Conversion\" becomes \"Date Calcs\"; \"Date Functions\" becomes \"Date Calcs\"; \"Date Part\" becomes \"Date Calcs\"; \"Date Time Conversion\" becomes \"Date Calcs\"; \"Make Date\" becomes \"Date Calcs\"; \"Filling in blanks\" becomes \"Fill down\"; \"Fill down 2 fields\" becomes \"Fill down\"; \"Filter Duplicates\" becomes \"Filters\"; \"Filtering\" becomes \"Filters\"; \"Multi Clause Join\" becomes \"Multiple Join Clause\"; \"Multiple Clause Join\" becomes \"Multiple Join Clause\"; \"Join Practice\" becomes \"Join\"; \"Simple Join\" becomes \"Join\"; \"Right Join\" becomes \"Left Join\"; \"Right Only Join\" becomes \"Left only join\"; \"Lookup (but circular)\" becomes \"Lookup\"; \"Mathematical Calculations\" becomes \"Numeric Calcs\"; \"Merge\" becomes \"Merge fields\"; \"Multiple parameters\" becomes \"Parameter\"; \"Parameter in Output Name\" becomes \"Parameter\"; \"Parameter to Name Output\" becomes \"Parameter\"; \"Using Parameter in Output name\" becomes \"Parameter\"; \"Running Sum\" becomes \"Running Total\"; \"Updating a workflow\" becomes \"Update a workflow\"; \"Rename Values\" becomes \"Group Values\"."
+    },
+    {
+      "id": "3_O2_unmapped_themes_unchanged",
+      "kind": "Operation incomplete",
+      "node_id": "clean_map1",
+      "op": "project",
+      "intent": "Within each normalization pass, retain any label not listed in that pass; the output of Pass 1 is the input to Pass 2.",
+      "ref": "reference/solution.py: sequential Series.replace calls",
+      "source_text": "Any theme value not present in the mapping tables must remain unchanged."
+    },
+    {
+      "id": "4_C2_total_sum_missing_as_zero",
+      "kind": "Group-level concept",
+      "node_id": "compute_total",
+      "op": "project",
+      "source_text": "Create a Total field across the levels for each Technique",
+      "ref": "reference/solution.py: fillna(0) in Total calculation",
+      "intent": "Sum Beginner, Intermediate, Advanced and 3-in-1, treating missing level counts as zero for Total only; Total is an integer."
+    },
+    {
+      "id": "5_C2_priority_dense_rank_ascending",
+      "kind": "Group-level concept",
+      "node_id": "compute_total_priority",
+      "op": "project",
+      "source_text": "Rank the challenges based on the Total field",
+      "ref": "reference/solution.py: rank(method=\"dense\", ascending=True)",
+      "intent": "Priority is a dense rank of Total in ascending order: the smallest Total gets 1, ties share a rank, and the next distinct total gets the next integer."
+    },
+    {
+      "id": "6_O2_exclude_missing_or_empty_themes",
+      "kind": "Operation incomplete",
+      "node_id": "filter_themes",
+      "op": "filter",
+      "intent": "After splitting and trimming, exclude missing or empty theme values.",
+      "ref": "reference/solution.py: strip, then non-null/nonempty filtering",
+      "source_text": "Exclude rows where the resulting theme value is missing or empty."
+    },
+    {
+      "id": "7_O2_pivot_missing_levels_as_null",
+      "kind": "Operation incomplete",
+      "node_id": "pivot_levels",
+      "op": "pivot",
+      "intent": "If a technique has no occurrences at a level, leave that level count null/blank rather than zero.",
+      "ref": "reference/solution.py: pivot_table without fill_value",
+      "source_text": "If a level does not occur for a technique, leave that level column as null/missing (do not force it to zero)."
+    },
+    {
+      "id": "8_O1_split_on_commas",
+      "kind": "Operation boundary",
+      "node_id": "split_themes",
+      "op": "project",
+      "source_text": "Split the themes, so each theme/technique has its own field",
+      "ref": "reference/solution.py: str.split followed by strip",
+      "intent": "Split Themes on commas and trim surrounding whitespace from each resulting theme."
+    }
+  ]
+}

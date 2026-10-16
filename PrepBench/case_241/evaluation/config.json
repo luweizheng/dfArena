@@ -1,0 +1,83 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Country",
+        "SDG Name"
+      ],
+      "columns": {
+        "Country": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "2023 SDG Index Score": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0,
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "NA",
+            "N/A",
+            "null",
+            "None"
+          ]
+        },
+        "2023 SDG Index Rank": {
+          "type": "integer",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "NA",
+            "N/A",
+            "null",
+            "None"
+          ]
+        },
+        "Regions used for the SDR": {
+          "type": "text_exact",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "NA",
+            "N/A",
+            "null",
+            "None"
+          ]
+        },
+        "SDG Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "SDG Value": {
+          "type": "text_exact",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "NA",
+            "N/A",
+            "null",
+            "None"
+          ]
+        },
+        "SDG Trend": {
+          "type": "text_exact",
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "NA",
+            "N/A",
+            "null",
+            "None"
+          ]
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

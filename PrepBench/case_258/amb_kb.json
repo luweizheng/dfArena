@@ -1,0 +1,85 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_output_date_is_month_number",
+      "kind": "Row-level concept",
+      "node_id": "compute_final",
+      "op": "project",
+      "source_text": "Change the date to a month number",
+      "ref": "merged[\"Date\"] = merged[\"Month\"].astype(int)",
+      "intent": "Output Date is the numeric month used in the grouping and join. Final row order is unrestricted; the reference sorts only for stable display."
+    },
+    {
+      "id": "2_C2_difference_formula_price_minus_target",
+      "kind": "Row-level concept",
+      "node_id": "compute_final",
+      "op": "project",
+      "source_text": "Calculate the difference between the Sales and Target values per Class and Month",
+      "ref": "merged[\"Difference to Target\"] = merged[\"Price\"] - merged[\"Target\"]",
+      "intent": "Difference to Target is aggregated sales Price minus Target."
+    },
+    {
+      "id": "3_D2_join_keys_month_and_class",
+      "kind": "Multi-table alignment",
+      "node_id": "j",
+      "op": "join",
+      "source_text": "Join the Targets data on to the Sales data (note - you should have 48 rows of data after the join)",
+      "ref": "merged = pd.merge(\n        sales_agg,\n        targets_all,\n        how=\"inner\",\n        on=[\"Month\", \"Class\"],\n        validate=\"one_to_one\",\n    )",
+      "intent": "Match aggregated sales to targets using both Month and Class."
+    },
+    {
+      "id": "4_O2_join_type_inner",
+      "kind": "Operation incomplete",
+      "node_id": "j",
+      "op": "join",
+      "source_text": "Join the Targets data on to the Sales data (note - you should have 48 rows of data after the join)",
+      "ref": "merged = pd.merge(\n        sales_agg,\n        targets_all,\n        how=\"inner\",\n        on=[\"Month\", \"Class\"],\n        validate=\"one_to_one\",\n    )",
+      "intent": "Use an inner join between sales aggregates and targets."
+    },
+    {
+      "id": "5_O3_join_one_to_one_enforcement",
+      "kind": "Operation inconsistent",
+      "node_id": "j",
+      "op": "join",
+      "intent": "Enforce one-to-one matching for each Month and Class; duplicate target matches are an error.",
+      "ref": "merged = pd.merge(\n        sales_agg,\n        targets_all,\n        how=\"inner\",\n        on=[\"Month\", \"Class\"],\n        validate=\"one_to_one\",\n    )",
+      "source_text": "Enforce that the join is one-to-one at the Month–Class level (each Month–Class pair matches at most one target row and one aggregated sales row)."
+    },
+    {
+      "id": "6_O1_apply_class_swap_before_coding",
+      "kind": "Operation boundary",
+      "node_id": "s_prep1",
+      "op": "project",
+      "source_text": "Correct the Classes being incorrect:\n  - Economy to First Class\n  - First Class to Economy",
+      "ref": "def normalize_sales_class_to_code(s: pd.Series) -> pd.Series:\n        # Apply correction only for Economy <-> First Class (as per GT-aligned logic)\n        s = s.replace({\n            \"Economy\": \"First Class\",\n            \"First Class\": \"Economy\",\n        })\n        mapping = {\n            \"First Class\": \"FC\",\n            \"Business Class\": \"BC\",\n            \"Premium Economy\": \"PE\",\n            \"Economy\": \"E\",\n        }\n        return s.map(mapping)",
+      "intent": "Swap Economy and First Class in the sales records before deriving the class code; do not swap target class codes."
+    },
+    {
+      "id": "7_C2_class_code_mapping_for_join",
+      "kind": "Row-level concept",
+      "node_id": "s_prep1",
+      "op": "project",
+      "source_text": "Find the First Letter from each word in the Class to help with joining the Targets data to Sales data",
+      "ref": "mapping = {\n            \"First Class\": \"FC\",\n            \"Business Class\": \"BC\",\n            \"Premium Economy\": \"PE\",\n            \"Economy\": \"E\",\n        }\n        return s.map(mapping)",
+      "intent": "After correction, map First Class to FC, Business Class to BC, Premium Economy to PE, and Economy to E."
+    },
+    {
+      "id": "8_C2_sales_month_from_parsed_date",
+      "kind": "Row-level concept",
+      "node_id": "s_prep1",
+      "op": "project",
+      "source_text": "Change the date to a month number",
+      "ref": "dt = pd.to_datetime(df[\"Date\"], format=\"%d/%m/%Y\", errors=\"coerce\")\n        df[\"Month\"] = dt.dt.month",
+      "intent": "Parse the supplied sales dates as day/month/year and extract the numeric month."
+    },
+    {
+      "id": "9_C2_cast_sales_price_to_numeric",
+      "kind": "Row-level concept",
+      "node_id": "s_prep1",
+      "op": "project",
+      "intent": "Treat sales Price as numeric before summing by month and class.",
+      "ref": "df[\"Price\"] = pd.to_numeric(df[\"Price\"], errors=\"coerce\")",
+      "source_text": "Ensure `Price` is numeric."
+    }
+  ]
+}
