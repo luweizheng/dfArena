@@ -74,7 +74,7 @@ def solve(inputs_dir: Path) -> dict[str, pd.DataFrame]:
         ascending=[True, False, False]
     )
     
-    top_sites = result_df.groupby("Name").first().reset_index()
+    top_sites = result_df.drop_duplicates(subset=["Name"], keep="first").reset_index(drop=True)
     
     output_cols = [
         "Name",
