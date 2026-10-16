@@ -1,6 +1,5 @@
 ## interact 结果总览
 
-**070 头表补录（2026-10-16）：** 采用 origin/main 带入的“2026-10-09：070–071 导入与静态审核（curation/prepbench-07x）”中各后端 r001 结果：pandas 通过，Ibis/PySpark 因 Description 内部空格差异失败，Polars 未运行。不采用早先本地 068–070 批次中 Ibis 通过的另一组记录；本次仅补录，不是重新运行或重评。
 
 下表是当前 benchmark 的初步审核实验表，不是最终 benchmark 分数。它用不同 backend 的 interact 结果暴露 workload 需求表述、simulator 澄清信息和 evaluator 验证规则中的问题：有些失败来自 agent 的真实计算错误，有些来自需求没有清晰表达，有些来自验证规则覆盖不足。因此，这些结果用于指导后续 curation 和资产修订，不能直接解释为 backend 能力排名。`通过/失败` 指对应运行时配置下 interact 生成后的 evaluator 状态；`跳过` 表示生成记录存在但评测未执行；`未运行` 表示目前没有该 backend 的 interact 结果；`不纳入` 表示已决定排除出 benchmark，不再安排运行。
 
