@@ -72,6 +72,11 @@ class MetricsTests(unittest.TestCase):
                 result=json.loads((run/'detail/generation.json').read_text())
                 self.assertEqual(code,0 if outcome=='success' else 1)
                 self.assertEqual(result['artifacts']['agent_log'], 'logs/agent_events.jsonl')
+                if outcome == 'success':
+                    self.assertEqual(result['artifacts']['outputs'], ['workspace/outputs/output_01.csv'])
+                assets = json.loads((run/'assets.json').read_text())
+                self.assertIn('inputs/input_01.csv', assets)
+                self.assertTrue(all('\\' not in name for name in assets))
                 if outcome != 'setup_failure':
                     self.assertTrue((run/'logs/agent_events.jsonl').is_file())
                     self.assertTrue((run/'logs/agent_stderr.log').is_file())

@@ -99,7 +99,7 @@ class CodexAgent(AgentAdapter):
             return None
         destination = run/'detail/codex_sessions'
         shutil.copytree(source, destination)
-        return str(destination.relative_to(run))
+        return destination.relative_to(run).as_posix()
 
     def metrics(self, events, completed, source):
         return token_metrics(events, completed, source=source+':turn.completed.usage')

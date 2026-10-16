@@ -38,7 +38,7 @@ def prepare(case, run, mode, backend):
     (run / 'logs').mkdir()
     (run / 'detail').mkdir()
     files = [source, *sorted(p for p in (case / 'inputs').rglob('*') if p.is_file())]
-    save(run / 'assets.json', {str(p.relative_to(case)): hashlib.sha256(p.read_bytes()).hexdigest() for p in files})
+    save(run / 'assets.json', {p.relative_to(case).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in files})
     prompt = f'Read /workspace/query.md and inspect the input files under /workspace/inputs.\nImplement the requested data processing task using {BACKENDS[backend]}. '
     if backend != 'pandas':
         prompt += 'Do not use pandas for the data transformation logic. '
@@ -101,7 +101,7 @@ def main(argv=None):
                'elapsed_seconds_excluding_simulator': None,
                'timing_scope_excluding_simulator': None,
                'artifacts': {'solution': 'workspace/solution.py', 'outputs': [],
-                             'agent_log': str(agent_logs['events'].relative_to(run))},
+                             'agent_log': agent_logs['events'].relative_to(run).as_posix()},
                **token_usage(agent_logs['events'], completed=False, agent=args.agent)}
     save(run / 'detail/generation.json', summary)
     summarize(run)
@@ -239,7 +239,7 @@ def main(argv=None):
             summary['elapsed_seconds_excluding_simulator'] = summary['elapsed_seconds'] - simulator_seconds
             summary['timing_scope_excluding_simulator'] = args.agent + '_process_minus_simulator_wait'
         outputs = sorted((work / 'outputs').glob('*.csv'))
-        summary['artifacts']['outputs'] = [str(p.relative_to(run)) for p in outputs]
+        summary['artifacts']['outputs'] = [p.relative_to(run).as_posix() for p in outputs]
         if summary['status'] == 'completed' and (not outputs or not (work / 'solution.py').is_file()):
             summary['status'] = 'missing_output'
         save(run / 'detail/generation.json', summary)
