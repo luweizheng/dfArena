@@ -1,0 +1,57 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "student_id"
+      ],
+      "columns": {
+        "student_id": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "first_name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "last_name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Gender": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "D.O.B": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": []
+        },
+        "2021": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "2022": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Difference": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Progress": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

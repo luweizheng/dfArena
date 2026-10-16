@@ -1,0 +1,55 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Month",
+        "Store",
+        "Bike Type"
+      ],
+      "columns": {
+        "Month": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": []
+        },
+        "Store": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Bike Type": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Sales": {
+          "type": "number",
+          "abs_tol": 5e-07,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Profit": {
+          "type": "number",
+          "abs_tol": 5e-07,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "3 Month Moving Average Profit": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0,
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "NA",
+            "N/A",
+            "null",
+            "None"
+          ]
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

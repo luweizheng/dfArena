@@ -1,0 +1,59 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Student ID"
+      ],
+      "columns": {
+        "Student ID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Full Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Date of Birth": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": []
+        },
+        "Region": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "School Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "School Status": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Subject Selection": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "English": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Maths": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Science": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Grade Score": {
+          "type": "integer",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

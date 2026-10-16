@@ -1,0 +1,94 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Session Number",
+        "Speaker",
+        "Subject"
+      ],
+      "columns": {
+        "Subject": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Speaker": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Session Number": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Deduplication Flag": {
+          "type": "boolean",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Session Number",
+        "Speaker",
+        "Subject",
+        "Room"
+      ],
+      "columns": {
+        "Speaker": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Subject": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Session Number": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Room": {
+          "type": "integer",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    },
+    "output_03.csv": {
+      "key": [
+        "Room A",
+        "Room B",
+        "Speaker",
+        "Subject"
+      ],
+      "columns": {
+        "Room A": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Room B": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Minutes to the next room": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Metres": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Speaker": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Subject": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

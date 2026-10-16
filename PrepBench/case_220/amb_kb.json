@@ -1,0 +1,58 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_D1_pivot_keys",
+      "kind": "Single-table reference",
+      "node_id": "n3_pivot",
+      "op": "pivot",
+      "source_text": "Reshape so that we have a field for each measure",
+      "ref": "index=['Location', 'Nut Type'], columns='Category', values='Value'",
+      "intent": "Pivot Category values by cleaned Location and Nut Type."
+    },
+    {
+      "id": "2_O3_pivot_duplicates_first",
+      "kind": "Operation inconsistent",
+      "node_id": "n3_pivot",
+      "op": "pivot",
+      "intent": "Keep the first available duplicate value.",
+      "ref": "aggfunc='first'",
+      "source_text": "If multiple records exist for the same (`Location`, `Nut Type`, `Category`) combination, keep the first available value for that combination."
+    },
+    {
+      "id": "3_D1_revenue_operands_fields",
+      "kind": "Single-table reference",
+      "node_id": "n4_compute_revenue",
+      "op": "project",
+      "source_text": "`Revenue = Price (£) per pack * Quant per Q`",
+      "ref": "df_pivot['Revenue'] = df_pivot['Price (£) per pack'] * df_pivot['Quant per Q']",
+      "intent": "Multiply pack price by quantity, not weight."
+    },
+    {
+      "id": "4_C2_avg_price_aggregation",
+      "kind": "Group-level concept",
+      "node_id": "n5_aggregate",
+      "op": "aggregate",
+      "source_text": "`Avg. Price (£) per pack` as the mean of `Price (£) per pack` across all nut types within the location.",
+      "ref": "'Price (£) per pack': 'mean'",
+      "intent": "Compute the unweighted mean of pack prices across nut types."
+    },
+    {
+      "id": "new_1_final_sort_location",
+      "kind": "Operation inconsistent",
+      "node_id": "sort_final",
+      "op": "sort",
+      "intent": "Sort final rows by Location ascending.",
+      "ref": "output = output.sort_values('Location')",
+      "source_text": "Sort the final results by `Location` in ascending order."
+    },
+    {
+      "id": "new_2_mean_price_midpoint_compatibility",
+      "kind": "Operation inconsistent",
+      "node_id": "n5_aggregate",
+      "op": "aggregate",
+      "source_text": "Round `Avg. Price (£) per pack` to 2 decimal places. For exact midpoint ties, either round-half-up or round-half-to-even is acceptable; neither method is mandatory.",
+      "intent": "Round the final unweighted mean pack price to two decimal places. Accept both half-up and half-to-even for exact midpoint ties; do not treat the reference library default as mandatory.",
+      "ref": "query_full.md Requirements: average-price rounding; both midpoint methods explicitly allowed."
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "School Name",
+        "Date"
+      ],
+      "columns": {
+        "Sort": {
+          "type": "integer",
+          "null_values": []
+        },
+        "School Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": []
+        },
+        "Total Cost": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Gas Cost": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Electricity Cost": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Water Cost": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Maintenance Cost": {
+          "type": "integer",
+          "null_values": []
+        }
+      },
+      "ignore_order": false,
+      "order_by": [
+        {
+          "column": "School Name",
+          "direction": "asc",
+          "nulls": "last"
+        },
+        {
+          "column": "Date",
+          "direction": "asc",
+          "nulls": "last"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Student_ID",
+        "Subject"
+      ],
+      "columns": {
+        "Attendance Flag": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "First Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Surname": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Attendance_Percentage": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "Student_ID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Subject": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Test_score": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": []
+        },
+        "TestScoreInteger": {
+          "type": "integer",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}
