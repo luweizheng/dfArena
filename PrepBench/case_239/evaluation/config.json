@@ -1,0 +1,41 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Team",
+        "Player ID",
+        "Tournament Date"
+      ],
+      "columns": {
+        "Team": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Player ID": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Total Matches": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Tournament Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": []
+        },
+        "Experience at beginning of Tournament": {
+          "type": "integer",
+          "null_values": []
+        },
+        "Matches Played in Tournament": {
+          "type": "integer",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

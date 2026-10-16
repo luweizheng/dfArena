@@ -1,0 +1,137 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "employee_id"
+      ],
+      "columns": {
+        "employee_id": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "guid": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "first_name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "last_name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "generation_name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "nationality": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "gender": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "email": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "hire_date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "leave_date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "employee_id",
+        "guid",
+        "dc_nbr",
+        "month_end_date",
+        "hire_date"
+      ],
+      "columns": {
+        "employee_id": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "age_range": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "guid": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "dc_nbr": {
+          "type": "integer",
+          "null_values": []
+        },
+        "month_end_date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "hire_date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        },
+        "leave_date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ],
+          "null_values": [
+            "",
+            "nan",
+            "NaN",
+            "null",
+            "None"
+          ]
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

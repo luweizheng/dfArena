@@ -1,0 +1,37 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Full name",
+        "Class"
+      ],
+      "columns": {
+        "Full name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Flag": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Class": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "English": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Economics": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Psychology": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}
