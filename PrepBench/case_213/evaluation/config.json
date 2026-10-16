@@ -1,0 +1,25 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Account Number"
+      ],
+      "columns": {
+        "Account Number": {
+          "type": "integer"
+        },
+        "Transaction Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Balance": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

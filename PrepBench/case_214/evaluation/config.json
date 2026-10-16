@@ -1,0 +1,46 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Customer"
+      ],
+      "columns": {
+        "Branch": {
+          "type": "text_exact"
+        },
+        "Branch Long": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Branch Lat": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Distance": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Customer Priority": {
+          "type": "integer"
+        },
+        "Customer": {
+          "type": "integer"
+        },
+        "Address Long": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Address Lat": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

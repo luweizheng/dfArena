@@ -1,0 +1,29 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Application Month"
+      ],
+      "columns": {
+        "Application Month": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Total Candidates": {
+          "type": "integer"
+        },
+        "Candidates with Preferred Qualifications": {
+          "type": "integer"
+        },
+        "% of Candidates": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

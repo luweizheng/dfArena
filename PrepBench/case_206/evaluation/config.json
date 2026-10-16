@@ -1,0 +1,34 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Online or In-Person",
+        "Quarter"
+      ],
+      "columns": {
+        "Online or In-Person": {
+          "type": "text_exact"
+        },
+        "Quarter": {
+          "type": "integer"
+        },
+        "Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Quarterly Targets": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Variance to Target": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

@@ -1,0 +1,42 @@
+case_id: case_211
+version: '1.0'
+domain: finance
+format: csv
+table_count: 12
+tables:
+- name: input_01
+  path: inputs/input_01.csv
+  columns: 9
+- name: input_02
+  path: inputs/input_02.csv
+  columns: 9
+- name: input_03
+  path: inputs/input_03.csv
+  columns: 9
+- name: input_04
+  path: inputs/input_04.csv
+  columns: 9
+- name: input_05
+  path: inputs/input_05.csv
+  columns: 9
+- name: input_06
+  path: inputs/input_06.csv
+  columns: 9
+- name: input_07
+  path: inputs/input_07.csv
+  columns: 9
+- name: input_08
+  path: inputs/input_08.csv
+  columns: 9
+- name: input_09
+  path: inputs/input_09.csv
+  columns: 9
+- name: input_10
+  path: inputs/input_10.csv
+  columns: 9
+- name: input_11
+  path: inputs/input_11.csv
+  columns: 9
+- name: input_12
+  path: inputs/input_12.csv
+  columns: 9

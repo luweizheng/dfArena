@@ -1,0 +1,97 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "File Date",
+        "Purchase Price Categorisation",
+        "Market Capitalisation Categorisation",
+        "Rank"
+      ],
+      "columns": {
+        "Market Capitalisation Categorisation": {
+          "type": "text_exact"
+        },
+        "Purchase Price Categorisation": {
+          "type": "text_exact"
+        },
+        "File Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Ticker": {
+          "type": "text_exact",
+          "aliases": {
+            "BLIN          ": "BLIN",
+            "CBA           ": "CBA",
+            "ECOM          ": "ECOM",
+            "CTT           ": "CTT",
+            "REN           ": "REN",
+            "GEN           ": "GEN",
+            "TORM          ": "TORM",
+            "MORE          ": "MORE",
+            "ETX           ": "ETX",
+            "ENZY          ": "ENZY",
+            "FEI           ": "FEI",
+            "SPB           ": "SPB",
+            "ECC           ": "ECC",
+            "AXON          ": "AXON",
+            "STAR          ": "STAR"
+          }
+        },
+        "Sector": {
+          "type": "text_exact",
+          "null_values": [
+            "",
+            "n/a"
+          ]
+        },
+        "Market": {
+          "type": "text_exact"
+        },
+        "Stock Name": {
+          "type": "text_exact",
+          "aliases": {
+            "Real Industry, Inc. ": "Real Industry, Inc.",
+            "Catalyst Biosciences, Inc. ": "Catalyst Biosciences, Inc.",
+            "root9B Holdings, Inc. ": "root9B Holdings, Inc.",
+            "Novelion Therapeutics Inc. ": "Novelion Therapeutics Inc.",
+            "Great Elm Capital Group, Inc. ": "Great Elm Capital Group, Inc.",
+            "Lindblad Expeditions Holdings Inc. ": "Lindblad Expeditions Holdings Inc.",
+            "Aerojet Rocketdyne Holdings, Inc. ": "Aerojet Rocketdyne Holdings, Inc.",
+            "Determine, Inc. ": "Determine, Inc.",
+            "Pure Storage, Inc. ": "Pure Storage, Inc.",
+            "The Priceline Group Inc. ": "The Priceline Group Inc.",
+            "Civista Bancshares, Inc. ": "Civista Bancshares, Inc.",
+            "First Trust NASDAQ Clean Edge Smart Grid Infrastructure Index ": "First Trust NASDAQ Clean Edge Smart Grid Infrastructure Index",
+            "Peoples Financial Services Corp. ": "Peoples Financial Services Corp.",
+            "Heron Therapeutics, Inc.  ": "Heron Therapeutics, Inc.",
+            "Paratek Pharmaceuticals, Inc. ": "Paratek Pharmaceuticals, Inc.",
+            "Urban One, Inc. ": "Urban One, Inc.",
+            "Genco Shipping & Trading Limited Warrants Expiring 12/31/2021 ": "Genco Shipping & Trading Limited Warrants Expiring 12/31/2021",
+            "Hanwha Q CELLS Co., Ltd. ": "Hanwha Q CELLS Co., Ltd.",
+            "GAMCO Natural Resources, Gold & Income Tust ": "GAMCO Natural Resources, Gold & Income Tust",
+            "Microbot Medical Inc. ": "Microbot Medical Inc.",
+            "Inpixon ": "Inpixon",
+            "Aberdeen Japan Equity Fund, Inc. ": "Aberdeen Japan Equity Fund, Inc."
+          }
+        },
+        "Market Capitalisation": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Purchase Price": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Rank": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}
