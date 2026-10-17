@@ -1,0 +1,121 @@
+{
+  "ambiguities": [
+    {
+      "id": "3_C2_count_distinct_managers_per_pm_term",
+      "kind": "Group-level concept",
+      "node_id": "group_pm",
+      "op": "aggregate",
+      "source_text": "count the number of Chelsea Managers for each Prime Minister",
+      "ref": "Chelsea_Managers=(\"Chelsea Managers\", \"nunique\"),",
+      "intent": "Count distinct cleaned manager names whose inclusive tenure overlaps each PM term."
+    },
+    {
+      "id": "4_O2_drop_unparseable_match_dates",
+      "kind": "Operation incomplete",
+      "node_id": "matches_dropna",
+      "op": "filter",
+      "source_text": "Make sure the Date is a Date Data Type",
+      "ref": "matches = matches.dropna(subset=[\"Match Date\"])",
+      "intent": "Discard unparseable match dates."
+    },
+    {
+      "id": "5_O2_missing_result_categories_as_zero",
+      "kind": "Operation incomplete",
+      "node_id": "matches_pivot",
+      "op": "pivot",
+      "source_text": "Pivot the data so we know how many matches were won, drawn or lost on each day",
+      "ref": "daily_counts = (\n        matches.groupby([\"Match Date\", \"Result\"]).size().unstack(fill_value=0)\n    )\n    for col in [\"Match Won\", \"Match Drawn\", \"Match Lost\"]:\n        if col not in daily_counts:\n            daily_counts[col] = 0",
+      "intent": "Absent outcome categories have count zero."
+    },
+    {
+      "id": "8_O1_cm_day_expansion_inclusive_endpoints",
+      "kind": "Operation boundary",
+      "node_id": "mgr_filter_range",
+      "op": "filter",
+      "source_text": "Create a row for every day the Chelsea Manager was in place",
+      "ref": "new_col: pd.date_range(start, end, freq=\"D\"),",
+      "intent": "Include both manager tenure endpoints."
+    },
+    {
+      "id": "9_O2_cm_skip_invalid_or_incomplete_ranges",
+      "kind": "Operation incomplete",
+      "node_id": "mgr_filter_range",
+      "op": "filter",
+      "source_text": "Create a row for every day the Chelsea Manager was in place",
+      "ref": "if pd.isna(start) or pd.isna(end) or end < start:\n            continue",
+      "intent": "Skip invalid manager ranges."
+    },
+    {
+      "id": "10_O2_parse_two_digit_years_with_rolling_century",
+      "kind": "Row-level concept",
+      "node_id": "mgr_parse_start",
+      "op": "script",
+      "intent": "Interpret 2-digit years using a rolling century rule based on prior records (add 100 years when needed).",
+      "ref": "candidate = current_century + year_two\n        if last_year and candidate < last_year:\n            candidate += 100",
+      "source_text": "Interpret 2-digit years sequentially."
+    },
+    {
+      "id": "11_O1_pm_day_expansion_inclusive_endpoints",
+      "kind": "Operation boundary",
+      "node_id": "pm_filter_range",
+      "op": "filter",
+      "source_text": "Create a row for every day the Prime Minister was in office",
+      "ref": "new_col: pd.date_range(start, end, freq=\"D\"),",
+      "intent": "Include both PM term endpoints."
+    },
+    {
+      "id": "12_O2_pm_skip_invalid_or_incomplete_ranges",
+      "kind": "Operation incomplete",
+      "node_id": "pm_filter_range",
+      "op": "filter",
+      "source_text": "Create a row for every day the Prime Minister was in office",
+      "ref": "if pd.isna(start) or pd.isna(end) or end < start:\n            continue",
+      "intent": "Skip invalid PM ranges."
+    },
+    {
+      "id": "13_O2_win_pct_null_when_no_matches",
+      "kind": "Operation incomplete",
+      "node_id": "post_project",
+      "op": "project",
+      "source_text": "Calculate the Win % for each Prime Minister",
+      "ref": "win_pct = win_pct.where(result[\"Matches\"] > 0)",
+      "intent": "Leave Win % null for zero matches; otherwise wins divided by matches rounded to two decimals."
+    },
+    {
+      "id": "14_O1_define_today_as_max_match_date_plus_one",
+      "kind": "Row-level concept",
+      "node_id": "today_compute",
+      "op": "project",
+      "source_text": "For this task, 'today' means the day after the latest valid match date in the Chelsea Matches input data (3 November 2022 for the supplied data).",
+      "ref": "today = max_match_date + pd.Timedelta(days=1)",
+      "intent": "Use the latest valid date in the supplied Chelsea Matches input plus one day as today for both Prime Minister and Chelsea Manager end dates; do not use the system date. For the supplied data this is 2022-11-03."
+    },
+    {
+      "id": "new_2_final_sort_start_date_pm",
+      "kind": "Operation inconsistent",
+      "node_id": "sort_final",
+      "op": "sort",
+      "intent": "Sort final rows by Start Date PM ascending, then Prime Ministers ascending.",
+      "ref": "result = result.sort_values([\"Start Date PM\", \"Prime Ministers\"], ascending=[\n                                True, True]).reset_index(drop=True)",
+      "source_text": "Sort output rows by `Start Date PM` ascending, then `Prime Ministers` ascending."
+    },
+    {
+      "id": "independent_term_aggregates",
+      "kind": "Multi-table alignment",
+      "node_id": "term_counts",
+      "op": "aggregate",
+      "source_text": "Independently count eligible match records whose match date falls within the Prime Minister term, including both endpoints.",
+      "intent": "Count each input match once within each PM term independently of manager tenure gaps or overlaps; count distinct overlapping managers separately, then combine by PM name and term dates. Retain zero-match terms.",
+      "ref": "manager_counts and match_counts are aggregated separately and merged on term_keys with validate=\"one_to_one\"."
+    },
+    {
+      "id": "churchill_equivalent_names",
+      "kind": "Row-level concept",
+      "node_id": "pm_name",
+      "op": "project",
+      "source_text": "Treat `Winston Churchill` and `Sir Winston Churchill` as the same person and use one of these two names consistently in the output. Keep separate Prime Minister terms as separate rows.",
+      "intent": "Both Winston Churchill and Sir Winston Churchill are accepted names for the same person. Use one consistently, but keep different terms separate.",
+      "ref": "PM_REMAP retains Sir Winston Churchill as the reference representative; the evaluator maps the two exact labels symmetrically."
+    }
+  ]
+}

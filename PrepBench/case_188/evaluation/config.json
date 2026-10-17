@@ -1,0 +1,16 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Name"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Name": "text_exact",
+        "Category": "text_exact",
+        "Required Level": "integer",
+        "Attack Damage": "integer"
+      }
+    }
+  }
+}

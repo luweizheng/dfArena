@@ -1,0 +1,118 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Store Name",
+        "Size",
+        "Scent Name"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Store Name": "text_exact",
+        "Size": "text_exact",
+        "Scent Name": "text_exact",
+        "Rank of Product & Scent by Store": "integer",
+        "Sale Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    },
+    "output_02.csv": {
+      "key": [
+        "Store Name",
+        "Size",
+        "Scent Name"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Store Name": "text_exact",
+        "Size": "text_exact",
+        "Scent Name": "text_exact",
+        "Rank of Product & Scent by Store": "integer",
+        "Sale Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    },
+    "output_03.csv": {
+      "key": [
+        "Store Name",
+        "Size",
+        "Scent Name"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Store Name": "text_exact",
+        "Size": "text_exact",
+        "Scent Name": "text_exact",
+        "Rank of Product & Scent by Store": "integer",
+        "Sale Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    },
+    "output_04.csv": {
+      "key": [
+        "Store Name",
+        "Size",
+        "Scent Name"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Store Name": "text_exact",
+        "Size": "text_exact",
+        "Scent Name": "text_exact",
+        "Rank of Product & Scent by Store": "integer",
+        "Sale Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    },
+    "output_05.csv": {
+      "key": [
+        "Store Name",
+        "Size",
+        "Scent Name"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Store Name": "text_exact",
+        "Size": "text_exact",
+        "Scent Name": "text_exact",
+        "Rank of Product & Scent by Store": "integer",
+        "Sale Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    },
+    "output_06.csv": {
+      "key": [
+        "Store Name",
+        "Size",
+        "Scent Name"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Store Name": "text_exact",
+        "Size": "text_exact",
+        "Scent Name": "text_exact",
+        "Rank of Product & Scent by Store": "integer",
+        "Sale Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    }
+  }
+}

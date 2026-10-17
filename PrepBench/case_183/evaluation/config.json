@@ -1,0 +1,30 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Monthly Payment Date",
+        "Store"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Monthly Payment Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Store": "text_exact",
+        "Capital Outstanding Total": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Remaining Capital to Repay": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    }
+  }
+}

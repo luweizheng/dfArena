@@ -1,0 +1,49 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O3_category_dedup",
+      "kind": "Operation inconsistent",
+      "node_id": "dedup_name_category",
+      "op": "dedup",
+      "intent": "If a weapon Name appears with multiple Category values, keep a single consistent Category per Name (e.g., first encountered).",
+      "ref": "query_full.md: if there are multiple category rows per `Name`, keep a single category record per `Name` (any consistent single choice is acceptable, e.g., the first encountered).",
+      "source_text": "if there are multiple category rows per `Name`, keep a single category record per `Name` (any consistent single choice is acceptable, e.g., the first encountered)."
+    },
+    {
+      "id": "2_O3_keep_ties_rank1",
+      "kind": "Operation boundary",
+      "node_id": "filter_pick_best",
+      "op": "filter",
+      "source_text": "Filter to rank = 1, keeping all tied weapons that share the maximum total attack damage for that Total Required Level.",
+      "ref": "merged[\"Rank\"] = merged.groupby(\"Total Required Level\")[\"Total Attack Damage\"].rank(\n        method=\"dense\", ascending=False\n    )\n\n    result = merged[merged[\"Rank\"] == 1].copy()",
+      "intent": "Filter to rank = 1, keeping all tied weapons that share the maximum total attack damage for that Total Required Level."
+    },
+    {
+      "id": "3_O2_join_inner_only",
+      "kind": "Operation incomplete",
+      "node_id": "join_damage_level",
+      "op": "join",
+      "source_text": "Join Total Attack Damage and Total Required Level using an **inner join** on `Name`",
+      "ref": "merged = total_damage.merge(total_level, on=\"Name\", how=\"inner\")",
+      "intent": "Join Total Attack Damage and Total Required Level using an inner join on Name"
+    },
+    {
+      "id": "4_O2_damage_parse_non_numeric_as_zero",
+      "kind": "Operation incomplete",
+      "node_id": "project_damage_parse",
+      "op": "project",
+      "intent": "When splitting damage cells, treat missing parts or non-numeric parts as 0 (in addition to '-' meaning 0).",
+      "ref": "query_full.md: If a part is missing or not usable as a number, treat it as 0.",
+      "source_text": "If a part is missing or not usable as a number, treat it as 0."
+    },
+    {
+      "id": "5_O2_level_parse_non_numeric_as_zero",
+      "kind": "Operation incomplete",
+      "node_id": "project_level_parse",
+      "op": "project",
+      "intent": "When splitting level-requirement cells, treat missing or non-numeric required-level parts as 0 (in addition to '-' meaning 0).",
+      "ref": "query_full.md: treat missing or non-numeric required-level parts as 0",
+      "source_text": "treat missing or non-numeric required-level parts as 0"
+    }
+  ]
+}

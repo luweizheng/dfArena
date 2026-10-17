@@ -1,0 +1,72 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Opportunity ID"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Opportunity Name": "text_exact",
+        "StageName": "text_exact",
+        "Amount": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Created By Name": "text_exact",
+        "Owner Name": "text_exact",
+        "Account Name": "text_exact",
+        "Account Type": "text_exact",
+        "Account Owner Name": "text_exact",
+        "Account Created By Name": "text_exact",
+        "Opportunity ID": "text_exact",
+        "AccountId": "text_exact",
+        "OwnerId": "text_exact",
+        "CreatedById": "text_exact"
+      }
+    },
+    "output_02.csv": {
+      "key": [
+        "Owner Name"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Owner Name": "text_exact",
+        "Amount": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    },
+    "output_03.csv": {
+      "key": [
+        "Account Owner Name"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Account Owner Name": "text_exact",
+        "Amount": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    },
+    "output_04.csv": {
+      "key": [
+        "Account Name"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Account Name": "text_exact",
+        "Number of Opportunities": "integer",
+        "Amount": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    }
+  }
+}
