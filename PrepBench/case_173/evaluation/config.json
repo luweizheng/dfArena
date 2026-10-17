@@ -1,0 +1,46 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Episode",
+        "name",
+        "start_time",
+        "youtube_timestamp"
+      ],
+      "columns": {
+        "Episode": {
+          "type": "text_exact"
+        },
+        "name": {
+          "type": "text_exact"
+        },
+        "start_time": {
+          "type": "integer"
+        },
+        "Duration": {
+          "type": "integer"
+        },
+        "youtube_timestamp": {
+          "type": "text_exact"
+        },
+        "dialogue": {
+          "type": "text_exact",
+          "aliases": {
+            "Right, the favor for Gilmore. All I'm saying is, you've used one of two favors to get that sigil. You have to invoke Gilmore's favor to get this one. Okay. And since you're a part of the circumstance, you acquire the secondary sigil. You now know, in your memory permanently, a sigil to Westruun. You don't know where in Westruun, but you are connected there. If you choose to teleport there, you know how to. That favor has now been used by Gilmore, so you can mark that. And on that note, we're going to go ahead and take a five minute rest break. So yeah, restroom, snacks, drinks and we'll be back here in about five or so minutes. We'll see you guys and continue this tense adventure. ": "Right, the favor for Gilmore. All I'm saying is, you've used one of two favors to get that sigil. You have to invoke Gilmore's favor to get this one. Okay. And since you're a part of the circumstance, you acquire the secondary sigil. You now know, in your memory permanently, a sigil to Westruun. You don't know where in Westruun, but you are connected there. If you choose to teleport there, you know how to. That favor has now been used by Gilmore, so you can mark that. And on that note, we're going to go ahead and take a five minute rest break. So yeah, restroom, snacks, drinks and we'll be back here in about five or so minutes. We'll see you guys and continue this tense adventure.",
+            "All right. As you gather up this information, head out of the Cloudtop District towards the western side of Emon, towards the Graveyard District, we will go ahead and take a quick break. We'll see you guys back here in a little bit. ": "All right. As you gather up this information, head out of the Cloudtop District towards the western side of Emon, towards the Graveyard District, we will go ahead and take a quick break. We'll see you guys back here in a little bit.",
+            "22. You guys begin to move slowly forward as you ascertain a direction from the occasional small flutter of fey light that drifts at a slight curvature in its descent, making your way in the direction where, supposedly, the nexus of this pixie tribe should exist. We're going to go ahead and take a break. We will see you guys back here in a few minutes to pick up where we left off, wandering towards the pixie home. We'll see you guys in a minute. [break] ": "22. You guys begin to move slowly forward as you ascertain a direction from the occasional small flutter of fey light that drifts at a slight curvature in its descent, making your way in the direction where, supposedly, the nexus of this pixie tribe should exist. We're going to go ahead and take a break. We will see you guys back here in a few minutes to pick up where we left off, wandering towards the pixie home. We'll see you guys in a minute. [break]",
+            "That's not true. You've discussed the spoils from your last major story bit, so we'll be back here in a few minutes. We're going to go ahead and take a restroom break, fill up on drinks. Stay tuned and we'll see you in a minute.  ": "That's not true. You've discussed the spoils from your last major story bit, so we'll be back here in a few minutes. We're going to go ahead and take a restroom break, fill up on drinks. Stay tuned and we'll see you in a minute.",
+            "Awesome. While you guys rest, most of you rest for the evening, we're going to go ahead and take a restroom break. We'll be back here in a few minutes to continue the story. Stick around for the break for a wonderful video message from Patrick Rothfuss about the Worldbuilders charity that we're supporting. Information will be coming up here shortly. See you in a bit! ": "Awesome. While you guys rest, most of you rest for the evening, we're going to go ahead and take a restroom break. We'll be back here in a few minutes to continue the story. Stick around for the break for a wonderful video message from Patrick Rothfuss about the Worldbuilders charity that we're supporting. Information will be coming up here shortly. See you in a bit!",
+            "Thank you so much, Patrick. Guys, we'll take a break. We have a giveaway, actually, 'cause we didn't get a break last week. We have a big Wormwood giveaway to do here at the end of the break, with a big old cluster. So, pay attention to the chat room. They'll have all the information for you on how to get and be a part of that. And we'll see you here in a few minutes. (all cheer)  ": "Thank you so much, Patrick. Guys, we'll take a break. We have a giveaway, actually, 'cause we didn't get a break last week. We have a big Wormwood giveaway to do here at the end of the break, with a big old cluster. So, pay attention to the chat room. They'll have all the information for you on how to get and be a part of that. And we'll see you here in a few minutes. (all cheer)",
+            "0.4069444444444445": "0.406944",
+            "And he turns and walks towards the darkened cloak of his matron. In the darkness of her cloak, you see a brief light, and it's brighter for you. As you walk forward, you see reaching from the light the dark hair, the fair skin, and the wide smile of your mother, Elaina. As she greets you, she says, \"I'm so proud.\" The rest of you watch as her cloak begins to fade like a slowly scattered shadow in creeping sunlight. And as the snowdrop flowers continue with each step, you blink, and it's just feathers. We're going to take a break, we'll be back here in a few minutes, guys. (heavy exhale) Still more of this story to tell. See you guys in a bit. ": "And he turns and walks towards the darkened cloak of his matron. In the darkness of her cloak, you see a brief light, and it's brighter for you. As you walk forward, you see reaching from the light the dark hair, the fair skin, and the wide smile of your mother, Elaina. As she greets you, she says, \"I'm so proud.\" The rest of you watch as her cloak begins to fade like a slowly scattered shadow in creeping sunlight. And as the snowdrop flowers continue with each step, you blink, and it's just feathers. We're going to take a break, we'll be back here in a few minutes, guys. (heavy exhale) Still more of this story to tell. See you guys in a bit."
+          }
+        },
+        "section": {
+          "type": "text_exact"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Day of the Week"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Day of the Week": {
+          "type": "text_exact"
+        },
+        "Number of Days": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

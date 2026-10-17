@@ -1,0 +1,42 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Artist Name"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "2015": {
+          "type": "integer"
+        },
+        "2016": {
+          "type": "integer"
+        },
+        "2017": {
+          "type": "integer"
+        },
+        "2018": {
+          "type": "integer"
+        },
+        "2019": {
+          "type": "integer"
+        },
+        "2020": {
+          "type": "integer"
+        },
+        "2021": {
+          "type": "integer"
+        },
+        "2022": {
+          "type": "integer"
+        },
+        "Artist Name": {
+          "type": "text_exact"
+        },
+        "Overall Rank": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

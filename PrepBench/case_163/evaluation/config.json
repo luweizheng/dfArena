@@ -1,0 +1,44 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "EmployerId",
+        "Year",
+        "EmployerName"
+      ],
+      "columns": {
+        "Year": {
+          "type": "integer"
+        },
+        "Report": {
+          "type": "text_exact"
+        },
+        "EmployerName": {
+          "type": "text_exact",
+          "aliases": {
+            "CHURCHILL ACADEMY ": "CHURCHILL ACADEMY",
+            "COQUET TRUST ": "COQUET TRUST",
+            "RATHBONE TRAINING ": "RATHBONE TRAINING",
+            "TEESSIDE LEARNING TRUST ": "TEESSIDE LEARNING TRUST",
+            "UNIVERSITY OF MANCHESTER STUDENTS' UNION ": "UNIVERSITY OF MANCHESTER STUDENTS' UNION"
+          }
+        },
+        "EmployerId": {
+          "type": "text_exact"
+        },
+        "EmployerSize": {
+          "type": "text_exact"
+        },
+        "DiffMedianHourlyPercent": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Pay Gap": {
+          "type": "text_exact"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

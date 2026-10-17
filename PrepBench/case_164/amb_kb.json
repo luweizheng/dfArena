@@ -1,0 +1,99 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_c2_pct_scaled_100",
+      "kind": "Group-level concept",
+      "node_id": "compute_pct",
+      "op": "project",
+      "source_text": "- Calculate the percent of total sales each customer represents",
+      "ref": "customer_sales['% of Total'] = (customer_sales['Sales'] / total_sales) * 100",
+      "intent": "Compute sales share on a 0 to 100 percentage scale."
+    },
+    {
+      "id": "2_c2_running_cumsum_on_pct",
+      "kind": "Group-level concept",
+      "node_id": "compute_running_round",
+      "op": "project",
+      "source_text": "- Calculate the running total of sales across customers",
+      "ref": "customer_sales['Running % of Total Sales'] = customer_sales['% of Total'].cumsum()",
+      "intent": "Cumulate customer shares in descending contribution order."
+    },
+    {
+      "id": "5_o1_round_running_before_filter",
+      "kind": "Operation boundary",
+      "node_id": "compute_running_round",
+      "op": "project",
+      "intent": "Filter using cumulative percentage rounded to two decimals.",
+      "ref": "customer_sales['Running % of Total Sales'] = customer_sales['Running % of Total Sales'].map(lambda value: round(value, 2))\nmask = customer_sales['Running % of Total Sales'] <= target_percentage",
+      "source_text": "Round `Running % of Total Sales` to 2 decimal places."
+    },
+    {
+      "id": "6_o3_name_conflict_first_observed",
+      "kind": "Operation inconsistent",
+      "node_id": "dedup_first_name",
+      "op": "dedup",
+      "intent": "Carry first observed customer names.",
+      "ref": "customer_sales = df.groupby('Customer ID').agg({\n        'First Name': 'first',\n        'Surname': 'first',\n        'Sales': 'sum'\n    }).reset_index()",
+      "source_text": "Carry forward customer name fields by taking the first observed `First Name` and the first observed `Surname` per `Customer ID`."
+    },
+    {
+      "id": "7_o1_target_percentage_80",
+      "kind": "Operation boundary",
+      "node_id": "filter_top80",
+      "op": "filter",
+      "intent": "Use target percentage 80.0.",
+      "ref": "target_percentage = 80.0",
+      "source_text": "Use a target percentage value of `80.0`."
+    },
+    {
+      "id": "8_o1_filter_inclusive_le",
+      "kind": "Operation boundary",
+      "node_id": "filter_top80",
+      "op": "filter",
+      "source_text": "- Create a parameter that will allow the user to decide the percentage of sales they wish to filter to",
+      "ref": "mask = customer_sales['Running % of Total Sales'] <= target_percentage",
+      "intent": "Keep cumulative percentages less than or equal to the target."
+    },
+    {
+      "id": "9_d1_surname_maps_to_last_name",
+      "kind": "Single-table reference",
+      "node_id": "project_names",
+      "op": "project",
+      "source_text": "output_01.csv\n  - 6 fields:\n    - Customer ID\n    - First Name\n    - Last Name",
+      "ref": "customer_sales = customer_sales.rename(columns={'Surname': 'Last Name'})",
+      "intent": "Rename Surname to Last Name."
+    },
+    {
+      "id": "10_c2_total_customers_pre_filter",
+      "kind": "Group-level concept",
+      "node_id": "project_result_text",
+      "op": "project",
+      "intent": "Count all customers before filtering for the denominator.",
+      "ref": "total_customers = len(customer_sales)",
+      "source_text": "Let `TotalCustomers` be the number of customers in the full customer-level dataset (before filtering)."
+    },
+    {
+      "id": "11_o1_round_pct_customers_to_int",
+      "kind": "Operation boundary",
+      "node_id": "project_result_text",
+      "op": "project",
+      "intent": "Round the customer percentage to an integer for the summary.",
+      "ref": "filtered_customer_percentage = int(round((filtered_customer_count / total_customers) * 100, 0))",
+      "source_text": "Compute the percentage of customers as `round(FilteredCustomers * 100 / TotalCustomers)` and express it as an integer percent."
+    },
+    {
+      "id": "12_o1_preserve_sales_precision",
+      "kind": "Operation boundary",
+      "source_text": "Preserve the full input precision when summing `Sales`; do not round customer sales before computing shares.",
+      "intent": "Aggregate original sales without intermediate rounding; derive the denominator and cumulative contribution from those full-precision totals.",
+      "ref": "reference/solution.py: Sales is parsed as Decimal before customer aggregation; no three-decimal rounding."
+    },
+    {
+      "id": "share_precision_equivalence",
+      "kind": "Row-level concept",
+      "source_text": "For output, % of Total may retain the unrounded share with floating-point precision or be rounded to 9 decimal places; use one representation consistently throughout the detail table. Calculate running contributions from unrounded shares before the existing two-decimal cumulative rounding and filtering.",
+      "intent": "For output, % of Total may retain the unrounded share with floating-point precision or be rounded to 9 decimal places; use one representation consistently throughout the detail table. Calculate running contributions from unrounded shares before the existing two-decimal cumulative rounding and filtering.",
+      "ref": "Independent Decimal aggregation from inputs/input_01.csv; original nine-decimal output remains valid."
+    }
+  ]
+}

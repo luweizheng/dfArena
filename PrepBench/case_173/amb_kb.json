@@ -1,0 +1,85 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O3_dedup_keep_first",
+      "kind": "Operation inconsistent",
+      "node_id": "dedup_all",
+      "op": "dedup",
+      "source_text": "Ensure no duplication of rows has occurred",
+      "ref": "result_df = result_df.drop_duplicates(keep='first').reset_index(drop=True)",
+      "intent": "Deduplicate using all output fields, retaining one occurrence."
+    },
+    {
+      "id": "2_O1_dialogue_round_6dp",
+      "kind": "Operation boundary",
+      "node_id": "dialog_format",
+      "op": "project",
+      "intent": "Accept original input precision or the six-decimal representation for numeric-looking dialogue.",
+      "ref": "        quantized = dec.quantize(Decimal('0.000001'))\n        normalized = quantized.normalize()\n        formatted = format(normalized, 'f')\n        if formatted == '-0':\n            formatted = '0'\n        return formatted",
+      "source_text": "Numeric-looking dialogue may retain its original input precision or be represented as a decimal rounded to six places with trailing fractional zeros removed."
+    },
+    {
+      "id": "3_O2_dialogue_preserve_non_numeric",
+      "kind": "Operation incomplete",
+      "node_id": "dialog_format",
+      "op": "project",
+      "intent": "Preserve nonnumeric dialogue; leading/trailing whitespace is optional but words and internal whitespace must remain unchanged.",
+      "ref": "        try:\n            dec = Decimal(text)\n        except InvalidOperation:\n            return text",
+      "source_text": "Preserve dialogue as text. Leading or trailing whitespace may be retained or removed; do not alter the words or internal whitespace."
+    },
+    {
+      "id": "4_O1_duration_positive_only",
+      "kind": "Operation boundary",
+      "node_id": "duration_pos",
+      "op": "filter",
+      "intent": "Remove dialogue rows where computed Duration is not strictly positive (Duration must be > 0).",
+      "ref": "result_df = result_df[result_df['Duration'] > 0].copy()",
+      "source_text": "Remove rows where `Duration` is not strictly positive (i.e., `Duration` must be `> 0`)."
+    },
+    {
+      "id": "5_D1_episode_end_runtime_in_secs",
+      "kind": "Single-table reference",
+      "node_id": "end_times",
+      "op": "project",
+      "intent": "Use the episode details column runtime_in_secs as the episode end time for duration calculations.",
+      "ref": "episode_df['runtime_in_secs'] = pd.to_numeric(episode_df['runtime_in_secs'], errors='coerce')\nepisode_end = episode_df[['Episode', 'runtime_in_secs']].copy()",
+      "source_text": "Use `runtime_in_secs` from the episode details as the episode end time, matched by `Episode`."
+    },
+    {
+      "id": "6_D1_input_dialogue_file",
+      "kind": "Single-table reference",
+      "node_id": "in_dialogue",
+      "op": "input",
+      "intent": "Use input_03.csv as the dialogue-level input dataset.",
+      "ref": "dialogue_df = pd.read_csv(inputs_dir / \"input_03.csv\", dtype={'dialogue': str})",
+      "source_text": "Use the dialogue-level input (input_03.csv) and the episode-level details input (input_04.csv)."
+    },
+    {
+      "id": "7_D1_input_episode_file",
+      "kind": "Single-table reference",
+      "node_id": "in_episode",
+      "op": "input",
+      "intent": "Use input_04.csv as the episode-level details input dataset.",
+      "ref": "episode_df = pd.read_csv(inputs_dir / \"input_04.csv\")",
+      "source_text": "Use the dialogue-level input (input_03.csv) and the episode-level details input (input_04.csv)."
+    },
+    {
+      "id": "8_O2_drop_empty_names_after_split",
+      "kind": "Operation incomplete",
+      "node_id": "name_non_empty",
+      "op": "filter",
+      "intent": "After splitting/exploding names, drop rows where name is missing or empty.",
+      "ref": "        if not name_str:\n            return []\n        if not names:\n            continue",
+      "source_text": "After splitting/exploding, drop any resulting rows where `name` is missing or empty."
+    },
+    {
+      "id": "9_C2_next_distinct_timestamp",
+      "kind": "Operation incomplete",
+      "node_id": "unique_dedup",
+      "op": "dedup",
+      "source_text": "work out the difference from one timestamp to the next",
+      "ref": "            for j in range(i + 1, len(times)):\n                if times[j] != current_time:\n                    next_time = times[j]\n                    break",
+      "intent": "Duration runs to the next distinct timestamp within the episode; if absent, use episode runtime."
+    }
+  ]
+}

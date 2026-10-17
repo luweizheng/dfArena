@@ -1,0 +1,38 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Movie",
+        "Year"
+      ],
+      "columns": {
+        "Movie": {
+          "type": "text_exact",
+          "aliases": {
+            "The Bitter Tears of Petra von Kant ": "The Bitter Tears of Petra von Kant",
+            "The Meaning of Life ": "The Meaning of Life",
+            "The Cheetah Girls ": "The Cheetah Girls",
+            "The Fast and the Furious: Tokyo Drift ": "The Fast and the Furious: Tokyo Drift",
+            "The Handmaiden (Ah-ga-ssi) ": "The Handmaiden (Ah-ga-ssi)",
+            "The First Purge ": "The First Purge",
+            "The Marijuana Conspiracy ": "The Marijuana Conspiracy"
+          }
+        },
+        "Year": {
+          "type": "integer"
+        },
+        "Pass/Fail": {
+          "type": "text_exact"
+        },
+        "Ranking": {
+          "type": "integer"
+        },
+        "Categorisation": {
+          "type": "text_exact"
+        }
+      },
+      "ignore_order": true,
+      "csv_quoting": "standard_or_backslash"
+    }
+  }
+}

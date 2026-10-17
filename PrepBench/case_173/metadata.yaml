@@ -1,0 +1,24 @@
+case_id: case_173
+version: '1.0'
+domain: media_culture
+format: csv
+table_count: 6
+tables:
+- name: input_01
+  path: inputs/input_01.csv
+  columns: 14
+- name: input_02
+  path: inputs/input_02.csv
+  columns: 10
+- name: input_03
+  path: inputs/input_03.csv
+  columns: 6
+- name: input_04
+  path: inputs/input_04.csv
+  columns: 7
+- name: input_05
+  path: inputs/input_05.csv
+  columns: 12
+- name: input_06
+  path: inputs/input_06.csv
+  columns: 1

@@ -1,5 +1,5 @@
 """Raw CSV scalar normalization for the dfArena table evaluation protocol."""
-from datetime import datetime
+from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation, localcontext
 import math
 import re
@@ -82,6 +82,18 @@ def normalize(raw, rule):
         if len(parts) == 3 and len(parts[2]) == 3 and parts[2].isdigit():
             s = '/'.join([parts[0], parts[1], '0' + parts[2]])
     parsed = set()
+    if kind == 'datetime' and rule.get('assume_timezone') == 'UTC':
+        # Opt-in only: naive timestamps denote UTC, while ISO offsets identify
+        # instants. Never discard an offset or truncate fractional seconds.
+        aware = re.fullmatch(
+            r'\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}(?::\d{2}(?:\.\d{1,6})?)?'
+            r'(Z|[+-](?:[01]\d|2[0-3]):[0-5]\d)', s)
+        if aware and aware[1] != '-00:00':
+            try:
+                value = datetime.fromisoformat(s.replace('Z', '+00:00'))
+                parsed.add(value.astimezone(timezone.utc).replace(tzinfo=None))
+            except (ValueError, OverflowError):
+                pass
     if kind == 'date':
         # ISO dates are always accepted, independently of task-specific formats.
         # Only an exactly zero time suffix is representation-equivalent to a date.

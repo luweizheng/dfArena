@@ -1,0 +1,41 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Weekday",
+        "Time",
+        "Week",
+        "Teacher"
+      ],
+      "columns": {
+        "Weekday": {
+          "type": "text_exact"
+        },
+        "Time": {
+          "type": "time"
+        },
+        "Week": {
+          "type": "integer"
+        },
+        "Teacher": {
+          "type": "text_exact"
+        },
+        "Subject": {
+          "type": "text_exact"
+        },
+        "Lesson Name": {
+          "type": "text_exact"
+        },
+        "Attendance": {
+          "type": "integer"
+        },
+        "Avg. Attendance per Subject & Lesson": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

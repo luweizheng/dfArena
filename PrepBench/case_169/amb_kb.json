@@ -1,0 +1,40 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O1_month_first_day_ddmmyyyy",
+      "kind": "Operation boundary",
+      "node_id": "add_month",
+      "op": "project",
+      "source_text": "Split out the Bike Type, Date and Measure Name",
+      "ref": "return f\"01/{month_num}/{year}\"",
+      "intent": "Represent Month as the first day of its month."
+    },
+    {
+      "id": "2_D1_region_as_only_identifier_column",
+      "kind": "Single-table reference",
+      "node_id": "melt",
+      "op": "pivot",
+      "intent": "Region is the identifier; unpivot other columns.",
+      "ref": "region_col = \"Region\"\nvalue_cols = [col for col in df.columns if col != region_col]\n\ndf_melted = df.melt(\n        id_vars=[region_col],\n        value_vars=value_cols,",
+      "source_text": "Treat `Region` as the identifier column that should remain as-is, and treat all other columns as pivoted value columns to be un-pivoted."
+    },
+    {
+      "id": "3_O1_common_separator_three_underscores",
+      "kind": "Operation boundary",
+      "node_id": "parse_cols",
+      "op": "project",
+      "source_text": "rename the fields so that there is a common separator between the Bike Type, Date and Measure Name",
+      "ref": "parts = col_name.split(\"___\")",
+      "intent": "Interpret triple underscores as the common separator."
+    },
+    {
+      "id": "4_O1_parse_bike_month_measure_triplet",
+      "kind": "Row-level concept",
+      "node_id": "parse_cols",
+      "op": "project",
+      "source_text": "Split out the Bike Type, Date and Measure Name",
+      "ref": "if len(parts) == 3:\n            bike_type = parts[0]\n            month_str = parts[1]\n            measure = parts[2]\n            return bike_type, month_str, measure",
+      "intent": "Parse Bike Type, month and measure from the column name."
+    }
+  ]
+}

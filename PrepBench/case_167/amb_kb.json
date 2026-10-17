@@ -1,0 +1,103 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_course_header_filter",
+      "kind": "Row-level concept",
+      "node_id": "filter_dishes",
+      "op": "filter",
+      "source_text": "Filter out where the Dish = Course",
+      "ref": "combined[\"course_marker\"].isna()",
+      "intent": "Exclude course header rows after filling course within each guest."
+    },
+    {
+      "id": "2_selected_tick_only",
+      "kind": "Row-level concept",
+      "node_id": "filter_dishes",
+      "op": "filter",
+      "source_text": "Filter out Dishes which have not been selected",
+      "ref": "combined[\"selection\"] == TICK",
+      "intent": "Keep selections marked with the tick character."
+    },
+    {
+      "id": "3_exclude_null_dish_text",
+      "kind": "Operation incomplete",
+      "node_id": "filter_dishes",
+      "op": "filter",
+      "intent": "Exclude selected rows with missing dish text.",
+      "ref": "combined[\"value\"].notna()",
+      "source_text": "Also exclude rows where the dish/value text is null."
+    },
+    {
+      "id": "4_join_on_dish_text",
+      "kind": "Multi-table alignment",
+      "node_id": "join_lookup",
+      "op": "join",
+      "intent": "Join selected Dish text to lookup Dish.",
+      "ref": "on=\"Dish\"",
+      "source_text": "Left-join the selected dish rows to the lookup on exact `Dish` text to add `Recipe ID`."
+    },
+    {
+      "id": "5_left_join_unmatched_kept",
+      "kind": "Operation boundary",
+      "node_id": "join_lookup",
+      "op": "join",
+      "intent": "Retain unmatched selected dishes with missing Recipe ID.",
+      "ref": "how=\"left\"",
+      "source_text": "Left-join the selected dish rows to the lookup on exact `Dish` text to add `Recipe ID`."
+    },
+    {
+      "id": "6_orders_headerless_csv",
+      "kind": "Single-table reference",
+      "node_id": "orders_input",
+      "op": "input",
+      "intent": "Read Orders as a headerless CSV.",
+      "ref": "orders_df = pd.read_csv(orders_path, header=None, dtype=str)",
+      "source_text": "Read `input_01.csv` (Orders) as a headerless table where:"
+    },
+    {
+      "id": "7_course_marker_startswith_mapping",
+      "kind": "Row-level concept",
+      "node_id": "project_course_marker",
+      "op": "project",
+      "intent": "Normalize starts-with starter/main/dessert headers to Starters/Mains/Dessert.",
+      "ref": "cleaned = value.strip().lower()\n    if cleaned.startswith(\"starter\"):\n        return \"Starters\"\n    if cleaned.startswith(\"main\"):\n        return \"Mains\"\n    if cleaned.startswith(\"dessert\"):\n        return \"Dessert\"\n    return None",
+      "source_text": "Determine the course marker by checking whether the trimmed dish/value text starts with the course word (case-insensitive): starter → `Starters`, main → `Mains`, dessert → `Dessert`. If it does not start with one of these, the course marker is null."
+    },
+    {
+      "id": "8_recipe_id_cast_int",
+      "kind": "Operation boundary",
+      "node_id": "project_fix_fields",
+      "op": "project",
+      "intent": "Represent nonmissing Recipe ID as an integer.",
+      "ref": "result[\"Recipe ID\"] = result[\"Recipe ID\"].astype(int)",
+      "source_text": "Ensure `Recipe ID` is an integer in the final output."
+    },
+    {
+      "id": "9_guest_names_row0_data_row1",
+      "kind": "Single-table reference",
+      "node_id": "reshape_orders",
+      "op": "pivot",
+      "intent": "Guest names are in row zero; data begins at row one.",
+      "ref": "name_row = orders_df.iloc[0]\n\"value\": orders_df.loc[1:, col],",
+      "source_text": "Row 0 contains guest names in the “dish text” columns."
+    },
+    {
+      "id": "10_identify_guest_columns_nonempty_headers",
+      "kind": "Single-table reference",
+      "node_id": "reshape_orders",
+      "op": "pivot",
+      "intent": "Identify guest blocks from nonempty names in row zero.",
+      "ref": "guest_mask = name_row.notna() & (name_row.astype(\"string\").str.strip() != \"\")\nguest_cols = name_row.index[guest_mask].tolist()",
+      "source_text": "**Note**: There may be empty columns between these guest blocks (e.g., Guest 1 at col 0, Selection at col 1, Empty at col 2, Guest 2 at col 3...). You must dynamically identify the guest columns."
+    },
+    {
+      "id": "11_selection_column_adjacent",
+      "kind": "Single-table reference",
+      "node_id": "reshape_orders",
+      "op": "pivot",
+      "intent": "The selection column immediately follows its guest dish column.",
+      "ref": "\"selection\": orders_df.loc[1:, col + 1],",
+      "source_text": "The layout consists of guest blocks. For each guest, there is a column for the dish/course text and an immediately following column for the selection marker."
+    }
+  ]
+}

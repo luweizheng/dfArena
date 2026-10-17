@@ -1,0 +1,29 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Guest",
+        "Course",
+        "Recipe ID"
+      ],
+      "columns": {
+        "Guest": {
+          "type": "text_exact"
+        },
+        "Course": {
+          "type": "text_exact"
+        },
+        "Recipe ID": {
+          "type": "integer"
+        },
+        "Dish": {
+          "type": "text_exact",
+          "aliases": {
+            "Duck a l'orange": "Duck a l\u2019orange"
+          }
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

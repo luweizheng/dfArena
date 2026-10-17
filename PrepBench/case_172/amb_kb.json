@@ -1,0 +1,83 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O2_header_row_offset",
+      "kind": "Single-table reference",
+      "node_id": "cast_Bath",
+      "op": "project",
+      "source_text": "Input the data",
+      "ref": "df = pd.read_csv(path, header=3)",
+      "intent": "The fourth CSV row is the table header."
+    },
+    {
+      "id": "2_C1_keep_only_specific_measures",
+      "kind": "Row-level concept",
+      "node_id": "measure_map_Bath",
+      "op": "project",
+      "source_text": "For Orders and Returns, we are only interested in reporting % values",
+      "ref": "MEASURE_SPECS: Dict[tuple[str, str], dict[str, object]] = {...}",
+      "intent": "Keep the four specified percentage metrics and complaints received."
+    },
+    {
+      "id": "3_D1_monthly_columns_are_date_parsable",
+      "kind": "Single-table reference",
+      "node_id": "melt_Bath",
+      "op": "pivot",
+      "source_text": "We only wish to keep the monthly values",
+      "ref": "date_columns: List[str] = []\n    for column in df.columns:\n        parsed = pd.to_datetime(column, errors=\"coerce\")\n        if pd.notna(parsed):\n            date_columns.append(column)",
+      "intent": "Only date-parsable monthly columns become observations."
+    },
+    {
+      "id": "4_O3_duplicate_measure_conflict_take_first",
+      "kind": "Operation inconsistent",
+      "node_id": "pivot_wide",
+      "op": "pivot",
+      "intent": "Take the first available value for repeated Shop, Date and Measure.",
+      "ref": "pivot = long_df.pivot_table(...aggfunc=\"first\",...).reset_index()",
+      "source_text": "Then pivot wider so that each (Shop, Date) becomes a single row and each Measure becomes its own column. If multiple values exist for the same (Shop, Date, Measure), take the first available value."
+    },
+    {
+      "id": "5_O2_exclude_additonal_metrics_section",
+      "kind": "Operation incomplete",
+      "node_id": "prep_Bath",
+      "op": "project",
+      "intent": "Stop before the Additonal Metrics section.",
+      "ref": "add_mask = df[\"Department\"].astype(str).str.contains(\n        \"Additonal Metrics\", case=False, na=False)",
+      "source_text": "Some input files contain an \"Additonal Metrics\" section (with a typo in the original spelling). Exclude all rows from the \"Additonal Metrics\" section onward when processing the data. Only process rows that appear before this section marker."
+    },
+    {
+      "id": "6_C2_percent_target_scale_over_one_divide_by_100",
+      "kind": "Row-level concept",
+      "node_id": "target_prep_Bath",
+      "op": "project",
+      "intent": "Divide percent targets greater than one by 100.",
+      "ref": "if is_percent and value > 1:\n        value /= 100",
+      "source_text": "For percent measures only: if the resulting numeric target is greater than 1, divide by 100 so targets are stored on a 0–1 scale."
+    },
+    {
+      "id": "7_O2_target_parse_fail_skip_record",
+      "kind": "Operation incomplete",
+      "node_id": "tgt_keep_Bath",
+      "op": "filter",
+      "intent": "Skip target records when parsing fails or target is blank.",
+      "ref": "if pd.isna(raw_value):\n        return None\n    ...",
+      "source_text": "Convert to a number; if conversion fails or Target is blank/missing, do not create a target record."
+    },
+    {
+      "id": "8_O2_drop_missing_date_or_value_rows",
+      "kind": "Operation incomplete",
+      "node_id": "valid_Bath",
+      "op": "filter",
+      "intent": "Exclude observations with missing date or nonnumeric/missing value.",
+      "ref": "melted = melted.dropna(subset=[\"Date\", \"Value\"])",
+      "source_text": "Keep only rows where both Date and Value are present and Value is numeric."
+    },
+    {
+      "id": "9_O2_fill_department_target_within_shop",
+      "kind": "Operation boundary",
+      "source_text": "Within each shop table, fill down Department and Target from the preceding nonblank cells before selecting metrics. Do not fill across files.",
+      "intent": "Carry down the department and target labels within each input table before selecting the required metrics.",
+      "ref": "reference/solution.py: per-file Department and Target forward fill."
+    }
+  ]
+}

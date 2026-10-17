@@ -1,0 +1,49 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Party",
+        "Room"
+      ],
+      "columns": {
+        "Party": {
+          "type": "text_exact"
+        },
+        "Adults in Party": {
+          "type": "integer"
+        },
+        "Children in Party": {
+          "type": "integer"
+        },
+        "Double/Twin": {
+          "type": "text_exact"
+        },
+        "Requires Accessible Room?": {
+          "type": "boolean"
+        },
+        "Additional Requests": {
+          "type": "text_exact"
+        },
+        "Request Satisfaction %": {
+          "type": "integer"
+        },
+        "Room": {
+          "type": "text_exact"
+        },
+        "Adults": {
+          "type": "integer"
+        },
+        "Children": {
+          "type": "integer"
+        },
+        "Features": {
+          "type": "text_exact"
+        }
+      },
+      "ignore_order": true,
+      "alternative_gt": {
+        "source_blank": "source_blank/output_01.csv"
+      }
+    }
+  }
+}

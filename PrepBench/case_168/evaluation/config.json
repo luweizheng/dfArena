@@ -1,0 +1,40 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "userID",
+        "timestamp",
+        "location"
+      ],
+      "columns": {
+        "userID": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "timestamp": {
+          "type": "datetime",
+          "formats": [
+            "%d/%m/%Y %H:%M:%S"
+          ],
+          "assume_timezone": "UTC"
+        },
+        "location": {
+          "type": "text_exact"
+        },
+        "content_type": {
+          "type": "text_exact"
+        },
+        "duration": {
+          "type": "integer"
+        },
+        "Avg_Price": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

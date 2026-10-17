@@ -1,0 +1,119 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_satisfaction_tokens_positive",
+      "kind": "Row-level concept",
+      "node_id": "calc_sat",
+      "op": "project",
+      "source_text": "Calculate the Request Satisfaction % for each room",
+      "ref": "    def satisfied_requests(reqs: List[str], features: set) -> int:\n        sat = 0\n        for r in reqs:\n            if r == \"Bath\":\n                if \"Bath\" in features:\n                    sat += 1\n            elif r == \"High Floor\":\n                if \"High Floor\" in features:\n                    sat += 1\n            elif r == \"Near to lift\":\n                if \"Near to lift\" in features:\n                    sat += 1\n            else:\n                # Unknown request token - treat as not satisfied\n                pass",
+      "intent": "Count satisfied supported request tokens; unsupported tokens do not contribute."
+    },
+    {
+      "id": "2_C2_satisfaction_token_not_near",
+      "kind": "Row-level concept",
+      "node_id": "calc_sat",
+      "op": "project",
+      "intent": "Treat NOT Near to lift as satisfied when Near to lift is absent.",
+      "ref": "            elif r == \"NOT Near to lift\":\n                if \"Near to lift\" not in features:\n                    sat += 1",
+      "source_text": "`NOT Near to lift` is satisfied if the room features do **not** include `Near to lift`."
+    },
+    {
+      "id": "3_O1_satisfaction_rounding",
+      "kind": "Operation boundary",
+      "node_id": "calc_sat",
+      "op": "project",
+      "intent": "Round satisfaction to the nearest integer.",
+      "ref": "    filt[\"Request Satisfaction %\"] = np.round(pct, 0).astype(int)",
+      "source_text": "Otherwise, `Request Satisfaction % = round( (satisfied_requests / total_requests) * 100 )`, rounded to the nearest integer."
+    },
+    {
+      "id": "4_O2_satisfaction_zero_requests_100",
+      "kind": "Operation incomplete",
+      "node_id": "calc_sat",
+      "op": "project",
+      "intent": "A party with no requests receives 100 percent satisfaction.",
+      "ref": "    pct = np.where(total == 0, 100, (sats / total * 100))",
+      "source_text": "If `total_requests == 0`, then `Request Satisfaction % = 100`."
+    },
+    {
+      "id": "5_O1_drop_large_rooms_for_small_parties",
+      "kind": "Operation boundary",
+      "node_id": "drop_large_small",
+      "op": "filter",
+      "source_text": "for the rooms with the largest capacity, we want to ensure guests with larger parties are prioritised",
+      "ref": "    filt = filt[~((filt[\"Adults_r\"] >= 4) & (filt[\"Adults_g\"] <= 2))].copy()",
+      "intent": "After maximum-score filtering, remove rooms with adult capacity at least four for parties of at most two adults."
+    },
+    {
+      "id": "6_D1_output_additional_requests_text_not_count",
+      "kind": "Single-table reference",
+      "node_id": "final_cols",
+      "op": "project",
+      "source_text": "we want to know how many Additional Requests each guest has made",
+      "ref": "        \"Additional Requests\": filt[\"Additional Requests\"],",
+      "intent": "Output original request text, mapping N/A to null, rather than the request count."
+    },
+    {
+      "id": "7_C1_capacity_match_adults_and_children_separately",
+      "kind": "Row-level concept",
+      "node_id": "filt",
+      "op": "filter",
+      "source_text": "Match the guests to the rooms which have capacity for their entire party",
+      "ref": "    def capacity_ok(g_adults: int, g_children: int, r_adults: int, r_children: int) -> bool:\n        return (r_adults >= g_adults) and (r_children >= g_children)\n\n    mask_capacity = cross.apply(\n        lambda x: capacity_ok(x[\"Adults_g\"], x[\"Children_g\"], x[\"Adults_r\"], x[\"Children_r\"]), axis=1\n    )",
+      "intent": "Require sufficient adult capacity and child capacity separately."
+    },
+    {
+      "id": "8_C1_bed_preference_token_in_features",
+      "kind": "Row-level concept",
+      "node_id": "filt",
+      "op": "filter",
+      "source_text": "Filter so that double/twin bed preferences are adhered to",
+      "ref": "    def bed_ok(guest_bed: str, features: set) -> bool:\n        gb = str(guest_bed).strip()\n        return gb in features\n\n    mask_bed = cross.apply(lambda x: bed_ok(x[\"Double/Twin\"], x[\"_features_set\"]), axis=1)",
+      "intent": "Require the preferred bed type as a room feature token."
+    },
+    {
+      "id": "9_C1_accessible_room_requires_accessible_feature",
+      "kind": "Row-level concept",
+      "node_id": "filt",
+      "op": "filter",
+      "source_text": "Ensure guests who have accessibility requirements are only matched with accessible rooms",
+      "ref": "    def accessible_ok(need_access: bool, features: set) -> bool:\n        if not need_access:\n            return True\n        return \"Accessible\" in features\n\n    mask_access = cross.apply(lambda x: accessible_ok(x[\"Requires Accessible Room?\"], x[\"_features_set\"]), axis=1)",
+      "intent": "A party requiring accessibility must have the Accessible room feature."
+    },
+    {
+      "id": "10_C2_additional_requests_count_comma_tokens",
+      "kind": "Row-level concept",
+      "node_id": "g_norm",
+      "op": "project",
+      "source_text": "we want to know how many Additional Requests each guest has made",
+      "ref": "    def parse_requests(val: object) -> List[str]:\n        if pd.isna(val) or str(val).strip() == \"\":\n            return []\n        parts = [p.strip() for p in str(val).split(\",\")]\n        parts = [p for p in parts if p != \"\"]\n        return parts\n\n    guests[\"_requests_list\"] = guests[\"Additional Requests\"].apply(parse_requests)\n    guests[\"_requests_cnt\"] = guests[\"_requests_list\"].apply(len)",
+      "intent": "Count comma-separated request tokens."
+    },
+    {
+      "id": "11_O2_blank_additional_requests_counts_as_zero",
+      "kind": "Operation incomplete",
+      "node_id": "g_norm",
+      "op": "project",
+      "intent": "Blank requests count as zero.",
+      "ref": "    def parse_requests(val: object) -> List[str]:\n        if pd.isna(val) or str(val).strip() == \"\":\n            return []",
+      "source_text": "Treat `null` (and blank) `Additional Requests` as “no requests”, i.e., a request count of `0`."
+    },
+    {
+      "id": "12_O3_keep_all_ties_for_max_satisfaction",
+      "kind": "Operation inconsistent",
+      "node_id": "keep_max",
+      "op": "filter",
+      "source_text": "Filter so that guests are only left with rooms with the highest Request Satisfaction %",
+      "ref": "    filt[\"_max_pct\"] = filt.groupby([\"Party\"])['Request Satisfaction %'].transform('max')\n    filt = filt[filt[\"Request Satisfaction %\"] == filt[\"_max_pct\"]].copy()",
+      "intent": "Keep every room tied for maximum satisfaction for each party."
+    },
+    {
+      "id": "13_D1_source_blank_room_capacity",
+      "kind": "Row-level concept",
+      "source_text": "For room Children capacity that is blank in the input, treat it as zero when matching. In the output, either consistently preserve those source blanks or consistently report zero for them; capacities explicitly present in the input must remain unchanged.",
+      "intent": "For room Children capacity that is blank in the input, treat it as zero when matching. In the output, either consistently preserve those source blanks or consistently report zero for them; capacities explicitly present in the input must remain unchanged.",
+      "ref": "inputs/input_02.csv: blank Children capacity; reference/solution.py fills it with zero. Both output representations are accepted by the user-approved contract."
+    }
+  ]
+}

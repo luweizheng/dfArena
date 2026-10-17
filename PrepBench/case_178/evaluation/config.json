@@ -1,0 +1,58 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Store Name",
+        "Region",
+        "Quantity"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Store Name": {
+          "type": "text_exact"
+        },
+        "Region": {
+          "type": "text_exact"
+        },
+        "Quantity": {
+          "type": "integer"
+        },
+        "Present in N orders": {
+          "type": "integer"
+        },
+        "Sale Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    },
+    "output_02.csv": {
+      "key": [
+        "Store Name",
+        "Region",
+        "Quantity"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Store Name": {
+          "type": "text_exact"
+        },
+        "Region": {
+          "type": "text_exact"
+        },
+        "Quantity": {
+          "type": "integer"
+        },
+        "Present in N orders": {
+          "type": "integer"
+        },
+        "Sale Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    }
+  }
+}
