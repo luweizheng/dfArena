@@ -2491,7 +2491,7 @@ pandas 对未能用 lookup 补齐 Code 的记录未按规则剔除；其最后�
 
 本批从main `57a3d6e`建立独立分支`curate/prepbench-199-180`，按199→180审核。原始来源为只读本地PrepBench副本；逐文件来源哈希、原资产快照、参考回放及核算证据保留在本地`curation/output/<case>/`，不是仓库运行依赖。20题曾做导入检查；最终保留18题，逐题完成领域分类、契约核对、固定环境参考回放、独立核算及评分边界验证。191、192仅保留本地原始文件与排除说明，不交付可运行任务目录。正式运行与未覆盖边界见逐题记录。交付分支从最新main `19aa209`建立，不改动共享评分器或运行器；参考镜像为`sha256:89b6eb5a3313c26423d8bbebe9edea96e22a3d3de580a4626c671ebcb2f83570`（Python 3.11.16、pandas 2.3.3）。
 
-**交付复核（2026-10-17）。** 18题的domain按根README分类（business 11题、sports 6题、media_culture 1题），metadata输入表数/列数、KB原文引用/intent、输出schema、任务及评分版本均已核对。交付副本中18份GT自比、18份固定环境reference输出、54份最终正式候选复评通过；头表逐项核对r001原报告，184/198后续r002通过另记。公共评分测试46项、PrepBench脚本测试14项通过。额外Windows检查发现main已有的runner测试2个权限子断言失败及1个SQLite临时文件清理错误、DAB超时返回码1项失败；相关代码与main逐字节一致，本PR不改动公共运行器，不声称这些检查通过。本地复核证据`curation/output/delivery_preflight_199_180.json`不随任务发布。
+**交付复核（2026-10-17）。** 18题的domain按根README分类（business 10题、finance 1题、sports 6题、media_culture 1题），metadata输入表数/列数、KB原文引用/intent、输出schema、任务及评分版本均已核对。交付副本中18份GT自比、18份固定环境reference输出、54份最终正式候选复评通过；头表逐项核对r001原报告，184/198后续r002通过另记。公共评分测试46项、PrepBench脚本测试14项通过。额外Windows检查发现main已有的runner测试2个权限子断言失败及1个SQLite临时文件清理错误、DAB超时返回码1项失败；相关代码与main逐字节一致，本PR不改动公共运行器，不声称这些检查通过。本地复核证据`curation/output/delivery_preflight_199_180.json`不随任务发布。
 
 ### 199：比赛分数整理（审核及正式实验完成）
 
