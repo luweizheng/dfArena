@@ -1,0 +1,56 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Series",
+        "Week",
+        "Player"
+      ],
+      "columns": {
+        "Series": {
+          "type": "integer"
+        },
+        "Week": {
+          "type": "integer"
+        },
+        "Player": {
+          "type": "text_exact"
+        },
+        "Original Rank": {
+          "type": "integer"
+        },
+        "Rank without double points Friday": {
+          "type": "integer"
+        },
+        "Change in winner with no double points Friday?": {
+          "type": "boolean"
+        },
+        "Rank based on Score": {
+          "type": "integer"
+        },
+        "Change in winner based on Score?": {
+          "type": "boolean"
+        },
+        "Rank if Double Score Friday": {
+          "type": "integer"
+        },
+        "Change in winner if Double Score Friday?": {
+          "type": "boolean"
+        },
+        "Score": {
+          "type": "integer"
+        },
+        "Points": {
+          "type": "integer"
+        },
+        "Score if double Friday": {
+          "type": "integer"
+        },
+        "Points without double points Friday": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

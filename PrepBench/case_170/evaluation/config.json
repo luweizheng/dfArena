@@ -1,0 +1,47 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Product",
+        "Store"
+      ],
+      "columns": {
+        "Product Size": {
+          "type": "text_exact"
+        },
+        "Scent": {
+          "type": "text_exact"
+        },
+        "Product": {
+          "type": "text_exact"
+        },
+        "Store": {
+          "type": "text_exact"
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Product Code"
+      ],
+      "columns": {
+        "Sales with the wrong size": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Product Code": {
+          "type": "text_exact"
+        },
+        "Product Size": {
+          "type": "text_exact"
+        },
+        "Scent": {
+          "type": "text_exact"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

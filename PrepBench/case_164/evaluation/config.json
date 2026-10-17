@@ -1,0 +1,52 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Customer ID"
+      ],
+      "columns": {
+        "Customer ID": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "First Name": {
+          "type": "text_exact"
+        },
+        "Last Name": {
+          "type": "text_exact"
+        },
+        "Sales": {
+          "type": "number",
+          "abs_tol": 1e-09,
+          "rel_tol": 0
+        },
+        "% of Total": {
+          "type": "number",
+          "abs_tol": 1e-12,
+          "rel_tol": 0
+        },
+        "Running % of Total Sales": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true,
+      "alternative_gt": {
+        "unrounded_share": "unrounded_share/output_01.csv"
+      }
+    },
+    "output_02.csv": {
+      "key": [
+        "Result"
+      ],
+      "columns": {
+        "Result": {
+          "type": "text_exact"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

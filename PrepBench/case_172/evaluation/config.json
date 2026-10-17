@@ -1,0 +1,68 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Shop",
+        "Date"
+      ],
+      "columns": {
+        "Shop": {
+          "type": "text_exact"
+        },
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "% Orders Shipped in 3 days": {
+          "type": "number",
+          "abs_tol": 1e-12,
+          "rel_tol": 0
+        },
+        "Target - % Orders Shipped in 3 days": {
+          "type": "number",
+          "abs_tol": 1e-12,
+          "rel_tol": 0
+        },
+        "% Orders Shipped in 5 days": {
+          "type": "number",
+          "abs_tol": 1e-12,
+          "rel_tol": 0
+        },
+        "Target - % Orders Shipped in 5 days": {
+          "type": "number",
+          "abs_tol": 1e-12,
+          "rel_tol": 0
+        },
+        "% Returns Processed in 3 days": {
+          "type": "number",
+          "abs_tol": 1e-12,
+          "rel_tol": 0
+        },
+        "Target - % Returns Processed in 3 days": {
+          "type": "number",
+          "abs_tol": 1e-12,
+          "rel_tol": 0
+        },
+        "% Returns Processed in 5 days": {
+          "type": "number",
+          "abs_tol": 1e-12,
+          "rel_tol": 0
+        },
+        "Target - % Returns Processed in 5 days": {
+          "type": "number",
+          "abs_tol": 1e-12,
+          "rel_tol": 0
+        },
+        "# Complaints Received": {
+          "type": "integer"
+        },
+        "Target - # Complaints Received": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

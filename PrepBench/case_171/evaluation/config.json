@@ -1,0 +1,39 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "First Name",
+        "Last Name",
+        "Email",
+        "Online/In Person",
+        "Session not attended"
+      ],
+      "columns": {
+        "Company": {
+          "type": "text_exact"
+        },
+        "First Name": {
+          "type": "text_exact"
+        },
+        "Last Name": {
+          "type": "text_exact"
+        },
+        "Email": {
+          "type": "text_exact"
+        },
+        "Online/In Person": {
+          "type": "text_exact"
+        },
+        "Session not attended": {
+          "type": "text_exact"
+        },
+        "Not Attended %": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_distinct_order_count",
+      "kind": "Group-level concept",
+      "node_id": "agg",
+      "op": "aggregate",
+      "source_text": "count the number of orders that has the combination of Store, Region and Quantity",
+      "ref": "'Present in N orders': ('Order ID', 'nunique')",
+      "intent": "Count distinct Order ID values within each Store Name, Region and standardized Quantity group."
+    },
+    {
+      "id": "2_C1_product_type_filter_rule",
+      "kind": "Row-level concept",
+      "node_id": "filter",
+      "op": "filter",
+      "source_text": "Create two paths in your flow based on `Product Type`:",
+      "ref": "df[df['Product Type'] == 'Bar']; df[df['Product Type'] == 'Liquid']",
+      "intent": "Process Bar and Liquid product types separately."
+    },
+    {
+      "id": "4_O2_bar_quantity_integer_extraction",
+      "kind": "Operation incomplete",
+      "node_id": "project_bar_prepare",
+      "op": "project",
+      "source_text": "Clean the Quantity field to just leave values",
+      "ref": "df_proc['Quantity'].str.extract('(\\d+)').astype(int)",
+      "intent": "Extract the integer count from the Bar quantity text."
+    },
+    {
+      "id": "5_O2_liquid_quantity_decimal_extraction",
+      "kind": "Operation incomplete",
+      "node_id": "project_liquid_prepare",
+      "op": "project",
+      "source_text": "For Liquid, ensure every value is in millilitres",
+      "ref": "df_proc['Quantity'].str.extract('(\\d+\\.?\\d*)').astype(float)",
+      "intent": "Extract the numeric magnitude, including decimals, from Liquid quantity text."
+    },
+    {
+      "id": "6_C2_liquid_litres_to_ml",
+      "kind": "Row-level concept",
+      "node_id": "project_liquid_prepare",
+      "op": "project",
+      "source_text": "For Liquid, ensure every value is in millilitres",
+      "ref": "row['Value'] * 1000 if row['Unit'].lower() == 'l'",
+      "intent": "Convert litres to millilitres by multiplying by 1000; retain millilitre quantities."
+    },
+    {
+      "id": "7_O2_cast_sale_value_numeric",
+      "kind": "Operation incomplete",
+      "node_id": "project_split",
+      "op": "project",
+      "source_text": "Sum up the sales for each combination",
+      "ref": "pd.to_numeric(df['Sale Value'])",
+      "intent": "Treat Sale Value as numeric and sum it within each group."
+    },
+    {
+      "id": "8_O2_split_product_name_on_delimiter",
+      "kind": "Row-level concept",
+      "node_id": "project_split",
+      "op": "project",
+      "source_text": "Separate out the Product Name field to form Product Type and Quantity",
+      "ref": "df['Product Name'].str.split(' - ', expand=True)",
+      "intent": "Split Product Name into Product Type and Quantity at the space-hyphen-space delimiter."
+    }
+  ]
+}

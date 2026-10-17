@@ -33,6 +33,10 @@ def column_rule(value):
         allowed |= {'abs_tol', 'rel_tol'}
     if kind in {'date', 'datetime', 'time'}:
         allowed.add('formats')
+    if kind == 'datetime':
+        allowed.add('assume_timezone')
+    if 'assume_timezone' in rule and rule['assume_timezone'] != 'UTC':
+        raise ConfigError('assume_timezone supports only explicit UTC')
     if set(rule) - allowed:
         raise ConfigError(f'Unsupported column options: {sorted(set(rule) - allowed)}')
     if 'null_values' in rule and (not isinstance(rule['null_values'], list) or
@@ -103,8 +107,11 @@ def load_config(path):
     for name, spec in raw['files'].items():
         if not name or '/' in name or '\\' in name or not name.lower().endswith('.csv'):
             raise ConfigError(f'Expected a plain CSV filename: {name!r}')
-        if not isinstance(spec, dict) or set(spec) - {'columns', 'key', 'ignore_order', 'order_by', 'order_mode', 'alternative_gt'}:
+        if not isinstance(spec, dict) or set(spec) - {'columns', 'key', 'ignore_order', 'order_by', 'order_mode', 'alternative_gt', 'csv_quoting'}:
             raise ConfigError(f'Invalid file options for {name}')
+        quoting = spec.get('csv_quoting', 'standard')
+        if quoting not in ('standard', 'standard_or_backslash'):
+            raise ConfigError(f'{name}: unsupported csv_quoting')
         alternatives = spec.get('alternative_gt', {})
         if not isinstance(alternatives, dict):
             raise ConfigError(f'{name}: alternative_gt must map labels to relative CSV paths')
@@ -145,6 +152,8 @@ def load_config(path):
                 raise ConfigError(f'{name}: order_by requires distinct declared columns, direction asc/desc, nulls first/last')
             seen.add(item['column'])
         result[name] = {'columns': cols, 'key': key, 'ignore_order': ignore, 'order_by': order}
+        if quoting != 'standard':
+            result[name]['csv_quoting'] = quoting
         if mode == 'gt_position':
             result[name]['order_mode'] = mode
         if alternatives:

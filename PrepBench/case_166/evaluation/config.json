@@ -1,0 +1,72 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "ID",
+        "Month Divider"
+      ],
+      "columns": {
+        "Cumulative Monthly Cost": {
+          "type": "text_exact"
+        },
+        "ID": {
+          "type": "text_exact"
+        },
+        "Country": {
+          "type": "text_exact"
+        },
+        "City": {
+          "type": "text_exact"
+        },
+        "Address": {
+          "type": "text_exact"
+        },
+        "Company": {
+          "type": "text_exact"
+        },
+        "Office Size": {
+          "type": "text_exact"
+        },
+        "Contract Start": {
+          "type": "text_exact"
+        },
+        "Contract End": {
+          "type": "text_exact"
+        },
+        "Contract Length": {
+          "type": "text_exact"
+        },
+        "Months Until Expiry": {
+          "type": "text_exact"
+        },
+        "People": {
+          "type": "text_exact"
+        },
+        "Per Person": {
+          "type": "text_exact"
+        },
+        "Rent per Month": {
+          "type": "text_exact"
+        },
+        "Month Divider": {
+          "type": "text_exact"
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Year"
+      ],
+      "columns": {
+        "Year": {
+          "type": "text_exact"
+        },
+        "EoY and Current": {
+          "type": "text_exact"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "From",
+        "To",
+        "Airline",
+        "Flight number"
+      ],
+      "columns": {
+        "Rank": {
+          "type": "integer"
+        },
+        "From": {
+          "type": "text_exact"
+        },
+        "To": {
+          "type": "text_exact"
+        },
+        "Route": {
+          "type": "text_exact"
+        },
+        "Airline": {
+          "type": "text_exact"
+        },
+        "Flight number": {
+          "type": "text_exact"
+        },
+        "Distance - mi": {
+          "type": "integer"
+        },
+        "Distance - km": {
+          "type": "integer"
+        },
+        "Scheduled duration": {
+          "type": "time"
+        },
+        "Aircraft": {
+          "type": "text_exact"
+        },
+        "First flight": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "From Lat": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "From Lng": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "To Lat": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "To Lng": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

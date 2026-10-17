@@ -1,0 +1,98 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Customer ID",
+        "Year",
+        "Row ID"
+      ],
+      "columns": {
+        "Customer Classification": {
+          "type": "text_exact"
+        },
+        "YoY Difference": {
+          "type": "integer"
+        },
+        "Order?": {
+          "type": "text_exact"
+        },
+        "Year": {
+          "type": "integer"
+        },
+        "First Purchase": {
+          "type": "integer"
+        },
+        "Row ID": {
+          "type": "integer"
+        },
+        "Order ID": {
+          "type": "text_exact"
+        },
+        "Order Date": {
+          "type": "text_exact"
+        },
+        "Ship Date": {
+          "type": "text_exact"
+        },
+        "Ship Mode": {
+          "type": "text_exact"
+        },
+        "Customer Name": {
+          "type": "text_exact"
+        },
+        "Segment": {
+          "type": "text_exact"
+        },
+        "Country/Region": {
+          "type": "text_exact"
+        },
+        "City": {
+          "type": "text_exact"
+        },
+        "State": {
+          "type": "text_exact"
+        },
+        "Postal Code": {
+          "type": "integer"
+        },
+        "Region": {
+          "type": "text_exact"
+        },
+        "Product ID": {
+          "type": "text_exact"
+        },
+        "Category": {
+          "type": "text_exact"
+        },
+        "Sub-Category": {
+          "type": "text_exact"
+        },
+        "Product Name": {
+          "type": "text_exact"
+        },
+        "Sales": {
+          "type": "number",
+          "abs_tol": 1e-09,
+          "rel_tol": 0
+        },
+        "Quantity": {
+          "type": "integer"
+        },
+        "Discount": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Profit": {
+          "type": "number",
+          "abs_tol": 1e-09,
+          "rel_tol": 0
+        },
+        "Customer ID": {
+          "type": "text_exact"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

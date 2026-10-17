@@ -9,6 +9,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 from .config import ConfigError, load_config
+from .csv_compat import compatible_rows
 from .normalization import equal, normalize
 
 
@@ -45,6 +46,11 @@ class Evaluator:
             self.report['protocol_version'] = 'dfarena-table-v6'
         if any(s.get('order_mode') == 'gt_position' for s in cfg['files'].values()):
             self.report['protocol_version'] = 'dfarena-table-v7'
+        if any(c.get('assume_timezone') == 'UTC'
+               for s in cfg['files'].values() for c in s['columns'].values()):
+            self.report['protocol_version'] = 'dfarena-table-v8'
+        if any(s.get('csv_quoting') == 'standard_or_backslash' for s in cfg['files'].values()):
+            self.report['protocol_version'] = 'dfarena-table-v9'
         try:
             gt = self._files(self.gt_dir, 'gt')
             cand = self._files(self.cand_dir, 'candidate')
@@ -83,7 +89,7 @@ class Evaluator:
             fail('READ_ERROR', f'Directory not found: {path}', side)
         return {p.name: p for p in sorted(path.iterdir()) if p.is_file() and p.suffix.lower() == '.csv'}
 
-    def _read(self, path, side, columns):
+    def _read(self, path, side, columns, quoting='standard'):
         try:
             data = path.read_bytes()
             asset_name = path.relative_to(self.gt_dir).as_posix() if side == 'gt' else path.name
@@ -92,7 +98,12 @@ class Evaluator:
                 text = data.decode('utf-8-sig')
             except UnicodeDecodeError:
                 text = data.decode('latin-1')
-            reader = csv.reader(io.StringIO(text, newline=''), strict=True)
+            if quoting == 'standard_or_backslash':
+                values, dialect = compatible_rows(text)
+                reader = iter(values)
+                self.report['files'][self.current_file].setdefault('csv_dialects', {})[asset_name if side == 'gt' else 'candidate'] = dialect
+            else:
+                reader = csv.reader(io.StringIO(text, newline=''), strict=True)
             header = next(reader, None)
             if not header or len(set(header)) != len(header):
                 fail('READ_ERROR', 'Missing or duplicate CSV headers', side)
@@ -103,7 +114,7 @@ class Evaluator:
                 if not values:  # blank lines, as in upstream CSV loading
                     continue
                 if len(values) != len(header):
-                    fail('READ_ERROR', 'CSV row width differs from header', side, line=reader.line_num)
+                    fail('READ_ERROR', 'CSV row width differs from header', side, line=getattr(reader, 'line_num', len(rows) + 2))
                 raw = dict(zip(header, values))
                 row = {}
                 for col, rule in columns.items():
@@ -223,8 +234,8 @@ class Evaluator:
         if spec.get('alternative_gt'):
             return self._evaluate_alternatives(gt_path, cand_path, spec)
         cols = spec['columns']
-        gt = self._read(gt_path, 'gt', cols)
-        cand = self._read(cand_path, 'candidate', cols)
+        gt = self._read(gt_path, 'gt', cols, spec.get('csv_quoting', 'standard'))
+        cand = self._read(cand_path, 'candidate', cols, spec.get('csv_quoting', 'standard'))
         status = self.report['files'][gt_path.name]
         status.update(gt_rows=len(gt), candidate_rows=len(cand))
         positional = spec.get('order_mode') == 'gt_position'
@@ -260,13 +271,13 @@ class Evaluator:
         golds = {}
         for label, path in paths.items():
             try:
-                golds[label] = self._read(path, 'gt', cols)
+                golds[label] = self._read(path, 'gt', cols, spec.get('csv_quoting', 'standard'))
                 if not spec['ignore_order']:
                     self._check_order(golds[label], spec['order_by'], 'gt')
             except EvaluationFailure as exc:
                 exc.detail['variant'] = label
                 raise
-        cand = self._read(cand_path, 'candidate', cols)
+        cand = self._read(cand_path, 'candidate', cols, spec.get('csv_quoting', 'standard'))
         status = self.report['files'][gt_path.name]
         status.update(candidate_rows=len(cand), gt_rows=len(golds['primary']),
                       accepted_variants=list(paths))

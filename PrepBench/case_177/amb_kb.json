@@ -1,0 +1,67 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O1_top_100_inclusive",
+      "kind": "Operation boundary",
+      "node_id": "filter_top",
+      "op": "filter",
+      "source_text": "Filter to the overall top 100 artists",
+      "ref": "output.loc[output[\"Overall Rank\"] <= 100]",
+      "intent": "Keep every artist with Overall Rank at most 100."
+    },
+    {
+      "id": "2_D2_overall_to_yearly_left_join",
+      "kind": "Multi-table alignment",
+      "node_id": "join_totals",
+      "op": "join",
+      "intent": "Left join yearly ranks to overall ranks on Artist Name.",
+      "ref": "output = totals.merge(pivot, on=\"Artist Name\", how=\"left\")",
+      "source_text": "Left-join the wide yearly table to the overall ranking table on `Artist Name` so every artist with an overall rank is retained."
+    },
+    {
+      "id": "3_C2_yearly_rank_ties",
+      "kind": "Group-level concept",
+      "node_id": "project_add_ranks",
+      "op": "project",
+      "source_text": "For each year, find the ranking of the artists",
+      "ref": "year_group[\"Ranking\"] = year_group.groupby(\"Year\")[\"Yearly Mins\"].rank(method=\"min\", ascending=False).astype(int)",
+      "intent": "Rank yearly totals descending with competition ranking: tied totals share the minimum rank and subsequent ranks skip positions."
+    },
+    {
+      "id": "4_D1_year_from_ts_field",
+      "kind": "Single-table reference",
+      "node_id": "project_enrich",
+      "op": "project",
+      "source_text": "Extract the year from the timestamp field",
+      "ref": "df[\"Year\"] = pd.to_datetime(df[\"ts\"]).dt.year",
+      "intent": "Extract the calendar year from ts."
+    },
+    {
+      "id": "6_O2_missing_year_columns_null",
+      "kind": "Operation incomplete",
+      "node_id": "project_pivot_post",
+      "op": "project",
+      "intent": "Include columns 2015 through 2022; absent artist-year rankings remain NULL.",
+      "ref": "pivot.reindex(columns=year_columns)",
+      "source_text": "Ensure the year columns exist in the final output for all years 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022 (values should be missing/NULL where an artist has no ranking for that year)."
+    },
+    {
+      "id": "7_C2_overall_rank_ties",
+      "kind": "Group-level concept",
+      "node_id": "project_rank",
+      "op": "project",
+      "source_text": "Rank the artists by total minutes played overall",
+      "ref": "totals[\"Total Mins\"].rank(method=\"min\", ascending=False)",
+      "intent": "Rank overall totals descending with competition ranking: equal totals share the minimum rank and subsequent ranks skip positions."
+    },
+    {
+      "id": "8_O1_round_each_listen_before_sum",
+      "kind": "Operation boundary",
+      "node_id": "project_enrich",
+      "op": "project",
+      "source_text": "Convert each listening record to minutes and round it to 2 decimal places before summing the rounded minutes for overall and yearly artist rankings.",
+      "intent": "Convert each record from milliseconds to minutes and round to two decimal places before aggregation for both overall and yearly rankings. Equal rounded totals must remain tied, without floating-point artifacts.",
+      "ref": "query.md: per-record rounding before aggregation; reference/solution.py: integer Minute Hundredths summation."
+    }
+  ]
+}
