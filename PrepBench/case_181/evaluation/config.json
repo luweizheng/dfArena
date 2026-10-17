@@ -1,0 +1,27 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Store Name",
+        "Sales Person"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Store Name": "text_exact",
+        "Sales Person": "text_exact",
+        "Region": "text_exact",
+        "Percent of Store Sales": "integer",
+        "Sale Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Sales per Person": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    }
+  }
+}

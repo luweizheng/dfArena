@@ -1,0 +1,76 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_D2_join_key_product",
+      "kind": "Multi-table alignment",
+      "node_id": "join_prod",
+      "op": "join",
+      "source_text": "Link in the product Lookup to name the products instead of having their ID number",
+      "ref": "combined = combined.merge(product_lookup, on=\"Product\", how=\"left\")",
+      "intent": "Join sales Product to lookup Product ID."
+    },
+    {
+      "id": "2_O2_join_how_left",
+      "kind": "Operation incomplete",
+      "node_id": "join_prod",
+      "op": "join",
+      "source_text": "Link in the product Lookup to name the products instead of having their ID number",
+      "ref": "how=\"left\"",
+      "intent": "Use a left join retaining all sales."
+    },
+    {
+      "id": "3_D1_online_timestamp_rename",
+      "kind": "Single-table reference",
+      "node_id": "online_std",
+      "op": "project",
+      "source_text": "Link the Instore and Online sales together to be one data source",
+      "ref": "online_sales = online_sales.rename(columns={\"Sales Timestamp\": \"Sales Date\"})",
+      "intent": "Rename online Sales Timestamp to Sales Date before appending."
+    },
+    {
+      "id": "4_O2_datetime_parse",
+      "kind": "Operation boundary",
+      "node_id": "prep_sales",
+      "op": "project",
+      "source_text": "Workout how long it took between the original sale and the next sale in minutes",
+      "ref": "combined[\"Sales Date\"] = pd.to_datetime(combined[\"Sales Date\"], format=\"%d/%m/%Y %H:%M:%S\")",
+      "intent": "Parse timestamps as day/month/year hour:minute:second."
+    },
+    {
+      "id": "5_O2_product_type_from_first_word",
+      "kind": "Row-level concept",
+      "node_id": "prep_sales",
+      "op": "project",
+      "source_text": "Create the 'Product Type' field by taking the first word of the product name",
+      "ref": "combined[\"Product Type\"] = combined[\"Product Name\"].str.split().str[0]",
+      "intent": "Product Type is the first word of Product Name."
+    },
+    {
+      "id": "7_O2_drop_rows_without_next_sale",
+      "kind": "Operation incomplete",
+      "node_id": "valid_rows",
+      "op": "filter",
+      "source_text": "includes the next sale after the one made in the SAME store of the same product type",
+      "ref": "combined2 = combined2[combined2[\"Time Diff Minutes\"].notna()]",
+      "intent": "Exclude each group final sale because it has no next sale."
+    },
+    {
+      "id": "new_2_nonnegative_time_diff_filter",
+      "kind": "Operation boundary",
+      "node_id": "valid_rows",
+      "op": "filter",
+      "source_text": "Remove any negative differences. These are sales that got refunded.",
+      "ref": "combined2 = combined2[combined2[\"Time Diff Minutes\"] >= 0]",
+      "intent": "Remove negative time differences."
+    },
+    {
+      "id": "new_3_average_round_1dp",
+      "kind": "Operation boundary",
+      "node_id": "agg_average",
+      "op": "aggregate",
+      "source_text": "Report **Average mins to next sale** either as the unrounded mean (retaining floating-point precision) or rounded to 1 decimal place.",
+      "ref": "query_full.md: accepted precision representations; reference/solution.py emits the one-decimal representation.",
+      "intent": "Average successive-sale gaps per Store and Product Type. Report either unrounded means or means rounded to one decimal place, consistently across the table."
+    }
+  ]
+}

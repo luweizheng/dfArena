@@ -1,0 +1,130 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_d2_account_createdbyid_to_userid",
+      "kind": "Multi-table alignment",
+      "node_id": "acct_join_created",
+      "op": "join",
+      "intent": "Map Account CreatedById to User.Id to derive Account Created By Name.",
+      "ref": "acct[\"Account Created By Name\"] = acct[\"Account CreatedById\"].map(name_map)",
+      "source_text": "`Account Created By Name` = User `Name` matched from `Account CreatedById`"
+    },
+    {
+      "id": "2_o2_account_createdby_no_match_null",
+      "kind": "Operation incomplete",
+      "node_id": "acct_join_created",
+      "op": "join",
+      "intent": "If Account CreatedById has no matching User.Id, leave Account Created By Name null.",
+      "ref": ".map(name_map)",
+      "source_text": "If there is no user match, these derived name fields must remain null."
+    },
+    {
+      "id": "3_d2_account_ownerid_to_userid",
+      "kind": "Multi-table alignment",
+      "node_id": "acct_join_owner",
+      "op": "join",
+      "intent": "Map Account OwnerId to User.Id to derive Account Owner Name.",
+      "ref": "acct[\"Account Owner Name\"] = acct[\"Account OwnerId\"].map(name_map)",
+      "source_text": "`Account Owner Name` = User `Name` matched from `Account OwnerId`"
+    },
+    {
+      "id": "4_o2_account_owner_no_match_null",
+      "kind": "Operation incomplete",
+      "node_id": "acct_join_owner",
+      "op": "join",
+      "intent": "If Account OwnerId has no matching User.Id, leave Account Owner Name null.",
+      "ref": ".map(name_map)",
+      "source_text": "If there is no user match, these derived name fields must remain null."
+    },
+    {
+      "id": "5_c2_account_num_opps_distinct_count",
+      "kind": "Group-level concept",
+      "node_id": "acct_name_aggs",
+      "op": "aggregate",
+      "source_text": "`Number of Opportunities` = count of distinct `Opportunity ID` within each account group",
+      "ref": "\"Number of Opportunities\": (\"Opportunity ID\", pd.Series.nunique)",
+      "intent": "Number of Opportunities = count of distinct Opportunity ID within each account group"
+    },
+    {
+      "id": "6_c2_account_amount_sum",
+      "kind": "Group-level concept",
+      "node_id": "acct_name_aggs",
+      "op": "aggregate",
+      "source_text": "`Amount` = sum of Opportunity `Amount` within each account group",
+      "ref": "\"Amount\": (\"Amount\", \"sum\")",
+      "intent": "Amount = sum of Opportunity Amount within each account group"
+    },
+    {
+      "id": "7_o2_null_group_included_in_aggregation",
+      "kind": "Operation boundary",
+      "node_id": "aggs",
+      "op": "aggregate",
+      "intent": "Include rows with null values as their own group in aggregations.",
+      "ref": "groupby(..., dropna=False)",
+      "source_text": "Include groups where `Account Name` is null."
+    },
+    {
+      "id": "8_d2_opportunity_createdbyid_to_userid",
+      "kind": "Multi-table alignment",
+      "node_id": "opp_join_created",
+      "op": "join",
+      "intent": "Map Opportunity CreatedById to User.Id to derive Created By Name.",
+      "ref": "opp[\"Created By Name\"] = opp[\"CreatedById\"].map(name_map)",
+      "source_text": "`Created By Name` = User `Name` matched from Opportunity `CreatedById`"
+    },
+    {
+      "id": "9_o2_opportunity_createdby_no_match_null",
+      "kind": "Operation incomplete",
+      "node_id": "opp_join_created",
+      "op": "join",
+      "intent": "If CreatedById has no matching User.Id, leave Created By Name as null.",
+      "ref": ".map(name_map)",
+      "source_text": "These are lookups/joins on user ID; if there is no match, the derived name fields must remain null."
+    },
+    {
+      "id": "10_d2_opportunity_ownerid_to_userid",
+      "kind": "Multi-table alignment",
+      "node_id": "opp_join_owner",
+      "op": "join",
+      "intent": "Map Opportunity OwnerId to User.Id to derive Owner Name.",
+      "ref": "opp[\"Owner Name\"] = opp[\"OwnerId\"].map(name_map)",
+      "source_text": "`Owner Name` = User `Name` matched from Opportunity `OwnerId`"
+    },
+    {
+      "id": "11_o2_opportunity_owner_no_match_null",
+      "kind": "Operation incomplete",
+      "node_id": "opp_join_owner",
+      "op": "join",
+      "intent": "If OwnerId has no matching User.Id, leave Owner Name as null.",
+      "ref": ".map(name_map)",
+      "source_text": "These are lookups/joins on user ID; if there is no match, the derived name fields must remain null."
+    },
+    {
+      "id": "12_d2_opportunity_accountid_to_accountid",
+      "kind": "Multi-table alignment",
+      "node_id": "opp_with_account",
+      "op": "join",
+      "intent": "Join Opportunities to Accounts on AccountId = Account Id.",
+      "ref": "left_on=\"AccountId\", right_on=\"Account Id\"",
+      "source_text": "Left-join Opportunities to Accounts using Opportunity `AccountId` = Account `Account Id`."
+    },
+    {
+      "id": "13_o2_opportunity_keep_unmatched_accounts",
+      "kind": "Operation incomplete",
+      "node_id": "opp_with_account",
+      "op": "join",
+      "intent": "Keep all Opportunity rows even when no matching Account.",
+      "ref": "how=\"left\"",
+      "source_text": "Keep all Opportunity rows even if there is no matching Account; Account-related fields should be null when unmatched."
+    },
+    {
+      "id": "14_c2_owner_amount_sum",
+      "kind": "Group-level concept",
+      "node_id": "owner_sum",
+      "op": "aggregate",
+      "source_text": "Compute `Amount` as the sum of Opportunity `Amount` within each owner group.",
+      "ref": "[\"Amount\"].sum()",
+      "intent": "Compute Amount as the sum of Opportunity Amount within each owner group."
+    }
+  ]
+}

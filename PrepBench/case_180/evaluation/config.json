@@ -1,0 +1,43 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Store Name",
+        "PRODUCT"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Store Name": {
+          "type": "text_exact",
+          "aliases": {
+            "DULWICH": "Dulwich",
+            "CHELSEA": "Chelsea",
+            "WIMBLEDON": "Wimbledon",
+            "LEWISHAM": "Lewisham",
+            "NOTTING HILL": "Notting Hill",
+            "SHOREDITCH": "Shoreditch"
+          }
+        },
+        "PRODUCT": {
+          "type": "text_exact",
+          "aliases": {
+            "BAR": "Bar",
+            "LIQUID": "Liquid"
+          }
+        },
+        "Region": "text_exact",
+        "Target": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Sale Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Beats Target?": "boolean"
+      }
+    }
+  }
+}

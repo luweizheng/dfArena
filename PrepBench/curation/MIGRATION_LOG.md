@@ -103,6 +103,26 @@
 | 177 | 通过 | 通过 | 通过 | 未运行 |
 | 178 | 通过 | 未运行 | 通过 | 通过 |
 | 179 | 通过 | 通过 | 未运行 | 通过 |
+| 180 | 通过 | 通过 | 通过 | 未运行 |
+| 181 | 通过 | 通过 | 通过 | 未运行 |
+| 182 | 通过 | 通过 | 通过 | 未运行 |
+| 183 | 通过 | 通过 | 未运行 | 通过 |
+| 184 | 失败 | 未运行 | 失败 | 失败 |
+| 185 | 通过 | 通过 | 未运行 | 通过 |
+| 186 | 通过 | 未运行 | 通过 | 通过 |
+| 187 | 通过 | 通过 | 未运行 | 通过 |
+| 188 | 通过 | 未运行 | 通过 | 通过 |
+| 189 | 通过 | 通过 | 通过 | 未运行 |
+| 190 | 通过 | 未运行 | 通过 | 通过 |
+| 191 | 不纳入 | 不纳入 | 不纳入 | 不纳入 |
+| 192 | 不纳入 | 不纳入 | 不纳入 | 不纳入 |
+| 193 | 通过 | 未运行 | 通过 | 通过 |
+| 194 | 通过 | 未运行 | 通过 | 通过 |
+| 195 | 通过 | 未运行 | 通过 | 通过 |
+| 196 | 通过 | 未运行 | 通过 | 通过 |
+| 197 | 通过 | 未运行 | 通过 | 通过 |
+| 198 | 失败 | 失败 | 未运行 | 失败 |
+| 199 | 通过 | 通过 | 通过 | 未运行 |
 | 200 | 通过 | 未运行 | 通过 | 通过 |
 | 201 | 通过 | 通过 | 未运行 | 通过 |
 | 202 | 通过 | 通过 | 未运行 | 通过 |
@@ -212,6 +232,8 @@
 | 306 | 通过 | 通过 | 通过 | 未运行 |
 
 本批179—160头表保留首次正式生成r001的原始评价，后续改动重评及新题意r002单独记入逐题记录，不以之后通过替换首轮失败。每题固定pandas，加其余三后端中随机抽取两个；未选后端记未运行。资产与评估版本、问答和结果路径见本地各题interact_plan及formal_completion_audit记录，原始runs/output仅作本地证据，不作为仓库运行依赖。
+
+本批199—180头表保留首次正式生成r001的原始评价，后续改动重评及新题意r002单独记入逐题记录，不以之后通过替换首轮失败。每题固定pandas，加其余三后端中随机抽取两个；未选后端记未运行。资产与评估版本、问答和结果路径见本地各题interact_plan及formal_completion_audit记录，原始runs/output仅作本地证据，不作为仓库运行依赖。
 
 200—219 为本批新增审核记录：217 不纳入。除 218、200 使用题意修订后的 r002 外，其余保留题均使用当前任务首次正式生成 r001；211 首轮输出保留，头表使用已记录的配置修订后原输出重评结果（初评 pandas/Ibis 失败、PySpark 通过，重评三者通过）。210 pandas/Ibis 的真实关联错误保留为失败。200首轮三者因输入毫秒与GT整秒不同失败，配置修订后原输出均通过；另因full/KB修订重新生成r002，首轮不覆盖。头表不是最终 benchmark 排名，不以重复生成筛选通过。
 
@@ -2485,7 +2507,7 @@ pandas 对未能用 lookup 补齐 Code 的记录未按规则剔除；其最后�
 
 **版本。** 当前任务聚合SHA256 `bbecfcf12cdeb1fe30ed749af654278b483356f0a90ba5c082ecdf15f6d8674a`；运行资产及公开挂载已核对，本地 `run_audit_r002.json` 保留核验结果。
 
-## 2026-10-17：179—160审核与正式实验完成
+## 2026-10-17：160—179审核与正式实验完成
 
 本批20题60组最终评估全部通过；161 PySpark的原始CSV读取失败报告保留，经用户确认启用引号转义兼容后，对冻结输出重评通过。176、168、164的新题意r002已完成；配置或共享实现更新另存冻结输出重评，不覆盖原报告。解题模型gpt-6-astra（low），使用ChatGPT订阅；模拟用户gpt-6-astra（temperature=0），使用已授权API。pandas固定，另两个后端按保存的种子随机抽取；固定镜像与老师历史环境不完全相同，因此不据此比较后端能力。正式解题仅提供公开题意与输入，私有材料仅供模拟用户/评估侧。
 
@@ -2493,155 +2515,15 @@ pandas 对未能用 lookup 补齐 Code 的记录未按规则剔除；其最后�
 
 **交付复核（2026-10-17）。** 20题domain按根README分类：business 14题、media_culture 4题、geospatial与education各1题。metadata输入表数/列数、KB原文引用/intent/ref、输出schema、最终任务与评分版本核对通过。交付副本中20份GT自比、20份固定环境reference输出、60份最终正式候选复评通过；头表逐项核对r001原报告，176/168/164的后续r002单独记录。共享评分器55项及PrepBench脚本14项测试通过。本次未改运行器或DAB，不将此前其他测试范围的平台问题报告为已解决。本地复核证据`curation/output/delivery_preflight_179_160.json`不随任务发布。
 
-### 179：无销售日期的星期分布（审核及正式实验完成）
+### 160：客户年度队列（审核及正式实验完成）
 
-独立解析4063笔交易，2022-01-01至2022-12-31共有343个销售日、22个无销售日，按星期计数7行全部匹配GT。query没有最终行序要求，full额外要求周一至周日，而GT未按该顺序排列；用户确认删除full额外展示排序，reference/GT保留；同时删除query与业务无关的Prep Builder括注。评分以星期为键，名称精确、天数整数、展示行序不限；6项探针正确/倒序通过，错天数、错星期、缺行及重复拒绝。KB补准确引文。当前所有星期都有无销售日期，未覆盖零计数星期是否输出；领域business。正式interact已完成。证据curation/output/179/independent_check.json。
+**决定与验证。** 独立构建客户首购年至全局末年的年度框架，保留原订单并补无订单行，计算分类、队列去重人数及同比差，10396行全部匹配GT。删除full最终展示排序，保留计算所需按年顺序；尊重query明确的日期文本及Order?的0/1要求。按客户＋年份＋原Row ID核对，空值/重复数量继续检查。
 
-**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；polars r001最终配置重评通过（ask_user 1轮）；pyspark r001最终配置重评通过（ask_user 2轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/179/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/160/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
 
-### 178：肥皂规格销售汇总（审核及正式实验完成）
+**金额浮点复核。** 160的r001三个后端均有Sales/Profit浮点尾差；pandas逐列独立对齐10396行，最大差分别3e-12、2.1e-12，其他字段一致。仅这两列绝对容差改为1e-9、相对容差0；三份冻结输出全部重评通过，1e-8及0.0001金额错误反例仍拒绝。query/full/KB、reference和GT不变，明确日期文本与Order?的0/1要求不放宽。保留首轮失败；证据float_tolerance_validation.json、final_config_regrade.json。
 
-用户确认在英文query Output补明output_01为Bar、output_02为Liquid；full/reference/GT不变。独立十进制汇总及订单ID集合计数，Bar18行、Liquid42行共60行全部一致；60个分组均存在重复订单ID，已核对去重计数。输入包含1L换算1000ml，全部换算为整数规格；未覆盖非整数毫升。评分按门店＋地区＋规格对齐，精确金额及整数订单数，行序不限；8项探针正确/倒序通过，互换文件、错单位/订单数/销售额、缺行/重复拒绝。KB修正非原文拼接引文并补明确intent，领域business。固定镜像参考已回放，正式interact已完成。证据curation/output/178/。
-
-**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；ibis r001最终配置重评通过（ask_user 1轮）；pyspark r001最终配置重评通过（ask_user 1轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/178/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
-
-### 177：歌手年度播放排名（审核及正式实验完成）
-
-用户确认修复浮点累加拆散并列。reference保留原逐条两位小数舍入，再转换为整数百分之一分钟汇总排名；不改既有并列占名次规则。独立以毫秒整数除600并处理舍入核算，修复版本100行全部一致，100位歌手及总榜排名不变，9处年度排名更正，包括Seether2021 134→133、Paramore2021 740→737。旧资产保留curation/output/177/before_rank_fix/，逐字段差异rank_fix_verification.json。评分改用歌手业务键及整数名次，5项探针正确通过，旧浮点名次、错误排名、缺行及重复拒绝；领域media_culture。用户随后确认在英文query补明每条播放先换算分钟并保留两位，再汇总整体及年度排名；KB同步该顺序及明确并列规则，不公开具体答案。用户确认删除full额外最终展示排序，排名计算和GT内容不变；追加倒序答案通过、错年度排名和缺年份填0拒绝，共8项评分探针完成。静态审核完成，正式interact已完成。
-
-**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 2轮）；polars r001最终配置重评通过（ask_user 2轮）；ibis r001最终配置重评通过（ask_user 1轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/177/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
-
-### 176：宾客与客房匹配（审核及正式实验完成）
-
-**决定与验证。** 独立遍历容量、床型、无障碍、正反请求、最高分并列及大房排除，220行匹配GT。移除full额外展示排序；按Party＋Room核对，人数与评分整数、无障碍布尔，Y/N与True/False等价。未覆盖无匹配宾客等所有潜在输入。
-
-**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/176/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
-
-**容量表示补审。** r001 pandas/PySpark通过、Ibis失败；Ibis的220组搭配及其他字段均正确，仅保留输入房间Children容量的空白，而GT填0。用户确认只兼容源输入缺值房间的空白/0。full与KB明确筛选按0、输出两种一致表示；配置增加source_blank整表替代GT，不放宽已有容量或其他数值。8项正反例通过，三个冻结输出新配置重评通过，原正式报告保留。新题意已完成r002重新生成；证据capacity_compatibility_checks.json、r001_capacity_regrade.json。
-
-**正式运行复核（2026-10-17）**。pandas r002最终配置重评通过（ask_user 2轮）；ibis r002最终配置重评通过（ask_user 1轮）；pyspark r002最终配置重评通过（ask_user 2轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/176/formal_completion_audit.json`及`interact_plan_r002.json`记录版本和正式报告路径。 首轮失败与独立重评报告保留，r002为修改full/KB后的重新生成，不替换r001历史结果。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
-
-### 175：最长航线整理（审核及正式实验完成）
-
-**决定与验证。** 独立用城市字典识别机场后缀、提取双单位距离、密集排名及解析首航日期，31行匹配GT。删除full额外名次展示排序，保留距离排名；按航线＋航空公司＋航班号对齐，日期/时长语义比较，距离/名次整数、坐标精确数值。领域geospatial；当前所有城市均有坐标，未覆盖未匹配左连接分支。
-
-**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/175/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
-
-**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 2轮）；ibis r001最终配置重评通过（ask_user 2轮）；pyspark r001最终配置重评通过（ask_user 2轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/175/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
-
-### 174：商机阶段时间线（审核及正式实验完成）
-
-**决定与验证。** 独立并集及全字段去重复现876行。query要求将已关闭商机的关闭日期改为终态，full/reference只追加未关闭商机：实际146个已关闭商机的同日同终态均已在历史表中，当前结果不缺失，未机械重写题意。按商机＋日期＋阶段对齐、整数SortOrder，记录潜在来源覆盖限制。
-
-**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/174/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
-
-**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；pyspark r001最终配置重评通过（ask_user 2轮）；polars r001最终配置重评通过（ask_user 1轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/174/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
-
-### 173：对白持续时间（审核及正式实验完成）
-
-**决定与验证。** 独立按episode下一不同时间计算并展开说话人，270809行；runtime未插入任何实际相邻时间之间。与字面输入的8处差异是7段尾部空白及1条数值样式对白。沿用等价表示兼容原则，full/KB允许原文精度或六位表示及尾部空白保留/移除，配置仅列出当前输入已确认的8组等价文本，不做全文模糊匹配；GT不变。按episode＋说话人＋起始秒＋链接分组，仍逐条检查时长、对白与重复数量。
-
-**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/173/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
-
-**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 2轮）；polars r001最终配置重评通过（ask_user 2轮）；ibis r001最终配置重评通过（ask_user 3轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/173/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
-
-### 172：门店月度指标（审核及正式实验完成）
-
-**决定与验证。** 独立按表头位置、部门/目标填充、月份列、五种指标及目标换算重建120行，与GT一致。query补匿名文件对应12家门店；full补已有的逐文件Department/Target填充说明并删除自定义展示排序，KB同步。按Shop＋Date对齐，投诉整数、比例绝对容差1e-12仅兼容输入二进制尾差（不保留旧2%容差）。当前月度比例均落在两位有效小数，未验证更高精度源数据。
-
-**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/172/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
-
-**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；ibis r001最终配置重评通过（ask_user 2轮）；pyspark r001最终配置重评通过（ask_user 2轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/172/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
-
-### 171：会议缺席统计（审核及正式实验完成）
-
-**决定与验证。** 独立按线上Session＋Email、线下Session＋姓名做反连接，再按人及参与类型计算登记/缺席比例，490行匹配GT；所有输出Email均可提取公司。修正KB为明确规则，按人员＋参与类型＋缺席场次核对，百分比精确数值。未扩大大小写或姓名清洗。
-
-**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/171/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
-
-**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；ibis r001最终配置重评通过（ask_user 1轮）；pyspark r001最终配置重评通过（ask_user 2轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/171/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
-
-### 170：商品规格误录（审核及正式实验完成）
-
-**决定与验证。** 独立关联产品代码及规格ID，34行正确销售组合、67行错误规格计数均匹配GT。保留两份输出角色与去重/聚合规则；KB修正不存在的原文引用，按商品/门店和商品代码对齐，数值精确比较。
-
-**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/170/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
-
-**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；ibis r001最终配置重评通过（ask_user 1轮）；pyspark r001最终配置重评通过（ask_user 1轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/170/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
-
-### 169：自行车宽表转长表（审核及正式实验完成）
-
-**决定与验证。** 独立拆解三下划线列名并按自行车型号、地区、月份重组，288行匹配GT；当前原数值最多低位精度，九位舍入未改变值。删除full/KB额外展示排序，月份按日期语义、Sales/Profit精确数值核对；保留计算任务。
-
-**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/169/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
-
-**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；polars r001最终配置重评通过（ask_user 1轮）；ibis r001最终配置重评通过（ask_user 1轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/169/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
-
-### 168：流媒体会话与价格（审核及正式实验完成）
-
-**决定与验证。** 独立分组351个会话，重分类后分别按用户或用户＋地点＋类型查最早月份、连接价格并覆盖Preserved14.98，全部匹配GT。当前同会话未出现不同content_type，未覆盖first值冲突分支。删除full展示排序；按用户＋时间＋地点核对时长和价格。
-
-**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/168/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
-
-**UTC表示补审。** r001三个后端均因保留输入原有ISO UTC后缀Z而被旧比较器报TYPE_ERROR；独立兼容验证后351行的分组、时刻、时长、类型及价格全部通过。沿用既定日期语义兼容口径，full/KB明确UTC表示，config仅本题启用assume_timezone=UTC。共享比较器以可选协议v8按实际偏移比较时刻，默认规则不变；51项单元测试及7项本题正反例通过，错误偏移导致的不同时刻、错误时长/价格及缺行重复均拒绝。首轮原报告保留，新规则诊断见utc_compatibility_validation.json；题意变化后另跑r002。
-
-**正式运行复核（2026-10-17）**。pandas r002最终配置重评通过（ask_user 1轮）；pyspark r002最终配置重评通过（ask_user 2轮）；polars r002最终配置重评通过（ask_user 2轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/168/formal_completion_audit.json`及`interact_plan_r002.json`记录版本和正式报告路径。 首轮失败与独立重评报告保留，r002为修改full/KB后的重新生成，不替换r001历史结果。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
-
-### 167：宾客菜单展开（审核及正式实验完成）
-
-**决定与验证。** 独立按无表头宾客区块、逐宾客课程填充、勾选与菜品关联重建12行。删除full展示排序；原输入直撇号Duck a l'orange与GT弯撇号为同一菜名，full允许两种表示、配置仅兼容这一已知名称；仍严格核对宾客、课程、菜谱ID和其他菜名。当前没有未匹配菜谱。
-
-**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/167/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
-
-**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 2轮）；ibis r001最终配置重评通过（ask_user 1轮）；pyspark r001最终配置重评通过（ask_user 1轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/167/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
-
-### 166：办公室租约月度收入（审核及正式实验完成）
-
-**决定与验证。** 独立按起止月份展开792行合同月、累积租金及2021全年度/2022年截至4月汇总，6行年度结果匹配GT。尊重query明确的DD/MM/YYYY及整数字符串要求，评分不自动放宽这些指定格式；两输出按合同＋月份及年份对齐。当前价格均匹配，未覆盖无价格分支。
-
-**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/166/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
-
-**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；ibis r001最终配置重评通过（ask_user 1轮）；polars r001最终配置重评通过（ask_user 1轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/166/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
-
-### 165：竞猜节目计分方案（审核及正式实验完成）
-
-**决定与验证。** 独立重算284行逐日积分、周五双倍、各方案并列占名次及获胜标记，与GT一致。发现8个周次/方案新增并列冠军但仍保留原冠军，full/reference/GT按原冠军未落选视为未换冠军；query只写是否换冠军。用户确认query维持原样，新增并列冠军是否构成冠军变化留给交互澄清；保留full/KB现有规则：所有原冠军仍为冠军时不算变化。reference、GT和评分规则不因此修改。正式interact已完成。
-
-**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/165/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
-
-**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；ibis r001最终配置重评通过（ask_user 2轮）；pyspark r001最终配置重评通过（ask_user 1轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/165/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
-
-### 164：客户销售帕累托（审核及正式实验完成）
-
-**决定与验证。** 独立Decimal汇总690位客户，原始完整精度总额1990261.8053；按该完整精度得到的销售额和九位占比与GT全部一致，选出347位，末位累计79.95%、下位80.06%。full/reference先把客户Sales舍入三位，21行金额与GT不符、151行参考占比不同；独立三位Decimal方案也与GT不符。用户确认删除full额外三位舍入，reference从CSV十进制原值汇总，累计占比使用未舍入份额，最后分别按既有九位/两位输出。断网固定镜像回放修正参考，两份输出（347行明细、1行说明）均通过原精确配置；旧错误参考仍被拒绝。query、GT及评分配置逐字节不变。旧资产与参考输出保留，证据precision_fix_evaluation.json、precision_fix_checks.json。
-
-**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/164/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
-
-**表示兼容复核。** r001 pandas金额浮点尾差，347行客户、占比、累计及说明均一致，Sales最大差4e-12。仅Sales配置绝对容差1e-9、相对容差0，远小于原输入四位小数精度；正反例拒绝1e-8、0.0001金额错误及九位占比错误。query/full/KB、reference和GT均不改，保留首轮原报告，只按新配置重评冻结输出，无须重新解题。证据representation_config_probes.json及final_config_regrade.json。
-
-**占比精度决定。** r001 Ibis保留完整单客占比而非full指定九位，其他计算正确。用户确认兼容两种精度；full/KB同步，新增从原输入Decimal独立汇总的unrounded_share整表替代GT，原GT/reference保留。占比绝对容差1e-12仅覆盖浮点尾差，错误占比/累计值反例仍拒绝；三份首轮冻结输出重评通过。因题意变化已完成r002重新生成，不用重评替代新生成。证据share_precision_validation.json。
-
-**正式运行复核（2026-10-17）**。pandas r002最终配置重评通过（ask_user 1轮）；pyspark r002最终配置重评通过（ask_user 2轮）；ibis r002最终配置重评通过（ask_user 2轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/164/formal_completion_audit.json`及`interact_plan_r002.json`记录版本和正式报告路径。 首轮失败与独立重评报告保留，r002为修改full/KB后的重新生成，不替换r001历史结果。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
-
-### 163：雇主薪酬差距（审核及正式实验完成）
-
-**决定与验证。** 检查41277行GT，13673行句中百分数不等于原数值按一位舍入（如28.2→28.19），源于full/reference截断浮点字符串；当前没有缺失工资差距。另雇主11744在最新报告年度有两种名称，full/reference复制为8行；按最近提交日期仅有UK名称、应保留4条年度记录。用户已批准百分数文字修复：full/KB取消额外ceiling及浮点字符串截断，reference采用Decimal定点格式，GT仅更新13673个Pay Gap单元格；41277行的其他六列与行序逐项不变。当前全部报告数值最多一位有效小数，不涉及新增中点舍入口径。断网固定镜像回放后全部输出通过原配置，旧错误参考被拒绝；28.2、0.3、10、100及负值等8个格式探针通过。旧资产和逐行差异保留before_paygap_text_fix/、paygap_text_diff.json，验证见paygap_fix_checks.json。用户确认保留原始解法：按最大报告年度取全部不同公司名，同年度多名称仍保留并关联历史；query不补充，交由full/KB澄清。不改公司名、参考关联或GT行数。 原解法Step3明确采用最大报告年度，因此不再建议改用DateSubmitted；EmployerId11744的两种名称与8行输出保留。query补来源文件与报告期对应关系、删除full最终展示排序。
-
-**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/163/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
-
-**来源复核。** 用户质疑GT与参考程序构造先后关系后，重新查阅PrepBench论文3.2节：先取得Preppin Data输出，再生成复现输出的代码，随后构造full/KB。下载2022 Week12原始公开答案（41288行，去重41277行），去重后的完整记录集合与未修改PrepBench GT完全一致；EmployerId676、2017年的原答案数值为28.2，解释句已为28.19%。因此此不一致源自原挑战输出并被PrepBench继承，不能说GT继承了参考程序错误。原挑战解法本身使用round/ceiling/字符串截取；当前Python参考的28.2经.17g得到28.199999999999999，再截取为28.19可复现该值。修正是有用户授权的原答案语义纠错，非恢复与原答案的逐字一致。证据original_challenge_comparison.json、provenance_recheck.json及下载文件哈希。论文https://arxiv.org/html/2605.08687v1#S3.SS2；原题https://preppindata.blogspot.com/2022/03/2022-week-12-gender-pay-gap.html；原解法https://preppindata.blogspot.com/2022/03/2022-week-12-solution.html。
-
-**名称表示复核。** r001 pandas/Polars通过，PySpark仅因去除5个公司名称的尾空格而失败（影响8行）；按数值类型及已确认名称核对，41277行全字段一致。EmployerName仅添加这5个精确同名别名，其他字段与题意不变；三份冻结输出重评通过，错误公司、百分数文字及数值反例仍拒绝。首轮报告保留，不重新解题；证据name_whitespace_validation.json、final_config_regrade.json。
-
-**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；polars r001最终配置重评通过（ask_user 3轮）；pyspark r001最终配置重评通过（ask_user 2轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/163/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
-
-### 162：课程缺失补全与出勤均值（审核及正式实验完成）
-
-**决定与验证。** 独立逐课表槽检查Lesson Name/Subject均有唯一非空值，组内补全后按星期＋科目＋课程计算均值，40行匹配GT。删除full/KB展示排序；Time语义比较、周数和出勤人数整数、均值精确。当前没有全空或冲突组，不把此结果当作参考全局bfill在任意输入下正确的证明。
-
-**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/162/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
-
-**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；ibis r001最终配置重评通过（ask_user 1轮）；pyspark r001最终配置重评通过（ask_user 1轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/162/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；pyspark r001最终配置重评通过（ask_user 2轮）；ibis r001最终配置重评通过（ask_user 1轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/160/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
 
 ### 161：电影Bechdel分类（审核及正式实验完成）
 
@@ -2655,12 +2537,288 @@ pandas 对未能用 lookup 补齐 Code 的记录未按规则剔除；其最后�
 
 **正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；pyspark r001最终配置重评通过（ask_user 1轮）；polars r001最终配置重评通过（ask_user 1轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/161/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
 
-### 160：客户年度队列（审核及正式实验完成）
+### 162：课程缺失补全与出勤均值（审核及正式实验完成）
 
-**决定与验证。** 独立构建客户首购年至全局末年的年度框架，保留原订单并补无订单行，计算分类、队列去重人数及同比差，10396行全部匹配GT。删除full最终展示排序，保留计算所需按年顺序；尊重query明确的日期文本及Order?的0/1要求。按客户＋年份＋原Row ID核对，空值/重复数量继续检查。
+**决定与验证。** 独立逐课表槽检查Lesson Name/Subject均有唯一非空值，组内补全后按星期＋科目＋课程计算均值，40行匹配GT。删除full/KB展示排序；Time语义比较、周数和出勤人数整数、均值精确。当前没有全空或冲突组，不把此结果当作参考全局bfill在任意输入下正确的证明。
 
-**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/160/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
+**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/162/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
 
-**金额浮点复核。** 160的r001三个后端均有Sales/Profit浮点尾差；pandas逐列独立对齐10396行，最大差分别3e-12、2.1e-12，其他字段一致。仅这两列绝对容差改为1e-9、相对容差0；三份冻结输出全部重评通过，1e-8及0.0001金额错误反例仍拒绝。query/full/KB、reference和GT不变，明确日期文本与Order?的0/1要求不放宽。保留首轮失败；证据float_tolerance_validation.json、final_config_regrade.json。
+**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；ibis r001最终配置重评通过（ask_user 1轮）；pyspark r001最终配置重评通过（ask_user 1轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/162/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
 
-**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；pyspark r001最终配置重评通过（ask_user 2轮）；ibis r001最终配置重评通过（ask_user 1轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/160/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+### 163：雇主薪酬差距（审核及正式实验完成）
+
+**决定与验证。** 检查41277行GT，13673行句中百分数不等于原数值按一位舍入（如28.2→28.19），源于full/reference截断浮点字符串；当前没有缺失工资差距。另雇主11744在最新报告年度有两种名称，full/reference复制为8行；按最近提交日期仅有UK名称、应保留4条年度记录。用户已批准百分数文字修复：full/KB取消额外ceiling及浮点字符串截断，reference采用Decimal定点格式，GT仅更新13673个Pay Gap单元格；41277行的其他六列与行序逐项不变。当前全部报告数值最多一位有效小数，不涉及新增中点舍入口径。断网固定镜像回放后全部输出通过原配置，旧错误参考被拒绝；28.2、0.3、10、100及负值等8个格式探针通过。旧资产和逐行差异保留before_paygap_text_fix/、paygap_text_diff.json，验证见paygap_fix_checks.json。用户确认保留原始解法：按最大报告年度取全部不同公司名，同年度多名称仍保留并关联历史；query不补充，交由full/KB澄清。不改公司名、参考关联或GT行数。 原解法Step3明确采用最大报告年度，因此不再建议改用DateSubmitted；EmployerId11744的两种名称与8行输出保留。query补来源文件与报告期对应关系、删除full最终展示排序。
+
+**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/163/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
+
+**来源复核。** 用户质疑GT与参考程序构造先后关系后，重新查阅PrepBench论文3.2节：先取得Preppin Data输出，再生成复现输出的代码，随后构造full/KB。下载2022 Week12原始公开答案（41288行，去重41277行），去重后的完整记录集合与未修改PrepBench GT完全一致；EmployerId676、2017年的原答案数值为28.2，解释句已为28.19%。因此此不一致源自原挑战输出并被PrepBench继承，不能说GT继承了参考程序错误。原挑战解法本身使用round/ceiling/字符串截取；当前Python参考的28.2经.17g得到28.199999999999999，再截取为28.19可复现该值。修正是有用户授权的原答案语义纠错，非恢复与原答案的逐字一致。证据original_challenge_comparison.json、provenance_recheck.json及下载文件哈希。论文https://arxiv.org/html/2605.08687v1#S3.SS2；原题https://preppindata.blogspot.com/2022/03/2022-week-12-gender-pay-gap.html；原解法https://preppindata.blogspot.com/2022/03/2022-week-12-solution.html。
+
+**名称表示复核。** r001 pandas/Polars通过，PySpark仅因去除5个公司名称的尾空格而失败（影响8行）；按数值类型及已确认名称核对，41277行全字段一致。EmployerName仅添加这5个精确同名别名，其他字段与题意不变；三份冻结输出重评通过，错误公司、百分数文字及数值反例仍拒绝。首轮报告保留，不重新解题；证据name_whitespace_validation.json、final_config_regrade.json。
+
+**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；polars r001最终配置重评通过（ask_user 3轮）；pyspark r001最终配置重评通过（ask_user 2轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/163/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 164：客户销售帕累托（审核及正式实验完成）
+
+**决定与验证。** 独立Decimal汇总690位客户，原始完整精度总额1990261.8053；按该完整精度得到的销售额和九位占比与GT全部一致，选出347位，末位累计79.95%、下位80.06%。full/reference先把客户Sales舍入三位，21行金额与GT不符、151行参考占比不同；独立三位Decimal方案也与GT不符。用户确认删除full额外三位舍入，reference从CSV十进制原值汇总，累计占比使用未舍入份额，最后分别按既有九位/两位输出。断网固定镜像回放修正参考，两份输出（347行明细、1行说明）均通过原精确配置；旧错误参考仍被拒绝。query、GT及评分配置逐字节不变。旧资产与参考输出保留，证据precision_fix_evaluation.json、precision_fix_checks.json。
+
+**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/164/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
+
+**表示兼容复核。** r001 pandas金额浮点尾差，347行客户、占比、累计及说明均一致，Sales最大差4e-12。仅Sales配置绝对容差1e-9、相对容差0，远小于原输入四位小数精度；正反例拒绝1e-8、0.0001金额错误及九位占比错误。query/full/KB、reference和GT均不改，保留首轮原报告，只按新配置重评冻结输出，无须重新解题。证据representation_config_probes.json及final_config_regrade.json。
+
+**占比精度决定。** r001 Ibis保留完整单客占比而非full指定九位，其他计算正确。用户确认兼容两种精度；full/KB同步，新增从原输入Decimal独立汇总的unrounded_share整表替代GT，原GT/reference保留。占比绝对容差1e-12仅覆盖浮点尾差，错误占比/累计值反例仍拒绝；三份首轮冻结输出重评通过。因题意变化已完成r002重新生成，不用重评替代新生成。证据share_precision_validation.json。
+
+**正式运行复核（2026-10-17）**。pandas r002最终配置重评通过（ask_user 1轮）；pyspark r002最终配置重评通过（ask_user 2轮）；ibis r002最终配置重评通过（ask_user 2轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/164/formal_completion_audit.json`及`interact_plan_r002.json`记录版本和正式报告路径。 首轮失败与独立重评报告保留，r002为修改full/KB后的重新生成，不替换r001历史结果。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 165：竞猜节目计分方案（审核及正式实验完成）
+
+**决定与验证。** 独立重算284行逐日积分、周五双倍、各方案并列占名次及获胜标记，与GT一致。发现8个周次/方案新增并列冠军但仍保留原冠军，full/reference/GT按原冠军未落选视为未换冠军；query只写是否换冠军。用户确认query维持原样，新增并列冠军是否构成冠军变化留给交互澄清；保留full/KB现有规则：所有原冠军仍为冠军时不算变化。reference、GT和评分规则不因此修改。正式interact已完成。
+
+**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/165/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
+
+**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；ibis r001最终配置重评通过（ask_user 2轮）；pyspark r001最终配置重评通过（ask_user 1轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/165/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 166：办公室租约月度收入（审核及正式实验完成）
+
+**决定与验证。** 独立按起止月份展开792行合同月、累积租金及2021全年度/2022年截至4月汇总，6行年度结果匹配GT。尊重query明确的DD/MM/YYYY及整数字符串要求，评分不自动放宽这些指定格式；两输出按合同＋月份及年份对齐。当前价格均匹配，未覆盖无价格分支。
+
+**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/166/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
+
+**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；ibis r001最终配置重评通过（ask_user 1轮）；polars r001最终配置重评通过（ask_user 1轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/166/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 167：宾客菜单展开（审核及正式实验完成）
+
+**决定与验证。** 独立按无表头宾客区块、逐宾客课程填充、勾选与菜品关联重建12行。删除full展示排序；原输入直撇号Duck a l'orange与GT弯撇号为同一菜名，full允许两种表示、配置仅兼容这一已知名称；仍严格核对宾客、课程、菜谱ID和其他菜名。当前没有未匹配菜谱。
+
+**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/167/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
+
+**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 2轮）；ibis r001最终配置重评通过（ask_user 1轮）；pyspark r001最终配置重评通过（ask_user 1轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/167/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 168：流媒体会话与价格（审核及正式实验完成）
+
+**决定与验证。** 独立分组351个会话，重分类后分别按用户或用户＋地点＋类型查最早月份、连接价格并覆盖Preserved14.98，全部匹配GT。当前同会话未出现不同content_type，未覆盖first值冲突分支。删除full展示排序；按用户＋时间＋地点核对时长和价格。
+
+**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/168/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
+
+**UTC表示补审。** r001三个后端均因保留输入原有ISO UTC后缀Z而被旧比较器报TYPE_ERROR；独立兼容验证后351行的分组、时刻、时长、类型及价格全部通过。沿用既定日期语义兼容口径，full/KB明确UTC表示，config仅本题启用assume_timezone=UTC。共享比较器以可选协议v8按实际偏移比较时刻，默认规则不变；51项单元测试及7项本题正反例通过，错误偏移导致的不同时刻、错误时长/价格及缺行重复均拒绝。首轮原报告保留，新规则诊断见utc_compatibility_validation.json；题意变化后另跑r002。
+
+**正式运行复核（2026-10-17）**。pandas r002最终配置重评通过（ask_user 1轮）；pyspark r002最终配置重评通过（ask_user 2轮）；polars r002最终配置重评通过（ask_user 2轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/168/formal_completion_audit.json`及`interact_plan_r002.json`记录版本和正式报告路径。 首轮失败与独立重评报告保留，r002为修改full/KB后的重新生成，不替换r001历史结果。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 169：自行车宽表转长表（审核及正式实验完成）
+
+**决定与验证。** 独立拆解三下划线列名并按自行车型号、地区、月份重组，288行匹配GT；当前原数值最多低位精度，九位舍入未改变值。删除full/KB额外展示排序，月份按日期语义、Sales/Profit精确数值核对；保留计算任务。
+
+**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/169/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
+
+**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；polars r001最终配置重评通过（ask_user 1轮）；ibis r001最终配置重评通过（ask_user 1轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/169/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 170：商品规格误录（审核及正式实验完成）
+
+**决定与验证。** 独立关联产品代码及规格ID，34行正确销售组合、67行错误规格计数均匹配GT。保留两份输出角色与去重/聚合规则；KB修正不存在的原文引用，按商品/门店和商品代码对齐，数值精确比较。
+
+**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/170/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
+
+**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；ibis r001最终配置重评通过（ask_user 1轮）；pyspark r001最终配置重评通过（ask_user 1轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/170/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 171：会议缺席统计（审核及正式实验完成）
+
+**决定与验证。** 独立按线上Session＋Email、线下Session＋姓名做反连接，再按人及参与类型计算登记/缺席比例，490行匹配GT；所有输出Email均可提取公司。修正KB为明确规则，按人员＋参与类型＋缺席场次核对，百分比精确数值。未扩大大小写或姓名清洗。
+
+**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/171/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
+
+**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；ibis r001最终配置重评通过（ask_user 1轮）；pyspark r001最终配置重评通过（ask_user 2轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/171/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 172：门店月度指标（审核及正式实验完成）
+
+**决定与验证。** 独立按表头位置、部门/目标填充、月份列、五种指标及目标换算重建120行，与GT一致。query补匿名文件对应12家门店；full补已有的逐文件Department/Target填充说明并删除自定义展示排序，KB同步。按Shop＋Date对齐，投诉整数、比例绝对容差1e-12仅兼容输入二进制尾差（不保留旧2%容差）。当前月度比例均落在两位有效小数，未验证更高精度源数据。
+
+**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/172/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
+
+**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；ibis r001最终配置重评通过（ask_user 2轮）；pyspark r001最终配置重评通过（ask_user 2轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/172/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 173：对白持续时间（审核及正式实验完成）
+
+**决定与验证。** 独立按episode下一不同时间计算并展开说话人，270809行；runtime未插入任何实际相邻时间之间。与字面输入的8处差异是7段尾部空白及1条数值样式对白。沿用等价表示兼容原则，full/KB允许原文精度或六位表示及尾部空白保留/移除，配置仅列出当前输入已确认的8组等价文本，不做全文模糊匹配；GT不变。按episode＋说话人＋起始秒＋链接分组，仍逐条检查时长、对白与重复数量。
+
+**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/173/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
+
+**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 2轮）；polars r001最终配置重评通过（ask_user 2轮）；ibis r001最终配置重评通过（ask_user 3轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/173/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 174：商机阶段时间线（审核及正式实验完成）
+
+**决定与验证。** 独立并集及全字段去重复现876行。query要求将已关闭商机的关闭日期改为终态，full/reference只追加未关闭商机：实际146个已关闭商机的同日同终态均已在历史表中，当前结果不缺失，未机械重写题意。按商机＋日期＋阶段对齐、整数SortOrder，记录潜在来源覆盖限制。
+
+**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/174/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
+
+**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；pyspark r001最终配置重评通过（ask_user 2轮）；polars r001最终配置重评通过（ask_user 1轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/174/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 175：最长航线整理（审核及正式实验完成）
+
+**决定与验证。** 独立用城市字典识别机场后缀、提取双单位距离、密集排名及解析首航日期，31行匹配GT。删除full额外名次展示排序，保留距离排名；按航线＋航空公司＋航班号对齐，日期/时长语义比较，距离/名次整数、坐标精确数值。领域geospatial；当前所有城市均有坐标，未覆盖未匹配左连接分支。
+
+**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/175/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
+
+**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 2轮）；ibis r001最终配置重评通过（ask_user 2轮）；pyspark r001最终配置重评通过（ask_user 2轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/175/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 176：宾客与客房匹配（审核及正式实验完成）
+
+**决定与验证。** 独立遍历容量、床型、无障碍、正反请求、最高分并列及大房排除，220行匹配GT。移除full额外展示排序；按Party＋Room核对，人数与评分整数、无障碍布尔，Y/N与True/False等价。未覆盖无匹配宾客等所有潜在输入。
+
+**记录。** 来源及修改前资产保留；已复核query、full、KB、reference、GT和配置。每题正确/倒序/错值/缺行/重复五项评分探针完成；本地`curation/output/176/independent_audit.json`、`review.json`及参考复评记录保留核验结果。正式运行及资产版本核验见下。
+
+**容量表示补审。** r001 pandas/PySpark通过、Ibis失败；Ibis的220组搭配及其他字段均正确，仅保留输入房间Children容量的空白，而GT填0。用户确认只兼容源输入缺值房间的空白/0。full与KB明确筛选按0、输出两种一致表示；配置增加source_blank整表替代GT，不放宽已有容量或其他数值。8项正反例通过，三个冻结输出新配置重评通过，原正式报告保留。新题意已完成r002重新生成；证据capacity_compatibility_checks.json、r001_capacity_regrade.json。
+
+**正式运行复核（2026-10-17）**。pandas r002最终配置重评通过（ask_user 2轮）；ibis r002最终配置重评通过（ask_user 1轮）；pyspark r002最终配置重评通过（ask_user 2轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/176/formal_completion_audit.json`及`interact_plan_r002.json`记录版本和正式报告路径。 首轮失败与独立重评报告保留，r002为修改full/KB后的重新生成，不替换r001历史结果。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 177：歌手年度播放排名（审核及正式实验完成）
+
+用户确认修复浮点累加拆散并列。reference保留原逐条两位小数舍入，再转换为整数百分之一分钟汇总排名；不改既有并列占名次规则。独立以毫秒整数除600并处理舍入核算，修复版本100行全部一致，100位歌手及总榜排名不变，9处年度排名更正，包括Seether2021 134→133、Paramore2021 740→737。旧资产保留curation/output/177/before_rank_fix/，逐字段差异rank_fix_verification.json。评分改用歌手业务键及整数名次，5项探针正确通过，旧浮点名次、错误排名、缺行及重复拒绝；领域media_culture。用户随后确认在英文query补明每条播放先换算分钟并保留两位，再汇总整体及年度排名；KB同步该顺序及明确并列规则，不公开具体答案。用户确认删除full额外最终展示排序，排名计算和GT内容不变；追加倒序答案通过、错年度排名和缺年份填0拒绝，共8项评分探针完成。静态审核完成，正式interact已完成。
+
+**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 2轮）；polars r001最终配置重评通过（ask_user 2轮）；ibis r001最终配置重评通过（ask_user 1轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/177/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 178：肥皂规格销售汇总（审核及正式实验完成）
+
+用户确认在英文query Output补明output_01为Bar、output_02为Liquid；full/reference/GT不变。独立十进制汇总及订单ID集合计数，Bar18行、Liquid42行共60行全部一致；60个分组均存在重复订单ID，已核对去重计数。输入包含1L换算1000ml，全部换算为整数规格；未覆盖非整数毫升。评分按门店＋地区＋规格对齐，精确金额及整数订单数，行序不限；8项探针正确/倒序通过，互换文件、错单位/订单数/销售额、缺行/重复拒绝。KB修正非原文拼接引文并补明确intent，领域business。固定镜像参考已回放，正式interact已完成。证据curation/output/178/。
+
+**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；ibis r001最终配置重评通过（ask_user 1轮）；pyspark r001最终配置重评通过（ask_user 1轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/178/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 179：无销售日期的星期分布（审核及正式实验完成）
+
+独立解析4063笔交易，2022-01-01至2022-12-31共有343个销售日、22个无销售日，按星期计数7行全部匹配GT。query没有最终行序要求，full额外要求周一至周日，而GT未按该顺序排列；用户确认删除full额外展示排序，reference/GT保留；同时删除query与业务无关的Prep Builder括注。评分以星期为键，名称精确、天数整数、展示行序不限；6项探针正确/倒序通过，错天数、错星期、缺行及重复拒绝。KB补准确引文。当前所有星期都有无销售日期，未覆盖零计数星期是否输出；领域business。正式interact已完成。证据curation/output/179/independent_check.json。
+
+**正式运行复核（2026-10-17）**。pandas r001最终配置重评通过（ask_user 1轮）；polars r001最终配置重评通过（ask_user 1轮）；pyspark r001最终配置重评通过（ask_user 2轮）。生成时题意/输入/reference/GT版本与当前一致；评分配置或共享实现的更新已用冻结原输出复评，原正式报告保留；本地证据`curation/output/179/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+## 2026-10-16—17：180—199审核与正式实验完成
+
+本批20题中191、192按用户决定排除，保留原始文件；其余18题54组最终评估均通过，198及184采用更新题意后的r002。解题模型gpt-6-astra（low），使用ChatGPT订阅；模拟用户gpt-6-astra（temperature=0），使用已授权API。pandas固定，另两个后端按保存的种子随机抽取；固定镜像与老师历史环境不完全相同，因此不据此比较后端能力。正式解题仅提供公开题意与输入，私有材料仅供模拟用户/评估侧。
+
+本批从main `57a3d6e`建立独立分支`curate/prepbench-199-180`，按199→180审核。原始来源为只读本地PrepBench副本；逐文件来源哈希、原资产快照、参考回放及核算证据保留在本地`curation/output/<case>/`，不是仓库运行依赖。20题曾做导入检查；最终保留18题，逐题完成领域分类、契约核对、固定环境参考回放、独立核算及评分边界验证。191、192仅保留本地原始文件与排除说明，不交付可运行任务目录。正式运行与未覆盖边界见逐题记录。交付分支从最新main `19aa209`建立，不改动共享评分器或运行器；参考镜像为`sha256:89b6eb5a3313c26423d8bbebe9edea96e22a3d3de580a4626c671ebcb2f83570`（Python 3.11.16、pandas 2.3.3）。
+
+**交付复核（2026-10-17）。** 18题的domain按根README分类（business 10题、finance 1题、sports 6题、media_culture 1题），metadata输入表数/列数、KB原文引用/intent、输出schema、任务及评分版本均已核对。交付副本中18份GT自比、18份固定环境reference输出、54份最终正式候选复评通过；头表逐项核对r001原报告，184/198后续r002通过另记。公共评分测试46项、PrepBench脚本测试14项通过。额外Windows检查发现main已有的runner测试2个权限子断言失败及1个SQLite临时文件清理错误、DAB超时返回码1项失败；相关代码与main逐字节一致，本PR不改动公共运行器，不声称这些检查通过。本地复核证据`curation/output/delivery_preflight_199_180.json`不随任务发布。
+
+### 180：门店商品销售达标（审核及正式实验完成）
+
+query明确允许UPPER CASE或Title Case，但原full仅接受Title Case，原评分器拒绝全大写等价答案，已保存反例报告。用户确认同步full/KB及评分器兼容两种写法；仅对6个已知门店和2个商品类别添加精确别名，不作任意模糊匹配。query/reference/GT不变。独立十进制汇总、目标乘1000及达标计算，12行全部与GT一致。评分使用门店＋类别业务键、精确金额和布尔达标值；10项探针正确/全大写倒序通过，错门店/类别/金额/目标/达标/地区及缺行重复拒绝。输入全部匹配目标且地区唯一，未触发恰好达标或缺目标分支。固定环境参考已回放，正式interact已完成。证据curation/output/180/。
+
+**正式运行复核（2026-10-17）**。pandas r001通过（ask_user 1轮）；polars r001通过（ask_user 1轮）；ibis r001通过（ask_user 2轮）。运行计划中的任务资产及评估实现哈希与当前版本一致；本地证据`curation/output/180/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 181：销售人员贡献金额（审核及正式实验完成）
+
+query/full/reference/GT不改。独立以十进制按门店汇总交易，再与员工百分比相乘，18行所有金额、百分比和地区均匹配GT。输入可通过门店查找表及交易表确定地区，两者一致，无需猜匿名文件对应地区。修正KB拼接伪引文并补明确intent；评分以门店＋销售人员为键，精确核对金额、整数百分比及文本，行序不限。7项探针正确/倒序通过，错员工金额、门店总额、地区、缺行及重复拒绝。当前输入未覆盖关联缺失、地区冲突或四位小数舍入边界。固定环境参考已回放，正式interact已完成。证据curation/output/181/。
+
+**正式运行复核（2026-10-17）**。pandas r001通过（ask_user 2轮）；polars r001通过（ask_user 1轮）；ibis r001通过（ask_user 1轮）。运行计划中的任务资产及评估实现哈希与当前版本一致；本地证据`curation/output/181/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 182：门店液体商品前十名（审核及正式实验完成）
+
+用户确认在英文query的Output部分补明output_01至06依次对应Chelsea、Dulwich、Lewisham、Notting Hill、Shoreditch、Wimbledon；本次仅补公开交付对应关系，GT不变。独立以十进制汇总、按舍入前金额排名、再取整到十位，六份各10行共60行均匹配GT。当前数据无同店汇总金额并列，入选记录无十位舍入中点；full的half-up与reference的round默认行为在当前数据未形成答案差异，不宣称已验证中点分支。用户另确认删除full额外最终展示排序，排名计算及GT保留。评分采用门店＋大小＋香型键，严格检查名次和金额；7项探针正确/倒序通过，错名次、错金额、文件门店互换、缺行/重复拒绝。KB同步准确引文与明确规则。正式interact已完成。证据curation/output/182/。
+
+**正式运行复核（2026-10-17）**。pandas r001通过（ask_user 1轮）；ibis r001通过（ask_user 1轮）；polars r001通过（ask_user 2轮）。运行计划中的任务资产及评估实现哈希与当前版本一致；本地证据`curation/output/182/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 183：逐月贷款本金余额（审核及正式实验完成）
+
+用户确认保持query现状，最后一期固定扣款产生负余额的规则留给交互澄清；full/reference/GT不改。独立使用十进制逐月核算Lewisham 278个月、Wimbledon 335个月，共613行及每月总额全部匹配GT，最后余额分别−200和−75。KB补准确引文和明确intent，不新增业务规则；评分使用日期＋门店键、精确金额及日期语义比较，行序不限。6项探针正确/ISO倒序通过，将负余额截0、错误总额、缺行和重复均拒绝。输入未覆盖零月供或重复门店。固定环境参考已回放；正式interact已完成。证据curation/output/183/。
+
+**正式运行复核（2026-10-17）**。pandas r001通过（ask_user 1轮）；pyspark r001通过（ask_user 1轮）；polars r001通过（ask_user 1轮）。运行计划中的任务资产及评估实现哈希与当前版本一致；本地证据`curation/output/183/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 184：门店同类商品相邻销售间隔（审核及正式实验完成）
+
+独立关联产品类别、合并线上线下交易并按门店与类别计算相邻时间差，6组平均分钟数与GT全部一致。query/full/reference/GT不改；评分改用门店＋商品类型业务键、精确数值比较，不限制展示行序；KB补明确规则。6项探针正确/倒序通过，错均值、错门店、缺行/重复拒绝。输入产品全部匹配；按时间排序后不会产生负间隔，因此原题退款过滤描述未被该算法独立检验，不据此宣称退款处理得到验证。后续精度兼容决定见下。正式interact已完成，证据curation/output/184/。
+
+184精度补审：r001 pandas/Ibis/PySpark均正式失败，仅因输出未舍入均值；独立核对三份全部6组未舍入值正确。用户确认兼容完整均值与一位小数，同步full/KB；保留原一位小数GT及reference，新增由输入独立计算的unrounded替代GT，整表匹配同一版本。金额均值绝对容差1e−9仅用于浮点误差，不使用0.05的宽容差；8项精度探针接受两种答案及倒序，拒绝0.1和0.0001错误、错组、缺行/重复。首轮报告不覆盖，新配置重评三份原输出均通过，独立报告curation/output/184/r001_precision_regrade.json。因full/KB变化另做r002重新生成并完成验证，结果见下，未以重评替代新题意实验。
+
+**正式运行复核（2026-10-17）**。pandas r002通过（ask_user 1轮）；ibis r002通过（ask_user 2轮）；pyspark r002通过（ask_user 1轮）。运行计划中的任务资产及评估实现哈希与当前版本一致；本地证据`curation/output/184/formal_completion_audit.json`及`interact_plan_r002.json`记录版本和正式报告路径。 首轮失败与独立重评报告保留，r002为修改full/KB后的重新生成，不替换r001历史结果。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 185：骑行课程参数筛选（审核及正式实验完成）
+
+用户确认在英文query补明Coach=Kym、Music Type=Everything Rock、Top N=5，并将旧参数文件名要求统一为output_01.csv。full/reference/GT不变。独立解析输入、规范音乐类型并筛选排名，5行逐项与GT一致，保留km标签对应的30分钟记录；第5与第6名热量为[426, 306]，未触发截点并列。评分采用Rank键、整数及日期语义比较，并检查query明确要求的热量降序；7项探针正确通过，倒序、错教练/音乐/分钟、缺行和重复拒绝。KB引文及领域sports同步。固定环境参考已回放；正式interact已完成。证据curation/output/185/。
+
+**正式运行复核（2026-10-17）**。pandas r001通过（ask_user 1轮）；polars r001通过（ask_user 1轮）；pyspark r001通过（ask_user 1轮）。运行计划中的任务资产及评估实现哈希与当前版本一致；本地证据`curation/output/185/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 186：骑行年度指标（审核及正式实验完成）
+
+按用户要求查证原始2022 Week 35 C&BSCo Summary Stats及2022-09-06官方解答：https://preppindata.blogspot.com/2022/08/2022-week-35-c-summary-stats.html ，https://preppindata.blogspot.com/2022/09/2022-week-35-solution.html 。原始输入107行与本地逐记录多重集相同，含2021-06-07 Kym的Value=30、Units=km、Calories=426记录。官方解答将Value改名Mins后删除Units列，不过滤km；官方下载答案2021年总分钟2280、79次、距离1140（30KPH）、Kym 530分钟，证明该记录应计入。现有PrepBench full/reference筛除km并非原题规则。官方输出有浮点文本尾数，应按题意的一位小数数值理解。下载文件、哈希见本地curation/output/186/original_source/及original_source_findings.json。来源查证后按用户确认执行以下修复。
+
+186单位修复：用户确认按原始挑战保留km记录，将其Value直接视为分钟；同步full、KB、reference和GT，原query不改。旧版保存curation/output/186/before_units_fix/。独立Fraction计算所有年度指标，与官方下载答案按要求一位小数相符；GT中2021年总分钟2250→2280、次数78→79、距离1125→1140、平均热量420.2→420.3、Kym分钟500→530，2022年不变。官方浮点尾数不抄作精确文本。此处是单位修复时的阶段记录；整题评分、新版回放及正式interact后来已完成，见本题后续记录。
+
+186速度参数：用户确认在英文query明确本题输出使用30 KPH，替换原先“数值可能因速度不同”的开放式说明；KB同步准确引文及intent。原始挑战已说明作者使用30 kph，full/reference/修正后GT均采用30；本次不改参考程序或GT。最终契约审核及正式interact见下。
+
+186静态收尾：新版固定镜像reference与独立GT七行逐字段一致，已按官方答案一位小数核对。KB所有条目补准确来源及明确intent，metadata为sports。评分采用Measure键，混合数值/Coach(value)年份列暂沿用full规定的精确文本格式，不擅自扩大格式兼容。7项探针原值/倒序通过，旧GT、错距离、错教练、缺行/重复拒绝。并列教练、空年份及非正时长分支不宣称已覆盖；正式interact已完成。
+
+**正式运行复核（2026-10-17）**。pandas r001通过（ask_user 3轮）；ibis r001通过（ask_user 2轮）；pyspark r001通过（ask_user 3轮）。运行计划中的任务资产及评估实现哈希与当前版本一致；本地证据`curation/output/186/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 187：员工每日排班日历（审核及正式实验完成）
+
+用户确认删除full额外展示排序；reference/GT按日期字符串排序不代表真实日期升序，但在行序不限的契约下不影响答案。query/reference/GT不改。独立生成10员工×2022—2023年730天，7300行含675个排班标记全部匹配GT；输入无重复排班。评分使用员工ID＋日期、日期按月/日/年或ISO语义比较、布尔排班及精确姓名。6项探针正确/ISO倒序通过，错标记、错姓名、缺行/重复拒绝。KB引文及intent同步，领域business；固定镜像参考已回放，正式interact已完成，证据curation/output/187/。
+
+**正式运行复核（2026-10-17）**。pandas r001通过（ask_user 2轮）；polars r001通过（ask_user 1轮）；pyspark r001通过（ask_user 2轮）。运行计划中的任务资产及评估实现哈希与当前版本一致；本地证据`curation/output/187/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 188：同需求等级的最高伤害武器（审核及正式实验完成）
+
+用户确认删除full的最终Required Level升序展示要求，保留组内伤害排名及并列第一全保留；query/reference/GT不变。独立核算256件唯一武器的属性及伤害合计，53行匹配GT；等级24的Stone Club与Nox Flowing Hammer并列，均保留。评分按Name业务键、等级/伤害整数、忽略行序；7项探针原值/倒序通过，漏并列、错武器、错伤害/等级、重复拒绝。KB准确引用完整需求，未将不支持规则的参考代码作为依据。限制：当前无多类别同名武器、无非法首数值；full规定的单类别选择及非法数值兜底并未被reference全面实现，本次不扩展未触发分支，不宣称已验证。领域media_culture，固定镜像参考已回放；正式interact已完成，证据curation/output/188/。
+
+**正式运行复核（2026-10-17）**。pandas r001通过（ask_user 1轮）；pyspark r001通过（ask_user 1轮）；ibis r001通过（ask_user 1轮）。运行计划中的任务资产及评估实现哈希与当前版本一致；本地证据`curation/output/188/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 189：商机、客户及用户关联汇总（审核及正式实验完成）
+
+用户确认删除full对三张汇总表额外规定的金额降序及姓名升序，明确最终行序不限；query/GT不变，reference保留排序作为允许的输出实现，不作为业务要求。独立标准库关联及Decimal汇总核对四表706/18/18/498行全部与GT一致，维表ID唯一，706个商机ID唯一；当前输入没有未匹配用户或客户，不宣称未匹配分支已验证。KB补准确引用并区分客户/商机负责人措辞；评分分别以商机ID、负责人姓名、客户负责人姓名、客户名为键，金额精确数值、机会数整数、忽略行序。7项探针原值/全表逆序通过，错金额、错负责人、错机会数、缺行/重复拒绝。领域business；固定镜像参考已回放，正式interact已完成，证据curation/output/189/。
+
+**正式运行复核（2026-10-17）**。pandas r001通过（ask_user 1轮）；polars r001通过（ask_user 1轮）；ibis r001通过（ask_user 2轮）。运行计划中的任务资产及评估实现哈希与当前版本一致；本地证据`curation/output/189/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 190：员工与职级向下填充（审核及正式实验完成）
+
+保留题意/reference/GT。17行含员工切换及晋升后职级传播，属于数据整理。独立逐行填充与GT连同位置完全一致；输入Record ID为1—17递增，full/reference按ID排序在当前输入恰好保留原序。query明确保留输入顺序，配置使用已核验GT位置顺序及Record ID业务键，日期语义、职级整数。7项探针正确/ISO日期通过，逆序、晋升后沿用旧职级、跨员工填错、缺行/重复拒绝。未验证任意重排输入；不将当前一致外推。KB补intent，领域business；固定镜像参考已回放，正式interact已完成。证据curation/output/190/。
+
+**正式运行复核（2026-10-17）**。pandas r001通过（ask_user 3轮）；pyspark r001通过（ask_user 1轮）；ibis r001通过（ask_user 1轮）。运行计划中的任务资产及评估实现哈希与当前版本一致；本地证据`curation/output/190/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 191：排除：乘法表生成
+
+用户确认不纳入：参考程序从输入1和9读取上下限，再生成9×9乘法表；虽使用输入边界，实质仍为整数序列与乘法生成，缺少实际记录清洗、关联或汇总。原文件及导入快照本地保留，交付不纳入此题任务资产；不安排正式interact。此前参考回放仅是导入检查，不代表正式评测。决定记录于本地curation/output/191/review.json。
+
+### 192：排除：固定乘法表生成
+
+用户确认不纳入：输入仅含1和9，参考程序读取后不使用输入值，固定生成4×4乘法表，主要为循环与乘法，缺少实质输入数据处理。原始文件及导入快照本地保留，交付不纳入此题任务资产；不安排正式interact。此前参考回放仅为导入检查，不表示本题保留或完成正式评测。排除决定见本地curation/output/192/review.json。
+
+### 193：训练分数向前填充（审核及正式实验完成）
+
+query/full/reference/GT规则一致，保留题意与答案。独立标准库逐日查最近分数，6750行与GT多重集一致；既有固定镜像reference回放一致。原始业务键无重复，冲突重复分数分支未验证。KB补准确引文和intent，metadata为sports；评分使用Player＋Session＋Session Date业务键、日期语义及整数分数。6项探针正确/ISO倒序通过，错沿用分数、错标记、缺最终日期、重复拒绝。正式interact已完成，证据curation/output/193/。
+
+**正式运行复核（2026-10-17）**。pandas r001通过（ask_user 1轮）；ibis r001通过（ask_user 1轮）；pyspark r001通过（ask_user 1轮）。运行计划中的任务资产及评估实现哈希与当前版本一致；本地证据`curation/output/193/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 194：训练记录补齐（审核及正式实验完成）
+
+用户确认在英文query补明原“上周流程”的必要规则：每位球员/训练从首次记录至全数据最大日期，缺失工作日沿用最近分数，原记录Actual、补齐记录Carried over；首次记录前仍按原题补0并标Pre First Session。full/reference/GT不变，KB补引文和intent并移除与现参考不符的旧代码引用。独立标准库逐日核算11700行与GT多重集一致；输入没有重复业务键或周末记录，相关分支不宣称已验证。评分采用Player＋Session＋Session Date、日期语义与整数分数；7项探针正确/ISO倒序通过，错首次前分数、错沿用分数、错标记、重复/缺行拒绝。领域sports。既有固定镜像参考回放一致，正式interact已完成；证据curation/output/194/。
+
+**正式运行复核（2026-10-17）**。pandas r001通过（ask_user 1轮）；pyspark r001通过（ask_user 1轮）；ibis r001通过（ask_user 1轮）。运行计划中的任务资产及评估实现哈希与当前版本一致；本地证据`curation/output/194/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 195：订单日期合并与订单编号生成（审核及正式实验完成）
+
+保留query/full/reference/GT。独立标准库核算1000行全部匹配GT；每行恰有一列日期非空，客户名均为两段，因此日期优先级及单段姓名兜底在本数据未触发，不额外公开或扩大修改。订单号仅971个不同值，新Order ID为1000个唯一值，评分用Order ID作键，订单号整数、日期语义比较。KB补明确intent；7项探针正确/ISO倒序通过，错ID、错订单号、错日期、缺行/重复拒绝。领域business。参考回放已一致，正式interact已完成；本地证据curation/output/195/。
+
+**正式运行复核（2026-10-17）**。pandas r001通过（ask_user 1轮）；pyspark r001通过（ask_user 1轮）；ibis r001通过（ask_user 2轮）。运行计划中的任务资产及评估实现哈希与当前版本一致；本地证据`curation/output/195/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 196：门店月度销售宽表转长表（审核及正式实验完成）
+
+核对query/full/reference/GT，保留原业务规则与题意；输入表头含2022年，4店×10月构成40行。标准库按月份表头位置独立核算全部匹配GT，既有固定镜像reference回放一致。KB补准确引文及intent；评分改用Store＋Date业务键、日期语义及整数金额，7项探针正确/倒序通过，错销售/利润、错月份、重复/缺行拒绝。领域business。正式interact已完成，非法输入分支未覆盖；本地证据curation/output/196/。
+
+**正式运行复核（2026-10-17）**。pandas r001通过（ask_user 1轮）；pyspark r001通过（ask_user 1轮）；ibis r001通过（ask_user 1轮）。运行计划中的任务资产及评估实现哈希与当前版本一致；本地证据`curation/output/196/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 197：各地区月度销售表整理（审核及正式实验完成）
+
+用户确认在英文query公开input_01～04依次对应London、Northern、Scotland、Wales；原匿名文件名及表内没有地区标签，补充来源对应关系，不公开整理算法。同步KB准确引文与intent，reference/GT不变。独立按原始CSV月份表头及输入年份重塑，100行全部匹配GT；既有固定镜像reference回放匹配。评分采用Region＋Store＋Date业务键、日期语义、整数销售/利润；7项探针确认正确/ISO倒序通过，错地区、错销售/利润、重复/缺行拒绝。领域business。正式interact已完成，本地证据在curation/output/197/，未覆盖非法输入分支。
+
+**正式运行复核（2026-10-17）**。pandas r001通过（ask_user 1轮）；pyspark r001通过（ask_user 1轮）；ibis r001通过（ask_user 1轮）。运行计划中的任务资产及评估实现哈希与当前版本一致；本地证据`curation/output/197/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 198：首相任期与切尔西比赛统计（审核及正式实验完成）
+
+query的today与full/reference/GT的固定定义不同。独立确认全部比赛及规定赛事内的最大日期均为2022-11-02；GT将仍在任结束日设为次日2022-11-03。用户确认公开既有today定义；英文query补明以输入中最大有效比赛日期的次日为today，适用于首相及主教练结束日期，并同步KB准确引文及intent。full、reference及GT不变。以下续审记录说明后续业务修复及最终验证。
+
+198续审：用户确认修复教练任期关联造成的比赛漏计/重复计数。比赛直接按首相任期独立统计；教练人数按任期交集独立去重，再按首相姓名及起止日期合并。同步full、KB、reference与GT；query保留自然业务需求，不增加实现步骤。today在过滤赛事前从全部有效比赛日期计算，与已公开定义一致。旧版保存在本地`curation/output/198/before_count_fix/`。GT仍19行，仅撒切尔550→551、布莱尔554→555、布朗173→174、卡梅伦344→343场，分别调整对应胜负数；布朗胜率0.65→0.66、卡梅伦0.56→0.55，教练人数不变。标准库区间核算独立生成预期，与固定镜像reference及新版GT全部19行逐字段一致。8项评分探针确认原值与ISO日期/倒序通过，旧GT、错人数、错日期、无比赛胜率写0、重复/缺行拒绝。metadata为sports，评分采用任期业务键、整数计数、精确数值胜率和日期语义；不检查最终展示行序。未触发的缺年/非法日期分支不据此宣称正确。正式interact另行记录。
+
+198首轮：pandas/PySpark/Polars r001均生成完成、原评分KEY_MISMATCH失败；逐字段核对仅两段丘吉尔任期姓名用了Winston Churchill而非Sir Winston Churchill，其他全部字段与新版GT相同。用户批准兼容输入中的这两个确指同一人的名字；full及KB同步，评分仅对这两个完整标签做别名映射，任期日期及其他字段严格核对。冻结r001输出重评三组均通过，原正式报告未覆盖；未列出的Churchill仍拒绝。证据curation/output/198/r001_name_compatibility_regrade.json。因full/KB发生变化，另做r002正式生成，结果见下；重评不替代新生成。
+
+**正式运行复核（2026-10-17）**。pandas r002通过（ask_user 2轮）；pyspark r002通过（ask_user 2轮）；polars r002通过（ask_user 1轮）。运行计划中的任务资产及评估实现哈希与当前版本一致；本地证据`curation/output/198/formal_completion_audit.json`及`interact_plan_r002.json`记录版本和正式报告路径。 首轮失败与独立重评报告保留，r002为修改full/KB后的重新生成，不替换r001历史结果。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+### 199：比赛分数整理（审核及正式实验完成）
+
+用户决定保留full/reference/GT对⅓、⅔转为小数后保留两位的规则，英文query在Score及Points两处补明；reference与GT不改。独立标准库核算876行局次和142行选手成绩匹配GT；评分按赛事＋选手＋局次、赛事＋选手分组，分数精确数值、计数整数、日期语义和布尔值验证；不检查full的最终展示排序。2.33与2.330等值写法通过，2.333333…、错分数、错potout、缺行/重复、错总分、错日期均拒绝。KB整理准确引文及明确intent；metadata领域为sports。pandas固定，另两后端由预定种子抽取，模型/隔离配置沿用此前设置；正式运行及版本核验见下。
+
+**正式运行复核（2026-10-17）**。pandas r001通过（ask_user 3轮）；polars r001通过（ask_user 1轮）；ibis r001通过（ask_user 1轮）。运行计划中的任务资产及评估实现哈希与当前版本一致；本地证据`curation/output/199/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。

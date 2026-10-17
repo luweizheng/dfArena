@@ -1,0 +1,52 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Prime Ministers",
+        "Start Date PM",
+        "End Date PM"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Prime Ministers": {
+          "type": "text_exact",
+          "aliases": {
+            "Winston Churchill": "Sir Winston Churchill"
+          }
+        },
+        "Start Date PM": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "End Date PM": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Chelsea Managers": {
+          "type": "integer"
+        },
+        "Matches": {
+          "type": "integer"
+        },
+        "Matches Won": {
+          "type": "integer"
+        },
+        "Matches Drawn": {
+          "type": "integer"
+        },
+        "Matches Lost": {
+          "type": "integer"
+        },
+        "Win %": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      }
+    }
+  }
+}
