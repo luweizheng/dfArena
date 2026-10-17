@@ -1,0 +1,23 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Store",
+        "Product Type"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Store": "text_exact",
+        "Product Type": "text_exact",
+        "Average mins to next sale": {
+          "type": "number",
+          "abs_tol": 1e-09,
+          "rel_tol": 0
+        }
+      },
+      "alternative_gt": {
+        "unrounded": "unrounded/output_01.csv"
+      }
+    }
+  }
+}

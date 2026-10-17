@@ -1,0 +1,24 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "emp_id",
+        "scheduled_date"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "scheduled_date": {
+          "type": "date",
+          "formats": [
+            "%m/%d/%Y"
+          ]
+        },
+        "emp_id": "integer",
+        "full_name": "text_exact",
+        "first_name": "text_exact",
+        "last_name": "text_exact",
+        "scheduled": "boolean"
+      }
+    }
+  }
+}

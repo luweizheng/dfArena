@@ -1,0 +1,18 @@
+case_id: case_197
+version: '1.0'
+domain: business
+format: csv
+table_count: 4
+tables:
+- name: input_01
+  path: inputs/input_01.csv
+  columns: 21
+- name: input_02
+  path: inputs/input_02.csv
+  columns: 21
+- name: input_03
+  path: inputs/input_03.csv
+  columns: 21
+- name: input_04
+  path: inputs/input_04.csv
+  columns: 21

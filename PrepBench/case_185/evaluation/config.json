@@ -1,0 +1,24 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Rank"
+      ],
+      "ignore_order": false,
+      "order_mode": "gt_position",
+      "columns": {
+        "Rank": "integer",
+        "Coach": "text_exact",
+        "Calories": "integer",
+        "Music Type": "text_exact",
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Mins": "integer"
+      }
+    }
+  }
+}

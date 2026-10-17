@@ -1,0 +1,21 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Order ID"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Order ID": "text_exact",
+        "Order Number": "integer",
+        "Customer": "text_exact",
+        "Order Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        }
+      }
+    }
+  }
+}

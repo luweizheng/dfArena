@@ -1,0 +1,24 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Region",
+        "Store",
+        "Date"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Region": "text_exact",
+        "Store": "text_exact",
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Sales": "integer",
+        "Profit": "integer"
+      }
+    }
+  }
+}

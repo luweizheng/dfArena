@@ -1,0 +1,24 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Player",
+        "Session",
+        "Session Date"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "Player": "text_exact",
+        "Session": "text_exact",
+        "Session Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Flag": "text_exact",
+        "Score": "integer"
+      }
+    }
+  }
+}

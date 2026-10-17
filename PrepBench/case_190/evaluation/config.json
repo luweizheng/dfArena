@@ -1,0 +1,23 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Record ID"
+      ],
+      "ignore_order": false,
+      "order_mode": "gt_position",
+      "columns": {
+        "Record ID": "integer",
+        "Employee": "text_exact",
+        "Work Level": "integer",
+        "Stage": "text_exact",
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        }
+      }
+    }
+  }
+}

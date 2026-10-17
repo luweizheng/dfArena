@@ -1,0 +1,49 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_pre_first_session_score",
+      "kind": "Row-level concept",
+      "node_id": "pre_ranges",
+      "op": "project",
+      "source_text": "Assign these generated dates a Score of 0",
+      "ref": "'Score': 0",
+      "intent": "Set pre-first-session scores to zero and flag Pre First Session."
+    },
+    {
+      "id": "2_date_range_scope",
+      "kind": "Operation boundary",
+      "node_id": "pre_ranges",
+      "op": "project",
+      "source_text": "Add in the dates between the minimum date and first session",
+      "ref": "date_range = pd.date_range(start=min_date, end=first_date - pd.Timedelta(days=1), freq='D')",
+      "intent": "Use global minimum date inclusive through the day before each Player/Session first date."
+    },
+    {
+      "id": "3_weekend_exclusion",
+      "kind": "Row-level concept",
+      "node_id": "filter_weekdays_main",
+      "op": "filter",
+      "source_text": "Ensure no weekends exist in your dataset",
+      "ref": "weekdays = date_range[date_range.weekday < 5]",
+      "intent": "Exclude Saturday and Sunday."
+    },
+    {
+      "id": "4_dedup_strategy",
+      "kind": "Operation inconsistent",
+      "node_id": "dedup",
+      "op": "dedup",
+      "source_text": "Be careful of duplication",
+      "ref": "combined_df = combined_df.drop_duplicates(subset=['Player', 'Session', 'Date_dt'], keep='first')",
+      "intent": "Deduplicate on Player, Session and Date, keeping the first occurrence."
+    },
+    {
+      "id": "5_carry_over_flag",
+      "kind": "Row-level concept",
+      "node_id": "finalize_main",
+      "op": "project",
+      "intent": "Keep recorded scores as Actual; carry the latest previous score across missing weekdays through the global maximum date and flag Carried over.",
+      "ref": "The reference weekday loop emits Flag='Actual' for dates in score_lookup and Flag='Carried over' with last_score otherwise.",
+      "source_text": "For each Player and Session, retain recorded scores as \"Actual\"; from the first recorded session through the global maximum date, fill missing weekdays with the most recent previous score and flag them as \"Carried over\"."
+    }
+  ]
+}

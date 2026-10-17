@@ -1,0 +1,75 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Event id",
+        "Competitor Name",
+        "Game Order"
+      ],
+      "columns": {
+        "Event id": {
+          "type": "integer"
+        },
+        "Game Order": {
+          "type": "text_exact"
+        },
+        "Competitor Name": {
+          "type": "text_exact"
+        },
+        "Score": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Potout": {
+          "type": "boolean"
+        },
+        "note": {
+          "type": "text_exact"
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Event id",
+        "Competitor Name"
+      ],
+      "columns": {
+        "Event id": {
+          "type": "integer"
+        },
+        "Competitor Name": {
+          "type": "text_exact"
+        },
+        "Event": {
+          "type": "text_exact"
+        },
+        "Event Start Date": {
+          "type": "date"
+        },
+        "Event Description": {
+          "type": "text_exact"
+        },
+        "Association": {
+          "type": "text_exact"
+        },
+        "Points": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Wins": {
+          "type": "integer"
+        },
+        "Losses": {
+          "type": "integer"
+        },
+        "Ties": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

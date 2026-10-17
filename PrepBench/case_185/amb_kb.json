@@ -1,0 +1,67 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_rank_sequential_after_sort",
+      "kind": "Row-level concept",
+      "node_id": "compute_rank",
+      "op": "project",
+      "intent": "Define Rank as sequential 1..N in the sorted (calories-desc) output order.",
+      "ref": "filtered[\"Rank\"] = range(1, len(filtered) + 1)",
+      "source_text": "Create `Rank` as 1 for the top row, increasing by 1 down to N, based on this sorted order."
+    },
+    {
+      "id": "2_C1_filter_coach_value",
+      "kind": "Single-table reference",
+      "node_id": "filter_pick",
+      "op": "filter",
+      "intent": "Filter to the run's selected Coach value of Kym.",
+      "ref": "param_coach = \"Kym\"",
+      "source_text": "`Coach` = `Kym`"
+    },
+    {
+      "id": "3_C1_filter_music_type_value",
+      "kind": "Single-table reference",
+      "node_id": "filter_pick",
+      "op": "filter",
+      "intent": "Filter to the run's selected Music Type value of Everything Rock.",
+      "ref": "param_music_type = \"Everything Rock\"",
+      "source_text": "`Music Type` = `Everything Rock`"
+    },
+    {
+      "id": "4_D1_split_meta_delimiter",
+      "kind": "Single-table reference",
+      "node_id": "parse_project",
+      "op": "project",
+      "source_text": "Parse the final (unnamed) column into three fields by splitting on the delimiter ` - ` (three parts, left to right):",
+      "ref": "split_parts = df[unnamed_col].str.split(\" - \", n=2, expand=True)",
+      "intent": "Parse the final (unnamed) column into three fields by splitting on the delimiter  -  (three parts, left to right):"
+    },
+    {
+      "id": "5_O1_titlecase_before_filter",
+      "kind": "Row-level concept",
+      "node_id": "parse_project",
+      "op": "project",
+      "intent": "Complete Music Type Title Case conversion before applying any filtering that uses Music Type.",
+      "ref": "df[\"Music Type\"] = df[\"Music Type\"].str.title()",
+      "source_text": "This conversion must be completed before applying any filtering operations that use `Music Type` values."
+    },
+    {
+      "id": "6_C2_mins_equals_value",
+      "kind": "Row-level concept",
+      "node_id": "parse_project",
+      "op": "project",
+      "source_text": "Create a field named `Mins` from the existing `Value` field (i.e., `Mins = Value`), without performing any numeric conversion between different physical units.",
+      "ref": "df[\"Mins\"] = df[\"Value\"]",
+      "intent": "Create a field named Mins from the existing Value field (i.e., Mins = Value), without performing any numeric conversion between different physical units."
+    },
+    {
+      "id": "7_O1_top_n_equals_5",
+      "kind": "Operation boundary",
+      "node_id": "sort_top",
+      "op": "sort",
+      "intent": "Use Top N value of 5 (keep first 5 rows after sorting by Calories descending).",
+      "ref": "param_top_n = 5; filtered = filtered.head(param_top_n)",
+      "source_text": "`Top N` = `5`"
+    }
+  ]
+}
