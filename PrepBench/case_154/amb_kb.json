@@ -1,0 +1,40 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_d2_join_keys",
+      "kind": "Multi-table alignment",
+      "node_id": "join_merge",
+      "op": "join",
+      "source_text": "Join `input_01.csv` (grades) to `input_02.csv` (student details) using an inner join where `input_01.csv`.`Student ID` matches `input_02.csv`.`id`.",
+      "ref": "        left_on='Student ID', \n        right_on='id',",
+      "intent": "Join input_01.csv (grades) to input_02.csv (student details) using an inner join where input_01.csv.Student ID matches input_02.csv.id."
+    },
+    {
+      "id": "2_o2_join_type_inner",
+      "kind": "Operation incomplete",
+      "node_id": "join_merge",
+      "op": "join",
+      "source_text": "Join `input_01.csv` (grades) to `input_02.csv` (student details) using an inner join where `input_01.csv`.`Student ID` matches `input_02.csv`.`id`.",
+      "ref": "        how='inner'",
+      "intent": "Join input_01.csv (grades) to input_02.csv (student details) using an inner join where input_01.csv.Student ID matches input_02.csv.id."
+    },
+    {
+      "id": "3_d1_keep_only_gender_and_key",
+      "kind": "Single-table reference",
+      "node_id": "proj_students",
+      "op": "project",
+      "source_text": "From the student-details data, retain only the fields needed for this task (gender and the join key) and exclude parental fields from the joined result.",
+      "ref": "        students_df[['id', 'gender']], ",
+      "intent": "From the student-details data, retain only the fields needed for this task (gender and the join key) and exclude parental fields from the joined result."
+    },
+    {
+      "id": "4_o2_unparseable_scores_as_missing",
+      "kind": "Operation incomplete",
+      "node_id": "project_scores",
+      "op": "project",
+      "intent": "Treat Score as numeric for downstream calculations; non-numeric/unparseable values should be handled as missing for calculations.",
+      "ref": "melted_df['Score'] = pd.to_numeric(melted_df['Score'], errors='coerce')",
+      "source_text": "Treat `Score` as numeric for downstream calculations; non-numeric/unparseable values should be handled as missing for calculations."
+    }
+  ]
+}

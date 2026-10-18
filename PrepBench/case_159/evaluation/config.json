@@ -1,0 +1,50 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Stage_1",
+        "Stage_2",
+        "Stage_3"
+      ],
+      "columns": {
+        "Stage_1": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Stage_2": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Stage_3": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "pokedex_number": {
+          "type": "integer"
+        },
+        "gen_introduced": {
+          "type": "integer"
+        },
+        "initial_combat_power": {
+          "type": "integer"
+        },
+        "final_combat_power": {
+          "type": "integer"
+        },
+        "combat_power_increase": {
+          "type": "number",
+          "abs_tol": 1e-14,
+          "rel_tol": 1e-14
+        }
+      },
+      "ignore_order": false,
+      "order_by": [
+        {
+          "column": "combat_power_increase",
+          "direction": "asc",
+          "nulls": "last"
+        }
+      ]
+    }
+  }
+}

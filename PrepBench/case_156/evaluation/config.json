@@ -1,0 +1,38 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Student ID",
+        "Subject"
+      ],
+      "columns": {
+        "Avg student total points per grade": {
+          "type": "number",
+          "abs_tol": 0.005,
+          "rel_tol": 0
+        },
+        "Total Points per Student": {
+          "type": "integer"
+        },
+        "Grade": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Points": {
+          "type": "integer"
+        },
+        "Subject": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Score": {
+          "type": "integer"
+        },
+        "Student ID": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

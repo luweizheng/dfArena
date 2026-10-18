@@ -1,0 +1,34 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Salesperson",
+        "Date",
+        "Bike Type"
+      ],
+      "columns": {
+        "Salesperson": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Bike Type": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Sales": {
+          "type": "integer"
+        },
+        "YTD Total": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

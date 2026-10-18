@@ -1,0 +1,24 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Rating",
+        "Status"
+      ],
+      "columns": {
+        "Rating": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Status": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Cases": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

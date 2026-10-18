@@ -1,0 +1,103 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O1_quarter_start_date_interpretation",
+      "kind": "Operation boundary",
+      "node_id": "agg_opening_filter",
+      "op": "filter",
+      "source_text": "Define the quarter start as **1 Oct 2021**.",
+      "ref": "QUARTER_START = pd.Timestamp(2021, 10, 1)",
+      "intent": "Define the quarter start as 1 Oct 2021."
+    },
+    {
+      "id": "2_D1_carryover_label_continuing",
+      "kind": "Single-table reference",
+      "node_id": "compute_continuing",
+      "op": "project",
+      "intent": "Continuing = Opening cases + New cases − Completed − Deferred",
+      "ref": "status_order = [\"Completed\", \"Deferred\", \"New cases\", \"Opening cases\", \"Continuing\"]",
+      "source_text": "**Continuing = Opening cases + New cases − Completed − Deferred**"
+    },
+    {
+      "id": "3_C1_completed_count_not_date_scoped",
+      "kind": "Row-level concept",
+      "node_id": "filter_completed",
+      "op": "filter",
+      "source_text": "**Completed**: cases whose **Status** is `Completed` (count regardless of Date Lodged).",
+      "ref": "df[df[\"Status\"].str.strip().eq(\"Completed\")]",
+      "intent": "Completed: cases whose Status is Completed (count regardless of Date Lodged)."
+    },
+    {
+      "id": "4_C1_deferred_count_not_date_scoped",
+      "kind": "Row-level concept",
+      "node_id": "filter_deferred",
+      "op": "filter",
+      "source_text": "**Deferred**: cases whose **Status** is `Deferred` (count regardless of Date Lodged).",
+      "ref": "df[df[\"Status\"].str.strip().eq(\"Deferred\")]",
+      "intent": "Deferred: cases whose Status is Deferred (count regardless of Date Lodged)."
+    },
+    {
+      "id": "5_O1_quarter_boundary_inclusive_new",
+      "kind": "Operation boundary",
+      "node_id": "filter_new",
+      "op": "filter",
+      "source_text": "**New cases**: cases with **Date Lodged** **on or after** 1 Oct 2021 (the boundary date counts as “New cases”).",
+      "ref": "df[df[\"Date Lodged\"] >= QUARTER_START]",
+      "intent": "New cases: cases with Date Lodged on or after 1 Oct 2021 (the boundary date counts as “New cases”)."
+    },
+    {
+      "id": "6_D2_lookup_mapping_key_risk_level_to_rating",
+      "kind": "Multi-table alignment",
+      "node_id": "join_a_lookup",
+      "op": "join",
+      "source_text": "Treat Business Unit A’s existing **Rating** as the numeric risk level and map it to the textual **Risk rating** using the lookup table (`Risk level` → `Risk rating`).",
+      "ref": "level_to_rating = dict(zip(df_lookup[\"Risk level\"], df_lookup[\"Risk rating\"]))",
+      "intent": "Treat Business Unit A’s existing Rating as the numeric risk level and map it to the textual Risk rating using the lookup table (Risk level → Risk rating)."
+    },
+    {
+      "id": "7_O2_lookup_applies_to_a_only",
+      "kind": "Row-level concept",
+      "node_id": "join_a_lookup",
+      "op": "join",
+      "source_text": "Use the lookup table to update the risk rating (Business Unit A only).",
+      "ref": "df_a[\"Rating\"] = pd.to_numeric(df_a[\"Rating\"], errors=\"coerce\").map(level_to_rating)",
+      "intent": "Use the lookup table to update the risk rating (Business Unit A only)."
+    },
+    {
+      "id": "8_O2_missing_counts_treated_as_zero_for_continuing",
+      "kind": "Operation incomplete",
+      "node_id": "pivot_wide",
+      "op": "pivot",
+      "source_text": "Ensure missing classification counts for a given Rating are treated as zero when calculating Continuing.",
+      "ref": "base = idx_values[\"Cases\"].reindex(ratings).fillna(0).astype(int)",
+      "intent": "Ensure missing classification counts for a given Rating are treated as zero when calculating Continuing."
+    },
+    {
+      "id": "9_C2_date_lodged_from_year_month_day_a",
+      "kind": "Row-level concept",
+      "node_id": "proj_a1",
+      "op": "project",
+      "source_text": "Construct **Date Lodged** as a date from the existing Year, Month, and Date components in the Business Unit A input.",
+      "ref": "df_a[\"Date Lodged\"] = pd.to_datetime(\n        dict(year=df_a[\"Year\"], month=df_a[\"Month\"], day=df_a[\"Date\"]), errors=\"coerce\"\n    )",
+      "intent": "Construct Date Lodged as a date from the existing Year, Month, and Date components in the Business Unit A input."
+    },
+    {
+      "id": "10_O2_date_lodged_parse_dayfirst_b",
+      "kind": "Operation boundary",
+      "node_id": "proj_b",
+      "op": "project",
+      "intent": "The Date lodged field in Business Unit B is in d/m/y format (day/month/year).",
+      "ref": "df_b[\"Date Lodged\"] = pd.to_datetime(df_b[\"Date lodged\"], dayfirst=True, errors=\"coerce\")",
+      "source_text": "The **Date lodged** field in Business Unit B is in **d/m/y** format (day/month/year)."
+    },
+    {
+      "id": "11_D2_combine_units_by_union",
+      "kind": "Multi-table alignment",
+      "node_id": "union_ab",
+      "op": "union",
+      "source_text": "Combine the two business units by appending rows (i.e., stacking/unioning), producing one consolidated case table at the grain of **one row per case (Ticket ID record)**.",
+      "ref": "df = pd.concat([df_a, df_b], ignore_index=True)",
+      "intent": "Combine the two business units by appending rows (i.e., stacking/unioning), producing one consolidated case table at the grain of one row per case (Ticket ID record)."
+    }
+  ]
+}

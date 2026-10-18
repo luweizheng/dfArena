@@ -1,0 +1,85 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O2_drop_only_fully_empty_rows",
+      "kind": "Operation incomplete",
+      "node_id": "filter_nonempty",
+      "op": "filter",
+      "source_text": "Remove rows that are completely empty (i.e., rows with no populated fields).",
+      "ref": "df = df.replace(\"\", np.nan)\ndf = df.dropna(how=\"all\")",
+      "intent": "Remove rows that are completely empty (i.e., rows with no populated fields)."
+    },
+    {
+      "id": "2_O2_whitespace_delimited_input",
+      "kind": "Operation incomplete",
+      "node_id": "input_raw",
+      "op": "input",
+      "intent": "Read input_01.csv as a whitespace-delimited file (fields are separated by runs of spaces, not a single fixed delimiter).",
+      "ref": "df = pd.read_csv(in_file, sep=r\"\\s{2,}\", engine=\"python\", dtype=str, keep_default_na=False)",
+      "source_text": "Read `input_01.csv` as a whitespace-delimited file (fields are separated by runs of spaces, not a single fixed delimiter)."
+    },
+    {
+      "id": "3_O1_insert_missing_ww1_seasons",
+      "kind": "Operation boundary",
+      "node_id": "project_anchors",
+      "op": "project",
+      "source_text": "Insert the following missing WW1 placeholder seasons:",
+      "ref": "if r[\"Season\"] == \"1914-15\":\n            for s in [\"1918-19\", \"1917-18\", \"1916-17\", \"1915-16\"]:\n                rows.append(empty_row(s, \"WW1\"))",
+      "intent": "Insert missing seasons 1915-16 through 1918-19 with WW1 labels; final row order is unrestricted."
+    },
+    {
+      "id": "4_O1_insert_missing_ww2_seasons",
+      "kind": "Operation boundary",
+      "node_id": "project_anchors",
+      "op": "project",
+      "source_text": "Insert the following missing WW2 placeholder seasons:",
+      "ref": "if r[\"Season\"] == \"1939-40\":\n            for s in [\"1945-46\", \"1944-45\", \"1943-44\", \"1942-43\", \"1941-42\", \"1940-41\"]:\n                rows.append(empty_row(s, \"WW2\"))",
+      "intent": "Insert missing seasons 1940-41 through 1945-46 with WW2 labels; final row order is unrestricted."
+    },
+    {
+      "id": "5_C1_league_to_level_mapping",
+      "kind": "Row-level concept",
+      "node_id": "project_level_outcome",
+      "op": "project",
+      "source_text": "Map leagues to a numeric “level” used only for comparisons between consecutive seasons:",
+      "ref": "league_level = {\n    \"FL-CH\": 0,\n    \"FL-1\": 1,\n    \"EFL-1\": 1,\n    \"FL-2\": 2,\n    \"EFL-2\": 2,\n    \"FL-3\": 3,\n    \"FL-3S\": 3,\n    \"FL-4\": 4,\n    \"SOUTH-1\": 2,\n    \"SOUTH-2\": 3,\n    \"NAT-P\": 5,\n}",
+      "intent": "Use league levels FL-CH=0; FL-1/EFL-1=1; FL-2/EFL-2/SOUTH-1=2; FL-3/FL-3S/SOUTH-2=3; FL-4=4; NAT-P=5."
+    },
+    {
+      "id": "6_C2_outcome_direction_by_level",
+      "kind": "Row-level concept",
+      "node_id": "project_level_outcome",
+      "op": "project",
+      "source_text": "`Promoted` if the next season’s level is numerically lower than the current season’s level.",
+      "ref": "outcome.loc[mask_valid & (next_levels < levels)] = \"Promoted\"\n        outcome.loc[mask_valid & (next_levels > levels)] = \"Relegated\"\n        outcome.loc[mask_valid & (next_levels == levels)] = \"Same League\"",
+      "intent": "Compare adjacent original input records: lower next league level means Promoted, higher means Relegated, equal means Same League; no following season means blank/null or N/A."
+    },
+    {
+      "id": "7_O1_ignore_inserted_war_rows_for_outcome_comparison",
+      "kind": "Operation incomplete",
+      "node_id": "project_level_outcome",
+      "op": "project",
+      "source_text": "Create an `Outcome` field with 3 potential values, based on the next season in the original data order (ignoring any inserted wartime placeholder rows for the purpose of the comparison).",
+      "ref": "base_for_outcome = base.copy()\nbase_for_outcome[\"Special Circumstances\"] = \"N/A\"\nbase_for_outcome.loc[base_for_outcome[\"Season\"].eq(\"1939-40\"), \"Special Circumstances\"] = \"Abandoned due to WW2\"\nbase_for_outcome.loc[base_for_outcome[\"Season\"].eq(\"2021-22\"), \"Special Circumstances\"] = \"Incomplete\"\nseason_to_outcome = compute_outcome(base_for_outcome)\nseason_to_outcome.index = base_for_outcome[\"Season\"].astype(str).values\nout_df[\"Outcome\"] = np.where(\n    out_df[\"League\"].notna(),\n    out_df[\"Season\"].map(season_to_outcome).fillna(\"N/A\"),\n    \"N/A\",\n)",
+      "intent": "Create an Outcome field with 3 potential values, based on the next season in the original data order (ignoring any inserted wartime placeholder rows for the purpose of the comparison)."
+    },
+    {
+      "id": "8_O2_null_pos_when_not_full_season",
+      "kind": "Operation incomplete",
+      "node_id": "project_special_flags",
+      "op": "project",
+      "source_text": "Set `POS` to null for any row where `Special Circumstances` is not `N/A` (including `Incomplete`, `Abandoned due to WW2`, `WW1`, and `WW2` placeholder rows).",
+      "ref": "df.loc[df[\"Special Circumstances\"].ne(\"N/A\"), \"POS\"] = np.nan",
+      "intent": "Set POS to null for any row where Special Circumstances is not N/A (including Incomplete, Abandoned due to WW2, WW1, and WW2 placeholder rows)."
+    },
+    {
+      "id": "9_O2_ww1_placeholder_null_fields",
+      "kind": "Operation incomplete",
+      "node_id": "ww1_rows",
+      "op": "script",
+      "source_text": "Set `League`, `P`, `W`, `D`, `L`, `F`, `A`, `Pts`, and `POS` to null.",
+      "ref": "def empty_row(season: str, sc: str) -> dict:\n    return {\n        \"Season\": season,\n        \"Outcome\": \"N/A\",\n        \"Special Circumstances\": sc,\n        \"League\": np.nan,\n        \"P\": np.nan,\n        \"W\": np.nan,\n        \"D\": np.nan,\n        \"L\": np.nan,\n        \"F\": np.nan,\n        \"A\": np.nan,\n        \"Pts\": np.nan,\n        \"POS\": np.nan,\n    }",
+      "intent": "Set League, P, W, D, L, F, A, Pts, and POS to null."
+    }
+  ]
+}

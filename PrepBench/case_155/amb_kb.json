@@ -1,0 +1,40 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_trips_per_day_denominator",
+      "kind": "Group-level concept",
+      "node_id": "agg_day_totals",
+      "op": "aggregate",
+      "source_text": "Define `Trips per day` as the total number of pupils (i.e., the number of distinct rows/students in the original wide input table), so it is constant across weekdays.",
+      "ref": "trips_per_day = len(travel_df)  # Total students = trips per day (each student travels once per day)\n\ngrouped['Trips per day'] = trips_per_day\n\ngrouped['% of trips per day'] = (grouped['Number of Trips'] / trips_per_day).round(2)",
+      "intent": "Define Trips per day as the total number of pupils (i.e., the number of distinct rows/students in the original wide input table), so it is constant across weekdays."
+    },
+    {
+      "id": "2_C1_sustainable_method_set",
+      "kind": "Row-level concept",
+      "node_id": "clean_methods",
+      "op": "project",
+      "source_text": "Classify as `Sustainable` if `Method of Travel` is one of:",
+      "ref": "sustainable_methods = {\n        'Walk', 'Bicycle', 'Scooter', \"Mum's Shoulders\", \"Dad's Shoulders\",\n        'Hopped', 'Skipped', 'Jumped'\n    }\n\n    def classify_sustainability(method):\n        return 'Sustainable' if method in sustainable_methods else 'Non-Sustainable'\n\n    long_df['Sustainable?'] = long_df['Method of Travel'].apply(classify_sustainability)",
+      "intent": "Classify as Sustainable if Method of Travel is one of:"
+    },
+    {
+      "id": "3_C1_canonical_method_names",
+      "kind": "Row-level concept",
+      "node_id": "clean_methods_map",
+      "op": "project",
+      "source_text": "Standardize `Method of Travel` to a consistent canonical set so that spelling variations collapse into the same method name.",
+      "ref": "spelling_map = {\n        'Bycycle': 'Bicycle',\n        'Bicycle': 'Bicycle',\n        'Carr': 'Car',\n        'Car': 'Car',\n        'Scootr': 'Scooter',\n        'Scoter': 'Scooter',\n        'Scooter': 'Scooter',\n        'Walkk': 'Walk',\n        'Wallk': 'Walk',\n        'Waalk': 'Walk',\n        'WAlk': 'Walk',\n        'Walk': 'Walk',\n        'Van': 'Van',\n        'Aeroplane': 'Aeroplane',\n        'Helicopeter': 'Helicopter',\n        'Helicopter': 'Helicopter',\n        \"Mum's Shoulders\": \"Mum's Shoulders\",\n        \"Dad's Shoulders\": \"Dad's Shoulders\",\n        'Hopped': 'Hopped',\n        'Skipped': 'Skipped',\n        'Jumped': 'Jumped'\n    }",
+      "intent": "Standardize Method of Travel to a consistent canonical set so that spelling variations collapse into the same method name."
+    },
+    {
+      "id": "4_D1_weekday_columns_set",
+      "kind": "Single-table reference",
+      "node_id": "pivot_long",
+      "op": "pivot",
+      "source_text": "Reshape the weekday columns `M`, `Tu`, `W`, `Th`, `F` into a long format with:",
+      "ref": "weekday_cols = ['M', 'Tu', 'W', 'Th', 'F']\n\nlong_df = travel_df.melt(\n        id_vars=id_vars,\n        value_vars=weekday_cols,\n        var_name='Weekday',\n        value_name='Method of Travel'\n    )",
+      "intent": "Reshape the weekday columns M, Tu, W, Th, F into a long format with:"
+    }
+  ]
+}

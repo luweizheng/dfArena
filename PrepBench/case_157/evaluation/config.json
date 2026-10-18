@@ -1,0 +1,30 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "7 letter word"
+      ],
+      "ignore_order": true,
+      "columns": {
+        "7 letter word": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Points Rank": {
+          "type": "integer"
+        },
+        "Likelihood Rank": {
+          "type": "integer"
+        },
+        "Total Points": {
+          "type": "integer"
+        },
+        "% Chance": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 1e-12
+        }
+      }
+    }
+  }
+}

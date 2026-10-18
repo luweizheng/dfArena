@@ -1,0 +1,75 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "id",
+        "Month Start Date"
+      ],
+      "columns": {
+        "id": {
+          "type": "integer"
+        },
+        "Agent Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Leader 1": {
+          "type": "integer"
+        },
+        "Leader Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Month Start Date": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Location": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Calls Answered": {
+          "type": "integer"
+        },
+        "Calls Not Answered": {
+          "type": "integer"
+        },
+        "Not Answered Rate": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Met Not Answered Rate": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Not Answered Percent < 5": {
+          "type": "integer"
+        },
+        "Calls Offered": {
+          "type": "integer"
+        },
+        "Total Duration": {
+          "type": "integer"
+        },
+        "Agent Avg Duration": {
+          "type": "integer"
+        },
+        "Transfers": {
+          "type": "integer"
+        },
+        "Sentiment": {
+          "type": "integer"
+        },
+        "Sentiment Score >= 0": {
+          "type": "integer"
+        },
+        "Met Sentiment Goal": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}
