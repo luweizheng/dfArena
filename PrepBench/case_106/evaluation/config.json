@@ -1,0 +1,104 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Product",
+        "Description"
+      ],
+      "columns": {
+        "Product": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Description": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Product",
+        "Description"
+      ],
+      "columns": {
+        "Product": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Description": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Contains": {
+          "type": "text_exact",
+          "null_values": [],
+          "aliases": {
+            "milk,lactose": "milk, lactose",
+            "lactose,milk": "milk, lactose",
+            "lactose, milk": "milk, lactose",
+            "gelatin": "gelatin, gelatine",
+            "gelatine": "gelatin, gelatine",
+            "gelatin,gelatine": "gelatin, gelatine",
+            "gelatine,gelatin": "gelatin, gelatine",
+            "gelatine, gelatin": "gelatin, gelatine",
+            "milk,lactose,honey": "milk, lactose, honey",
+            "milk,lactose, honey": "milk, lactose, honey",
+            "milk, lactose,honey": "milk, lactose, honey",
+            "milk,honey,lactose": "milk, lactose, honey",
+            "milk,honey, lactose": "milk, lactose, honey",
+            "milk, honey,lactose": "milk, lactose, honey",
+            "milk, honey, lactose": "milk, lactose, honey",
+            "lactose,milk,honey": "milk, lactose, honey",
+            "lactose,milk, honey": "milk, lactose, honey",
+            "lactose, milk,honey": "milk, lactose, honey",
+            "lactose, milk, honey": "milk, lactose, honey",
+            "lactose,honey,milk": "milk, lactose, honey",
+            "lactose,honey, milk": "milk, lactose, honey",
+            "lactose, honey,milk": "milk, lactose, honey",
+            "lactose, honey, milk": "milk, lactose, honey",
+            "honey,milk,lactose": "milk, lactose, honey",
+            "honey,milk, lactose": "milk, lactose, honey",
+            "honey, milk,lactose": "milk, lactose, honey",
+            "honey, milk, lactose": "milk, lactose, honey",
+            "honey,lactose,milk": "milk, lactose, honey",
+            "honey,lactose, milk": "milk, lactose, honey",
+            "honey, lactose,milk": "milk, lactose, honey",
+            "honey, lactose, milk": "milk, lactose, honey",
+            "milk,egg": "milk, egg",
+            "egg,milk": "milk, egg",
+            "egg, milk": "milk, egg",
+            "milk,whey": "milk, whey",
+            "whey,milk": "milk, whey",
+            "whey, milk": "milk, whey",
+            "milk,whey,lactose": "milk, whey, lactose",
+            "milk,whey, lactose": "milk, whey, lactose",
+            "milk, whey,lactose": "milk, whey, lactose",
+            "milk,lactose,whey": "milk, whey, lactose",
+            "milk,lactose, whey": "milk, whey, lactose",
+            "milk, lactose,whey": "milk, whey, lactose",
+            "milk, lactose, whey": "milk, whey, lactose",
+            "whey,milk,lactose": "milk, whey, lactose",
+            "whey,milk, lactose": "milk, whey, lactose",
+            "whey, milk,lactose": "milk, whey, lactose",
+            "whey, milk, lactose": "milk, whey, lactose",
+            "whey,lactose,milk": "milk, whey, lactose",
+            "whey,lactose, milk": "milk, whey, lactose",
+            "whey, lactose,milk": "milk, whey, lactose",
+            "whey, lactose, milk": "milk, whey, lactose",
+            "lactose,milk,whey": "milk, whey, lactose",
+            "lactose,milk, whey": "milk, whey, lactose",
+            "lactose, milk,whey": "milk, whey, lactose",
+            "lactose, milk, whey": "milk, whey, lactose",
+            "lactose,whey,milk": "milk, whey, lactose",
+            "lactose,whey, milk": "milk, whey, lactose",
+            "lactose, whey,milk": "milk, whey, lactose",
+            "lactose, whey, milk": "milk, whey, lactose"
+          }
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

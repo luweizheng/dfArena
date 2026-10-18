@@ -1,0 +1,36 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Weekday"
+      ],
+      "columns": {
+        "Weekday": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Price": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Customer Name"
+      ],
+      "columns": {
+        "Customer Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Count Items": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

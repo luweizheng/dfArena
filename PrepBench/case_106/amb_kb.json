@@ -1,0 +1,49 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O2_contains_excludes_e_numbers",
+      "kind": "Row-level concept",
+      "node_id": "build_contains",
+      "op": "script",
+      "source_text": "E-number matches should still cause a product to be classified as non-vegan, but they should **not** be included in the `Contains` list.",
+      "ref": "query_full.md: E-number matches should still cause a product to be classified as non-vegan, but they should **not** be included in the `Contains` list.",
+      "intent": "Use configured E-numbers for non-vegan classification; the existing complete requirement lists animal-ingredient matches in Contains. No supplied product triggers the E-number branch."
+    },
+    {
+      "id": "2_O3_contains_priority_order",
+      "kind": "Operation inconsistent",
+      "node_id": "build_contains",
+      "op": "script",
+      "intent": "Any ordering of the same comma-separated ingredient list is valid.",
+      "ref": "query_full.md: The order of ingredients within the comma-separated `Contains` list is unrestricted; include every matched ingredient without adding unrelated ingredients.",
+      "source_text": "The order of ingredients within the comma-separated `Contains` list is unrestricted; include every matched ingredient without adding unrelated ingredients."
+    },
+    {
+      "id": "3_O1_match_case_insensitive",
+      "kind": "Row-level concept",
+      "node_id": "compute_flags",
+      "op": "project",
+      "intent": "Match ingredient keywords and E-numbers case-insensitively.",
+      "ref": "query_full.md: treat the terms case-insensitively when matching",
+      "source_text": "treat the terms case-insensitively when matching"
+    },
+    {
+      "id": "4_O1_animal_term_standalone_word",
+      "kind": "Operation boundary",
+      "node_id": "compute_flags",
+      "op": "project",
+      "intent": "Match complete animal-ingredient words, not substrings of other words.",
+      "ref": "query_full.md: matched case-insensitively as a standalone word/term (avoid matching the keyword as part of a larger word)",
+      "source_text": "matched case-insensitively as a standalone word/term (avoid matching the keyword as part of a larger word)"
+    },
+    {
+      "id": "5_C1_gelatin_gelatine_include_both",
+      "kind": "Row-level concept",
+      "node_id": "compute_flags",
+      "op": "project",
+      "intent": "Gelatin and gelatine denote the same ingredient. Reporting either spelling or both is accepted; no other ingredient can be omitted.",
+      "ref": "query_full.md: Treat `gelatin` and `gelatine` as equivalent spellings of the same ingredient. If either is found, the output may list `gelatin`, `gelatine`, or both.",
+      "source_text": "Treat `gelatin` and `gelatine` as equivalent spellings of the same ingredient. If either is found, the output may list `gelatin`, `gelatine`, or both."
+    }
+  ]
+}

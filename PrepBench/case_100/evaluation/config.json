@@ -1,0 +1,41 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Order ID"
+      ],
+      "columns": {
+        "Order ID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Store": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Bike": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Customer Age": {
+          "type": "integer"
+        },
+        "Quarter": {
+          "type": "integer"
+        },
+        "Day of Month": {
+          "type": "integer"
+        },
+        "Bike Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Existing Customer?": {
+          "type": "boolean"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

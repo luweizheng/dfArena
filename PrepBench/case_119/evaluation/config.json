@@ -1,0 +1,169 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Department",
+        "Week",
+        "Date"
+      ],
+      "columns": {
+        "Variation (1SD)": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0
+        },
+        "Outlier? (1SD)": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Lower Control Limit": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0
+        },
+        "Upper Control Limit": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0
+        },
+        "Standard Deviation": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0
+        },
+        "Mean": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0
+        },
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Week": {
+          "type": "integer"
+        },
+        "Complaints": {
+          "type": "integer"
+        },
+        "Department": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Department",
+        "Week",
+        "Date"
+      ],
+      "columns": {
+        "Outlier (2SD)": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Variation (2SD)": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0
+        },
+        "Lower Control Limit (2SD)": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0
+        },
+        "Upper Control Limit (2SD)": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0
+        },
+        "Standard Deviation": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0
+        },
+        "Mean": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0
+        },
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Week": {
+          "type": "integer"
+        },
+        "Complaints": {
+          "type": "integer"
+        },
+        "Department": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    },
+    "output_03.csv": {
+      "key": [
+        "Department",
+        "Week",
+        "Date"
+      ],
+      "columns": {
+        "Outlier (3SD)": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Variation (3SD)": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0
+        },
+        "Lower Control Limit (3SD)": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0
+        },
+        "Upper Control Limit (3SD)": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0
+        },
+        "Standard Deviation": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0
+        },
+        "Mean": {
+          "type": "number",
+          "abs_tol": 1e-10,
+          "rel_tol": 0
+        },
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Week": {
+          "type": "integer"
+        },
+        "Complaints": {
+          "type": "integer"
+        },
+        "Department": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

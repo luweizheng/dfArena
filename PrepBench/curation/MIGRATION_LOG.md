@@ -83,6 +83,26 @@
 | 077 | 失败 | 未运行 | 失败 | 失败 |
 | 078 | 通过 | 通过 | 未运行 | 通过 |
 | 079 | 通过 | 通过 | 通过 | 未运行 |
+| 100 | 通过 | 通过 | 未运行 | 通过 |
+| 101 | 通过 | 通过 | 通过 | 未运行 |
+| 102 | 通过 | 未运行 | 通过 | 通过 |
+| 103 | 通过 | 通过 | 通过 | 未运行 |
+| 104 | 通过 | 通过 | 未运行 | 通过 |
+| 105 | 通过 | 通过 | 未运行 | 通过 |
+| 106 | 通过 | 未运行 | 通过 | 通过 |
+| 107 | 通过 | 通过 | 通过 | 未运行 |
+| 108 | 通过 | 通过 | 未运行 | 通过 |
+| 109 | 通过 | 未运行 | 失败 | 通过 |
+| 110 | 通过 | 通过 | 未运行 | 通过 |
+| 111 | 失败 | 通过 | 未运行 | 通过 |
+| 112 | 通过 | 失败 | 通过 | 未运行 |
+| 113 | 通过 | 未运行 | 通过 | 通过 |
+| 114 | 通过 | 通过 | 未运行 | 通过 |
+| 115 | 通过 | 通过 | 通过 | 未运行 |
+| 116 | 通过 | 未运行 | 通过 | 跳过 |
+| 117 | 通过 | 通过 | 未运行 | 通过 |
+| 118 | 失败 | 失败 | 失败 | 未运行 |
+| 119 | 通过 | 通过 | 未运行 | 通过 |
 | 120 | 通过 | 未运行 | 失败 | 通过 |
 | 121 | 通过 | 通过 | 未运行 | 通过 |
 | 122 | 通过 | 通过 | 未运行 | 通过 |
@@ -270,6 +290,8 @@
 | 304 | 通过 | 通过 | 未运行 | 通过 |
 | 305 | 通过 | 未运行 | 通过 | 通过 |
 | 306 | 通过 | 通过 | 通过 | 未运行 |
+
+本批100—119头表保留首次正式r001的原始评估；111/118修订澄清资产后的r002、112配置兼容后的原输出重评、116 PySpark服务容量失败后的r002重试均另记于逐题说明。未抽中后端记未运行，生成失败且未评估记跳过，不把后续通过替换首次失败。
 
 本批179—160头表保留首次正式生成r001的原始评价，后续改动重评及新题意r002单独记入逐题记录，不以之后通过替换首轮失败。每题固定pandas，加其余三后端中随机抽取两个；未选后端记未运行。资产与评估版本、问答和结果路径见本地各题interact_plan及formal_completion_audit记录，原始runs/output仅作本地证据，不作为仓库运行依赖。
 
@@ -3253,3 +3275,193 @@ query的today与full/reference/GT的固定定义不同。独立确认全部比�
 用户决定保留full/reference/GT对⅓、⅔转为小数后保留两位的规则，英文query在Score及Points两处补明；reference与GT不改。独立标准库核算876行局次和142行选手成绩匹配GT；评分按赛事＋选手＋局次、赛事＋选手分组，分数精确数值、计数整数、日期语义和布尔值验证；不检查full的最终展示排序。2.33与2.330等值写法通过，2.333333…、错分数、错potout、缺行/重复、错总分、错日期均拒绝。KB整理准确引文及明确intent；metadata领域为sports。pandas固定，另两后端由预定种子抽取，模型/隔离配置沿用此前设置；正式运行及版本核验见下。
 
 **正式运行复核（2026-10-17）**。pandas r001通过（ask_user 3轮）；polars r001通过（ask_user 1轮）；ibis r001通过（ask_user 1轮）。运行计划中的任务资产及评估实现哈希与当前版本一致；本地证据`curation/output/199/formal_completion_audit.json`及`interact_plan_r001.json`记录版本和正式报告路径。通过仅覆盖当前输入与本次交互，既有未触发分支限制保留。
+
+## 2026-10-18：100—119审核与正式实验完成
+
+本批20题均保留，从老师main `3959f3a86c1087133a96d00e0e57e9db12b753e7` 建立独立审核分支。只读来源为 `D:/DataFrameStudy/prepbench`：题面、KB、输入来自 `data/case_XXX`，参考程序来自 `reference/solutions/case_XXX`，GT及旧评分配置来自 `src/evaluate/gt/case_XXX`。本批输入及GT均与源文件字节一致；reference除迁移入口外，104取消与full相悖的编号整数转换。未修改共享运行器、评分器或审核准则。
+
+**环境与验证。** 20题reference均在断网研究容器复现GT，镜像 `sha256:89b6eb5a3313c26423d8bbebe9edea96e22a3d3de580a4626c671ebcb2f83570`，Python3.11.16/pandas2.3.3；104修改后另行回放。每题均有独立核算及正确、倒序、错值、缺行、重复行评分检查，关键表示兼容另有针对性反例。正式interact使用gpt-6-astra/low的ChatGPT订阅，simulator为gpt-6-astra/temperature0的已授权API；每题pandas固定，另两后端随机抽取，种子为202610180000＋题号，修订后沿用。生成仅挂载公开query、inputs和运行工具，私有full/KB/reference用于simulator，GT/config仅用于研究与评估。环境与老师历史镜像不完全相同，结果不用于比较后端能力。
+
+**收尾核验。** 20题domain均按根README业务语义分类；输入表数/列数、KB真实引用与规则、输出schema、最终任务和生成版本已核对。20份GT、20份固定环境reference输出、20份独立输出通过最终评分；60份当前正式候选59通过，109 Ibis真实失败保留。评价器55项和PrepBench脚本14项测试通过。头表保留首次正式r001原始状态，修复后的结果在逐题记录中说明，不用后续通过覆盖首轮失败。
+
+**证据与边界。** 本地 `curation/output/<case>/` 的source_manifest、before、independent_check、review、scoring_probes、interact_plan和formal_completion_audit保存来源、正反例、抽样及逐文件哈希；运行路径为 `case_XXX/runs/interact/codex_gpt-6-astra/<backend>/<run>/`。这些本地证据不入Git，不作为运行依赖。下文任务聚合SHA256按case相对路径排序，将每条“路径:文件SHA256＋换行”拼接后计算。最终候选与所选生成版本一致，112仅配置改变后重评冻结输出。默认忽略最终行序；共享比较器允许额外列，实际候选schema已单独核对。通过仅证明当前数据及本次交互，不覆盖未触发分支，亦不证明每次simulator回答完全一致。
+
+提交准备于2026-10-19同步到老师最新main `4c62cf52a093d6b61745e1d411cc30171371bf32`；只调整交付日志位置和逐题倒序，任务资产与已核验生成版本不变。
+
+### 119：每周投诉控制界限（审核及正式实验完成）
+
+**决定与验证。** 独立按40位Decimal计算样本标准差与严格界限，24/5/2行吻合；参考的末尾差异属于浮点误差，统计字段绝对容差1e-10、计数整数精确。公开三份输出角色和固定标签，删除full额外行序。GT不变。 domain为`business`：客户投诉与运营异常监控
+
+**正式运行。** 原始历史：pandas r001 通过；pyspark r001 通过；polars r001 通过。当前验证：pandas r001 通过（ask_user 1轮）；pyspark r001 通过（ask_user 2轮）；polars r001 通过（ask_user 1轮）。
+
+**版本与限制。** 当前任务聚合SHA256 `bbec2388e42f5444f78d0a3552899c7116f11f9c14542c5effd24e63f3393a53`。当前各周均有21条记录，未触发单条记录的未定义标准差分支。 本地`curation/output/119/formal_completion_audit.json`记录正式路径、生成/评分版本及核验；原资产和原报告保留。
+
+### 118：项目日志拆分与查表（审核及正式实验完成）
+
+**决定与验证。** 独立拆分18段日志并关联四张查找表，GT一致；将Excel五工作表描述改为实际CSV来源，删除额外展示排序，保留详细文本与空值。 原始2021Week19解答按右方括号拆出正文，修正query的含混Detail表述；不变更算法或GT。 首轮三后端均问到Ops/Op，但simulator拒绝或要求留空；补齐full/KB既有同义缩写规则，GT/reference不变，另起r002。 domain为`business`：项目管理日志
+
+**关键说明。** [原始解答](https://preppindata.blogspot.com/2021/05/2021-week-19-solution.html)按右括号分离正文，故初审修正query的Detail表述，不改变GT。首轮三个后端均询问Ops/Op，simulator拒绝或要求留空，暴露full/KB与reference已有同义缩写规则不一致。补明后另起r002，三个后端均通过，原失败保留。simulator仍偶有追加最终排序的回复；最终行序不评分，不能声称澄清回复每次完全一致。
+
+**正式运行。** 原始历史：pandas r001 失败；pandas r002 通过；polars r001 失败；polars r002 通过；ibis r001 失败；ibis r002 通过。当前验证：pandas r002 通过（ask_user 2轮）；polars r002 通过（ask_user 1轮）；ibis r002 通过（ask_user 2轮）。
+
+**版本与限制。** 当前任务聚合SHA256 `dbcb667ee65a401ce159e70f5405062f58e5c1029e4d1b9edc3af4bdc45e8c4c`。当前输入没有无法关联的代码；Op/Ops为同一Operations缩写。 本地`curation/output/118/formal_completion_audit.json`记录正式路径、生成/评分版本及核验；原资产和原报告保留。
+
+### 117：项目完工日期与阶段间隔（审核及正式实验完成）
+
+**决定与验证。** 独立按日期加天数、按6个项目组合计算阶段间隔，18行一致；删除额外最终行序和可视化奖励要求。日期按语义、天数按整数比较，GT不变。 domain为`business`：项目进度管理
+
+**正式运行。** 原始历史：pandas r001 通过；pyspark r001 通过；polars r001 通过。当前验证：pandas r001 通过（ask_user 1轮）；pyspark r001 通过（ask_user 1轮）；polars r001 通过（ask_user 1轮）。
+
+**版本与限制。** 当前任务聚合SHA256 `6579ddf0776ce73be284f00651bec227eb38f7515072e37662d2dec24adda847`。当前6组每组Scope/Build/Deliver各一条；未触发缺阶段或重复任务。 本地`curation/output/117/formal_completion_audit.json`记录正式路径、生成/评分版本及核验；原资产和原报告保留。
+
+### 116：员工工时与客户工作占比（审核及正式实验完成）
+
+**决定与验证。** 独立汇总每日工时与剔除Chats后的占比，3行一致；兼容整数百分比带或不带%，平均工时完整精度或九位小数（绝对容差5e-10），删除额外展示排序。统一空白不贡献工时说明，GT不变。 domain为`business`：员工项目工时
+
+**关键说明。** PySpark r001遇到模型服务容量错误而生成失败，评估跳过，不能记为答案错误；相同资产和后端r002重试通过。pandas/Ibis r001通过。整数百分比有/无%与九位/完整均值的正例通过，超容差、百分比错误缩放及错误计数仍拒绝。
+
+**正式运行。** 原始历史：pandas r001 通过；ibis r001 通过；pyspark r001 跳过；pyspark r002 通过。当前验证：pandas r001 通过（ask_user 2轮）；ibis r001 通过（ask_user 2轮）；pyspark r002 通过（ask_user 2轮）。
+
+**版本与限制。** 当前任务聚合SHA256 `d04dd1c5f58e431526218beb29c4a9de2c825eb820f2e0145bb3ba284393e1c9`。只验证当前输入，通用未触发分支及展示限制见本批说明。 本地`curation/output/116/formal_completion_audit.json`记录正式路径、生成/评分版本及核验；原资产和原报告保留。
+
+### 115：剔除Big6后的英超积分榜（审核及正式实验完成）
+
+**决定与验证。** 独立逐场重算积分、净胜球及排除Big6后的名次变化，20行/14行一致；当前积分和净胜球后无剩余并列。删除Tableau专属奖励要求，保留计算排名顺序，最终CSV行序不限制。 domain为`sports`：足球比赛与联赛排名
+
+**正式运行。** 原始历史：pandas r001 通过；ibis r001 通过；polars r001 通过。当前验证：pandas r001 通过（ask_user 1轮）；ibis r001 通过（ask_user 1轮）；polars r001 通过（ask_user 1轮）。
+
+**版本与限制。** 当前任务聚合SHA256 `7b22212f8b8c6248279293b58ccb568ad90d7108870509fb9904c32c68a58c53`。只验证当前输入，通用未触发分支及展示限制见本批说明。 本地`curation/output/115/formal_completion_audit.json`记录正式路径、生成/评分版本及核验；原资产和原报告保留。
+
+### 114：餐厅星期收入及忠诚客户（审核及正式实验完成）
+
+**决定与验证。** 独立拆分40笔订单、匹配菜单和计算周一半价，7行收入及1位最高客户一致；所有实际日收入均为整数且最高客户无并列。删除full额外星期行序，GT不变。 domain为`business`：餐饮订单销售
+
+**正式运行。** 原始历史：pandas r001 通过；polars r001 通过；pyspark r001 通过。当前验证：pandas r001 通过（ask_user 2轮）；polars r001 通过（ask_user 2轮）；pyspark r001 通过（ask_user 1轮）。
+
+**版本与限制。** 当前任务聚合SHA256 `8203b6021f59fe917fd8f281484d49849acfaf6e143602d4eb1a23b26661493f`。当前未触发收入舍入中点、最高客户并列或未知菜品。 本地`curation/output/114/formal_completion_audit.json`记录正式路径、生成/评分版本及核验；原资产和原报告保留。
+
+### 113：机上经济舱销售及商务舱采购（审核及正式实验完成）
+
+**决定与验证。** 独立关联1000条乘客记录、座位及航班，3/3/2行GT一致。用户确认query公开前两表仅计经济舱、第三表分舱统计及金额两位小数；移除Excel奖励要求，公开固定标签与文件用途，GT不变。 domain为`business`：航空公司的机上销售经营
+
+**正式运行。** 原始历史：pandas r001 通过；pyspark r001 通过；ibis r001 通过。当前验证：pandas r001 通过（ask_user 2轮）；pyspark r001 通过（ask_user 3轮）；ibis r001 通过（ask_user 2轮）。
+
+**版本与限制。** 当前任务聚合SHA256 `cca4b4c65b5aa171a50568913fd3c4f02522a96c1e2569fb2d5e3c6f233bc651`。当前无18:00—18:59出发航班；full/reference按小时分类的既有边界未由当前数据验证。 本地`curation/output/113/formal_completion_audit.json`记录正式路径、生成/评分版本及核验；原资产和原报告保留。
+
+### 112：英超开放比赛进球排名（审核及正式实验完成）
+
+**决定与验证。** 独立按球员及位置累加五年记录，以严格高于当前进球数的记录数加1核算并列排名，两表22/65行一致。每场进球率兼容完整精度及九位小数，绝对容差5e-10；其他计数、排名精确，GT不变。 Polars首轮保留输入球员姓名尾部空格，其他结果正确；配置仅兼容当前输入已出现的姓名首尾空格写法，三后端冻结CSV最终配置重评均通过。原正式报告保留，题意/KB不变，无需重新生成。 domain为`sports`：足球球员进球表现
+
+**关键说明。** Polars r001保留输入球员姓名尾部空格，计算与记录数量均正确；仅对已出现的同名输入写法增加精确别名，不忽略大小写、重音或任意拼写。三份冻结r001在最终配置下重评均通过；query/full/KB不变，不重新生成。原Polars失败报告仍保留。
+
+**正式运行。** 原始历史：pandas r001 通过；polars r001 失败；ibis r001 通过。当前验证：pandas r001 最终配置重评通过（ask_user 1轮）；polars r001 最终配置重评通过（ask_user 1轮）；ibis r001 最终配置重评通过（ask_user 1轮）。
+
+**版本与限制。** 当前任务聚合SHA256 `027318d20b9958fd6fd054d273242805c55fbeafb631647a57e89d9569f67585`。只验证当前输入，通用未触发分支及展示限制见本批说明。 本地`curation/output/112/formal_completion_audit.json`记录正式路径、生成/评分版本及核验；原资产和原报告保留。
+
+### 111：马尔代夫月度入境游客（审核及正式实验完成）
+
+**决定与验证。** 独立依据输入层级识别所有国家，逐月计算洲级剩余Unknown并保留UN类别，1826行一致；修复reference迁移后输出目录，删除full额外硬编码展示行序。query明确要求Month为DD/MM/YYYY，仍精确检查该文本格式；不改GT。 首轮pandas因simulator把the United Kingdom视为名单外国家而丢失132行，并改变Europe Unknown；补齐full/KB英国名称对应关系，评分兼容这两种名称，原算法与GT不变，另起r002。 domain为`public_sector`：国家入境旅游统计
+
+**关键说明。** 首轮pandas询问英国名称时，simulator按不完整名单要求排除the United Kingdom，导致少132行并改变Europe Unknown；两后端首轮通过不代表澄清资产无误。修订full/KB明确两名称同指英国，并仅增加这两个精确名称的评分别名。三个后端均以新题意r002生成并通过；不覆盖首轮失败。
+
+**正式运行。** 原始历史：pandas r001 失败；pandas r002 通过；pyspark r001 通过；pyspark r002 通过；polars r001 通过；polars r002 通过。当前验证：pandas r002 通过（ask_user 2轮）；pyspark r002 通过（ask_user 2轮）；polars r002 通过（ask_user 2轮）。
+
+**版本与限制。** 当前任务聚合SHA256 `8b243aa18a3dbb09d703054c217970d3a6bd53d70edaf1c0bae55616da1b062e`。只验证当前输入，通用未触发分支及展示限制见本批说明。 本地`curation/output/111/formal_completion_audit.json`记录正式路径、生成/评分版本及核验；原资产和原报告保留。
+
+### 110：鸡尾酒配方成本与利润（审核及正式实验完成）
+
+**决定与验证。** 独立以Decimal完成汇率、瓶容量及配方用量计算，5行成本与利润一致；query已要求两位小数，金额精确数值比较，无百分比容差，GT不变。 domain为`business`：餐饮配方成本核算，并非金融市场或贷款
+
+**正式运行。** 原始历史：pandas r001 通过；polars r001 通过；pyspark r001 通过。当前验证：pandas r001 通过（ask_user 1轮）；polars r001 通过（ask_user 1轮）；pyspark r001 通过（ask_user 1轮）。
+
+**版本与限制。** 当前任务聚合SHA256 `8236bcf2008ec84c9ccc65fbeb75419bcdd81406c20e72d99452940fd8e3c98f`。当前配方全部有效且可关联；未触发无原料配方或缺失采购成本。 本地`curation/output/110/formal_completion_audit.json`记录正式路径、生成/评分版本及核验；原资产和原报告保留。
+
+### 109：宝可梦进化层级（审核及正式实验完成）
+
+**决定与验证。** 官方原始输出与既有GT的397行16列一致，但原题/query要求两端过滤与其矛盾。用户确认保留官方答案，在query明确仅进化目标限前三代、允许后世代前身参与分组；full/reference/GT不变。补齐KB真实引文、规则意图和范围依据；独立重建386只宝可梦的397行，全部字段一致。 domain为`media_culture`：游戏角色及进化关系整理，不是生物科学。
+
+**关键说明。** 原始挑战和query曾要求进化关系两端均限前三代，官方输出及full/reference却保留6个后世代前身；用户决定保留答案并修正query。下载[原始挑战](https://preppindata.blogspot.com/2021/02/2021-week-10-pokemon-hierarchies.html)的[官方输出](https://drive.google.com/file/d/1I2Vl-HsQimihg8boKnKs7P2XI05LFyo-/view)，397行16列与原GT比较一致（忽略行序及单元格首尾空白）。当前评分不因此全局清理文本。Ibis r001把正常名称Meganium当作Mega进化过滤，缺两条正确关系并多一条Bayleef终端行，最终396行；前三轮用于其他澄清，第四轮才询问Mega词边界时预算已耗尽。记录模型过滤及未及时取得澄清的真实失败，不改GT或评分去接受错误关系。
+
+**正式运行。** 原始历史：pandas r001 通过；ibis r001 失败；pyspark r001 通过。当前验证：pandas r001 通过（ask_user 3轮）；ibis r001 失败（ask_user 4轮）；pyspark r001 通过（ask_user 2轮）。
+
+**版本与限制。** 当前任务聚合SHA256 `2962b410d97274a924353ef069c83da5ae46afbfd46907f1326b1f68d38806b5`。当前保留的进化关系无循环或多前身冲突；不据此宣称覆盖冲突输入。 不要求最终CSV行序；编号按题意中的整数语义比较。 本地`curation/output/109/formal_completion_audit.json`记录正式路径、生成/评分版本及核验；原资产和原报告保留。
+
+### 108：客户编码解析及地区收入（审核及正式实验完成）
+
+**决定与验证。** 独立解析编码、双字段地区匹配、剔除歧义电话后重算144行收入/排名/比例，全部与GT一致。收入和比例按query已规定精度严格比较；仅清理软件背景并补齐KB引用/意图。 domain为`business`：销售编码解析、地区匹配与商品收入汇总；地区仅分组维度。
+
+**关键说明。** 24组收入处于整磅舍入中点；三后端均明确获得half-up及使用已取整收入计算比例/排名的澄清。simulator偶有额外最终排序回复，不计入评分。
+
+**正式运行。** 原始历史：pandas r001 通过；polars r001 通过；pyspark r001 通过。当前验证：pandas r001 通过（ask_user 2轮）；polars r001 通过（ask_user 2轮）；pyspark r001 通过（ask_user 1轮）。
+
+**版本与限制。** 当前任务聚合SHA256 `ecb5d42aff84330de67837e99242baa6fba5deb4d268a3948d2900b7d5c731d8`。存在24组收入舍入中点，保留full/reference现有half-up规则供交互澄清；query已要求零位收入与两位百分比。 不要求最终CSV行序；地区内排名及比例必须正确。 本地`curation/output/108/formal_completion_audit.json`记录正式路径、生成/评分版本及核验；原资产和原报告保留。
+
+### 107：卡拉OK场次与客户匹配（审核及正式实验完成）
+
+**决定与验证。** 独立按原始时间排序、相邻59分钟断点划分场次，并搜索十分钟客户窗口，988行/298场次全部与GT一致。用户确认保留分钟精度，在query补明仅最终Date舍入，内部计算不提前舍入；删除full额外最终行序要求并修复KB。reference/GT不变。 domain为`business`：卡拉OK场馆运营日志、客户入场及消费场次整理。
+
+**关键说明。** ISO等价分钟表示通过，保留原秒数或修改秒值被拒绝。Ibis询问半分钟边界时simulator将库默认half-even作为规则答复；当前输入无此边界，记录该限制，不将回复提升为新业务要求。
+
+**正式运行。** 原始历史：pandas r001 通过；ibis r001 通过；polars r001 通过。当前验证：pandas r001 通过（ask_user 1轮）；ibis r001 通过（ask_user 2轮）；polars r001 通过（ask_user 2轮）。
+
+**版本与限制。** 当前任务聚合SHA256 `92877e44cc67a6752f17b94aff04c53a2b1afde1966c8fdd33e65f33d0625c69`。当前6个场次没有匹配客户，没有多个合格客户候选的场次。 当前输入没有恰好半分钟的舍入中点，不能区分half-up与half-even；不把库默认中点规则额外设为业务要求。 最终行序不检查，歌曲编号及场次划分严格核对；日期接受等价格式，但最终时间必须为规定的整分钟。 本地`curation/output/107/formal_completion_audit.json`记录正式路径、生成/评分版本及核验；原资产和原报告保留。
+
+### 106：配料识别及素食分类（审核及正式实验完成）
+
+**决定与验证。** 39种商品独立关键词匹配得到20种素食、19种非素食；用户确认明胶两个同义拼写可单独或同时输出，配料列表顺序不限。full/KB同步，配置仅对当前配料集合的有效排列及同义明胶建立精确对应，GT/reference不变。 domain为`business`：超市商品配料匹配与购物清单分类，不是临床健康数据。
+
+**关键说明。** 原GT使用gelatin, gelatine，独立输出只用输入实际出现的gelatine也通过；遗漏milk/egg等真实成分、加入无关成分仍拒绝。部分simulator答复额外要求原输入行序，该展示要求不进入评分。
+
+**正式运行。** 原始历史：pandas r001 通过；ibis r001 通过；pyspark r001 通过。当前验证：pandas r001 通过（ask_user 2轮）；ibis r001 通过（ask_user 2轮）；pyspark r001 通过（ask_user 2轮）。
+
+**版本与限制。** 当前任务聚合SHA256 `de62cde92e6b435db4e70e320c8d6d02bbcf9ddadcb196dc237c17a12bd72bc3`。当前输入无E-number命中，沿用full/reference的E-number仅参与分类口径，但该分支未验证。 有限列表别名覆盖当前输入的完整成分集合及逗号后有/无空格；扩充数据或成分需重新审核配置。 本地`curation/output/106/formal_completion_audit.json`记录正式路径、生成/评分版本及核验；原资产和原报告保留。
+
+### 105：高尔夫巡回赛奖金比较（审核及正式实验完成）
+
+**决定与验证。** 独立以精确小数计算200名运动员、5项指标，全部与GT一致。用户确认在query公开平均每场奖金先取整再求巡回赛差额、平均名次差保留两位，full/KB同步；两份题意补明固定Measure名称。GT/reference保持不变。 domain为`sports`：高尔夫巡回赛运动员奖金、参赛次数和排名比较。
+
+**关键说明。** 平均每场奖金按运动员比值的非加权平均计算，再分别取整后相减；并非用巡回赛奖金总额除参赛次数总额。三后端均获得正确澄清。
+
+**正式运行。** 原始历史：pandas r001 通过；pyspark r001 通过；polars r001 通过。当前验证：pandas r001 通过（ask_user 2轮）；pyspark r001 通过（ask_user 1轮）；polars r001 通过（ask_user 2轮）。
+
+**版本与限制。** 当前任务聚合SHA256 `98c7b4225ec1bed7191c44107354039a2378329e60e69a2d90eab38f5dba0266`。三数值列混合计数、金额和平均名次差，均按数值零容差核对，接受等值末尾零，不强制CSV小数字符串宽度。 输入为每巡回赛100名运动员；当前平均金额无中点舍入歧义。 本地`curation/output/105/formal_completion_audit.json`记录正式路径、生成/评分版本及核验；原资产和原报告保留。
+
+### 104：客户最新归属及培训出席（审核及正式实验完成）
+
+**决定与验证。** 独立核对13623条原记录、527个客户，更新归属并去掉95条完全重复记录，13528行吻合。移除reference的Client ID整数转换，与full的文本编号要求一致；同步KB，并明确更新后的完全重复行去重。GT不变。 domain为`business`：客户关系管理及客户归属历史去重，不是学生学习分析。
+
+**正式运行。** 原始历史：pandas r001 通过；pyspark r001 通过；polars r001 通过。当前验证：pandas r001 通过（ask_user 1轮）；pyspark r001 通过（ask_user 1轮）；polars r001 通过（ask_user 1轮）。
+
+**版本与限制。** 当前任务聚合SHA256 `9127e50e194ab3dedfd1027cebb2e6038f2c122f4f201bd7cfd6d247a5c9025c`。当前输入没有同一客户最新日期对应不同归属的冲突；该兜底分支未被真实输入检验。 From Date按题目明确要求验证DD/MM/YYYY字面格式；不接受其他日期表示。 当前Client ID无前导零，另外使用针对性小例子验证reference保留前导零。 本地`curation/output/104/formal_completion_audit.json`记录正式路径、生成/评分版本及核验；原资产和原报告保留。
+
+### 103：季度销量与目标排名（审核及正式实验完成）
+
+**决定与验证。** 公开被匿名文件名遮蔽的门店对应关系和targets文件；删除Table Names软件特定指令及full额外最终排序，保留计算排名。独立整数核算20组销售、目标差和排名均匹配，GT/reference不变。 domain为`business`：零售门店经营目标和销售表现。
+
+**正式运行。** 原始历史：pandas r001 通过；ibis r001 通过；polars r001 通过。当前验证：pandas r001 通过（ask_user 1轮）；ibis r001 通过（ask_user 1轮）；polars r001 通过（ask_user 1轮）。
+
+**版本与限制。** 当前任务聚合SHA256 `d633acdf0d1877f5dc180aab356630acd7be0656d6683ef5a4370c332583f883`。当前季度内没有相同Variance to Target；实际数据未检验dense与competition的并列差异。 当前20个门店季度均有匹配目标，未触发无匹配分支。 本地`curation/output/103/formal_completion_audit.json`记录正式路径、生成/评分版本及核验；原资产和原报告保留。
+
+### 102：配件销售汇总（审核及正式实验完成）
+
+**决定与验证。** 公开五个输入与门店的对应关系，输入说明改为真实CSV；两份Output补明用途，删除full额外最终排序。独立逐列展开并汇总得到16/40行，GT/reference不变。 domain为`business`：零售销量和新老客户分组统计。
+
+**正式运行。** 原始历史：pandas r001 通过；pyspark r001 通过；ibis r001 通过。当前验证：pandas r001 通过（ask_user 1轮）；pyspark r001 通过（ask_user 1轮）；ibis r001 通过（ask_user 1轮）。
+
+**版本与限制。** 当前任务聚合SHA256 `3ba055c84d1191ecb0e6663669a834bc86c67fc545b36a5f2143c255e1f750eb`。当前输入各店结构一致，无缺失销量，未验证异常schema处理。 本地`curation/output/102/formal_completion_audit.json`记录正式路径、生成/评分版本及核验；原资产和原报告保留。
+
+### 101：品牌销量及配送时长（审核及正式实验完成）
+
+**决定与验证。** 两份Output补明行粒度和角色，KB补齐依据与规则。以Decimal独立计算销售、非数量加权均值及日期差，15/25行匹配；原题要求均值一位小数，保留零容差数值比较。GT/reference不变。 domain为`business`：零售订单与配送运营分析。
+
+**正式运行。** 原始历史：pandas r001 通过；polars r001 通过；ibis r001 通过。当前验证：pandas r001 通过（ask_user 1轮）；polars r001 通过（ask_user 1轮）；ibis r001 通过（ask_user 1轮）。
+
+**版本与限制。** 当前任务聚合SHA256 `cc51a3a92ffdb63fa301253f4a97d9cc768c6c3e340ea546ec61b9ba65d8080f`。数值评分不要求CSV末尾补零，但仍拒绝与一位小数舍入结果不同的数值。 本地`curation/output/101/formal_completion_audit.json`记录正式路径、生成/评分版本及核验；原资产和原报告保留。
+
+### 100：自行车订单清洗（审核及正式实验完成）
+
+**决定与验证。** 修正query源列名Store - Bike，去除Prep Builder操作说明，补明输出角色和KB。独立核对8种原始拼写归一、日历派生和测试记录过滤，990行匹配。编号按文本，其余计数整数、金额精确数值、客户标记布尔比较。GT/reference不变。 domain为`business`：零售订单分类、日期派生及测试记录过滤。
+
+**正式运行。** 原始历史：pandas r001 通过；pyspark r001 通过；polars r001 通过。当前验证：pandas r001 通过（ask_user 1轮）；pyspark r001 通过（ask_user 1轮）；polars r001 通过（ask_user 1轮）。
+
+**版本与限制。** 当前任务聚合SHA256 `9a7b4d3710f9eba636181e2145a81a867afe5e3dd426ba808a31a8cfe61b1610`。当前首10行的Order ID恰为1—10，未区分按位置与按ID过滤在其他数据上的行为。 评分检查列名及内容，不检查字段物理排列顺序。 本地`curation/output/100/formal_completion_audit.json`记录正式路径、生成/评分版本及核验；原资产和原报告保留。

@@ -1,0 +1,76 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O1_completed_weekday_name",
+      "kind": "Row-level concept",
+      "node_id": "n10a_finalize_compute",
+      "op": "project",
+      "source_text": "Calculate which weekday each task got completed on",
+      "ref": "df[\"Completed Weekday\"] = df[\"Completed Date\"].dt.day_name()",
+      "intent": "Output the completed date weekday name."
+    },
+    {
+      "id": "3_O1_scheduled_date_parse_format",
+      "kind": "Row-level concept",
+      "node_id": "n2_prep",
+      "op": "project",
+      "intent": "Parse input Scheduled Date as year-month-day.",
+      "ref": "format=\"%Y-%m-%d\"",
+      "source_text": "Parse `Scheduled Date` as a date using the format `YYYY-MM-DD`"
+    },
+    {
+      "id": "4_O2_scheduled_date_parse_fail_policy",
+      "kind": "Operation incomplete",
+      "node_id": "n2_prep",
+      "op": "project",
+      "intent": "Invalid scheduled dates are errors.",
+      "ref": "errors=\"raise\"",
+      "source_text": "fail if the value cannot be parsed"
+    },
+    {
+      "id": "5_O3_pivot_duplicate_task_pick_first",
+      "kind": "Operation inconsistent",
+      "node_id": "n3_pivot",
+      "op": "pivot",
+      "source_text": "Pivot Task to become column headers with the Completed Date as the values in the column",
+      "ref": "aggfunc=\"first\"",
+      "intent": "For duplicate tasks within a project/sub-project/owner group, use the first completed date for duration calculation."
+    },
+    {
+      "id": "6_O1_duration_units_whole_days",
+      "kind": "Row-level concept",
+      "node_id": "n4_durations",
+      "op": "project",
+      "source_text": "Calculate the difference between Scope to Build time",
+      "ref": "query.md: Calculate the difference between Scope to Build time",
+      "intent": "Durations are differences between completed dates in whole days."
+    },
+    {
+      "id": "7_O2_duration_null_if_missing_tasks",
+      "kind": "Operation incomplete",
+      "node_id": "n4_durations",
+      "op": "project",
+      "intent": "Missing phase completion dates yield null corresponding durations.",
+      "ref": "for task in [\"Scope\", \"Build\", \"Deliver\"]:\n        if task not in pivot.columns:\n            pivot[task] = pd.NaT",
+      "source_text": "if any are missing for a group, the resulting duration(s) for that group should be null."
+    },
+    {
+      "id": "8_D2_join_on_project_subproject_owner",
+      "kind": "Multi-table alignment",
+      "node_id": "n5_join_durations",
+      "op": "join",
+      "source_text": "Join Branch 1 and Branch 2 back together",
+      "ref": "query.md: Join Branch 1 and Branch 2 back together",
+      "intent": "Join duration metrics by Project, Sub-project, and Owner."
+    },
+    {
+      "id": "9_O2_join_left_keep_all_task_rows",
+      "kind": "Operation incomplete",
+      "node_id": "n5_join_durations",
+      "op": "join",
+      "source_text": "Join Branch 1 and Branch 2 back together",
+      "ref": "how=\"left\",",
+      "intent": "Retain all original task rows using a left join."
+    }
+  ]
+}

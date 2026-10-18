@@ -1,0 +1,32 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Area",
+        "Product Name"
+      ],
+      "columns": {
+        "Area": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Product Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Rank": {
+          "type": "integer"
+        },
+        "Revenue": {
+          "type": "integer"
+        },
+        "% of Total - Product": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

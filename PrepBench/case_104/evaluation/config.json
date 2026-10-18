@@ -1,0 +1,42 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Training",
+        "Contact Email",
+        "Client"
+      ],
+      "columns": {
+        "Training": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Contact Email": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Contact Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Client": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Client ID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Account Manager": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "From Date": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

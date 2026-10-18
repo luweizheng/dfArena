@@ -1,0 +1,56 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Project",
+        "Sub-project",
+        "Owner",
+        "Task"
+      ],
+      "columns": {
+        "Project": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Sub-project": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Owner": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Task": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Completed Weekday": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Scope to Build Time": {
+          "type": "integer"
+        },
+        "Build to Delivery Time": {
+          "type": "integer"
+        },
+        "Days Difference to Schedule": {
+          "type": "integer"
+        },
+        "Scheduled Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Completed Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}
