@@ -1,0 +1,40 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O3_dedup_keywords_per_department",
+      "kind": "Operation inconsistent",
+      "node_id": "dedup_kw",
+      "op": "dedup",
+      "source_text": "If a given keyword matches multiple times in the same complaint for the same department, include it only once for that department.",
+      "ref": "                if kw not in dept_to_kws[dept]:\n                    dept_to_kws[dept].append(kw)",
+      "intent": "Deduplicate repeated occurrences of the same matched keyword within each complaint and department."
+    },
+    {
+      "id": "2_O3_multi_department_rows",
+      "kind": "Operation inconsistent",
+      "node_id": "script_group",
+      "op": "script",
+      "source_text": "Output one row per (complaint, department) when a complaint matches keywords from multiple departments.",
+      "ref": "for dept, kws in dept_to_kws.items():\n    out_rows.append({\n        \"Complaint\": comp_lc,\n        \"Complaints per Person\": int(counts.get(name, 0)),\n        \"Complaint causes\": \", \".join(kws),\n        \"Department\": dept if dept else \"Unknown\",\n        \"Name\": name,\n    })",
+      "intent": "A complaint may produce a separate row for each matched department."
+    },
+    {
+      "id": "3_D2_substring_keyword_matching",
+      "kind": "Multi-table alignment",
+      "node_id": "script_match",
+      "op": "script",
+      "source_text": "For each complaint, identify every keyword whose lowercased form appears as a substring within the standardized complaint text.",
+      "ref": "            pos = comp_lc.find(item[\"kw\"]) if item[\"kw\"] else -1\n            if pos >= 0:\n                matches.append((pos, item[\"kw\"], item[\"dept\"]))",
+      "intent": "Match trimmed lowercase keywords as substrings of trimmed lowercase complaints."
+    },
+    {
+      "id": "4_O1_keyword_order_by_first_occurrence",
+      "kind": "Row-level concept",
+      "node_id": "sort_for_group",
+      "op": "sort",
+      "source_text": "For each matched keyword, determine its first occurrence position in the complaint text and use this to order keywords by appearance (earlier positions first).",
+      "ref": "matches.sort(key=lambda x: x[0])",
+      "intent": "Join keywords using comma and space, in first-appearance order within each department."
+    }
+  ]
+}

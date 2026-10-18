@@ -1,0 +1,31 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "name",
+        "metric"
+      ],
+      "columns": {
+        "name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "metric": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "raw_value": {
+          "type": "number",
+          "abs_tol": 1e-12,
+          "rel_tol": 1e-14
+        },
+        "scaled_value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Date"
+      ],
+      "columns": {
+        "Turbo Trainer": {
+          "type": "number",
+          "abs_tol": 1e-12,
+          "rel_tol": 0
+        },
+        "Outdoors": {
+          "type": "number",
+          "abs_tol": 1e-12,
+          "rel_tol": 0
+        },
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Activities per day": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

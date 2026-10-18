@@ -1,0 +1,49 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O1_tile_boundaries_formula",
+      "kind": "Group-level concept",
+      "node_id": "compute_tiles",
+      "op": "project",
+      "source_text": "Compute `tile = floor(pos * 6 / group_sz) + 1`, yielding integers 1–6.",
+      "ref": "df_sorted['tile'] = df_sorted.groupby('Subject').cumcount()\ngroup_sizes = df_sorted.groupby('Subject')['Student ID'].transform('count')\ndf_sorted['tile'] = (df_sorted['tile'] * 6 // group_sizes) + 1",
+      "intent": "Compute tile = floor(pos * 6 / group_sz) + 1, yielding integers 1–6."
+    },
+    {
+      "id": "2_O1_avg_points_round_2dp",
+      "kind": "Operation boundary",
+      "node_id": "compute_tiles",
+      "op": "project",
+      "source_text": "Attach `Avg student total points per grade` to each row. Either the full-precision mean or the mean rounded to 2 decimal places is acceptable.",
+      "ref": "df_sorted['Avg student total points per grade'] = df_sorted.groupby('Grade')['Total Points per Student'].transform('mean')\ndf_sorted['Avg student total points per grade'] = df_sorted['Avg student total points per grade'].round(2)",
+      "intent": "Attach Avg student total points per grade to each row. Either the full-precision mean or the mean rounded to 2 decimal places is acceptable."
+    },
+    {
+      "id": "3_O1_threshold_from_students_with_a",
+      "kind": "Operation boundary",
+      "node_id": "filter_rows",
+      "op": "filter",
+      "source_text": "Compute the threshold as the average `Total Points per Student` among students who received at least one A.",
+      "ref": "students_with_A = df_sorted[df_sorted['Grade'] == 'A']['Student ID'].unique()\navg_score_for_A_students = df_sorted[df_sorted['Student ID'].isin(students_with_A)]['Total Points per Student'].mean()",
+      "intent": "Compute the threshold as the average Total Points per Student among students who received at least one A."
+    },
+    {
+      "id": "4_O1_threshold_strict_greater",
+      "kind": "Operation boundary",
+      "node_id": "filter_rows",
+      "op": "filter",
+      "source_text": "Keep only rows where `Total Points per Student` is strictly greater than that computed threshold.",
+      "ref": "df_filtered = df_sorted[df_sorted['Total Points per Student'] > avg_score_for_A_students].copy()",
+      "intent": "Keep only rows where Total Points per Student is strictly greater than that computed threshold."
+    },
+    {
+      "id": "5_D1_wide_to_long_subject_score",
+      "kind": "Single-table reference",
+      "node_id": "pivot_long",
+      "op": "pivot",
+      "source_text": "Reshape the input from wide to long format so that each row represents one student’s score in one subject, with at least these columns:",
+      "ref": "df_melted = df.melt(\n        id_vars=['Student ID'],\n        var_name='Subject',\n        value_name='Score'\n    )",
+      "intent": "Reshape the input from wide to long format so that each row represents one student’s score in one subject, with at least these columns:"
+    }
+  ]
+}

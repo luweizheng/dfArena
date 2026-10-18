@@ -1,0 +1,58 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C1_direct_contact_accumulate",
+      "kind": "Row-level concept",
+      "node_id": "agg_direct_min",
+      "op": "aggregate",
+      "source_text": "Direct contacts are accumulated across all sessions for that subject (an attendee may gain new direct contacts in later sessions).",
+      "ref": "final_direct.setdefault(a, set()).update(ds)",
+      "intent": "Direct contacts are accumulated across all sessions for that subject (an attendee may gain new direct contacts in later sessions)."
+    },
+    {
+      "id": "2_C1_contact_type_labels",
+      "kind": "Row-level concept",
+      "node_id": "contact_rows",
+      "op": "project",
+      "source_text": "Use `Direct Contact` and `Indirect Contact` as the values of `Contact Type`.",
+      "ref": "results_rows.append((subject, a, \"Direct Contact\", b))\nresults_rows.append((subject, a, \"Indirect Contact\", b))",
+      "intent": "Use Direct Contact and Indirect Contact as the values of Contact Type."
+    },
+    {
+      "id": "3_O1_indirect_strictly_prior",
+      "kind": "Operation boundary",
+      "node_id": "filter_time",
+      "op": "filter",
+      "source_text": "For each directly-met attendee **B**, take **B**’s direct contacts from sessions strictly earlier than the current session (within the same subject).",
+      "ref": "prior_direct.setdefault(a, set()).update(ds)",
+      "intent": "For each directly-met attendee B, take B’s direct contacts from sessions strictly earlier than the current session (within the same subject)."
+    },
+    {
+      "id": "4_D2_isolate_by_subject",
+      "kind": "Row-level concept",
+      "node_id": "pairs_join",
+      "op": "join",
+      "source_text": "Compute indirect contacts separately within each Subject (do not allow contacts to cross subject areas).",
+      "ref": "for subject, sub_df in sessions_df.groupby(\"Subject\", sort=False):",
+      "intent": "Compute indirect contacts separately within each Subject (do not allow contacts to cross subject areas)."
+    },
+    {
+      "id": "5_C1_input_file_to_day_mapping",
+      "kind": "Multi-table alignment",
+      "node_id": "proj_day",
+      "op": "project",
+      "intent": "The three session files correspond to three consecutive days: input_01.csv represents Day 1, input_02.csv represents Day 2, and input_03.csv represents Day 3.",
+      "ref": "for day_idx, f in enumerate(input_files, start=1): df[\"Day\"] = day_idx",
+      "source_text": "The three session files correspond to three consecutive days: input_01.csv represents Day 1, input_02.csv represents Day 2, and input_03.csv represents Day 3."
+    },
+    {
+      "id": "6_O1_session_order_tiebreak",
+      "kind": "Operation boundary",
+      "node_id": "proj_day",
+      "op": "project",
+      "intent": "When using Session ID as a tie-breaker, sort Session IDs numerically (treat them as integers) in ascending order.",
+      "ref": "sessions_df = sessions_df.sort_values([\"Day\", \"TimeMinutes\", \"SessionID\"])",
+      "source_text": "When using Session ID as a tie-breaker, sort Session IDs numerically (treat them as integers) in ascending order."
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Season"
+      ],
+      "columns": {
+        "Season": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Outcome": {
+          "type": "text_exact",
+          "null_values": [
+            "",
+            "N/A"
+          ]
+        },
+        "Special Circumstances": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "League": {
+          "type": "text_exact",
+          "null_values": [
+            ""
+          ]
+        },
+        "P": {
+          "type": "integer"
+        },
+        "W": {
+          "type": "integer"
+        },
+        "D": {
+          "type": "integer"
+        },
+        "L": {
+          "type": "integer"
+        },
+        "F": {
+          "type": "integer"
+        },
+        "A": {
+          "type": "integer"
+        },
+        "Pts": {
+          "type": "integer"
+        },
+        "POS": {
+          "type": "text_exact",
+          "null_values": [
+            ""
+          ]
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

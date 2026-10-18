@@ -1,0 +1,36 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Weekday",
+        "Method of Travel"
+      ],
+      "columns": {
+        "Sustainable?": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "% of trips per day": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Trips per day": {
+          "type": "integer"
+        },
+        "Number of Trips": {
+          "type": "integer"
+        },
+        "Weekday": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Method of Travel": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

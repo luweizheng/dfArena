@@ -1,0 +1,58 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_email_domain_from_preferred_employer_plus_com",
+      "kind": "Row-level concept",
+      "node_id": "project_main",
+      "op": "project",
+      "source_text": "Use `Preferred Contact Employer` as the employer portion.",
+      "ref": "        df[\"Preferred Contact Employer\"] + \".com\"",
+      "intent": "Use Preferred Contact Employer as the employer portion."
+    },
+    {
+      "id": "2_C2_email_parent_last_name_from_pupil_last_name",
+      "kind": "Single-table reference",
+      "node_id": "project_main",
+      "op": "project",
+      "source_text": "Use the pupil’s last name as `Parent Last Name`.",
+      "ref": "    df[\"Parental Contact Email Address\"] = (\n        df[\"Parent First Name\"] + \".\" + \n        df[\"pupil last name\"] + \"@\" + \n        df[\"Preferred Contact Employer\"] + \".com\"\n    )",
+      "intent": "Use the pupil’s last name as Parent Last Name."
+    },
+    {
+      "id": "3_D1_pupil_name_source_columns",
+      "kind": "Single-table reference",
+      "node_id": "project_main",
+      "op": "project",
+      "source_text": "Use the fields `pupil last name` and `pupil first name` to construct `Pupil's Name` as:",
+      "ref": "df[\"Pupil's Name\"] = df[\"pupil last name\"] + \", \" + df[\"pupil first name\"]",
+      "intent": "Use the fields pupil last name and pupil first name to construct Pupil's Name as:"
+    },
+    {
+      "id": "4_O1_academic_year_sep1_inclusive_cutoff",
+      "kind": "Operation boundary",
+      "node_id": "project_main",
+      "op": "project",
+      "source_text": "If the birth date is on or after 1 September of the birth year, the academic start year is the birth year.",
+      "ref": "        if birth_month > 9 or (birth_month == 9 and birth_day >= 1):",
+      "intent": "If the birth date is on or after 1 September of the birth year, the academic start year is the birth year."
+    },
+    {
+      "id": "5_O2_dob_parse_mdy_format",
+      "kind": "Row-level concept",
+      "node_id": "project_main",
+      "op": "project",
+      "intent": "Parse Date of Birth as a date using the format M/D/YYYY (month/day/four-digit year).",
+      "ref": "        birth_date = datetime.strptime(date_str, \"%m/%d/%Y\")",
+      "source_text": "Parse `Date of Birth` as a date using the format `M/D/YYYY` (month/day/four-digit year)."
+    },
+    {
+      "id": "6_O2_parental_contact_default_to_name2_when_not_1",
+      "kind": "Operation incomplete",
+      "node_id": "project_main",
+      "op": "project",
+      "source_text": "If `Parental Contact` equals `1`, use `Parental Contact Name_1`.",
+      "ref": "df[\"Parent First Name\"] = df.apply(\n        lambda row: row[\"Parental Contact Name_1\"] if row[\"Parental Contact\"] == 1 \n        else row[\"Parental Contact Name_2\"], axis=1\n    )",
+      "intent": "If Parental Contact equals 1, use Parental Contact Name_1."
+    }
+  ]
+}

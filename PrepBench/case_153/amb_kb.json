@@ -1,0 +1,67 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_group_counts_by_month_and_weekday",
+      "kind": "Group-level concept",
+      "node_id": "agg_counts",
+      "op": "aggregate",
+      "source_text": "Count how many birthdays there are on each weekday in each month by grouping on **Month** and **Cake Needed On** and counting pupils in each group.",
+      "ref": "count_df = df.groupby([\"Month\", \"Cake Needed On\"]).size().reset_index(name=\"BDs per Weekday and Month\")",
+      "intent": "Count pupils for each cake-month and cake-weekday combination."
+    },
+    {
+      "id": "2_O2_left_join_to_keep_all_pupils",
+      "kind": "Operation incomplete",
+      "node_id": "join_counts",
+      "op": "join",
+      "intent": "Retain every pupil when attaching group counts.",
+      "ref": "how=\"left\"",
+      "source_text": "Attach this group count back onto each pupil row as **BDs per Weekday and Month** via a left join on **Month** and **Cake Needed On** so every pupil keeps their row."
+    },
+    {
+      "id": "3_D2_join_on_month_and_cake_needed_on",
+      "kind": "Multi-table alignment",
+      "node_id": "join_counts",
+      "op": "join",
+      "intent": "Match group counts using Month and Cake Needed On together.",
+      "ref": "on=[\"Month\", \"Cake Needed On\"]",
+      "source_text": "Attach this group count back onto each pupil row as **BDs per Weekday and Month** via a left join on **Month** and **Cake Needed On** so every pupil keeps their row."
+    },
+    {
+      "id": "4_D1_pupil_name_fields_selection",
+      "kind": "Single-table reference",
+      "node_id": "project_compute",
+      "op": "project",
+      "source_text": "Format the pupil's name in *First Name Last Name* format (ie Carl Allchin), using the pupil first name and pupil last name fields.",
+      "ref": "df[\"Pupil Name\"] = df[\"pupil first name\"] + \" \" + df[\"pupil last name\"]",
+      "intent": "Join the pupil first name and last name with one space."
+    },
+    {
+      "id": "5_O1_weekend_shift_to_friday",
+      "kind": "Operation boundary",
+      "node_id": "project_compute",
+      "op": "project",
+      "source_text": "Otherwise, the cake date stays as the 2022 birthday date.",
+      "ref": "if weekday_num == 5:  # Saturday\n    days_back = 1\nelse:  # Sunday\n    days_back = 2\nreturn row[\"This Year's Birthday\"] - pd.Timedelta(days=days_back)",
+      "intent": "Move Saturday birthdays back one day and Sunday birthdays back two days; keep other dates unchanged."
+    },
+    {
+      "id": "6_O1_weekday_name_from_cake_date",
+      "kind": "Row-level concept",
+      "node_id": "project_compute",
+      "op": "project",
+      "source_text": "Set **Cake Needed On** to the weekday name of this cake date.",
+      "ref": "df[\"Cake Needed On\"] = df[\"Cake Date\"].dt.day_name()",
+      "intent": "Use the weekday of the adjusted cake date."
+    },
+    {
+      "id": "7_O1_month_from_cake_date",
+      "kind": "Row-level concept",
+      "node_id": "project_compute",
+      "op": "project",
+      "source_text": "Work out what month the pupil's birthday falls within, using the month of the cake date (i.e., after applying the weekend-to-Friday adjustment), and represent it as the full month name.",
+      "ref": "df[\"Month\"] = df[\"Cake Date\"].dt.month.map(month_names)",
+      "intent": "Use the full English month name of the adjusted cake date, including when the adjustment crosses a month or year boundary."
+    }
+  ]
+}

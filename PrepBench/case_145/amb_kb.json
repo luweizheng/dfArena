@@ -1,0 +1,85 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_awards_count_per_title",
+      "kind": "Group-level concept",
+      "node_id": "awards_agg",
+      "op": "aggregate",
+      "source_text": "`Number of Awards Won (avg only)` = count of award records for that Title.",
+      "ref": "awards_agg = awards.groupby('Title').agg(**{'Number of Awards Won (avg only)': ('Award Name', 'count')})",
+      "intent": "Count award records per Title before joining."
+    },
+    {
+      "id": "2_C2_checkouts_total_and_months",
+      "kind": "Group-level concept",
+      "node_id": "checkouts_agg",
+      "op": "aggregate",
+      "source_text": "**Checkouts**: aggregate to one row per **Book ID** with:",
+      "ref": "checkouts_agg = checkouts.groupby('Book ID').agg(**{'Total Checkouts': ('Number of Checkouts', 'sum'), 'Number of Months Checked Out': ('CheckoutMonth', 'nunique')})",
+      "intent": "Sum Number of Checkouts and count distinct CheckoutMonth per Book ID before joining."
+    },
+    {
+      "id": "3_O1_round_average_rating_9dp",
+      "kind": "Operation boundary",
+      "node_id": "final_project",
+      "op": "project",
+      "intent": "Average Rating is rounded to nine decimal places and written with nine digits after the decimal point; missing stays blank.",
+      "ref": "avg = pd.to_numeric(df['Average Rating'], errors='coerce').round(9)\ndf['Average Rating'] = avg.map(lambda x: f\"{x:.9f}\" if pd.notna(x) else \"\")",
+      "source_text": "Average Rating must be output with 9 decimal places (zero-padded); blank if missing."
+    },
+    {
+      "id": "4_O2_missing_aggregates_not_zero",
+      "kind": "Operation incomplete",
+      "node_id": "final_project",
+      "op": "project",
+      "intent": "Missing aggregate values stay blank, not zero.",
+      "ref": "nums = pd.to_numeric(df[col], errors='coerce').round(0)\ndf[col] = nums.astype('Int64').astype('string').fillna('')\navg = pd.to_numeric(df['Average Rating'], errors='coerce').round(9)\ndf['Average Rating'] = avg.map(lambda x: f\"{x:.9f}\" if pd.notna(x) else \"\")",
+      "source_text": "Keep numeric fields as numeric; do not replace missing aggregate values with 0 (they should remain missing/blank in the output)."
+    },
+    {
+      "id": "5_O2_missing_text_as_empty_string",
+      "kind": "Operation incomplete",
+      "node_id": "final_project",
+      "op": "project",
+      "intent": "Missing text stays blank.",
+      "ref": "df[col] = df[col].replace({'nan': ''})",
+      "source_text": "For text fields in the final output, represent missing values as empty strings."
+    },
+    {
+      "id": "6_D1_genre_series_book_id",
+      "kind": "Single-table reference",
+      "node_id": "genre_series_proj1",
+      "op": "project",
+      "intent": "Concatenate BookID1 and BookID2 as the Book ID when those split fields are present.",
+      "ref": "genre_series['Book ID'] = genre_series['BookID1'].astype(str) + genre_series['BookID2'].astype(str)",
+      "source_text": "From the genre/series dataset, ensure there is a `Book ID` field available for joining. If the dataset provides `BookID1` and `BookID2`, create `Book ID` by concatenating them in order (`BookID1` + `BookID2`). Otherwise, use the existing Book ID field if already present."
+    },
+    {
+      "id": "7_D2_join_all_on_keys",
+      "kind": "Multi-table alignment",
+      "node_id": "join_all",
+      "op": "join",
+      "source_text": "Apply joins in a way that preserves the intended enrichment logic:",
+      "ref": "df = df.merge(book_meta, on='ISBN', how='left')\ndf = df.merge(books[['Book ID', 'Title', 'AuthID']], on='Book ID', how='left')\ndf = df.merge(authors, on='AuthID', how='left')\ndf = df.merge(awards_agg, on='Title', how='left')\ndf = df.merge(publishers, on='PubID', how='left')\ndf = df.merge(checkouts_agg, on='Book ID', how='left')\ndf = df.merge(ratings_agg, on='Book ID', how='left')\ndf = df.merge(genre_series[['Book ID', 'Genre', 'SeriesID', 'Volume Number', 'Staff Comment']], on='Book ID', how='left')\ndf = df.merge(series_dim, on='SeriesID', how='left')",
+      "intent": "Enrich sales via ISBN to book metadata, Book ID to books/checkouts/ratings/genre, AuthID to authors, Title to award counts, PubID to publishers, and SeriesID to series."
+    },
+    {
+      "id": "8_O2_join_left_keep_sales",
+      "kind": "Operation incomplete",
+      "node_id": "join_all",
+      "op": "join",
+      "source_text": "Use **left joins from the sales-line table** so that every sales line remains present even when enrichment data is missing.",
+      "ref": "how='left'",
+      "intent": "Retain every sales line, including lines without enrichment matches."
+    },
+    {
+      "id": "9_C2_ratings_aggregates",
+      "kind": "Group-level concept",
+      "node_id": "ratings_agg",
+      "op": "aggregate",
+      "source_text": "**Ratings**: aggregate to one row per **Book ID** with:",
+      "ref": "ratings_agg = ratings.groupby('Book ID').agg(**{'Average Rating': ('Rating', 'mean'), 'Number of Reviewers': ('ReviewerID', 'nunique'), 'Number of Reviews': ('ReviewID', 'count')})",
+      "intent": "Per Book ID, calculate mean Rating, distinct ReviewerID count, and number of review records before joining."
+    }
+  ]
+}

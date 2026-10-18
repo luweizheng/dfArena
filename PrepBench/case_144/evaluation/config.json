@@ -1,0 +1,30 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Subject",
+        "Attendee",
+        "Contact"
+      ],
+      "columns": {
+        "Subject": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Attendee": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Contact Type": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Contact": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

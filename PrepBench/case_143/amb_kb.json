@@ -1,0 +1,31 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C1_each_recorded_session_counts",
+      "kind": "Row-level concept",
+      "node_id": "prep_project",
+      "op": "project",
+      "source_text": "Count each recorded input session as one activity, whether measured in minutes or kilometres. Missing or empty `Detail` does not remove a session or change its activity count.",
+      "ref": "df[\"activity\"] = 1",
+      "intent": "Count every recorded min or km session once, including sessions without Detail."
+    },
+    {
+      "id": "2_C1_km_distance_preserved",
+      "kind": "Operation incomplete",
+      "node_id": "prep_project",
+      "op": "project",
+      "intent": "Use Value for km rows regardless of Detail; convert minutes at 0.5 kilometres per minute.",
+      "ref": "return float(row[\"Value\"]) if pd.notna(row[\"Value\"]) else 0.0",
+      "source_text": "If `Measure` indicates kilometres, use the recorded kilometres as the distance, including when `Detail` is missing or empty."
+    },
+    {
+      "id": "3_O2_measure_to_category_mapping",
+      "kind": "Single-table reference",
+      "node_id": "prep_project",
+      "op": "project",
+      "source_text": "Create a field called measure to convert KM measurements into 'Outdoors' and any measurement in 'mins' as 'Turbo Trainer'.",
+      "ref": "df[\"category\"] = df[\"Measure\"].astype(str).str.strip().str.lower().map({\n    \"min\": \"Turbo Trainer\",\n    \"km\": \"Outdoors\"\n})",
+      "intent": "Map km to Outdoors and min to Turbo Trainer; use the query-specified 30 km/h for minute records."
+    }
+  ]
+}

@@ -1,0 +1,193 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "ItemID",
+        "OrderID"
+      ],
+      "columns": {
+        "Book ID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Sale Date": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "ISBN": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Discount": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": [
+            ""
+          ]
+        },
+        "ItemID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "OrderID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "First Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Last Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Birthday": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Country of Residence": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Hrs Writing per Day": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": [
+            ""
+          ]
+        },
+        "Title": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "AuthID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Format": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "PubID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Publication Date": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Pages": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Print Run Size (k)": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Price": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0,
+          "null_values": [
+            ""
+          ]
+        },
+        "Publishing House": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "City": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "State": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Country": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Year Established": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Marketing Spend": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Number of Awards Won (avg only)": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Number of Months Checked Out": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Total Checkouts": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Genre": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "SeriesID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Volume Number": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Staff Comment": {
+          "type": "text_exact",
+          "null_values": [],
+          "aliases": {
+            "Would you want to live forever? Doesn't that depend on what sort of life you'd have—and who you'd spend it with? ": "Would you want to live forever? Doesn't that depend on what sort of life you'd have—and who you'd spend it with?",
+            "Glug glug glug, BANANA SLUG! ": "Glug glug glug, BANANA SLUG!",
+            "As someone who hates prophecy, Lydan seems an unlikely guardian of the Prophetic Vaults of Yu'ul. But it was prophecied that someone matching her description would someday save Yu'ul from its doom. The Elders don't take such things lightly. But what, Lydan asks herself, does it mean to save something? Especially when the cost is...concerning. ": "As someone who hates prophecy, Lydan seems an unlikely guardian of the Prophetic Vaults of Yu'ul. But it was prophecied that someone matching her description would someday save Yu'ul from its doom. The Elders don't take such things lightly. But what, Lydan asks herself, does it mean to save something? Especially when the cost is...concerning.",
+            "\"The best beach-book I've ever read\" \"Easy and fun without being vapid\" ": "\"The best beach-book I've ever read\" \"Easy and fun without being vapid\"",
+            "#QuokkaSelfie took the internet by storm in the early 21s. These adorable marsupials, quickly dubbed \"the happiest animal on Earth\" became an internet sensation when tourists started posting selfies with the smiling mammals. Rottnest Island, once an Australian Aboriginal penal colony, transformed into an eco-tourism destination thanks to these picture-perfect smiling creatures. But even beaming quokkas can't escape the darker side of intense human attention. Reports began circulating of quokkas being kicked liked footballs. Instagram labeled #QuokkaSelfie as potentially violating animal welfare. Conservationists decried \"lumpy jaw\", a potentially fatal infection caused by bread fed to these herbivores from human hands. In this—ultimately hopeful—exploration of #QuokkaSelfie, Langston Lippman and colleagues take a deeper look at the phenomenon of celebrating nature to the brink of destroying it. ": "#QuokkaSelfie took the internet by storm in the early 21s. These adorable marsupials, quickly dubbed \"the happiest animal on Earth\" became an internet sensation when tourists started posting selfies with the smiling mammals. Rottnest Island, once an Australian Aboriginal penal colony, transformed into an eco-tourism destination thanks to these picture-perfect smiling creatures. But even beaming quokkas can't escape the darker side of intense human attention. Reports began circulating of quokkas being kicked liked footballs. Instagram labeled #QuokkaSelfie as potentially violating animal welfare. Conservationists decried \"lumpy jaw\", a potentially fatal infection caused by bread fed to these herbivores from human hands. In this—ultimately hopeful—exploration of #QuokkaSelfie, Langston Lippman and colleagues take a deeper look at the phenomenon of celebrating nature to the brink of destroying it.",
+            "Wilberforce isn't sure about bedtime in a new bed, in a new house, in a new town. But when his grandmother brings him a pair of heliotrope pajamas, Wilberforce finds out bedtime can be downright magical. ": "Wilberforce isn't sure about bedtime in a new bed, in a new house, in a new town. But when his grandmother brings him a pair of heliotrope pajamas, Wilberforce finds out bedtime can be downright magical.",
+            "Lowry's comedic genius shines through every moment of her memoir. Told with clear eyes and biting wit, the anecdotes of each chapter bring to life a world of eccentric academics. The literarily-inclinded daughter of a physicist  and an epidemiologist, Lowry was forced to find her own way toward normal through an upbringing that was anything but. ": "Lowry's comedic genius shines through every moment of her memoir. Told with clear eyes and biting wit, the anecdotes of each chapter bring to life a world of eccentric academics. The literarily-inclinded daughter of a physicist  and an epidemiologist, Lowry was forced to find her own way toward normal through an upbringing that was anything but.",
+            "Beloved author Charles Fenimore strikes out in a new direction with his first graphic novel. In this devestating tale of daring, ingenuity, and just a dash of  luck, Fenimore dmonstrates his genius for combining visual flare and cutting prose. Uchon's mechanical contraption to tame lightning brings its own threats to her tinder-box community stricken by wildfires. Will Uchon's luck run out on the eve of the biggest lightning storm to threaten the sleepy town of Delanro in decades? ": "Beloved author Charles Fenimore strikes out in a new direction with his first graphic novel. In this devestating tale of daring, ingenuity, and just a dash of  luck, Fenimore dmonstrates his genius for combining visual flare and cutting prose. Uchon's mechanical contraption to tame lightning brings its own threats to her tinder-box community stricken by wildfires. Will Uchon's luck run out on the eve of the biggest lightning storm to threaten the sleepy town of Delanro in decades?",
+            "When his wife set out to write her magnum opus cookbook, food critic Stackhouse thought the hardest part would be making sure he didn't outgrow his favorite slacks. He never expected that amidst the thyme and roux and cleavers, their relationship would be tried, tested, and ultimately perfected. Tastefully seasoned with the recipes that brought them to the brink, \"Nothing But Capers\" follows the tumult that strained then saved his marriage and his life. ": "When his wife set out to write her magnum opus cookbook, food critic Stackhouse thought the hardest part would be making sure he didn't outgrow his favorite slacks. He never expected that amidst the thyme and roux and cleavers, their relationship would be tried, tested, and ultimately perfected. Tastefully seasoned with the recipes that brought them to the brink, \"Nothing But Capers\" follows the tumult that strained then saved his marriage and his life.",
+            "No one saw it coming. No one could escape the effects. No one could imagine what would come next. ": "No one saw it coming. No one could escape the effects. No one could imagine what would come next.",
+            "Long-winded talkers waste time for themselves and those who listen. When you have something to say, get to the point. Say it with Snap! ": "Long-winded talkers waste time for themselves and those who listen. When you have something to say, get to the point. Say it with Snap!",
+            "An epic on the scale of Game of Thrones and The Lord of the Rings. The Mallemaroking is a book that cannot be defined, only experienced. ": "An epic on the scale of Game of Thrones and The Lord of the Rings. The Mallemaroking is a book that cannot be defined, only experienced.",
+            "Mr. Hidoo, with his kind smile and perpetual silence, is easy to overlook. Until he turns up dead. ": "Mr. Hidoo, with his kind smile and perpetual silence, is easy to overlook. Until he turns up dead.",
+            "Antrim's ability to make you laugh through your tears has never been stronger than in his memoirs. Diagnosed with terminal cancer at 38, Antrim reflects back on his life with the grace and wisdom of a man twice his age. \"Who Did You Think You Were Kidding\" reminds us that even on a sad path toward a death far too soon, the journey is what matters. ": "Antrim's ability to make you laugh through your tears has never been stronger than in his memoirs. Diagnosed with terminal cancer at 38, Antrim reflects back on his life with the grace and wisdom of a man twice his age. \"Who Did You Think You Were Kidding\" reminds us that even on a sad path toward a death far too soon, the journey is what matters."
+          }
+        },
+        "Series Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Planned Volumes": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Book Tour Events": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Average Rating": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Number of Reviewers": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Number of Reviews": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

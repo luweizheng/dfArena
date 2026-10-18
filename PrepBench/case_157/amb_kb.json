@@ -1,0 +1,58 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O1_likelihood_rank_desc",
+      "kind": "Group-level concept",
+      "node_id": "add_ranks",
+      "op": "script",
+      "source_text": "Compute `Likelihood Rank` as a dense rank with higher `% Chance` receiving rank 1 (descending order). Mathematically equal probabilities share the same rank; floating-point representation noise must not split ties.",
+      "ref": "reference/solution.py: probability_rank and exact Decimal products",
+      "intent": "Compute Likelihood Rank as a dense rank with higher % Chance receiving rank 1 (descending order). Mathematically equal probabilities share the same rank; floating-point representation noise must not split ties."
+    },
+    {
+      "id": "2_O1_points_rank_desc",
+      "kind": "Group-level concept",
+      "node_id": "add_ranks",
+      "op": "script",
+      "source_text": "Compute `Points Rank` as a dense rank with higher `Total Points` receiving rank 1 (descending order).",
+      "ref": "reference/solution.py: solve; query_full.md defines the task rule",
+      "intent": "Compute Points Rank as a dense rank with higher Total Points receiving rank 1 (descending order)."
+    },
+    {
+      "id": "3_O1_output_sort_order",
+      "kind": "Row-level concept",
+      "node_id": "final_sort",
+      "op": "sort",
+      "intent": "Final output row order is unrestricted.",
+      "ref": "reference/solution.py: solve; query_full.md defines the task rule",
+      "source_text": "Final output row order is unrestricted."
+    },
+    {
+      "id": "4_O2_inner_join_drop_unmatched_letters",
+      "kind": "Operation incomplete",
+      "node_id": "join_letters_tiles",
+      "op": "join",
+      "source_text": "Join the letter-count table to the parsed tile table using `Letter = Tile`.",
+      "ref": "reference/solution.py: solve; query_full.md defines the task rule",
+      "intent": "Join the letter-count table to the parsed tile table using Letter = Tile."
+    },
+    {
+      "id": "5_O1_use_rounded_tile_chance_in_calcs",
+      "kind": "Operation boundary",
+      "node_id": "tiles_with_chance",
+      "op": "script",
+      "source_text": "Store this rounded per-tile value as `% Chance` and use this rounded value in all subsequent calculations.",
+      "ref": "reference/solution.py: solve; query_full.md defines the task rule",
+      "intent": "Store this rounded per-tile value as % Chance and use this rounded value in all subsequent calculations."
+    },
+    {
+      "id": "6_O2_skip_positions_beyond_word_length",
+      "kind": "Operation incomplete",
+      "node_id": "word_letters",
+      "op": "project",
+      "source_text": "For each word and each scaffold position, take the character at that 1-based position (skip positions beyond the word length, if any) and treat it as the letter for that position.",
+      "ref": "reference/solution.py: solve; query_full.md defines the task rule",
+      "intent": "For each word and each scaffold position, take the character at that 1-based position (skip positions beyond the word length, if any) and treat it as the letter for that position."
+    }
+  ]
+}
