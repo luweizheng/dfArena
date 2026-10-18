@@ -1,0 +1,49 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O1_contract_length_inclusive",
+      "kind": "Operation boundary",
+      "node_id": "filter_len",
+      "op": "filter",
+      "source_text": "Create a Row for each month a person will hold the contract",
+      "ref": "df_expanded = df_expanded[df_expanded[\"Length\"] <= df_expanded[\"Contract Length\"]]",
+      "intent": "Include month indices 1 through Contract Length, inclusive."
+    },
+    {
+      "id": "2_O2_start_date_parse_strict",
+      "kind": "Operation incomplete",
+      "node_id": "project_contracts",
+      "op": "project",
+      "intent": "Parse input Start Date as YYYY-MM-DD.",
+      "ref": "pd.to_datetime(df_contracts[\"Start Date\"], format=\"%Y-%m-%d\", errors=\"raise\")",
+      "source_text": "Parse `Start Date` as a date using the format `YYYY-MM-DD` (invalid formats should be treated as errors)."
+    },
+    {
+      "id": "3_C2_cumulative_monthly_cost",
+      "kind": "Group-level concept",
+      "node_id": "project_cumsum",
+      "op": "project",
+      "source_text": "Calculate the monthly cumulative cost of each person's contract",
+      "ref": "df_expanded[\"Cumulative Monthly Cost\"] = df_expanded.groupby(\"Name\")[\"Monthly Cost\"].cumsum()",
+      "intent": "Accumulate each customer contract payment in chronological order."
+    },
+    {
+      "id": "4_O1_payment_date_offset",
+      "kind": "Row-level concept",
+      "node_id": "script_payment_date",
+      "op": "script",
+      "source_text": "from their start date until 'x' months in the future when the contract runs out",
+      "ref": "r[\"Start Date\"] + pd.DateOffset(months=int(r[\"Length\"]) - 1)",
+      "intent": "The first payment date is Start Date; subsequent payments add calendar months."
+    },
+    {
+      "id": "5_O1_cumsum_sort",
+      "kind": "Operation incomplete",
+      "node_id": "sort_rows",
+      "op": "sort",
+      "intent": "Use payment-date ordering inside each person to calculate the cumulative cost; final row order is unrestricted.",
+      "ref": "df_expanded.sort_values([\"Name\", \"Payment Date\"])",
+      "source_text": "Within each `Name`, sort rows by `Payment Date` ascending and compute `Cumulative Monthly Cost` as the running sum of `Monthly Cost`."
+    }
+  ]
+}

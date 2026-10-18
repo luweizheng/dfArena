@@ -1,0 +1,49 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_D1_filter_status_field",
+      "kind": "Single-table reference",
+      "node_id": "filter_sold",
+      "op": "filter",
+      "source_text": "Remove the 'Return to Manufacturer' records",
+      "ref": "sold_df = input_df[input_df['Status'] != 'Return to Manufacturer'].copy()",
+      "intent": "Remove Status equal to Return to Manufacturer."
+    },
+    {
+      "id": "2_C2_store_item_sum",
+      "kind": "Group-level concept",
+      "node_id": "pivot_wider",
+      "op": "pivot",
+      "source_text": "Aggregate the data to Store sales by Item",
+      "ref": "pivot_df = sold_df.pivot_table(index='Store', columns='Item', values='Number of Items', aggfunc='sum', fill_value=0)",
+      "intent": "Sum Number of Items for each Store and Item, then create one row per Store."
+    },
+    {
+      "id": "3_O2_fill_missing_item_zero",
+      "kind": "Operation incomplete",
+      "node_id": "pivot_wider",
+      "op": "pivot",
+      "intent": "Fill missing store-item combinations with zero.",
+      "ref": "fill_value=0",
+      "source_text": "If a Store has no sales for a given item category, the value for that category must be `0`."
+    },
+    {
+      "id": "4_C2_total_sum_of_item_columns",
+      "kind": "Group-level concept",
+      "node_id": "project_prepare",
+      "op": "project",
+      "source_text": "Create a total for each Store of all the items sold",
+      "ref": "pivot_df['Items sold per store'] = pivot_df.sum(axis=1)",
+      "intent": "Sum the four item totals to obtain Items sold per store."
+    },
+    {
+      "id": "final_output_order_unrestricted",
+      "kind": "Operation boundary",
+      "node_id": "output",
+      "op": "project",
+      "source_text": "Final output row order is unrestricted.",
+      "intent": "Final CSV rows may be in any order. Reference implementation ordering is not a task requirement.",
+      "ref": "query_full.md: Output"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_remaining_pick_offset",
+      "kind": "Row-level concept",
+      "node_id": "proj_remaining_picks",
+      "op": "project",
+      "source_text": "Allocate the remaining picks (5–14) by original seed order (1 through 14)",
+      "ref": "actual_pick = 5\nfor seed in teams[\"Seed\"].tolist():\n        team_name = teams.loc[teams[\"Seed\"] == seed, \"Team\"].iloc[0]\n        remaining_rows.append((actual_pick, int(seed), str(team_name)))\n        actual_pick += 1",
+      "intent": "Assign picks 5 through 14 to seeds 1 through 10, even if a seed won an earlier pick."
+    },
+    {
+      "id": "2_O1_largest_remainder_rounding",
+      "kind": "Operation boundary",
+      "node_id": "script_top4",
+      "op": "script",
+      "source_text": "based on cumulative probability (e.g., 14% → 140 numbers)",
+      "ref": "raw = [Decimal(str(x)) * total_slots / Decimal(100) for x in percent_series]\norder = sorted(range(len(raw)), key=lambda i: (-remainder[i], i))",
+      "intent": "Floor each exact decimal allocation and give residual slots to largest fractional remainders, lower seed first."
+    },
+    {
+      "id": "3_O2_overallocation_adjustment",
+      "kind": "Operation boundary",
+      "node_id": "script_top4",
+      "op": "script",
+      "intent": "If allocations exceed 1000, remove slots from the smallest remainders, lower seed first.",
+      "ref": "order = sorted(range(len(raw)), key=lambda i: (remainder[i], i))",
+      "source_text": "If the floored totals ever exceed 1,000, remove numbers from seeds with the smallest fractional remainders; break ties by seed order."
+    },
+    {
+      "id": "4_O3_remainder_tie_break_by_seed",
+      "kind": "Operation boundary",
+      "node_id": "script_top4",
+      "op": "script",
+      "source_text": "based on cumulative probability (e.g., 14% → 140 numbers)",
+      "ref": "order = sorted(range(len(raw)), key=lambda i: (-remainder[i], i))",
+      "intent": "Resolve equal fractional remainders by ascending seed number."
+    },
+    {
+      "id": "5_O1_seed_order_for_cumulative_blocks",
+      "kind": "Operation boundary",
+      "node_id": "sort_odds",
+      "op": "sort",
+      "source_text": "percentage chance for each team (seeds 1–14) to win each of the first four picks",
+      "ref": "odds = odds.sort_values(\"Seed\").reset_index(drop=True)",
+      "intent": "Construct contiguous lottery blocks in ascending numeric seed order."
+    }
+  ]
+}

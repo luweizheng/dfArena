@@ -1,0 +1,33 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Flight",
+        "Class"
+      ],
+      "columns": {
+        "Flight": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Class": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Avg. daily sales 7 days or more until the flight": {
+          "type": "integer"
+        },
+        "Avg. daily sales less than 7 days until the flight": {
+          "type": "integer"
+        },
+        "Sales less than 7 days until the flight": {
+          "type": "integer"
+        },
+        "Sales 7 days or more until the flight": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

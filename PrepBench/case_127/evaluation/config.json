@@ -1,0 +1,78 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Team"
+      ],
+      "columns": {
+        "Win % Rank": {
+          "type": "integer"
+        },
+        "Shootout Win %": {
+          "type": "integer"
+        },
+        "Total Shootouts": {
+          "type": "integer"
+        },
+        "Shootouts": {
+          "type": "integer"
+        },
+        "Team": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Penalty Number"
+      ],
+      "columns": {
+        "Rank": {
+          "type": "integer"
+        },
+        "Penalty Scored %": {
+          "type": "integer"
+        },
+        "Penalties Scored": {
+          "type": "integer"
+        },
+        "Penalties Missed": {
+          "type": "integer"
+        },
+        "Total Penalties": {
+          "type": "integer"
+        },
+        "Penalty Number": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    },
+    "output_03.csv": {
+      "key": [
+        "Team"
+      ],
+      "columns": {
+        "Penalties Scored %Rank": {
+          "type": "integer"
+        },
+        "% Total Penalties Scored": {
+          "type": "integer"
+        },
+        "Penalties Missed": {
+          "type": "integer"
+        },
+        "Penalties Scored": {
+          "type": "integer"
+        },
+        "Team": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

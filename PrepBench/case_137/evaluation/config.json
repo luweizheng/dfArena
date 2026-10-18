@@ -1,0 +1,40 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Trilogy",
+        "Film Order"
+      ],
+      "columns": {
+        "Trilogy": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Title": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Trilogy Ranking": {
+          "type": "integer"
+        },
+        "Film Order": {
+          "type": "integer"
+        },
+        "Total Films in Series": {
+          "type": "integer"
+        },
+        "Trilogy Average": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Rating": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_excess_area_difference",
+      "kind": "Row-level concept",
+      "node_id": "compute_excess",
+      "op": "project",
+      "source_text": "Work out the area of the frame vs the area of the picture and choose the frame with the smallest excess",
+      "ref": "candidates[\"Excess\"] = candidates[\"F_Area\"] - P_Area",
+      "intent": "For fitting frames, minimize frame area minus picture area."
+    },
+    {
+      "id": "2_O1_round_picture_sides_to_int",
+      "kind": "Operation boundary",
+      "node_id": "final_project",
+      "op": "project",
+      "intent": "Round normalized picture sides to whole centimeters for output.",
+      "ref": "\"Max Side\": int(round(P_Max)),\n\"Min Side\": int(round(P_Min))",
+      "source_text": "In the output, report the picture’s normalized sides as integers by rounding `Picture_Max` and `Picture_Min` to the nearest whole number before writing."
+    },
+    {
+      "id": "3_D2_fit_predicate_inclusive_sides",
+      "kind": "Operation boundary",
+      "node_id": "fit_filter",
+      "op": "filter",
+      "source_text": "See which pictures fit into which frames",
+      "ref": "candidates = frames_norm[(frames_norm[\"F_Max\"] >= P_Max) & (frames_norm[\"F_Min\"] >= P_Min)]",
+      "intent": "Allow a frame side equal to the corresponding picture side after rotation normalization."
+    },
+    {
+      "id": "4_O2_size_format_parsing",
+      "kind": "Row-level concept",
+      "node_id": "size_parse",
+      "op": "project",
+      "intent": "Convert inches to centimeters using 2.54; Ncm2 denotes an N-by-N centimeter square.",
+      "ref": "m = re.fullmatch(r\"\\s*(\\d+(?:\\.\\d+)?)\\s*cm\\s*2\\s*\", s, flags=re.IGNORECASE)\nm = re.fullmatch(r\"\\s*(\\d+(?:\\.\\d+)?)\\s*cm\\s*x\\s*(\\d+(?:\\.\\d+)?)\\s*cm\\s*\", s, flags=re.IGNORECASE)\nm = re.fullmatch(r\"\\s*(\\d+(?:\\.\\d+)?)\\s*\\\"\\s*x\\s*(\\d+(?:\\.\\d+)?)\\s*\\\"\\s*\", s)\nm = re.fullmatch(r\"\\s*(\\d+(?:\\.\\d+)?)\\s*\\\"\\s*2\\s*\", s)",
+      "source_text": "Squares in centimeters: `Ncm2` (treat as `Ncm x Ncm`)"
+    },
+    {
+      "id": "5_O3_tiebreak_by_frames_row_order",
+      "kind": "Operation inconsistent",
+      "node_id": "pick_frame",
+      "op": "dedup",
+      "intent": "If minimum excess areas tie, use the earliest frame in input_01.csv.",
+      "ref": "candidates = candidates.sort_values([\"Excess\", \"Order\"], ascending=[True, True])\nchosen_label = candidates.iloc[0][\"FrameLabel\"]",
+      "source_text": "Tie-breaker: if multiple frames have the same smallest excess, choose the one that appears first in `input_01.csv` (earliest row order)."
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O1_avg_sales_round_to_int",
+      "kind": "Operation boundary",
+      "node_id": "avg_round",
+      "op": "project",
+      "source_text": "Calculate the Average Monthly Sales for each employee",
+      "ref": "avg_sales[\"Avg monthly Sales\"] = avg_sales[\"Avg monthly Sales\"].round().astype(\n        int)",
+      "intent": "Round the average monthly sales to a whole number before checking the threshold."
+    },
+    {
+      "id": "2_C2_avg_sales_group_by_store_employee",
+      "kind": "Group-level concept",
+      "node_id": "avg_sales",
+      "op": "aggregate",
+      "source_text": "Calculate the Average Monthly Sales for each employee",
+      "ref": "id_cols = [\"Store\", \"Employee\"]\navg_sales = (\n        sales_long.groupby(id_cols, as_index=False)[\"Sales\"].mean()\n        .rename(columns={\"Sales\": \"Avg monthly Sales\"})\n    )",
+      "intent": "Calculate the mean across all monthly sales columns for each Store and Employee."
+    },
+    {
+      "id": "3_O1_filter_below_90_strict",
+      "kind": "Operation boundary",
+      "node_id": "filtered_final",
+      "op": "filter",
+      "source_text": "Filter the data so that only employees who are below 90% of their target on average remain",
+      "ref": "out = out[out[\"Avg monthly Sales\"] < 0.9 * out[\"Monthly Target\"]]",
+      "intent": "Retain rounded average sales strictly below 90% of the target."
+    },
+    {
+      "id": "4_O2_filter_require_target_present",
+      "kind": "Operation incomplete",
+      "node_id": "filtered_final",
+      "op": "filter",
+      "source_text": "Filter the data so that only employees who are below 90% of their target on average remain",
+      "ref": "out = out.dropna(subset=[\"Monthly Target\"])",
+      "intent": "Exclude employees with no available target from the final below-target report."
+    },
+    {
+      "id": "5_D2_join_targets_on_store_employee",
+      "kind": "Multi-table alignment",
+      "node_id": "merged_avg_target",
+      "op": "join",
+      "source_text": "Join targets onto the per-employee average sales metrics using a left join on `(Store, Employee)` after store-name cleaning, bringing in `Monthly Target`.",
+      "ref": "merged = avg_sales.merge(\n        targets_clean, on=[\"Store\", \"Employee\"], how=\"left\")",
+      "intent": "After cleaning store spelling, match by both Store and Employee."
+    },
+    {
+      "id": "6_O2_join_unmatched_targets_as_missing",
+      "kind": "Operation incomplete",
+      "node_id": "merged_avg_target",
+      "op": "join",
+      "source_text": "For any `(Store, Employee)` without a matching target, treat `Monthly Target` as missing.",
+      "ref": "merged = avg_sales.merge(\n        targets_clean, on=[\"Store\", \"Employee\"], how=\"left\")",
+      "intent": "Use a left join so unmatched target values are missing before subsequent filtering."
+    },
+    {
+      "id": "7_C2_pct_target_met_formula_rounding",
+      "kind": "Group-level concept",
+      "node_id": "pct_compute",
+      "op": "project",
+      "source_text": "we also want to know the % of months that they met/exceeded their target",
+      "ref": "pct_met[\"% of months target met\"] = (\n        pct_met[\"months_met\"] * 100 / pct_met[\"months_total\"]).round().astype(int)",
+      "intent": "Count months with Sales greater than or equal to target, divide by the available target month count, multiply by 100 and round to a whole number."
+    },
+    {
+      "id": "8_O2_pct_target_met_only_months_with_target",
+      "kind": "Operation incomplete",
+      "node_id": "sales_with_target_nonnull",
+      "op": "filter",
+      "source_text": "we also want to know the % of months that they met/exceeded their target",
+      "ref": "sales_with_target = sales_with_target.dropna(subset=[\"Monthly Target\"])",
+      "intent": "Use only months whose target is available in the target-met percentage."
+    },
+    {
+      "id": "9_C1_store_cleaning_edit_distance_tiebreak",
+      "kind": "Operation inconsistent",
+      "node_id": "targets_clean",
+      "op": "script",
+      "source_text": "In the Targets input the Store Name needs cleaning up",
+      "ref": "targets_clean = _clean_store_names(targets, sales[\"Store\"])\ndistances = [(v, _levenshtein(s, v)) for v in valid_list]\n        distances.sort(key=lambda x: (x[1], x[0]))\n        return distances[0][0] if distances else s",
+      "intent": "Map misspelled stores to a valid sales-store name by minimum edit distance, breaking any equal distances alphabetically."
+    }
+  ]
+}

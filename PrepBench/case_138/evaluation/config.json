@@ -1,0 +1,49 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Batch No.",
+        "Datetime",
+        "Data Parameter"
+      ],
+      "columns": {
+        "Batch No.": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Name of Process Step": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Bike Type": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Data Parameter": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Batch Status": {
+          "type": "integer"
+        },
+        "Datetime": {
+          "type": "datetime",
+          "formats": [
+            "%d/%m/%Y %H:%M:%S"
+          ]
+        },
+        "Target": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Actual": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

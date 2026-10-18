@@ -1,0 +1,85 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_overall_daily_preagg",
+      "kind": "Group-level concept",
+      "node_id": "aggregate_daily",
+      "op": "aggregate",
+      "intent": "The overall window combines available records from every destination; daily total/count aggregation is an equivalent implementation.",
+      "ref": "source = df if destination == \"All\" else df[df[\"Destination\"] == destination]",
+      "source_text": "First aggregate across all destinations by `Date`"
+    },
+    {
+      "id": "2_O1_round_avg_9dp",
+      "kind": "Operation boundary",
+      "node_id": "project_format",
+      "op": "project",
+      "intent": "Full precision or nine decimal places are acceptable for the rolling mean.",
+      "ref": "out[\"Rolling Week Avg\"] = out[\"Rolling Week Avg\"].round(9)",
+      "source_text": "`Rolling Week Avg` may retain full precision or be rounded to 9 decimal places."
+    },
+    {
+      "id": "3_O1_round_total_int",
+      "kind": "Operation boundary",
+      "node_id": "project_format",
+      "op": "project",
+      "intent": "Output the total as an exact integer for the supplied integer revenues.",
+      "ref": "out[\"Rolling Week Total\"] = out[\"Rolling Week Total\"].round(0).astype(int)",
+      "source_text": "Round `Rolling Week Total` to a whole number and output it as an integer."
+    },
+    {
+      "id": "4_O2_dayfirst_date_parse",
+      "kind": "Operation boundary",
+      "node_id": "project_parse_date",
+      "op": "project",
+      "intent": "Interpret input dates as day/month/year.",
+      "ref": "df[\"Date\"] = pd.to_datetime(df[\"Date\"], dayfirst=True)",
+      "source_text": "Treat `Date` as a calendar date parsed using day-first format (DD/MM/YYYY)."
+    },
+    {
+      "id": "5_C1_all_destination_label",
+      "kind": "Row-level concept",
+      "node_id": "script_all_rolling",
+      "op": "script",
+      "source_text": "an overall number for all destinations",
+      "ref": "for destination in sorted(df[\"Destination\"].unique()) + [\"All\"]:\n        source = df if destination == \"All\" else df[df[\"Destination\"] == destination]",
+      "intent": "Use the literal All for overall rows."
+    },
+    {
+      "id": "6_C2_overall_avg_formula",
+      "kind": "Group-level concept",
+      "node_id": "script_all_rolling",
+      "op": "script",
+      "intent": "Overall average is total revenue divided by the number of input records in the date window, not the mean daily total.",
+      "ref": "\"Rolling Week Avg\": values.mean()",
+      "source_text": "the average revenue per record across the entire rolling window, not the average of daily totals"
+    },
+    {
+      "id": "7_C2_centered_calendar_window",
+      "kind": "Group-level concept",
+      "node_id": "script_dest_rolling",
+      "op": "script",
+      "source_text": "3 days before and 3 days after a date as well as that day itself",
+      "ref": "source[\"Date\"].between(day - pd.Timedelta(days=3), day + pd.Timedelta(days=3))",
+      "intent": "Use the date itself and three calendar days on either side; keep incomplete boundary windows."
+    },
+    {
+      "id": "8_O3_union_keep_duplicates",
+      "kind": "Operation boundary",
+      "node_id": "union_all",
+      "op": "union",
+      "intent": "Append per-destination and All rows without deduplication.",
+      "ref": "    result = []\n    for destination in sorted(df[\"Destination\"].unique()) + [\"All\"]:\n        source = df if destination == \"All\" else df[df[\"Destination\"] == destination]\n        for day in sorted(source[\"Date\"].unique()):\n            day = pd.Timestamp(day)\n            values = source.loc[source[\"Date\"].between(\n                day - pd.Timedelta(days=3), day + pd.Timedelta(days=3)), \"Revenue\"]\n            result.append({\"Destination\": destination, \"Date\": day,\n                           \"Rolling Week Avg\": values.mean(),\n                           \"Rolling Week Total\": values.sum()})\n    out = pd.DataFrame(result)",
+      "source_text": "by appending (unioning) the rows; do not deduplicate."
+    },
+    {
+      "id": "final_output_order_unrestricted",
+      "kind": "Operation boundary",
+      "node_id": "output",
+      "op": "project",
+      "source_text": "Final output row order is unrestricted.",
+      "intent": "No final CSV row order is mandatory. Calendar-date comparisons still determine rolling windows. Do not turn the reference implementation's iteration order into a required output order.",
+      "ref": "query_full.md: Output"
+    }
+  ]
+}

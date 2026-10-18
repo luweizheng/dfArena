@@ -1,0 +1,26 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Animal Type"
+      ],
+      "columns": {
+        "Animal Type": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Adopted, Returned to Owner or Transferred": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Other": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

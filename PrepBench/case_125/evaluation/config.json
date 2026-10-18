@@ -1,0 +1,31 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Destination",
+        "Date"
+      ],
+      "columns": {
+        "Destination": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Rolling Week Total": {
+          "type": "integer"
+        },
+        "Rolling Week Avg": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        },
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}
