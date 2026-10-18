@@ -1,0 +1,63 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Destination",
+        "New Trolley Inventory?",
+        "Date",
+        "email",
+        "Product"
+      ],
+      "columns": {
+        "Destination": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Product": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "first_name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "last_name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "email": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Price": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "New Trolley Inventory?": {
+          "type": "boolean"
+        },
+        "Variance Rank by Destination": {
+          "type": "integer"
+        },
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Variance": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        },
+        "Avg Price per Product": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

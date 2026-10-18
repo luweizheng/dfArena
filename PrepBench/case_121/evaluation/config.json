@@ -1,0 +1,32 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Q No"
+      ],
+      "columns": {
+        "Q No": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Question": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Answer": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Answer Smash": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

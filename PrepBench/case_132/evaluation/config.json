@@ -1,0 +1,33 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Orders",
+        "Reporting Date"
+      ],
+      "columns": {
+        "Orders": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Order Status": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Sale Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        },
+        "Reporting Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

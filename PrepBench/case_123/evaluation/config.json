@@ -1,0 +1,23 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Date"
+      ],
+      "columns": {
+        "Date": {
+          "type": "datetime",
+          "formats": [
+            "%d/%m/%Y %H:%M:%S",
+            "%d/%m/%Y",
+            "%Y-%m-%d"
+          ]
+        },
+        "Number of people off each day": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

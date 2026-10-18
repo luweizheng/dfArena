@@ -1,0 +1,29 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Picture"
+      ],
+      "columns": {
+        "Picture": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Frame": {
+          "type": "text_exact"
+        },
+        "Max Side": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Min Side": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

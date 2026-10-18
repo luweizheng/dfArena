@@ -1,0 +1,32 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Store",
+        "Employee"
+      ],
+      "columns": {
+        "Store": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Employee": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Avg monthly Sales": {
+          "type": "integer"
+        },
+        "% of months target met": {
+          "type": "integer"
+        },
+        "Monthly Target": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

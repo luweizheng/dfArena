@@ -1,0 +1,22 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Actual Pick"
+      ],
+      "columns": {
+        "Actual Pick": {
+          "type": "integer"
+        },
+        "Original": {
+          "type": "integer"
+        },
+        "Team": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

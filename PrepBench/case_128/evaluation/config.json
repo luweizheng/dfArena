@@ -1,0 +1,72 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "UK Date Time",
+        "Sport",
+        "Venue",
+        "Events Split"
+      ],
+      "columns": {
+        "Sport": {
+          "type": "text_exact",
+          "null_values": [],
+          "aliases": {
+            "rugby": "Rugby",
+            "football": "Football",
+            "diving": "Diving",
+            "volleyball": "Volleyball"
+          }
+        },
+        "Sport Group": {
+          "type": "text_exact",
+          "null_values": [],
+          "aliases": {
+            "rugby": "Rugby",
+            "football": "Football",
+            "diving": "Diving",
+            "volleyball": "Volleyball"
+          }
+        },
+        "Events Split": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Venue": {
+          "type": "text_exact",
+          "null_values": [],
+          "aliases": {
+            "Fuji international Speedway": "Fuji International Speedway"
+          }
+        },
+        "Latitude": {
+          "type": "number",
+          "abs_tol": 1e-12,
+          "rel_tol": 0
+        },
+        "Longitude": {
+          "type": "number",
+          "abs_tol": 1e-12,
+          "rel_tol": 0
+        },
+        "Medal Ceremony?": {
+          "type": "boolean"
+        },
+        "UK Date Time": {
+          "type": "datetime",
+          "formats": [
+            "%d/%m/%Y %H:%M:%S",
+            "%d/%m/%Y %H:%M"
+          ]
+        },
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Airline"
+      ],
+      "columns": {
+        "Airline": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "NPS": {
+          "type": "number",
+          "abs_tol": 1e-09,
+          "rel_tol": 0
+        },
+        "Z-Score": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true,
+      "alternative_gt": {
+        "unrounded": "unrounded/output_01.csv"
+      }
+    }
+  }
+}
