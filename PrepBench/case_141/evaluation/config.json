@@ -1,0 +1,32 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Days into fund raising"
+      ],
+      "columns": {
+        "Avg raised per weekday": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        },
+        "Value raised per day": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        },
+        "Days into fund raising": {
+          "type": "integer"
+        },
+        "Date": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Total Raised to date": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

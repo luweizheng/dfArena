@@ -1,0 +1,28 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Student ID"
+      ],
+      "columns": {
+        "Student ID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Passed Subjects": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Student's Avg Score": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Gender": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

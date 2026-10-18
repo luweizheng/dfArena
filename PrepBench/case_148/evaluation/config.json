@@ -1,0 +1,40 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Name",
+        "Reporting Year"
+      ],
+      "columns": {
+        "Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Employment Range": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Reporting Year": {
+          "type": "integer"
+        },
+        "Tenure by End of Reporting Year": {
+          "type": "integer"
+        },
+        "Salary Paid": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Yearly Bonus": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Total Paid": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

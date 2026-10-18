@@ -1,0 +1,127 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "CustomerID"
+      ],
+      "columns": {
+        "CustomerID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Customer": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Return %": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Number of Orders": {
+          "type": "integer"
+        },
+        "First Order": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "StoreID",
+        "CustomerID",
+        "OrderID",
+        "ProductID"
+      ],
+      "columns": {
+        "StoreID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "CustomerID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "OrderID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Order Date": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "ProductID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Returned": {
+          "type": "integer"
+        },
+        "Quantity": {
+          "type": "integer"
+        },
+        "Sales": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    },
+    "output_03.csv": {
+      "key": [
+        "ProductID"
+      ],
+      "columns": {
+        "ProductID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Category": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Sub-Category": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Product Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Unit Price": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "First Sold": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    },
+    "output_04.csv": {
+      "key": [
+        "StoreID"
+      ],
+      "columns": {
+        "StoreID": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Store": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "First Order": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}
