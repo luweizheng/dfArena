@@ -1,0 +1,48 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Category"
+      ],
+      "columns": {
+        "Category": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Number of Incidents": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Date",
+        "Location",
+        "Aircraft",
+        "Incident Description"
+      ],
+      "columns": {
+        "Location": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Aircraft": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Incident Description": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Date": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

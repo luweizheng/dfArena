@@ -1,0 +1,29 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Person"
+      ],
+      "columns": {
+        "Person": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Monthly Spend": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Potential Savings": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Worthwhile?": {
+          "type": "boolean"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_o1_game_timestamp_from_date_and_start",
+      "kind": "Row-level concept",
+      "node_id": "compute_datetime",
+      "op": "project",
+      "intent": "Use calendar date and listed ET start time for game ordering.",
+      "ref": "            time_obj = dt.strptime(start_formatted, \"%I:%M%p\").time()\n            combined = dt.combine(date_ts.date(), time_obj)\n            return pd.Timestamp(combined)",
+      "source_text": "Create a game timestamp for ordering by combining the calendar date with the listed start time (ET)."
+    },
+    {
+      "id": "2_o2_fallback_to_midnight_on_time_parse_fail",
+      "kind": "Operation incomplete",
+      "node_id": "compute_datetime",
+      "op": "project",
+      "intent": "Unparseable time falls back to midnight.",
+      "ref": "query_full.md: If the start time cannot be interpreted, fall back to using the calendar date at midnight for ordering.",
+      "source_text": "If the start time cannot be interpreted, fall back to using the calendar date at midnight for ordering."
+    },
+    {
+      "id": "3_o2_drop_games_with_missing_team_or_points",
+      "kind": "Operation incomplete",
+      "node_id": "filter_non_null",
+      "op": "filter",
+      "intent": "Drop records missing team or points.",
+      "ref": "        df = df.dropna(subset=[\"Visitor/Neutral\", \"Home/Neutral\", \"PTS\", \"PTS.1\"], how=\"any\")",
+      "source_text": "Exclude any game records where either team name is missing or either final points value is missing or non-numeric"
+    },
+    {
+      "id": "4_o2_drop_games_with_non_numeric_points",
+      "kind": "Operation incomplete",
+      "node_id": "filter_numeric",
+      "op": "filter",
+      "intent": "Drop nonnumeric points.",
+      "ref": "    games[\"Visitor Points\"] = pd.to_numeric(games[\"Visitor Points\"], errors=\"coerce\")\n    games[\"Home Points\"] = pd.to_numeric(games[\"Home Points\"], errors=\"coerce\")\n    games = games.dropna(subset=[\"Visitor Points\", \"Home Points\"])",
+      "source_text": "Exclude any game records where either team name is missing or either final points value is missing or non-numeric"
+    },
+    {
+      "id": "5_o1_points_tie_home_not_winner",
+      "kind": "Row-level concept",
+      "node_id": "home_rows",
+      "op": "project",
+      "source_text": "Determine who won each game",
+      "ref": "query_full.md: Determine who won each game",
+      "intent": "In the unused equal-score branch, visitor wins and home loses."
+    },
+    {
+      "id": "6_o3_same_timestamp_tiebreak_by_opponent",
+      "kind": "Operation boundary",
+      "node_id": "sort_initial",
+      "op": "sort",
+      "source_text": "Work out the order of each team's games",
+      "ref": "    team_games = team_games.sort_values([\"Team\", \"Game DateTime\", \"Opponent\"]).reset_index(drop=True)",
+      "intent": "Sort each team by timestamp, then opponent for timestamp ties."
+    },
+    {
+      "id": "7_d1_read_all_input_glob",
+      "kind": "Single-table reference",
+      "node_id": "union_all",
+      "op": "union",
+      "source_text": "Input the data",
+      "ref": "    for input_path in sorted(inputs_dir.glob(\"input_*.csv\")):\n        df = pd.read_csv(input_path)\n        df = df.dropna(subset=[\"Visitor/Neutral\", \"Home/Neutral\", \"PTS\", \"PTS.1\"], how=\"any\")\n        monthly_frames.append(df)\n\n    games = pd.concat(monthly_frames, ignore_index=True)",
+      "intent": "Append all monthly input CSVs and keep the first 82 games per team."
+    },
+    {
+      "id": "8_o1_points_tie_visitor_wins",
+      "kind": "Row-level concept",
+      "node_id": "visitor_rows",
+      "op": "project",
+      "source_text": "Determine who won each game",
+      "ref": "query_full.md: Determine who won each game",
+      "intent": "If points tie, the visitor wins under the existing full rule."
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O3_multi_category_counts",
+      "kind": "Operation incomplete",
+      "node_id": "agg_counts",
+      "op": "aggregate",
+      "source_text": "Create a total for how many incidents happened within each category",
+      "ref": "for categories in incident_categories:\n        for cat in categories:\n            category_counts[cat] = category_counts.get(cat, 0) + 1",
+      "intent": "Each incident counts once in every matching category."
+    },
+    {
+      "id": "2_O2_date_parse_fallback_keep_text",
+      "kind": "Operation incomplete",
+      "node_id": "compute_output_02",
+      "op": "project",
+      "intent": "Retain unparseable extracted date text.",
+      "ref": "else:\n                formatted_date = date_str",
+      "source_text": "If the date cannot be parsed into that structure"
+    },
+    {
+      "id": "3_O2_exclude_zero_count_categories",
+      "kind": "Operation incomplete",
+      "node_id": "filter_match",
+      "op": "filter",
+      "intent": "Omit zero-count categories.",
+      "ref": "output_01_df = output_01_df[output_01_df['Number of Incidents'] > 0]",
+      "source_text": "Output only categories with at least 1 matched incident."
+    },
+    {
+      "id": "4_C1_case_insensitive_substring_match",
+      "kind": "Row-level concept",
+      "node_id": "match_flag",
+      "op": "project",
+      "source_text": "Combine similar incident types. Eg, Attendant & Attendants or Pressure & Pressurize.",
+      "ref": "desc_lower = desc.lower()\n        matched_categories = []\n        \n        for cat_key, cat_name in normalized_categories.items():\n            if cat_key in desc_lower:\n                matched_categories.append(cat_name)",
+      "intent": "Match category keywords case-insensitively within incident descriptions."
+    },
+    {
+      "id": "5_C1_pressure_expansion_pressurize",
+      "kind": "Row-level concept",
+      "node_id": "match_flag",
+      "op": "project",
+      "source_text": "Pressure & Pressurize.",
+      "ref": "if 'pressure' in desc_lower or 'pressurize' in desc_lower or 'pressurization' in desc_lower:\n            if 'Pressure' not in matched_categories:\n                matched_categories.append('Pressure')",
+      "intent": "Pressure includes pressure, pressurize and pressurization."
+    },
+    {
+      "id": "6_C1_takeoff_expansion_take_off",
+      "kind": "Row-level concept",
+      "node_id": "match_flag",
+      "op": "project",
+      "intent": "Takeoff includes takeoff and take off.",
+      "ref": "if 'takeoff' in desc_lower or 'take off' in desc_lower:\n            if 'Takeoff' not in matched_categories:\n                matched_categories.append('Takeoff')",
+      "source_text": "Treat mentions of “takeoff” or “take off”"
+    },
+    {
+      "id": "7_O2_incident_parse_structure_at_near_on_comma",
+      "kind": "Row-level concept",
+      "node_id": "parse_incidents",
+      "op": "project",
+      "intent": "Parse using the location and date separators; aircraft text may itself contain commas.",
+      "ref": "pattern = r'^(.+?)\\s+(?:at|near)\\s+(.+?)\\s+on\\s+(.+?),\\s+(.+)$'",
+      "source_text": "[Aircraft] at|near [Location] on [Date], [Incident Description]"
+    },
+    {
+      "id": "8_O2_unparsed_incident_fallback_blank_fields",
+      "kind": "Operation incomplete",
+      "node_id": "parse_incidents",
+      "op": "project",
+      "intent": "Keep the full string as description and leave other fields blank.",
+      "ref": "return {\n                'Aircraft': '',\n                'Location': '',\n                'Date': '',\n                'Incident Description': incident_str\n            }",
+      "source_text": "If an incident string does not match the expected structure"
+    }
+  ]
+}

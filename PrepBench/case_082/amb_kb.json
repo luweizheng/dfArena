@@ -1,0 +1,130 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O1_classes_needed_ceiling",
+      "kind": "Operation boundary",
+      "node_id": "compute_classes_hours",
+      "op": "project",
+      "intent": "Ceil enrollment divided by total room capacity at Subject/Age Group grain.",
+      "ref": "query_full.md: `Classes Needed` = ceil(`Student Count` / `Total Capacity`)",
+      "source_text": "`Classes Needed` = ceil(`Student Count` / `Total Capacity`)"
+    },
+    {
+      "id": "2_C2_teaching_hours_from_classes",
+      "kind": "Row-level concept",
+      "node_id": "compute_classes_hours",
+      "op": "project",
+      "source_text": "Work out how many hours of teaching is required for the students based on the age of the students",
+      "ref": "query.md: Work out how many hours of teaching is required for the students based on the age of the students",
+      "intent": "Multiply classes needed by required hours for the age group."
+    },
+    {
+      "id": "3_C2_subject_level_requirement_sums",
+      "kind": "Group-level concept",
+      "node_id": "subject_requirements",
+      "op": "aggregate",
+      "source_text": "Aggregate to subject-level requirements:",
+      "ref": "query_full.md: Aggregate to subject-level requirements:",
+      "intent": "Sum class counts and teaching hours across age groups."
+    },
+    {
+      "id": "4_O2_fill_missing_measures_with_zero",
+      "kind": "Operation incomplete",
+      "node_id": "finalize",
+      "op": "project",
+      "intent": "Missing requirement and capacity measures are zero.",
+      "ref": "result['Potential Teachers Hours'] = result['Potential Teachers Hours'].fillna(0)",
+      "source_text": "Fill missing subject-level hours and class counts with zero."
+    },
+    {
+      "id": "5_O2_utilised_when_no_teacher_hours",
+      "kind": "Operation boundary",
+      "node_id": "finalize",
+      "op": "project",
+      "intent": "Report zero utilization for zero teacher hours.",
+      "ref": "result.loc[result['Potential Teachers Hours'] == 0, '% utilised'] = 0",
+      "source_text": "If `Potential Teachers Hours` is 0"
+    },
+    {
+      "id": "6_O2_full_outer_join_subject_final",
+      "kind": "Operation incomplete",
+      "node_id": "join_all_results",
+      "op": "join",
+      "intent": "Retain subjects present in any intermediate result.",
+      "ref": "query_full.md: Use a full outer join on `Subject`",
+      "source_text": "Use a full outer join on `Subject`"
+    },
+    {
+      "id": "7_C2_room_capacity_sum_across_rooms",
+      "kind": "Group-level concept",
+      "node_id": "room_capacity",
+      "op": "aggregate",
+      "source_text": "Work out the room capacity for each subject",
+      "ref": "room_capacity = rooms_df.groupby('Subjects')['Capacity'].sum().reset_index()",
+      "intent": "Sum capacities of rooms teaching the subject."
+    },
+    {
+      "id": "8_O1_age_group_inclusive_ranges",
+      "kind": "Operation boundary",
+      "node_id": "students_age_group",
+      "op": "project",
+      "source_text": "based on the age of the students",
+      "ref": "query_full.md: based on the age of the students",
+      "intent": "Use inclusive age bands 13–14, 15–16, 17–18."
+    },
+    {
+      "id": "9_O2_drop_students_outside_age_groups",
+      "kind": "Operation incomplete",
+      "node_id": "students_age_non_null",
+      "op": "filter",
+      "intent": "Exclude ages outside the listed ranges.",
+      "ref": "students_expanded_df = students_expanded_df.dropna(subset=['Age Group'])",
+      "source_text": "using only these inclusive ranges:"
+    },
+    {
+      "id": "10_C1_split_multi_subject_enrollment",
+      "kind": "Row-level concept",
+      "node_id": "students_explode",
+      "op": "script",
+      "source_text": "Determine how many students are in each year for each subject",
+      "ref": "subjects = str(row['Subject']).split('/')",
+      "intent": "Split slash-separated subjects to enrollments."
+    },
+    {
+      "id": "11_C2_working_days_count_from_comma_tokens",
+      "kind": "Row-level concept",
+      "node_id": "teachers_working_days",
+      "op": "script",
+      "source_text": "By assessing the number of days someone works",
+      "ref": "teachers_df['Working Days Count'] = teachers_df['Working Days'].apply(count_working_days)",
+      "intent": "Each working-day token contributes six hours."
+    },
+    {
+      "id": "12_C1_teacher_age_eligibility",
+      "kind": "Row-level concept",
+      "node_id": "teacher_subject_hours",
+      "op": "filter",
+      "source_text": "Each teacher can only teach certain subjects and certain ages",
+      "ref": "query.md: Each teacher can only teach certain subjects and certain ages",
+      "intent": "Count a teacher-subject allocation once if its age range overlaps demand."
+    },
+    {
+      "id": "13_C1_multi_subject_teacher_even_allocation",
+      "kind": "Row-level concept",
+      "node_id": "teacher_subject_hours",
+      "op": "project",
+      "source_text": "Teachers who cover multiple subjects should have an even allocation of their time between those subjects.",
+      "ref": "hours_per_subject = weekly_hours / num_subjects if num_subjects > 0 else 0",
+      "intent": "Allocate each teacher’s weekly hours equally across distinct subjects."
+    },
+    {
+      "id": "output_integer_percentage_not_fraction",
+      "kind": "Operation boundary",
+      "node_id": "format_utilisation",
+      "op": "project",
+      "source_text": "The rounded integer percentage in % utilised may be written with or without a trailing % symbol; do not scale it to a fraction.",
+      "intent": "Report the rounded whole-number percentage, optionally suffixed by %. Do not convert 33 to 0.33.",
+      "ref": "query_full.md: The rounded integer percentage in % utilised may be written with or without a trailing % symbol; do not scale it to a fraction."
+    }
+  ]
+}

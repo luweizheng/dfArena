@@ -1,0 +1,30 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Birthday",
+        "Old Star Sign",
+        "New Star Sign"
+      ],
+      "columns": {
+        "Birthday": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Old Star Sign": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "New Star Sign": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Date Range": {
+          "type": "text_exact",
+          "null_values": []
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_projected_target_multiply_by_projection",
+      "kind": "Row-level concept",
+      "node_id": "compute_projected",
+      "op": "project",
+      "intent": "Multiply target by the destination-country quarter factor.",
+      "ref": "projected_data['Projected Target'] = projected_data['Q1 Target'] * projected_data['Projection']",
+      "source_text": "`Projected Target` = `Q1 Target` × `Projection`"
+    },
+    {
+      "id": "2_C2_projected_value_multiply_by_projection",
+      "kind": "Row-level concept",
+      "node_id": "compute_projected",
+      "op": "project",
+      "source_text": "Apply the projections to the Q1 Sales Value",
+      "ref": "projected_data['Projected Value'] = projected_data['Q1 Value'] * projected_data['Projection']",
+      "intent": "Multiply sales by the destination-country quarter factor."
+    },
+    {
+      "id": "3_C2_variance_value_minus_target",
+      "kind": "Row-level concept",
+      "node_id": "finalize_compute",
+      "op": "project",
+      "source_text": "Determine Quarterly Sales Value, Target and Variance of Sales to Target for each Route",
+      "ref": "final_df['Variance to Target'] = final_df['Value'] - final_df['Target Value']",
+      "intent": "Variance is Value minus Target Value."
+    },
+    {
+      "id": "4_D2_destination_to_airport_code_join_key",
+      "kind": "Multi-table alignment",
+      "node_id": "join_destination_airport",
+      "op": "join",
+      "intent": "Join Destination to Airport Code.",
+      "ref": "q1_data = q1_data.merge(airports, left_on='Destination', right_on='Airport Code', how='left')",
+      "source_text": "Map `Destination` to `Destination Country`"
+    },
+    {
+      "id": "5_O2_destination_airport_left_join_keep_all_routes",
+      "kind": "Operation incomplete",
+      "node_id": "join_destination_airport",
+      "op": "join",
+      "intent": "Left join destination airport metadata.",
+      "ref": "q1_data = q1_data.merge(airports, left_on='Destination', right_on='Airport Code', how='left')",
+      "source_text": "Map `Destination` to `Destination Country`"
+    },
+    {
+      "id": "6_D2_origin_to_airport_code_join_key",
+      "kind": "Multi-table alignment",
+      "node_id": "join_origin_airport",
+      "op": "join",
+      "intent": "Join Origin to Airport Code.",
+      "ref": "q1_data = q1_data.merge(airports, left_on='Origin', right_on='Airport Code', how='left')",
+      "source_text": "Map `Origin` to `Origin Country`"
+    },
+    {
+      "id": "7_O2_origin_airport_left_join_keep_all_routes",
+      "kind": "Operation incomplete",
+      "node_id": "join_origin_airport",
+      "op": "join",
+      "intent": "Left join origin airport metadata.",
+      "ref": "q1_data = q1_data.merge(airports, left_on='Origin', right_on='Airport Code', how='left')",
+      "source_text": "Map `Origin` to `Origin Country`"
+    },
+    {
+      "id": "8_D2_join_projections_on_destination_country",
+      "kind": "Multi-table alignment",
+      "node_id": "join_projections",
+      "op": "join",
+      "intent": "Match projections by destination country.",
+      "ref": "projected_data = q1_data.merge(projections_long, on='Destination Country')",
+      "source_text": "Join the route-level Q1 data to the long projections on `Destination Country`"
+    },
+    {
+      "id": "9_O2_projections_inner_join_drop_routes_without_projection",
+      "kind": "Operation incomplete",
+      "node_id": "join_projections",
+      "op": "join",
+      "intent": "Exclude routes without projections.",
+      "ref": "projected_data = q1_data.merge(projections_long, on='Destination Country')",
+      "source_text": "using an inner join (routes without a matching destination-country projection are excluded)."
+    },
+    {
+      "id": "10_D1_reshape_projections_to_long_country_quarter",
+      "kind": "Single-table reference",
+      "node_id": "proj_long",
+      "op": "pivot",
+      "source_text": "Make the Quarterly Projections for Destinations data set usable",
+      "ref": "projections_long = projections.melt(\n        id_vars=['Country'],\n        value_vars=['Q1', 'Q2', 'Q3', 'Q4'],\n        var_name='Quarter',\n        value_name='Projection'\n    )",
+      "intent": "Reshape to Country/Quarter/Projection."
+    },
+    {
+      "id": "11_C2_q1_projection_multiplier_fixed_at_1",
+      "kind": "Row-level concept",
+      "node_id": "proj_multipliers",
+      "op": "project",
+      "source_text": "Apply the projections to the Q1 Sales Value",
+      "ref": "projections['Q1'] = 1.0",
+      "intent": "Q1 factor is one."
+    },
+    {
+      "id": "12_C2_parse_signed_percentage_change_to_multiplier",
+      "kind": "Row-level concept",
+      "node_id": "proj_multipliers",
+      "op": "project",
+      "source_text": "Make the Quarterly Projections for Destinations data set usable",
+      "ref": "parts = change_str.strip().split(' ')\n        value = int(parts[1])\n        if parts[0].lower() == 'minus':\n            value = -value\n        return 1.0 + (value / 100.0)",
+      "intent": "Signed percentage changes become one plus the signed fraction."
+    },
+    {
+      "id": "13_O2_missing_projection_change_defaults_to_no_change",
+      "kind": "Operation incomplete",
+      "node_id": "proj_multipliers",
+      "op": "project",
+      "source_text": "Make the Quarterly Projections for Destinations data set usable",
+      "ref": "query.md: Make the Quarterly Projections for Destinations data set usable",
+      "intent": "Missing change means no change."
+    },
+    {
+      "id": "14_D2_q1_sales_targets_join_on_origin_destination",
+      "kind": "Multi-table alignment",
+      "node_id": "q1_join",
+      "op": "join",
+      "intent": "Match route totals by Origin and Destination.",
+      "ref": "q1_data = q1_sales.merge(q1_targets, on=['Origin', 'Destination'])",
+      "source_text": "Combine Q1 Sales and Q1 Target using an inner join on (`Origin`, `Destination`)"
+    },
+    {
+      "id": "15_O2_q1_sales_targets_inner_join_only_common_routes",
+      "kind": "Operation incomplete",
+      "node_id": "q1_join",
+      "op": "join",
+      "intent": "Keep only routes present in both inputs.",
+      "ref": "q1_data = q1_sales.merge(q1_targets, on=['Origin', 'Destination'])",
+      "source_text": "so only routes present in both are retained."
+    },
+    {
+      "id": "16_C2_q1_sales_value_sum",
+      "kind": "Group-level concept",
+      "node_id": "sales_q1",
+      "op": "aggregate",
+      "source_text": "Determine Quarterly Sales Value, Target and Variance of Sales to Target for each Route",
+      "ref": "q1_sales = sales.groupby(['Origin', 'Destination'], as_index=False)['Value'].sum()",
+      "intent": "Sum Q1 sales by route."
+    },
+    {
+      "id": "17_C2_q1_target_value_sum",
+      "kind": "Group-level concept",
+      "node_id": "targets_q1",
+      "op": "aggregate",
+      "source_text": "Determine Quarterly Sales Value, Target and Variance of Sales to Target for each Route",
+      "ref": "q1_targets = targets.groupby(['Origin', 'Destination'], as_index=False)['Value'].sum()",
+      "intent": "Sum Q1 targets by route."
+    },
+    {
+      "id": "18_C2_yearly_totals_sum_projected_quarters",
+      "kind": "Group-level concept",
+      "node_id": "yearly_agg",
+      "op": "aggregate",
+      "source_text": "Total Yearly Sales, Target and Variance to Target for each route factoring in the projections.",
+      "ref": "yearly_summary = projected_data.groupby(\n        ['Origin', 'Origin Country', 'Destination', 'Destination Country'],\n        as_index=False\n    )[['Projected Value', 'Projected Target']].sum()",
+      "intent": "Sum all four projected quarters by route, then compute annual variance."
+    },
+    {
+      "id": "input_file_roles",
+      "kind": "Single-table reference",
+      "node_id": "read_inputs",
+      "op": "read",
+      "source_text": "Read input_01.csv as actual Q1 sales, input_02.csv as Q1 targets, input_03.csv as destination-country projections, and input_04.csv as the airport lookup.",
+      "intent": "input_01 is actual sales; input_02 is targets; input_03 gives destination-country projection factors; input_04 is the airport lookup.",
+      "ref": "query_full.md: Read input_01.csv as actual Q1 sales, input_02.csv as Q1 targets, input_03.csv as destination-country projections, and input_04.csv as the airport lookup."
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Gate",
+        "Date"
+      ],
+      "columns": {
+        "Gate": {
+          "type": "integer"
+        },
+        "Stand": {
+          "type": "integer"
+        },
+        "Time to Reach Stand": {
+          "type": "integer"
+        },
+        "Flight": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Requires Bus?": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Date": {
+          "type": "datetime",
+          "formats": [
+            "%d/%m/%Y %H:%M:%S"
+          ]
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_mtd_october_to_date_window",
+      "kind": "Group-level concept",
+      "node_id": "filter_mtd",
+      "op": "filter",
+      "source_text": "Calculate the Year to Date, Month to Date, and Week to Date values",
+      "ref": "query.md: Calculate the Year to Date, Month to Date, and Week to Date values",
+      "intent": "MTD is October 1 through each year’s aligned cutoff."
+    },
+    {
+      "id": "2_O1_last_year_aligned_cutoff",
+      "kind": "Operation boundary",
+      "node_id": "filter_mtd",
+      "op": "filter",
+      "source_text": "Calculate the Year to Date, Month to Date, and Week to Date values for each product and metric (Income & Quantity).",
+      "ref": "weeks_index = (cutoff_this.date() - fs_2020.date()).days // 7",
+      "intent": "Match last-year cutoff by the custom week number and day of week."
+    },
+    {
+      "id": "3_O2_drop_uncategorized_years",
+      "kind": "Operation incomplete",
+      "node_id": "filter_trans_tyly",
+      "op": "filter",
+      "source_text": "Exclude transactions that are not in 2019 or 2020",
+      "ref": "trans_df = trans_df[trans_df[\"Type\"].notna()]",
+      "intent": "Only 2020 and 2019 transactions are reporting actuals."
+    },
+    {
+      "id": "4_C2_wtd_defined_by_anchor",
+      "kind": "Group-level concept",
+      "node_id": "filter_wtd",
+      "op": "filter",
+      "source_text": "Calculate the Year to Date, Month to Date, and Week to Date values for each product and metric (Income & Quantity).",
+      "ref": "query.md: Calculate the Year to Date, Month to Date, and Week to Date values for each product and metric (Income & Quantity).",
+      "intent": "WTD includes the anchor week through day six."
+    },
+    {
+      "id": "5_O1_ytd_cutoff_includes_anchor",
+      "kind": "Operation boundary",
+      "node_id": "filter_ytd",
+      "op": "filter",
+      "source_text": "keep up this point for each period",
+      "ref": "(df[\"Week\"] < cutoff_wk) | ((df[\"Week\"] == cutoff_wk) & (df[\"Day\"] <= cutoff_dy))",
+      "intent": "Include the anchor day."
+    },
+    {
+      "id": "6_O2_pct_diff_zero_denominator",
+      "kind": "Operation boundary",
+      "node_id": "proj_compute",
+      "op": "project",
+      "intent": "Use zero percent difference for a zero denominator.",
+      "ref": "query_full.md: If the denominator (Last Year or Target) is 0",
+      "source_text": "If the denominator (Last Year or Target) is 0"
+    },
+    {
+      "id": "7_O1_pct_diff_uses_rounded_integers",
+      "kind": "Operation boundary",
+      "node_id": "proj_compute",
+      "op": "project",
+      "intent": "Round aggregated metrics to integers before ratio calculation.",
+      "ref": "r_ty = int(round(ty))",
+      "source_text": "Compute percentage differences using the rounded integer values:"
+    },
+    {
+      "id": "8_O1_custom_day_numbering",
+      "kind": "Operation boundary",
+      "node_id": "proj_trans_add_cols",
+      "op": "project",
+      "intent": "Sunday is day one.",
+      "ref": "day = ((py + 1) % 7) + 1",
+      "source_text": "Day numbering: Sunday = 1, Monday = 2, …, Saturday = 7."
+    },
+    {
+      "id": "9_O1_week1_starts_jan1",
+      "kind": "Operation boundary",
+      "node_id": "proj_trans_add_cols",
+      "op": "project",
+      "source_text": "Week 1: starts on January 1 and runs through the first Saturday",
+      "ref": "query_full.md: Week 1: starts on January 1 and runs through the first Saturday",
+      "intent": "Week one is the initial partial week."
+    },
+    {
+      "id": "10_C2_targets_divide_by_7",
+      "kind": "Group-level concept",
+      "node_id": "targets_finalize",
+      "op": "project",
+      "source_text": "`Quantity` per day = (`Quantity Target`) / 7",
+      "ref": "per_day_qty = qty_week / 7.0",
+      "intent": "Divide weekly targets by seven, including week one."
+    },
+    {
+      "id": "11_O1_week1_targets_fewer_days",
+      "kind": "Operation boundary",
+      "node_id": "targets_range",
+      "op": "project",
+      "source_text": "For Week 1, generate rows for each day from Jan 1 through the first Saturday",
+      "ref": "days = (first_sat.date() - jan1.date()).days + 1",
+      "intent": "Week one contains only dates in that year."
+    }
+  ]
+}

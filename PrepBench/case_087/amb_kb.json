@@ -1,0 +1,58 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C1_qa_classification_rules",
+      "kind": "Row-level concept",
+      "node_id": "classify_qa",
+      "op": "project",
+      "source_text": "Every subsequent comment is either a question or answer",
+      "ref": "query.md: Every subsequent comment is either a question or answer",
+      "intent": "After excluding first comments: Carl or @ means Answer; otherwise ? means Question; other comments are Answer."
+    },
+    {
+      "id": "2_O2_exclude_carl_opening_comment",
+      "kind": "Operation incomplete",
+      "node_id": "classify_qa",
+      "op": "project",
+      "intent": "Exclude Carl’s opening comment from both outputs.",
+      "ref": "query_full.md: Carl Allchin’s first comment in each session is an opening statement",
+      "source_text": "Carl Allchin’s first comment in each session is an opening statement"
+    },
+    {
+      "id": "3_C2_local_datetime_base_plus_offset",
+      "kind": "Group-level concept",
+      "node_id": "compute_local_dt",
+      "op": "project",
+      "intent": "Add input Time to 2020-10-07 14:00:00.",
+      "ref": "query_full.md: interpret the provided time as an elapsed time added to 2:00 PM",
+      "source_text": "interpret the provided time as an elapsed time added to 2:00 PM"
+    },
+    {
+      "id": "4_O1_first_comment_per_session_person",
+      "kind": "Operation boundary",
+      "node_id": "mark_seq",
+      "op": "project",
+      "source_text": "Everyone's first comment (except Carl Allchin's) is saying where they are from",
+      "ref": "all_df[\"Is First Comment\"] = (\n        (all_df[\"Who\"] != \"Carl Allchin\") & \n        (all_df.groupby([\"Location\", \"Who\"]).cumcount() == 0)\n    )",
+      "intent": "Use first comment per person within each session."
+    },
+    {
+      "id": "5_C1_first_time_indicator_keyword",
+      "kind": "Row-level concept",
+      "node_id": "mark_seq",
+      "op": "project",
+      "source_text": "saying where they are from and whether it's their first session",
+      "ref": "first_time = bool(re.search(r'first\\s+time', comment, re.IGNORECASE))",
+      "intent": "Match first time case-insensitively."
+    },
+    {
+      "id": "6_O1_sequence_order_by_gmt",
+      "kind": "Single-table reference",
+      "node_id": "sort_for_seq",
+      "op": "sort",
+      "intent": "Determine each person’s sequence by timestamp within session.",
+      "ref": "all_df = all_df.sort_values([\"Location\", \"Who\", \"Date (GMT)\"])",
+      "source_text": "order comments by `Date (GMT)` ascending to determine sequence."
+    }
+  ]
+}

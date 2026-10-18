@@ -1,0 +1,40 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_potential_savings_sign",
+      "kind": "Row-level concept",
+      "node_id": "final_metrics",
+      "op": "project",
+      "source_text": "Calculate the potential savings for each person and advise whether or not they should take advantage of the deal",
+      "ref": "spend_df['Potential Savings'] = spend_df['Monthly Spend'] - 20",
+      "intent": "Savings equal Monthly Spend minus 20."
+    },
+    {
+      "id": "2_O1_worthwhile_threshold_strict",
+      "kind": "Operation boundary",
+      "node_id": "final_metrics",
+      "op": "project",
+      "source_text": "advise whether or not they should take advantage of the deal",
+      "ref": "spend_df['Worthwhile?'] = spend_df['Potential Savings'] > 0",
+      "intent": "Worthwhile is true only when savings exceed zero."
+    },
+    {
+      "id": "3_O1_round_money_2dp",
+      "kind": "Operation boundary",
+      "node_id": "final_metrics",
+      "op": "project",
+      "intent": "Round money to two decimals.",
+      "ref": "query_full.md: Round Monthly Spend and Potential Savings to 2 decimal places.",
+      "source_text": "Round Monthly Spend and Potential Savings to 2 decimal places."
+    },
+    {
+      "id": "4_O2_unmatched_items_zero_cost",
+      "kind": "Operation incomplete",
+      "node_id": "join_prices",
+      "op": "join",
+      "source_text": "Join the ordered drinks to their prices\n  - Beware ordered drinks not having the exact same name as on the menu",
+      "ref": "query.md: Join the ordered drinks to their prices\n  - Beware ordered drinks not having the exact same name as on the menu",
+      "intent": "Match menu-name substrings case-insensitively, longest names first; unmatched text contributes no cost."
+    }
+  ]
+}

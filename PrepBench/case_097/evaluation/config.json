@@ -1,0 +1,29 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Home Team"
+      ],
+      "columns": {
+        "Home Team": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Home Conference": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Home Division": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Travel Mins": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Location",
+        "Question or Answer"
+      ],
+      "columns": {
+        "Question or Answer": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Location": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Instances": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Location",
+        "Who"
+      ],
+      "columns": {
+        "Location": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "City": {
+          "type": "text_exact",
+          "null_values": [],
+          "aliases": {
+            "Wollongong": "wollongong",
+            "Sydney": "sydney",
+            "London": "london",
+            "Budapest": "budapest"
+          }
+        },
+        "Country": {
+          "type": "text_exact",
+          "null_values": [],
+          "aliases": {
+            "Australia": "australia",
+            "United Kingdom": "united kingdom",
+            "Hungary": "hungary"
+          }
+        },
+        "Who": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "First Time Indicator": {
+          "type": "integer"
+        },
+        "Date (GMT)": {
+          "type": "datetime",
+          "formats": [
+            "%d/%m/%Y %H:%M:%S"
+          ],
+          "assume_timezone": "UTC"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

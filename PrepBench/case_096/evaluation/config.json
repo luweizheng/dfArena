@@ -1,0 +1,59 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Email"
+      ],
+      "columns": {
+        "Email": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Email Subject": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Email Body": {
+          "type": "text_exact",
+          "null_values": [],
+          "aliases": {
+            "Tom the results are in, your secret santee is: Ellie. Good luck finding a great gift!": "Tom the results are in your secret santee is: Ellie. Good luck finding a great gift!",
+            "Tom, the results are in your secret santee is: Ellie. Good luck finding a great gift!": "Tom the results are in your secret santee is: Ellie. Good luck finding a great gift!",
+            "Tom, the results are in, your secret santee is: Ellie. Good luck finding a great gift!": "Tom the results are in your secret santee is: Ellie. Good luck finding a great gift!",
+            "Seffana the results are in, your secret santee is: Tom. Good luck finding a great gift!": "Seffana the results are in your secret santee is: Tom. Good luck finding a great gift!",
+            "Seffana, the results are in your secret santee is: Tom. Good luck finding a great gift!": "Seffana the results are in your secret santee is: Tom. Good luck finding a great gift!",
+            "Seffana, the results are in, your secret santee is: Tom. Good luck finding a great gift!": "Seffana the results are in your secret santee is: Tom. Good luck finding a great gift!",
+            "Nick the results are in, your secret santee is: Seffana. Good luck finding a great gift!": "Nick the results are in your secret santee is: Seffana. Good luck finding a great gift!",
+            "Nick, the results are in your secret santee is: Seffana. Good luck finding a great gift!": "Nick the results are in your secret santee is: Seffana. Good luck finding a great gift!",
+            "Nick, the results are in, your secret santee is: Seffana. Good luck finding a great gift!": "Nick the results are in your secret santee is: Seffana. Good luck finding a great gift!",
+            "Nathan the results are in, your secret santee is: Nick. Good luck finding a great gift!": "Nathan the results are in your secret santee is: Nick. Good luck finding a great gift!",
+            "Nathan, the results are in your secret santee is: Nick. Good luck finding a great gift!": "Nathan the results are in your secret santee is: Nick. Good luck finding a great gift!",
+            "Nathan, the results are in, your secret santee is: Nick. Good luck finding a great gift!": "Nathan the results are in your secret santee is: Nick. Good luck finding a great gift!",
+            "Louise the results are in, your secret santee is: Nathan. Good luck finding a great gift!": "Louise the results are in your secret santee is: Nathan. Good luck finding a great gift!",
+            "Louise, the results are in your secret santee is: Nathan. Good luck finding a great gift!": "Louise the results are in your secret santee is: Nathan. Good luck finding a great gift!",
+            "Louise, the results are in, your secret santee is: Nathan. Good luck finding a great gift!": "Louise the results are in your secret santee is: Nathan. Good luck finding a great gift!",
+            "Laura the results are in, your secret santee is: Louise. Good luck finding a great gift!": "Laura the results are in your secret santee is: Louise. Good luck finding a great gift!",
+            "Laura, the results are in your secret santee is: Louise. Good luck finding a great gift!": "Laura the results are in your secret santee is: Louise. Good luck finding a great gift!",
+            "Laura, the results are in, your secret santee is: Louise. Good luck finding a great gift!": "Laura the results are in your secret santee is: Louise. Good luck finding a great gift!",
+            "Laine the results are in, your secret santee is: Laura. Good luck finding a great gift!": "Laine the results are in your secret santee is: Laura. Good luck finding a great gift!",
+            "Laine, the results are in your secret santee is: Laura. Good luck finding a great gift!": "Laine the results are in your secret santee is: Laura. Good luck finding a great gift!",
+            "Laine, the results are in, your secret santee is: Laura. Good luck finding a great gift!": "Laine the results are in your secret santee is: Laura. Good luck finding a great gift!",
+            "Jess the results are in, your secret santee is: Laine. Good luck finding a great gift!": "Jess the results are in your secret santee is: Laine. Good luck finding a great gift!",
+            "Jess, the results are in your secret santee is: Laine. Good luck finding a great gift!": "Jess the results are in your secret santee is: Laine. Good luck finding a great gift!",
+            "Jess, the results are in, your secret santee is: Laine. Good luck finding a great gift!": "Jess the results are in your secret santee is: Laine. Good luck finding a great gift!",
+            "Janasobini the results are in, your secret santee is: Jess. Good luck finding a great gift!": "Janasobini the results are in your secret santee is: Jess. Good luck finding a great gift!",
+            "Janasobini, the results are in your secret santee is: Jess. Good luck finding a great gift!": "Janasobini the results are in your secret santee is: Jess. Good luck finding a great gift!",
+            "Janasobini, the results are in, your secret santee is: Jess. Good luck finding a great gift!": "Janasobini the results are in your secret santee is: Jess. Good luck finding a great gift!",
+            "Emma the results are in, your secret santee is: Janasobini. Good luck finding a great gift!": "Emma the results are in your secret santee is: Janasobini. Good luck finding a great gift!",
+            "Emma, the results are in your secret santee is: Janasobini. Good luck finding a great gift!": "Emma the results are in your secret santee is: Janasobini. Good luck finding a great gift!",
+            "Emma, the results are in, your secret santee is: Janasobini. Good luck finding a great gift!": "Emma the results are in your secret santee is: Janasobini. Good luck finding a great gift!",
+            "Ellie the results are in, your secret santee is: Emma. Good luck finding a great gift!": "Ellie the results are in your secret santee is: Emma. Good luck finding a great gift!",
+            "Ellie, the results are in your secret santee is: Emma. Good luck finding a great gift!": "Ellie the results are in your secret santee is: Emma. Good luck finding a great gift!",
+            "Ellie, the results are in, your secret santee is: Emma. Good luck finding a great gift!": "Ellie the results are in your secret santee is: Emma. Good luck finding a great gift!"
+          }
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

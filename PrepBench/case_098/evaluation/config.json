@@ -1,0 +1,109 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Year",
+        "Round Num",
+        "Point"
+      ],
+      "columns": {
+        "Column": {
+          "type": "integer"
+        },
+        "Row": {
+          "type": "integer"
+        },
+        "Decade": {
+          "type": "integer"
+        },
+        "Round to Par": {
+          "type": "integer"
+        },
+        "Round Score": {
+          "type": "integer"
+        },
+        "Round Par": {
+          "type": "integer"
+        },
+        "Total": {
+          "type": "integer"
+        },
+        "Year": {
+          "type": "integer"
+        },
+        "Round Colors": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Point": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Round Num": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Player": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Country": {
+          "type": "text_exact",
+          "null_values": [],
+          "aliases": {
+            " South Korea": "South Korea",
+            " Thailand": "Thailand",
+            " United States": "United States",
+            " Sweden": "Sweden",
+            " Australia": "Australia",
+            " England": "England",
+            " France": "France",
+            " Uruguay": "Uruguay"
+          }
+        },
+        "Venue": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Location": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Y Coordinate Polygon": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        },
+        "X Coordinate Polygon": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Decade"
+      ],
+      "columns": {
+        "Decade": {
+          "type": "integer"
+        },
+        "Min Round Score": {
+          "type": "integer"
+        },
+        "Max Round Score": {
+          "type": "integer"
+        },
+        "Min Total Score": {
+          "type": "integer"
+        },
+        "Max Total Score": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}
