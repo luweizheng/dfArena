@@ -1,0 +1,94 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O1_exclude_areas_pre_join",
+      "kind": "Row-level concept",
+      "node_id": "area_filtered",
+      "op": "filter",
+      "source_text": "We don’t actually sell products in Clevedon, Fakenham, or Stornoway. Exclude these from our dataset",
+      "ref": "query_full.md: We don’t actually sell products in Clevedon, Fakenham, or Stornoway. Exclude these from our dataset",
+      "intent": "Exclude Clevedon, Fakenham and Stornoway from the area lookup before joining."
+    },
+    {
+      "id": "2_D2_area_join_key_derivation",
+      "kind": "Multi-table alignment",
+      "node_id": "area_prep",
+      "op": "project",
+      "source_text": "Input the Area Code Lookup Table – find a way to join it to the Customer information file",
+      "ref": "query.md: Input the Area Code Lookup Table – find a way to join it to the Customer information file",
+      "intent": "Join the final two area-code digits and first area-name letter, compared in uppercase."
+    },
+    {
+      "id": "3_C2_revenue_pence_transaction_formula",
+      "kind": "Row-level concept",
+      "node_id": "compute_revenue_pence",
+      "op": "project",
+      "source_text": "For each area, and product, find the total sales values",
+      "ref": "query.md: For each area, and product, find the total sales values",
+      "intent": "Multiply integer quantity by price in pence, aggregate by Area and Product Name, then convert to pounds."
+    },
+    {
+      "id": "4_O1_phone_number_first_6digit_occurrence",
+      "kind": "Row-level concept",
+      "node_id": "ids_parsed",
+      "op": "project",
+      "source_text": "The first 6 digits present in each ID is the customers phone number",
+      "ref": "query.md: The first 6 digits present in each ID is the customers phone number",
+      "intent": "Extract the first six-digit occurrence as a phone-number identifier."
+    },
+    {
+      "id": "5_D2_area_join_inner_on_suffix_initial",
+      "kind": "Multi-table alignment",
+      "node_id": "join_area",
+      "op": "join",
+      "source_text": "Input the Area Code Lookup Table – find a way to join it to the Customer information file",
+      "ref": "merged = parsed.merge(\n        area_lookup[['Area', 'Area Code Suffix', 'Area Initial']],\n        on=['Area Code Suffix', 'Area Initial'],\n        how='inner'\n    )",
+      "intent": "Use an inner join on area-code suffix and area initial."
+    },
+    {
+      "id": "6_D2_product_join_inner_on_product_id",
+      "kind": "Multi-table alignment",
+      "node_id": "join_product",
+      "op": "join",
+      "source_text": "Join this dataset to our product lookup table.",
+      "ref": "merged = merged.merge(product_lookup[[\n                          'Product ID', 'Product Name', 'Price_Pence']], on='Product ID', how='inner')",
+      "intent": "Inner join Product ID to the product lookup."
+    },
+    {
+      "id": "7_O1_percent_total_half_up_2dp",
+      "kind": "Operation boundary",
+      "node_id": "pct_project",
+      "op": "project",
+      "source_text": "percent of total that each different product contributes to the overall revenue of that Area, rounded to 2 decimal places.",
+      "ref": "return float(pct.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP))",
+      "intent": "Compute each share from rounded Revenue within its Area, multiply by100 and round half-up to two decimals."
+    },
+    {
+      "id": "8_O3_drop_all_rows_for_ambiguous_phone",
+      "kind": "Operation inconsistent",
+      "node_id": "phone_unique",
+      "op": "filter",
+      "source_text": "Exclude any phone numbers where the join has produced duplicated records.",
+      "ref": "query.md: Exclude any phone numbers where the join has produced duplicated records.",
+      "intent": "Remove all joined rows for a phone number with more than one area-join result."
+    },
+    {
+      "id": "9_O3_rank_ties_min_method",
+      "kind": "Operation boundary",
+      "node_id": "rank_project",
+      "op": "project",
+      "source_text": "Rank how well each product sold in each area.",
+      "ref": "agg_raw['Rank'] = agg_raw.groupby('Area')['Revenue'].rank(\n        method='min', ascending=False).astype(int)",
+      "intent": "Rank rounded Revenue descending within Area using competition/min ranking."
+    },
+    {
+      "id": "10_O1_revenue_round_half_up_0dp",
+      "kind": "Operation boundary",
+      "node_id": "rev_to_int",
+      "op": "project",
+      "source_text": "For each area, and product, find the total sales values, rounded to zero decimal places",
+      "ref": "query.md: For each area, and product, find the total sales values, rounded to zero decimal places",
+      "intent": "Round each aggregated pound Revenue to the nearest integer using half-up rounding."
+    }
+  ]
+}

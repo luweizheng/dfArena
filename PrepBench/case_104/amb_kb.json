@@ -1,0 +1,58 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_D2_client_exact_match",
+      "kind": "Single-table reference",
+      "node_id": "join_latest",
+      "op": "join",
+      "intent": "Use the exact Client value as the ownership matching key.",
+      "ref": "query_full.md: Client names are matched exactly as they appear in the `Client` field, case-sensitive and including any surrounding quotes or special characters.",
+      "source_text": "Client names are matched exactly as they appear in the `Client` field, case-sensitive and including any surrounding quotes or special characters."
+    },
+    {
+      "id": "2_O3_latest_tie_break_input_order",
+      "kind": "Operation boundary",
+      "node_id": "latest_per_client",
+      "op": "dedup",
+      "intent": "Choose the first input record among records sharing the latest date for the client.",
+      "ref": "latest_info = df.loc[df.groupby('Client')['From Date Parsed'].idxmax()][\n        ['Client', 'Client ID', 'Account Manager', 'From Date']\n    ].copy()",
+      "source_text": "If multiple records for the same `Client` share the same maximum date, use the first such record encountered **in the input file order**"
+    },
+    {
+      "id": "3_O2_from_date_parse_format",
+      "kind": "Operation incomplete",
+      "node_id": "proj_enrich",
+      "op": "project",
+      "source_text": "For each Client, work out who the most recent Account Manager is",
+      "ref": "df['From Date Parsed'] = pd.to_datetime(df['From Date'], format='%d/%m/%Y', errors='coerce')",
+      "intent": "Parse From Date as DD/MM/YYYY for chronological comparison; output the selected original date in that exact text format."
+    },
+    {
+      "id": "4_O2_client_id_text",
+      "kind": "Row-level concept",
+      "node_id": "project_cleanup",
+      "op": "project",
+      "intent": "Retain the selected Client ID as text without numeric conversion.",
+      "ref": "query_full.md: Output `Client ID` as exact text (preserve digits and leading zeros if any).",
+      "source_text": "Output `Client ID` as exact text (preserve digits and leading zeros if any)."
+    },
+    {
+      "id": "5_O2_overwrite_latest_owner_fields_keep_attendees",
+      "kind": "Row-level concept",
+      "node_id": "project_final",
+      "op": "project",
+      "intent": "Update all attendees to the latest Client ID and Account Manager, then remove exact duplicate result rows without losing distinct attendances.",
+      "ref": "query_full.md: Remove exact duplicate rows after updating ownership; retain every distinct training attendance record.",
+      "source_text": "Remove exact duplicate rows after updating ownership; retain every distinct training attendance record."
+    },
+    {
+      "id": "6_O2_overwrite_from_date_to_latest",
+      "kind": "Row-level concept",
+      "node_id": "project_final",
+      "op": "project",
+      "intent": "Replace From Date with the date of the latest client ownership record.",
+      "ref": "            row['From Date'] = client_mapping[client]['From Date']",
+      "source_text": "overwrite `Client ID`, `Account Manager`, and `From Date` with the values from that Client's most recent record."
+    }
+  ]
+}

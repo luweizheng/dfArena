@@ -1,0 +1,40 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_group_cost_by_cocktail_and_price",
+      "kind": "Group-level concept",
+      "node_id": "agg_cost_per_cocktail",
+      "op": "aggregate",
+      "source_text": "Find the total cost of each cocktail",
+      "ref": "query_full.md: Find the total cost of each cocktail",
+      "intent": "Sum ingredient costs by Cocktail and selling Price."
+    },
+    {
+      "id": "2_O2_recipe_part_parsing_and_invalid_part_drop",
+      "kind": "Operation incomplete",
+      "node_id": "expand_recipe",
+      "op": "script",
+      "source_text": "Split out the recipes into the different ingredients and their measurements",
+      "ref": "for part in str(recipe).split(\";\"):\n            part = part.strip()\n            if not part:\n                continue\n            if \":\" not in part:\n                continue\n            name, qty = part.split(\":\", 1)",
+      "intent": "Split semicolon-separated recipe parts, parse ingredient and ml quantity around the colon, and skip invalid parts."
+    },
+    {
+      "id": "3_O2_drop_cocktails_with_no_parsed_recipe_items",
+      "kind": "Operation incomplete",
+      "node_id": "expand_recipe",
+      "op": "script",
+      "intent": "No valid recipe components means no output cocktail row.",
+      "ref": "if pd.isna(recipe) or not str(recipe).strip():\n            return items",
+      "source_text": "Cocktails with no parsed recipe items will not produce an output row."
+    },
+    {
+      "id": "4_D2_left_join_recipe_to_sourcing_on_ingredient",
+      "kind": "Multi-table alignment",
+      "node_id": "join_long_cost",
+      "op": "join",
+      "source_text": "Join the ingredient costs to their relative cocktails",
+      "ref": "long_df = long_df.merge(sourcing, on=\"Ingredient\", how=\"left\")",
+      "intent": "Left join recipe items to sourcing by Ingredient."
+    }
+  ]
+}

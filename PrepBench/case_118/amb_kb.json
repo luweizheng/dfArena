@@ -1,0 +1,130 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O2_name_lookup_unmatched_null",
+      "kind": "Operation incomplete",
+      "node_id": "j_name",
+      "op": "join",
+      "intent": "Unmatched owner names are null.",
+      "ref": "name_full = name_map.get(name_abbrev)",
+      "source_text": "Map the detected abbreviation to the full owner name using the name lookup (if no valid abbreviation is found or not present in the lookup, output null)."
+    },
+    {
+      "id": "2_O2_project_lookup_unmatched_null",
+      "kind": "Operation incomplete",
+      "node_id": "j_proj",
+      "op": "join",
+      "intent": "Unmatched project codes are null.",
+      "ref": "project_full = proj_map.get(proj_code)",
+      "source_text": "Map that code to the full project name using the project lookup (left-join behavior: if not found, leave `Project` as null)."
+    },
+    {
+      "id": "3_O2_subproject_lookup_unmatched_null",
+      "kind": "Operation incomplete",
+      "node_id": "j_sub",
+      "op": "join",
+      "intent": "Op and Ops are equivalent sub-project codes (case-insensitive); map both through the Op lookup entry. This documented alias is part of the task. Leave other unmatched codes null.",
+      "ref": "subproj_map.setdefault(\"ops\", subproj_map[\"op\"])",
+      "source_text": "Match sub-project codes case-insensitively after trimming surrounding whitespace. Treat `Ops` as the same code as `Op` before using the sub-project lookup; leave genuinely unmatched codes null."
+    },
+    {
+      "id": "4_O2_task_lookup_unmatched_null",
+      "kind": "Operation incomplete",
+      "node_id": "j_task",
+      "op": "join",
+      "intent": "Unmatched task codes are null.",
+      "ref": "task_full = task_map.get(task_code)",
+      "source_text": "Map task code to full task name/type using the task lookup (if not found, null)."
+    },
+    {
+      "id": "5_C1_header_project_code_before_slash",
+      "kind": "Row-level concept",
+      "node_id": "parse_enrich",
+      "op": "project",
+      "intent": "The project code precedes the first slash.",
+      "ref": "left, right = header.split(\"/\", 1)\n                proj_code = left.strip().upper()",
+      "source_text": "From `header`, take the portion before `/` as the project code."
+    },
+    {
+      "id": "6_C1_header_subproject_task_split_first_dash",
+      "kind": "Row-level concept",
+      "node_id": "parse_enrich",
+      "op": "project",
+      "intent": "Split the sub-project and task at the first hyphen after the slash.",
+      "ref": "sub_code, task_code = right.split(\"-\", 1)",
+      "source_text": "Interpret it as `subproject_code-task_code` split on the first `-`."
+    },
+    {
+      "id": "7_C1_name_abbrev_token_dot_and_whitelist",
+      "kind": "Row-level concept",
+      "node_id": "parse_enrich",
+      "op": "project",
+      "intent": "Detect a standalone lookup abbreviation followed by a period, case-insensitively.",
+      "ref": "author_pattern = re.compile(r\"\\b(tom|jen|jon|car)\\.\", re.IGNORECASE)",
+      "source_text": "Only the abbreviations `tom`, `jen`, `jon`, and `car` are considered valid for this detection."
+    },
+    {
+      "id": "8_O1_days_noted_integer_followed_by_day_keyword",
+      "kind": "Row-level concept",
+      "node_id": "parse_enrich",
+      "op": "project",
+      "source_text": "'Days Noted' some fields have comments that say how many days tasks might take.",
+      "ref": "days_pattern = re.compile(r\"(\\d+)\\s*day\", re.IGNORECASE)",
+      "intent": "Extract the first integer followed by day or days."
+    },
+    {
+      "id": "9_O2_task_code_missing_null",
+      "kind": "Operation incomplete",
+      "node_id": "parse_enrich",
+      "op": "project",
+      "intent": "A missing task code produces a null task.",
+      "ref": "elif len(parts) == 1:\n                        sub_code, task_code = parts[0], None",
+      "source_text": "The part after `-` is the task code (if missing, treat as null)."
+    },
+    {
+      "id": "10_O3_name_abbrev_multiple_use_last",
+      "kind": "Operation boundary",
+      "node_id": "parse_enrich",
+      "op": "project",
+      "intent": "Use the last valid owner abbreviation in the segment.",
+      "ref": "last_match = None\n            for am in author_pattern.finditer(detail):\n                last_match = am\n            if last_match is not None:\n                name_abbrev = last_match.group(1).lower()",
+      "source_text": "Use the **last** such abbreviation in the `Detail` (if multiple appear)."
+    },
+    {
+      "id": "11_O3_days_noted_multiple_use_first",
+      "kind": "Operation boundary",
+      "node_id": "parse_enrich",
+      "op": "project",
+      "source_text": "This field should note the number of days mentioned if said in the comment otherwise leave as a null.",
+      "ref": "dm = days_pattern.search(detail)",
+      "intent": "Use the first day-count occurrence; otherwise output null."
+    },
+    {
+      "id": "12_C1_segment_delimitation_bracket_header_then_text",
+      "kind": "Row-level concept",
+      "node_id": "parse_segments",
+      "op": "script",
+      "intent": "Each bracket header starts a segment; its following text extends to the next header or end.",
+      "ref": "seg_pattern = re.compile(r\"\\[(?P<header>[^\\]]+)\\]\\s*(?P<detail>.*?)(?=(\\s*\\[|$))\")",
+      "source_text": "followed by the segment’s detail text, continuing until the next `[` header begins or until the end of the commentary text."
+    },
+    {
+      "id": "13_C1_output_grain_one_row_per_segment",
+      "kind": "Row-level concept",
+      "node_id": "parse_segments",
+      "op": "script",
+      "intent": "One output row represents one segment.",
+      "ref": "for m in seg_pattern.finditer(commentary):",
+      "source_text": "Each output row must represent **one parsed commentary segment**"
+    },
+    {
+      "id": "14_O2_skip_segments_without_slash_in_header",
+      "kind": "Operation incomplete",
+      "node_id": "parse_segments",
+      "op": "script",
+      "intent": "Skip headers that do not contain a project separator slash.",
+      "ref": "query_full.md: if a segment’s header does not include `/`, do not output a row for that segment.",
+      "source_text": "if a segment’s header does not include `/`, do not output a row for that segment."
+    }
+  ]
+}

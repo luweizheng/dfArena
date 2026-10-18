@@ -1,0 +1,42 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Week",
+        "Project",
+        "Sub-Project",
+        "Task"
+      ],
+      "columns": {
+        "Week": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Project": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Sub-Project": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Task": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Detail": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Days Noted": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

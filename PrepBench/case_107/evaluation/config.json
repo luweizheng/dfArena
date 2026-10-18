@@ -1,0 +1,36 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Session #",
+        "Song Order"
+      ],
+      "columns": {
+        "Session #": {
+          "type": "integer"
+        },
+        "Song Order": {
+          "type": "integer"
+        },
+        "Artist": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Song": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Customer ID": {
+          "type": "text_exact"
+        },
+        "Date": {
+          "type": "datetime",
+          "formats": [
+            "%d/%m/%Y %H:%M:%S"
+          ]
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

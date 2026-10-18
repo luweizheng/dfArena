@@ -1,0 +1,67 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_agg_grain_name_position",
+      "kind": "Group-level concept",
+      "node_id": "agg_player_pos",
+      "op": "aggregate",
+      "source_text": "Calculate the totals for each of the key metrics across the whole time period for each player",
+      "ref": "query.md: Calculate the totals for each of the key metrics across the whole time period for each player",
+      "intent": "Aggregate across all seasons by Name and Position."
+    },
+    {
+      "id": "2_C2_open_play_goals_formula",
+      "kind": "Row-level concept",
+      "node_id": "compute_opg",
+      "op": "project",
+      "source_text": "**Open Play Goals = Total Goals − Penalties scored − Freekicks scored**",
+      "ref": "agg[\"Open Play Goals\"] = (\n        agg[\"Goals\"].fillna(0) - agg[\"Penalties scored\"].fillna(0) -\n        agg[\"Freekicks scored\"].fillna(0)\n    )",
+      "intent": "Subtract penalties and free kicks from total goals; do not subtract from foot-specific fields."
+    },
+    {
+      "id": "3_O2_null_metrics_as_zero",
+      "kind": "Operation incomplete",
+      "node_id": "fill_metrics",
+      "op": "project",
+      "source_text": "Handle null goal metrics when calculating totals.",
+      "ref": "query.md: Handle null goal metrics when calculating totals.",
+      "intent": "Missing goal-related metrics contribute zero."
+    },
+    {
+      "id": "4_O2_appearances_invalid_treated_not_gt0",
+      "kind": "Operation incomplete",
+      "node_id": "filter_app_gt0",
+      "op": "filter",
+      "source_text": "Remove all records where appearances =0",
+      "ref": "query.md: Remove all records where appearances =0",
+      "intent": "Retain only valid positive appearances."
+    },
+    {
+      "id": "5_O3_rank_ties_competition_min",
+      "kind": "Operation boundary",
+      "node_id": "rank_cols",
+      "op": "project",
+      "source_text": "top 20 (including those that are tied for position)",
+      "ref": "base[\"Rank\"] = base[\"Open Play Goals\"].rank(\n        method=\"min\", ascending=False).astype(int)",
+      "intent": "Use competition ranks: tied scores share a rank and following ranks skip places."
+    },
+    {
+      "id": "6_D1_rename_goals_column_total_goals",
+      "kind": "Row-level concept",
+      "node_id": "rename_goals",
+      "op": "project",
+      "source_text": "Rename the original Goals scored field to Total Goals Scored",
+      "ref": "agg = agg.rename(columns={\"Goals\": \"Total Goals\"})",
+      "intent": "Use the output column name Total Goals."
+    },
+    {
+      "id": "7_O2_union_all_append_no_dedup",
+      "kind": "Multi-table alignment",
+      "node_id": "union_all",
+      "op": "union",
+      "intent": "Append all input rows without deduplication.",
+      "ref": "query_full.md: append/union rows; do not deduplicate",
+      "source_text": "append/union rows; do not deduplicate"
+    }
+  ]
+}

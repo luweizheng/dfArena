@@ -1,0 +1,32 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Store",
+        "Quarter"
+      ],
+      "columns": {
+        "Store": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Quarter": {
+          "type": "integer"
+        },
+        "Rank": {
+          "type": "integer"
+        },
+        "Products Sold": {
+          "type": "integer"
+        },
+        "Target": {
+          "type": "integer"
+        },
+        "Variance to Target": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

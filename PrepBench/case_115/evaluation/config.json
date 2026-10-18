@@ -1,0 +1,55 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Team"
+      ],
+      "columns": {
+        "Team": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Position": {
+          "type": "integer"
+        },
+        "Total Games Played": {
+          "type": "integer"
+        },
+        "Total Points": {
+          "type": "integer"
+        },
+        "Goal Difference": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Team"
+      ],
+      "columns": {
+        "Team": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Position Change": {
+          "type": "integer"
+        },
+        "Position": {
+          "type": "integer"
+        },
+        "Total Games Played": {
+          "type": "integer"
+        },
+        "Total Points": {
+          "type": "integer"
+        },
+        "Goal Difference": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}
