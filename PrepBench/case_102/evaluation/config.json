@@ -1,0 +1,48 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Product",
+        "Quarter"
+      ],
+      "columns": {
+        "Product": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Quarter": {
+          "type": "integer"
+        },
+        "Products Sold": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Store",
+        "Customer Types",
+        "Product"
+      ],
+      "columns": {
+        "Store": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Customer Types": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Product": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Products Sold": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

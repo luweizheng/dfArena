@@ -1,0 +1,238 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C1_economy_only_for_o1_o2",
+      "kind": "Row-level concept",
+      "node_id": "econ_only",
+      "op": "filter",
+      "intent": "Only Economy passengers contribute to outputs 1 and 2.",
+      "ref": "df_ps_econ = df_ps[df_ps[\"Business Class\"] == \"Economy\"].copy()",
+      "source_text": "Consider **Economy passengers only**."
+    },
+    {
+      "id": "2_O1_time_of_day_boundary_inclusive_18",
+      "kind": "Operation boundary",
+      "node_id": "flight_clean",
+      "op": "project",
+      "source_text": "Afternoon - Between 12:00 - 18:00 (12 ≤ hour ≤ 18)",
+      "ref": "if h < 12:\n            return \"Morning\"\n        if 12 <= h <= 18:\n            return \"Afternoon\"\n        return \"Evening\"",
+      "intent": "Classify by departure hour: under12 Morning,12 through18 Afternoon,over18 Evening."
+    },
+    {
+      "id": "3_D1_flight_details_header_from_first_bracket_row",
+      "kind": "Single-table reference",
+      "node_id": "flight_parse",
+      "op": "project",
+      "source_text": "Parse the Flight Details so that they are in separate fields",
+      "ref": "query.md: Parse the Flight Details so that they are in separate fields",
+      "intent": "The first bracketed row defines the flight fields; split subsequent rows by pipes."
+    },
+    {
+      "id": "4_D2_ps_join_on_passenger_number",
+      "kind": "Multi-table alignment",
+      "node_id": "join_ps",
+      "op": "join",
+      "source_text": "Combine the Seat List and Passenger List tables.",
+      "ref": "df_ps = df_pass.merge(seat_long, on=\"passenger_number\", how=\"left\")",
+      "intent": "Join passenger assignments by passenger_number."
+    },
+    {
+      "id": "5_O2_ps_left_join_keep_unseated_passengers",
+      "kind": "Operation incomplete",
+      "node_id": "join_ps",
+      "op": "join",
+      "source_text": "Combine the Seat List and Passenger List tables.",
+      "ref": "df_ps = df_pass.merge(seat_long, on=\"passenger_number\", how=\"left\")",
+      "intent": "Keep valid passengers even if a seat assignment is absent."
+    },
+    {
+      "id": "6_C2_o1_per_flight_totals_before_averaging",
+      "kind": "Group-level concept",
+      "node_id": "o1_flight_totals",
+      "op": "aggregate",
+      "source_text": "We want to take a look at the average for the flights within each time period.",
+      "ref": "flight_totals = df_ps_econ.groupby(\"flight_number\", as_index=False)[\n        \"purchase_amount\"].sum().rename(columns={\"purchase_amount\": \"total_purchase\"})",
+      "intent": "Sum Economy purchases per flight before averaging flight totals in each period."
+    },
+    {
+      "id": "7_C2_o1_rank_starts_at_1",
+      "kind": "Row-level concept",
+      "node_id": "o1_rank",
+      "op": "project",
+      "intent": "Use consecutive ranks starting at1.",
+      "ref": "avg_per_flight.insert(0, \"Rank\", range(1, len(avg_per_flight) + 1))",
+      "source_text": "Rank results with Rank = 1 for the highest average; break ties by `Depart Time of Day` ascending."
+    },
+    {
+      "id": "8_O1_o1_round_avg_per_flight_2dp",
+      "kind": "Operation boundary",
+      "node_id": "o1_round",
+      "op": "project",
+      "intent": "Round the per-flight average to two decimal places.",
+      "ref": "avg_per_flight[\"Avg per Flight\"] = avg_per_flight[\"Avg per Flight\"].round(\n        2)",
+      "source_text": "Round the resulting average to 2 decimal places."
+    },
+    {
+      "id": "9_C2_o1_rank_descending_by_avg",
+      "kind": "Row-level concept",
+      "node_id": "o1_sort",
+      "op": "sort",
+      "intent": "Highest per-flight average has rank1.",
+      "ref": "avg_per_flight = avg_per_flight.sort_values([\"Avg per Flight\", \"Depart Time of Day\"], ascending=[\n                                                False, True], kind=\"mergesort\").reset_index(drop=True)",
+      "source_text": "Rank results with Rank = 1 for the highest average; break ties by `Depart Time of Day` ascending."
+    },
+    {
+      "id": "10_O3_o1_tiebreak_depart_time_of_day_asc",
+      "kind": "Operation boundary",
+      "node_id": "o1_sort",
+      "op": "sort",
+      "intent": "Break equal averages by departure period name ascending.",
+      "ref": "avg_per_flight = avg_per_flight.sort_values([\"Avg per Flight\", \"Depart Time of Day\"], ascending=[\n                                                False, True], kind=\"mergesort\").reset_index(drop=True)",
+      "source_text": "Rank results with Rank = 1 for the highest average; break ties by `Depart Time of Day` ascending."
+    },
+    {
+      "id": "11_C2_o2_rank_starts_at_1",
+      "kind": "Row-level concept",
+      "node_id": "o2_rank",
+      "op": "project",
+      "intent": "Use consecutive seat-position ranks starting at1.",
+      "ref": "seat_totals.insert(0, \"Rank\", range(1, len(seat_totals) + 1))",
+      "source_text": "Rank results with Rank = 1 for the highest total; break ties by `Seat Position` ascending."
+    },
+    {
+      "id": "12_O1_o2_round_purchase_amount_2dp",
+      "kind": "Operation boundary",
+      "node_id": "o2_round",
+      "op": "project",
+      "intent": "Round seat-position purchase totals to two decimals.",
+      "ref": "seat_totals[\"Purchase Amount\"] = seat_totals[\"Purchase Amount\"].round(2)",
+      "source_text": "Round totals to 2 decimal places."
+    },
+    {
+      "id": "13_C2_o2_rank_descending_by_purchase_amount",
+      "kind": "Row-level concept",
+      "node_id": "o2_sort",
+      "op": "sort",
+      "intent": "Highest seat-position purchase total has rank1.",
+      "ref": "seat_totals = seat_totals.sort_values([\"Purchase Amount\", \"Seat Position\"], ascending=[\n                                          False, True], kind=\"mergesort\").reset_index(drop=True)",
+      "source_text": "Rank results with Rank = 1 for the highest total; break ties by `Seat Position` ascending."
+    },
+    {
+      "id": "14_O3_o2_tiebreak_seat_position_asc",
+      "kind": "Operation boundary",
+      "node_id": "o2_sort",
+      "op": "sort",
+      "intent": "Break equal seat totals by Seat Position ascending.",
+      "ref": "seat_totals = seat_totals.sort_values([\"Purchase Amount\", \"Seat Position\"], ascending=[\n                                          False, True], kind=\"mergesort\").reset_index(drop=True)",
+      "source_text": "Rank results with Rank = 1 for the highest total; break ties by `Seat Position` ascending."
+    },
+    {
+      "id": "15_C2_o2_sum_purchase_by_seat_position",
+      "kind": "Group-level concept",
+      "node_id": "o2_totals",
+      "op": "aggregate",
+      "source_text": "What seat position had the highest purchase amount?",
+      "ref": "seat_totals = df_ps_econ.groupby(\"Seat Position\", as_index=False)[\n        \"purchase_amount\"].sum()",
+      "intent": "Sum Economy passenger purchases by Seat Position."
+    },
+    {
+      "id": "16_C2_o3_rank_starts_at_1",
+      "kind": "Row-level concept",
+      "node_id": "o3_rank",
+      "op": "project",
+      "intent": "Use consecutive class ranks starting at1.",
+      "ref": "class_totals.insert(0, \"Rank\", range(1, len(class_totals) + 1))",
+      "source_text": "Rank results with Rank = 1 for the highest total; break ties by `Business Class` ascending."
+    },
+    {
+      "id": "17_O1_o3_round_purchase_amount_2dp",
+      "kind": "Operation boundary",
+      "node_id": "o3_round",
+      "op": "project",
+      "intent": "Round cabin purchase totals to two decimals.",
+      "ref": "class_totals[\"Purchase Amount\"] = class_totals[\"Purchase Amount\"].round(2)",
+      "source_text": "Round totals to 2 decimal places."
+    },
+    {
+      "id": "18_C2_o3_rank_descending_by_purchase_amount",
+      "kind": "Row-level concept",
+      "node_id": "o3_sort",
+      "op": "sort",
+      "intent": "Highest cabin purchase total has rank1.",
+      "ref": "class_totals = class_totals.sort_values([\"Purchase Amount\", \"Business Class\"], ascending=[\n                                            False, True], kind=\"mergesort\").reset_index(drop=True)",
+      "source_text": "Rank results with Rank = 1 for the highest total; break ties by `Business Class` ascending."
+    },
+    {
+      "id": "19_O3_o3_tiebreak_business_class_asc",
+      "kind": "Operation boundary",
+      "node_id": "o3_sort",
+      "op": "sort",
+      "intent": "Break equal class totals by Business Class label ascending.",
+      "ref": "class_totals = class_totals.sort_values([\"Purchase Amount\", \"Business Class\"], ascending=[\n                                            False, True], kind=\"mergesort\").reset_index(drop=True)",
+      "source_text": "Rank results with Rank = 1 for the highest total; break ties by `Business Class` ascending."
+    },
+    {
+      "id": "20_C2_o3_sum_purchase_grouped_by_class",
+      "kind": "Group-level concept",
+      "node_id": "o3_totals",
+      "op": "aggregate",
+      "source_text": "As Business Class purchases are free, how much is this costing us?",
+      "ref": "class_totals = df_ps.groupby(\"Business Class\", as_index=False)[\n        \"purchase_amount\"].sum()",
+      "intent": "Sum all passenger purchases separately by cabin; the Business Class total is the free-purchase cost."
+    },
+    {
+      "id": "21_O2_drop_passengers_missing_required_ids",
+      "kind": "Operation incomplete",
+      "node_id": "pass_filter_valid",
+      "op": "filter",
+      "intent": "Drop records lacking valid passenger and flight identifiers.",
+      "ref": "df_pass = df_pass.dropna(\n        subset=[\"passenger_number\", \"flight_number\"]).copy()",
+      "source_text": "`passenger_number` and `flight_number` must be numeric and present for a passenger record to be retained."
+    },
+    {
+      "id": "22_O2_bc_single_row_means_start_equals_end",
+      "kind": "Operation boundary",
+      "node_id": "plane_finalize",
+      "op": "project",
+      "intent": "A single business row number is an inclusive one-row range.",
+      "ref": "v = int(r)\n            return (v, v)",
+      "source_text": "If provided as a single row number, treat start and end as the same row."
+    },
+    {
+      "id": "23_D1_plane_flight_identifier_is_flightno",
+      "kind": "Single-table reference",
+      "node_id": "plane_rename",
+      "op": "project",
+      "intent": "Join Plane Details using FlightNo. as flight identifier.",
+      "ref": "df_plane = df_plane.rename(columns={\"FlightNo.\": \"FlightID\"})",
+      "source_text": "In Plane Details, treat `FlightNo.` as the flight identifier"
+    },
+    {
+      "id": "24_O1_business_class_row_range_inclusive",
+      "kind": "Operation boundary",
+      "node_id": "ps_with_class",
+      "op": "project",
+      "intent": "Both endpoints of the business seating range are included.",
+      "ref": "is_bc = (df_ps[\"Row\"].notna()) & (df_ps[\"bc_start\"].notna()) & (\n        df_ps[\"Row\"] >= df_ps[\"bc_start\"]) & (df_ps[\"Row\"] <= df_ps[\"bc_end\"])",
+      "source_text": "within the inclusive range `[bc_start, bc_end]`"
+    },
+    {
+      "id": "25_O2_drop_seat_assignments_missing_passenger_number",
+      "kind": "Operation incomplete",
+      "node_id": "seat_filter_valid",
+      "op": "filter",
+      "intent": "Ignore seat assignments without a valid passenger number.",
+      "ref": "seat_long = seat_long.dropna(subset=[\"passenger_number\"]).copy()",
+      "source_text": "In the seat mapping, retain only seat assignments with a valid numeric `passenger_number`."
+    },
+    {
+      "id": "26_D1_seat_list_wide_to_long_melt",
+      "kind": "Single-table reference",
+      "node_id": "seat_long",
+      "op": "pivot",
+      "source_text": "Reshape the **Seat List** from wide to long",
+      "ref": "seat_long = df_seat.melt(\n        id_vars=[\"Row\"], var_name=\"SeatLetter\", value_name=\"passenger_number\")",
+      "intent": "Create one seat assignment per passenger number from the six seat-letter columns."
+    }
+  ]
+}

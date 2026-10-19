@@ -1,0 +1,32 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Breakdown",
+        "Month",
+        "Country"
+      ],
+      "columns": {
+        "Breakdown": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Month": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Country": {
+          "type": "text_exact",
+          "null_values": [],
+          "aliases": {
+            "the United Kingdom": "United Kingdom"
+          }
+        },
+        "Number of Tourists": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_D1_target_from_series_measure_prefix",
+      "kind": "Single-table reference",
+      "node_id": "n_add_target",
+      "op": "project",
+      "source_text": "Split out the Continent and Country names from the relevant fields",
+      "ref": "df_from['target'] = df_from['Series-Measure'].str[len(PREFIX_FROM):]",
+      "intent": "Remove the series prefix to obtain the label. The country labels the United Kingdom and United Kingdom denote the same country; neither spelling excludes its records."
+    },
+    {
+      "id": "2_O2_month_parse_pattern_b_y",
+      "kind": "Row-level concept",
+      "node_id": "n_clean",
+      "op": "project",
+      "intent": "Interpret the month-year headers as the first day of that month.",
+      "ref": "df['Month'] = pd.to_datetime(df['Month'], format='%b-%y')",
+      "source_text": "Parse `Month` as a date using the month-year pattern shown in the headers"
+    },
+    {
+      "id": "3_O2_numeric_parse_errors_coerce",
+      "kind": "Operation incomplete",
+      "node_id": "n_clean",
+      "op": "project",
+      "intent": "Nonnumeric counts become null and are filtered out.",
+      "ref": "df['Number of Tourists'] = pd.to_numeric(df['Number of Tourists'], errors='coerce')",
+      "source_text": "Remove rows where `Number of Tourists` is null after numeric conversion."
+    },
+    {
+      "id": "4_C1_continent_label_set_for_totals",
+      "kind": "Single-table reference",
+      "node_id": "n_continents_only",
+      "op": "filter",
+      "source_text": "in our Continents level of detail, we also have The Middle East and UN passport holders as categories.",
+      "ref": "CONTINENTS = ['Europe', 'Asia', 'Africa', 'Americas', 'Oceania', 'the Middle East']",
+      "intent": "Continent totals include Europe, Asia, Africa, Americas, Oceania, and the Middle East."
+    },
+    {
+      "id": "5_C1_breakdown_last_path_segment_for_country_rows",
+      "kind": "Row-level concept",
+      "node_id": "n_countries_compute",
+      "op": "project",
+      "source_text": "Split out the Continent and Country names from the relevant fields",
+      "ref": "df_c['Breakdown'] = df_c['Breakdown'].apply(lambda x: x.split(' / ')[-1])",
+      "intent": "The final hierarchy segment gives the country row continent."
+    },
+    {
+      "id": "6_C1_keep_only_specified_country_continent_combos",
+      "kind": "Row-level concept",
+      "node_id": "n_countries_keep",
+      "op": "filter",
+      "intent": "Use the listed country/continent pairs; they cover every country series in this input. Match the United Kingdom to United Kingdom, keep its rows, and include its counts when subtracting countries from Europe totals.",
+      "ref": "query_full.md: Keep only the following country/continent combinations (discard all other country rows):",
+      "source_text": "Keep only the following country/continent combinations (discard all other country rows):"
+    },
+    {
+      "id": "7_C1_series_in_scope_prefix_from",
+      "kind": "Single-table reference",
+      "node_id": "n_from",
+      "op": "filter",
+      "source_text": "Filter our dataset so our Values are referring to Number of Tourists",
+      "ref": "PREFIX_FROM = 'Tourist arrivals from '",
+      "intent": "Keep tourist-arrival counts, including the separate UN series, and remove other measures."
+    },
+    {
+      "id": "8_D1_pivot_identifier_columns",
+      "kind": "Single-table reference",
+      "node_id": "n_melt",
+      "op": "pivot",
+      "source_text": "Pivot all of the month fields into a single column",
+      "ref": "df = raw.melt(\n        id_vars=['id', 'Series-Measure', 'Hierarchy-Breakdown', 'Unit-Detail'],\n        var_name='Month',\n        value_name='Value'\n    )",
+      "intent": "Retain id, Series-Measure, Hierarchy-Breakdown and Unit-Detail as identifiers while unpivoting month columns."
+    },
+    {
+      "id": "9_C2_country_to_continent_aggregation_sum_keys",
+      "kind": "Group-level concept",
+      "node_id": "n_sum_c",
+      "op": "aggregate",
+      "source_text": "Aggregate our Country stream to the Continent level",
+      "ref": "sum_c = df_c.groupby(['Month', 'Breakdown'], as_index=False)['Number of Tourists'].sum()",
+      "intent": "Sum country counts within each month and continent."
+    },
+    {
+      "id": "10_C1_include_un_passport_series_as_unknown",
+      "kind": "Single-table reference",
+      "node_id": "n_un_filter",
+      "op": "filter",
+      "source_text": "we also have The Middle East and UN passport holders as categories.",
+      "ref": "SERIES_UN = 'Tourist arrivals - UN passport holders and others'",
+      "intent": "Retain UN passport holders and others as a separate Unknown country category."
+    },
+    {
+      "id": "11_C1_un_rows_set_breakdown_and_country_unknown",
+      "kind": "Row-level concept",
+      "node_id": "n_un_set",
+      "op": "project",
+      "intent": "For this series use Breakdown UN passport holders and others and Country Unknown.",
+      "ref": "query_full.md: `Breakdown` = `UN passport holders and others`",
+      "source_text": "`Breakdown` = `UN passport holders and others`"
+    },
+    {
+      "id": "12_O1_unknown_negative_clip_to_zero",
+      "kind": "Operation boundary",
+      "node_id": "n_unknown_compute",
+      "op": "project",
+      "intent": "Clip negative residual unknown counts to zero.",
+      "ref": "unknown['Number of Tourists'] = (unknown['Continent Total'] - unknown['Countries Sum']).clip(lower=0).astype(int)",
+      "source_text": "If the subtraction is negative, set the result to 0"
+    },
+    {
+      "id": "13_O2_unknown_missing_country_sum_as_zero",
+      "kind": "Operation incomplete",
+      "node_id": "n_unknown_compute",
+      "op": "project",
+      "intent": "An absent country sum contributes zero.",
+      "ref": "unknown['Countries Sum'] = unknown['Countries Sum'].fillna(0).astype(int)",
+      "source_text": "If a continent-month has no matching country sum, treat `Countries Sum` as 0."
+    },
+    {
+      "id": "14_D2_unknown_join_keys_and_left_join",
+      "kind": "Multi-table alignment",
+      "node_id": "n_unknown_join",
+      "op": "join",
+      "source_text": "Join the two streams together and work out how many tourists arrivals there are that we don't know the country of",
+      "ref": "unknown = pd.merge(df_cont, sum_c, on=['Month', 'Continent'], how='left')",
+      "intent": "Left join continent totals to country sums by continent and month, then subtract."
+    },
+    {
+      "id": "15_C1_united_kingdom_alias",
+      "kind": "Row-level concept",
+      "node_id": "n_countries_compute",
+      "op": "project",
+      "source_text": "Create `Country` from `target`. Treat `the United Kingdom` and `United Kingdom` as the same country when matching the country list and calculating country totals. Either name is accepted in the output.",
+      "intent": "the United Kingdom and United Kingdom identify the same country; keep its country rows, include it in Europe totals, and accept either spelling in output.",
+      "ref": "df_c['Country'] = df_c['target'].replace({'the United Kingdom': 'United Kingdom'})"
+    }
+  ]
+}

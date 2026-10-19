@@ -1,0 +1,58 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_D1_input_file_to_store_mapping",
+      "kind": "Multi-table alignment",
+      "node_id": "add_store",
+      "op": "project",
+      "source_text": "The store sales files are `input_01.csv` (Manchester), `input_02.csv` (London), `input_03.csv` (Leeds), `input_04.csv` (York), and `input_05.csv` (Birmingham).",
+      "ref": "query.md: The store sales files are `input_01.csv` (Manchester), `input_02.csv` (London), `input_03.csv` (Leeds), `input_04.csv` (York), and `input_05.csv` (Birmingham).",
+      "intent": "Assign the stated store name to each corresponding input sales file before combining rows."
+    },
+    {
+      "id": "2_C2_variance_direction",
+      "kind": "Row-level concept",
+      "node_id": "compute_metrics",
+      "op": "project",
+      "source_text": "Calculate the Variance between each Store's Quarterly actual sales and the target.",
+      "ref": "result_df[\"Variance to Target\"] = result_df[\"Products Sold\"] - result_df[\"Target\"]",
+      "intent": "Calculate actual Products Sold minus Target, retaining the sign."
+    },
+    {
+      "id": "3_O3_rank_tie_method",
+      "kind": "Operation boundary",
+      "node_id": "compute_metrics",
+      "op": "project",
+      "source_text": "Rank the Store's based on the Variance to Target in each quarter",
+      "ref": "method=\"dense\"",
+      "intent": "Rank descending within each quarter using dense ranks; ties share a rank and the next distinct variance takes the next rank."
+    },
+    {
+      "id": "4_D2_join_keys",
+      "kind": "Multi-table alignment",
+      "node_id": "join_targets",
+      "op": "join",
+      "source_text": "Join the Targets data with the aggregated Stores data",
+      "ref": "on=[\"Store\", \"Quarter\"]",
+      "intent": "Join sales and targets by Store and Quarter together."
+    },
+    {
+      "id": "5_O2_join_unmatched_policy",
+      "kind": "Operation incomplete",
+      "node_id": "join_targets",
+      "op": "join",
+      "source_text": "Join the Targets data with the aggregated Stores data",
+      "ref": "how=\"inner\"",
+      "intent": "Use an inner join with matching Store and Quarter."
+    },
+    {
+      "id": "6_D1_pivot_columns_selection",
+      "kind": "Single-table reference",
+      "node_id": "pivot_longer",
+      "op": "pivot",
+      "source_text": "Pivot the product columns",
+      "ref": "query_full.md: Pivot the product columns",
+      "intent": "Pivot all product sales columns, keeping Date and Store as identifier fields."
+    }
+  ]
+}

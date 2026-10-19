@@ -1,0 +1,64 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Depart Time of Day"
+      ],
+      "columns": {
+        "Depart Time of Day": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Rank": {
+          "type": "integer"
+        },
+        "Avg per Flight": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Seat Position"
+      ],
+      "columns": {
+        "Seat Position": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Rank": {
+          "type": "integer"
+        },
+        "Purchase Amount": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    },
+    "output_03.csv": {
+      "key": [
+        "Business Class"
+      ],
+      "columns": {
+        "Business Class": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Rank": {
+          "type": "integer"
+        },
+        "Purchase Amount": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_weekly_stats_partition",
+      "kind": "Group-level concept",
+      "node_id": "agg_week",
+      "op": "aggregate",
+      "source_text": "Create the mean and standard deviation for each Week",
+      "ref": "vals = df.loc[df[\"Week\"] == wk, \"Complaints\"]",
+      "intent": "Compute weekly statistics across all departments combined."
+    },
+    {
+      "id": "2_O1_outlier_strict_comparison",
+      "kind": "Operation boundary",
+      "node_id": "filter_sd",
+      "op": "filter",
+      "source_text": "Values exactly equal to a control limit are **not** outliers.",
+      "ref": "query_full.md: Values exactly equal to a control limit are **not** outliers.",
+      "intent": "Use strict lower/upper comparisons; equality remains within the limits."
+    },
+    {
+      "id": "3_O2_date_parse_dmy",
+      "kind": "Row-level concept",
+      "node_id": "init_project",
+      "op": "project",
+      "intent": "Parse the source Date as day/month/year.",
+      "ref": "df[\"Date\"] = pd.to_datetime(df[\"Date\"], format=\"%d/%m/%Y\", errors=\"raise\")",
+      "source_text": "Parse `Date` as a true date using the day/month/year format"
+    },
+    {
+      "id": "4_D2_join_on_week_only",
+      "kind": "Multi-table alignment",
+      "node_id": "merge_week_stats",
+      "op": "join",
+      "source_text": "Join the original data set back on to these results",
+      "ref": "df = df.merge(agg, on=\"Week\", how=\"left\")",
+      "intent": "Join the statistics on Week."
+    },
+    {
+      "id": "5_O2_join_left_keep_all_rows",
+      "kind": "Operation incomplete",
+      "node_id": "merge_week_stats",
+      "op": "join",
+      "source_text": "Join the original data set back on to these results",
+      "ref": "how=\"left\"",
+      "intent": "Use a left join to retain each observation before outlier filtering."
+    },
+    {
+      "id": "6_C2_sample_standard_deviation",
+      "kind": "Group-level concept",
+      "node_id": "proj_sd",
+      "op": "project",
+      "source_text": "Create the mean and standard deviation for each Week",
+      "ref": "query.md: Create the mean and standard deviation for each Week",
+      "intent": "Use sample standard deviation with denominator n minus one."
+    },
+    {
+      "id": "7_O2_sd_undefined_when_n_lt_2",
+      "kind": "Operation incomplete",
+      "node_id": "proj_sd",
+      "op": "project",
+      "intent": "A week with fewer than two observations has undefined standard deviation.",
+      "ref": "if len(vals) > 1 else float(\"nan\")",
+      "source_text": "if a week has fewer than 2 observations, the standard deviation is undefined"
+    },
+    {
+      "id": "8_C1_outlier_label",
+      "kind": "Row-level concept",
+      "node_id": "project_compute",
+      "op": "project",
+      "source_text": "Output only Outliers",
+      "ref": "query.md: Output only Outliers",
+      "intent": "Use Outside for 1SD and Outlier for 2SD/3SD as the public output contract specifies."
+    }
+  ]
+}

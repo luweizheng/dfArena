@@ -1,0 +1,63 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Name",
+        "Evolving to"
+      ],
+      "columns": {
+        "Evolution Group": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "#": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Total": {
+          "type": "integer"
+        },
+        "HP": {
+          "type": "integer"
+        },
+        "Attack": {
+          "type": "integer"
+        },
+        "Defense": {
+          "type": "integer"
+        },
+        "Special Attack": {
+          "type": "integer"
+        },
+        "Special Defense": {
+          "type": "integer"
+        },
+        "Speed": {
+          "type": "integer"
+        },
+        "Evolving from": {
+          "type": "text_exact"
+        },
+        "Evolving to": {
+          "type": "text_exact"
+        },
+        "Level": {
+          "type": "integer"
+        },
+        "Condition": {
+          "type": "text_exact"
+        },
+        "Evolution Type": {
+          "type": "text_exact"
+        },
+        "First Evolution": {
+          "type": "text_exact"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

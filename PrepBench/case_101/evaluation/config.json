@@ -1,0 +1,64 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Brand",
+        "Bike Type"
+      ],
+      "columns": {
+        "Brand": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Bike Type": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Quantity Sold": {
+          "type": "integer"
+        },
+        "Order Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Avg Bike Value per Brand": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Brand",
+        "Store"
+      ],
+      "columns": {
+        "Brand": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Store": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Total Quantity Sold": {
+          "type": "integer"
+        },
+        "Total Order Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Avg Days to Ship": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O1_test_orders_filter",
+      "kind": "Operation incomplete",
+      "node_id": "filter_orderid_gt10",
+      "op": "filter",
+      "source_text": "Remove the first 10 orders as they are test values",
+      "ref": "df = df[df[\"Order ID\"] > 10].copy()",
+      "intent": "Exclude test orders with Order ID less than or equal to 10."
+    },
+    {
+      "id": "2_O1_store_bike_delimiter",
+      "kind": "Row-level concept",
+      "node_id": "project_compute_fields",
+      "op": "project",
+      "source_text": "Split the 'Store - Bike' field into 'Store' and 'Bike'",
+      "ref": "store_bike_split = df[\"Store - Bike\"].str.split(\" - \", n=1, expand=True)",
+      "intent": "Split the combined field on the literal delimiter space-hyphen-space."
+    },
+    {
+      "id": "3_O1_store_bike_before_after",
+      "kind": "Row-level concept",
+      "node_id": "project_compute_fields",
+      "op": "project",
+      "source_text": "Split the 'Store - Bike' field into 'Store' and 'Bike'",
+      "ref": "query.md: Split the 'Store - Bike' field into 'Store' and 'Bike'",
+      "intent": "Use the first component as Store and the second as Bike, trimming surrounding whitespace from each component."
+    }
+  ]
+}

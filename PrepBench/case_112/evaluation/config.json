@@ -1,0 +1,181 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Name",
+        "Position"
+      ],
+      "columns": {
+        "Open Play Goals": {
+          "type": "integer"
+        },
+        "Goals with right foot": {
+          "type": "integer"
+        },
+        "Goals with left foot": {
+          "type": "integer"
+        },
+        "Position": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Appearances": {
+          "type": "integer"
+        },
+        "Rank": {
+          "type": "integer"
+        },
+        "Total Goals": {
+          "type": "integer"
+        },
+        "Open Play Goals/Game": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        },
+        "Headed goals": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "text_exact",
+          "null_values": [],
+          "aliases": {
+            "Alexandre Lacazette ": "Alexandre Lacazette",
+            "Alexis Sánchez ": "Alexis Sánchez",
+            "Anthony Martial ": "Anthony Martial",
+            "Dele Alli ": "Dele Alli",
+            "Eden Hazard ": "Eden Hazard",
+            "Gabriel Jesus ": "Gabriel Jesus",
+            "Harry Kane ": "Harry Kane",
+            "Jamie Vardy ": "Jamie Vardy",
+            "Joshua King ": "Joshua King",
+            "Marcus Rashford ": "Marcus Rashford",
+            "Marko Arnautovic ": "Marko Arnautovic",
+            "Michail Antonio ": "Michail Antonio",
+            "Mohamed Salah ": "Mohamed Salah",
+            "Olivier Giroud ": "Olivier Giroud",
+            "Pierre-Emerick Aubameyang ": "Pierre-Emerick Aubameyang",
+            "Riyad Mahrez ": "Riyad Mahrez",
+            "Roberto Firmino ": "Roberto Firmino",
+            "Romelu Lukaku ": "Romelu Lukaku",
+            "Sadio Mané ": "Sadio Mané",
+            "Salomón Rondón ": "Salomón Rondón",
+            "Sergio Agüero ": "Sergio Agüero",
+            "Son Heung-Min ": "Son Heung-Min"
+          }
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Name",
+        "Position"
+      ],
+      "columns": {
+        "Rank by Position": {
+          "type": "integer"
+        },
+        "Open Play Goals": {
+          "type": "integer"
+        },
+        "Goals with right foot": {
+          "type": "integer"
+        },
+        "Goals with left foot": {
+          "type": "integer"
+        },
+        "Position": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Appearances": {
+          "type": "integer"
+        },
+        "Total Goals": {
+          "type": "integer"
+        },
+        "Open Play Goals/Game": {
+          "type": "number",
+          "abs_tol": 5e-10,
+          "rel_tol": 0
+        },
+        "Headed goals": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "text_exact",
+          "null_values": [],
+          "aliases": {
+            "Aaron Ramsey ": "Aaron Ramsey",
+            "Abdoulaye Doucouré ": "Abdoulaye Doucouré",
+            "Alexandre Lacazette ": "Alexandre Lacazette",
+            "Alexis Sánchez ": "Alexis Sánchez",
+            "Andros Townsend ": "Andros Townsend",
+            "Anthony Martial ": "Anthony Martial",
+            "Bernardo Silva ": "Bernardo Silva",
+            "Charlie Daniels ": "Charlie Daniels",
+            "Christian Eriksen ": "Christian Eriksen",
+            "Craig Dawson ": "Craig Dawson",
+            "César Azpilicueta ": "César Azpilicueta",
+            "Daryl Janmaat ": "Daryl Janmaat",
+            "David Luiz ": "David Luiz",
+            "David Silva ": "David Silva",
+            "Dele Alli ": "Dele Alli",
+            "Eden Hazard ": "Eden Hazard",
+            "Gabriel Jesus ": "Gabriel Jesus",
+            "Gareth McAuley ": "Gareth McAuley",
+            "Gary Cahill ": "Gary Cahill",
+            "Georginio Wijnaldum ": "Georginio Wijnaldum",
+            "Gylfi Sigurdsson ": "Gylfi Sigurdsson",
+            "Harry Kane ": "Harry Kane",
+            "Harry Maguire ": "Harry Maguire",
+            "James McArthur ": "James McArthur",
+            "James Tomkins ": "James Tomkins",
+            "Jamie Vardy ": "Jamie Vardy",
+            "Jesse Lingard ": "Jesse Lingard",
+            "Joshua King ": "Joshua King",
+            "Kevin De Bruyne ": "Kevin De Bruyne",
+            "Laurent Koscielny ": "Laurent Koscielny",
+            "Leroy Sané ": "Leroy Sané",
+            "Manuel Lanzini ": "Manuel Lanzini",
+            "Marcos Alonso ": "Marcos Alonso",
+            "Marcus Rashford ": "Marcus Rashford",
+            "Marko Arnautovic ": "Marko Arnautovic",
+            "Matt Doherty ": "Matt Doherty",
+            "Mesut Özil ": "Mesut Özil",
+            "Michail Antonio ": "Michail Antonio",
+            "Mohamed Salah ": "Mohamed Salah",
+            "Nacer Chadli ": "Nacer Chadli",
+            "Nathan Aké ": "Nathan Aké",
+            "Nathan Redmond ": "Nathan Redmond",
+            "Nicolás Otamendi ": "Nicolás Otamendi",
+            "Olivier Giroud ": "Olivier Giroud",
+            "Patrick van Aanholt ": "Patrick van Aanholt",
+            "Paul Pogba ": "Paul Pogba",
+            "Philippe Coutinho ": "Philippe Coutinho",
+            "Pierre-Emerick Aubameyang ": "Pierre-Emerick Aubameyang",
+            "Riyad Mahrez ": "Riyad Mahrez",
+            "Roberto Firmino ": "Roberto Firmino",
+            "Roberto Pereyra ": "Roberto Pereyra",
+            "Romelu Lukaku ": "Romelu Lukaku",
+            "Ryan Fraser ": "Ryan Fraser",
+            "Sadio Mané ": "Sadio Mané",
+            "Salomón Rondón ": "Salomón Rondón",
+            "Scott Dann ": "Scott Dann",
+            "Sergio Agüero ": "Sergio Agüero",
+            "Shkodran Mustafi ": "Shkodran Mustafi",
+            "Son Heung-Min ": "Son Heung-Min",
+            "Steve Cook ": "Steve Cook",
+            "Séamus Coleman ": "Séamus Coleman",
+            "Toby Alderweireld ": "Toby Alderweireld",
+            "Vincent Kompany ": "Vincent Kompany",
+            "Virgil van Dijk ": "Virgil van Dijk",
+            "Xherdan Shaqiri ": "Xherdan Shaqiri"
+          }
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}
