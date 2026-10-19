@@ -44,7 +44,7 @@
           "null_values": []
         },
         "Player": {
-          "type": "text_exact",
+          "type": "text_norm",
           "null_values": []
         },
         "Country": {

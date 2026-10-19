@@ -50,7 +50,7 @@
           }
         },
         "Who": {
-          "type": "text_exact",
+          "type": "text_norm",
           "null_values": []
         },
         "First Time Indicator": {
