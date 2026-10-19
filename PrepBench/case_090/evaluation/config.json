@@ -1,0 +1,37 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Costume",
+        "Country",
+        "Currency",
+        "Price"
+      ],
+      "columns": {
+        "Costume": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Country": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Currency": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Price": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "2019 FY Sales": {
+          "type": "integer"
+        },
+        "2020 FY Sales": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

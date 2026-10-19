@@ -1,0 +1,103 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_decade_round_minmax",
+      "kind": "Group-level concept",
+      "node_id": "agg_summary",
+      "op": "aggregate",
+      "source_text": "For each Decade, find the highest and lowest total score and round score.",
+      "ref": "query_full.md: For each Decade, find the highest and lowest total score and round score.",
+      "intent": "Compute decade min/max separately at round and tournament-year grain."
+    },
+    {
+      "id": "2_D2_join_year_left_from_scoring",
+      "kind": "Multi-table alignment",
+      "node_id": "join_combined",
+      "op": "join",
+      "source_text": "Join both data tables.",
+      "ref": "query_full.md: Join both data tables.",
+      "intent": "Left join scoring to details on Year."
+    },
+    {
+      "id": "3_O3_join_year_duplicate_handling",
+      "kind": "Operation inconsistent",
+      "node_id": "join_combined",
+      "op": "join",
+      "intent": "Years are unique in each table.",
+      "ref": "validate=\"one_to_one\"",
+      "source_text": "The join is expected to be one-to-one by Year."
+    },
+    {
+      "id": "4_C2_decade_floor_year",
+      "kind": "Row-level concept",
+      "node_id": "proj_add_decade",
+      "op": "project",
+      "source_text": "Create a field to determine the decade of each year.",
+      "ref": "combined[\"Year\"] // 10) * 10",
+      "intent": "Decade is floor(Year/10)*10."
+    },
+    {
+      "id": "5_C2_row_index_from_min_decade",
+      "kind": "Row-level concept",
+      "node_id": "proj_enrich_long",
+      "op": "project",
+      "intent": "Row is the one-based decade index from the earliest decade.",
+      "ref": "((long_df[\"Decade\"] - min_decade) // 10) + 1",
+      "source_text": "Compute **Row** to stack decades vertically"
+    },
+    {
+      "id": "6_C2_column_year_within_decade",
+      "kind": "Row-level concept",
+      "node_id": "proj_enrich_long",
+      "op": "project",
+      "intent": "Column is Year minus Decade plus one.",
+      "ref": "long_df[\"Year\"] - long_df[\"Decade\"] + 1",
+      "source_text": "Compute **Column** to position years within a decade from 1 to 10"
+    },
+    {
+      "id": "7_C2_round_number_extract",
+      "kind": "Row-level concept",
+      "node_id": "proj_enrich_long",
+      "op": "project",
+      "intent": "Extract round number 1 to 4.",
+      "ref": "long_df[\"Round Num\"].str.extract(r\"(\\d+)\").astype(int)",
+      "source_text": "Extract **Round Number** as the integer 1–4 from Round Num."
+    },
+    {
+      "id": "8_C2_round_colors_map",
+      "kind": "Row-level concept",
+      "node_id": "proj_enrich_long",
+      "op": "project",
+      "intent": "Map rounds 1–4 to A–D.",
+      "ref": "round_color_map = {1: \"A\", 2: \"B\", 3: \"C\", 4: \"D\"}",
+      "source_text": "Create **Round Colors** from Round Number using the mapping:"
+    },
+    {
+      "id": "9_C2_round_to_par_diff",
+      "kind": "Row-level concept",
+      "node_id": "proj_enrich_long",
+      "op": "project",
+      "intent": "Subtract Round Par from Round Score.",
+      "ref": "long_df[\"Round Score\"] - long_df[\"Round Par\"]",
+      "source_text": "**Round to Par = Round Score − Round Par**"
+    },
+    {
+      "id": "10_C2_polygon_coords_formula",
+      "kind": "Row-level concept",
+      "node_id": "proj_point",
+      "op": "project",
+      "source_text": "Create a square (polygon) for each round for each year.",
+      "ref": "query_full.md: Create a square (polygon) for each round for each year.",
+      "intent": "Use sqrt(actual Round Score) and the full requirement vertex multiplier table. Accept full precision or 9 decimal places; final row order is unrestricted."
+    },
+    {
+      "id": "11_C2_round_par_from_total_to_par",
+      "kind": "Row-level concept",
+      "node_id": "proj_rounds_to_par",
+      "op": "project",
+      "source_text": "Calculate the total **par score** and **round par score** for each year.",
+      "ref": "rounds[\"Round Par\"] = (rounds[\"Total\"] - rounds[\"to_par_num\"]) / 4",
+      "intent": "Round Par is round((Total - signed to-par value)/4). E/Even is zero."
+    }
+  ]
+}

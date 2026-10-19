@@ -1,0 +1,31 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_subject_constant_text",
+      "kind": "Row-level concept",
+      "node_id": "n_build_email",
+      "op": "project",
+      "source_text": "Create a field for the Email Subject and a field for the Email Body",
+      "ref": "email_subject = \"Secret Santa\"",
+      "intent": "Use the constant subject Secret Santa."
+    },
+    {
+      "id": "2_body_exact_template_text",
+      "kind": "Row-level concept",
+      "node_id": "n_build_email",
+      "op": "project",
+      "source_text": "e.g. Tom, the results are in, your secret santee is: Ellie. Good luck finding a great gift!",
+      "ref": "email_body = f\"{santa_name} the results are in your secret santee is: {santee_name}. Good luck finding a great gift!\"",
+      "intent": "Insert the giver and alphabetical successor in the supplied template. Commas after the giver name and after in are optional; all names and other words remain required."
+    },
+    {
+      "id": "new_2_email_typo_punctuation",
+      "kind": "Operation incomplete",
+      "node_id": "n_clean_email",
+      "op": "project",
+      "source_text": "Some of the email addresses contain typos. Clean them up",
+      "ref": "query.md: Some of the email addresses contain typos. Clean them up",
+      "intent": "Replace comma or exclamation mark typos with periods in email domains."
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O3_remaining_gate_priority",
+      "kind": "Row-level concept",
+      "node_id": "assign_book",
+      "op": "script",
+      "source_text": "Remaining flights should assigned to gates with the highest transport times to remote stands",
+      "ref": "    \"remaining\": lambda f: sorted(\n            f.accessible_gates, key=lambda g: (-remote_time_map[g], g)\n        ),\n",
+      "intent": "Remaining flights try accessible gates by descending remote travel time, then lower gate number."
+    },
+    {
+      "id": "2_O2_include_unassigned_time_slots_in_output",
+      "kind": "Operation incomplete",
+      "node_id": "assign_gates",
+      "op": "script",
+      "intent": "Keep every availability slot, with unassigned flight fields blank.",
+      "ref": "    records = [\n        {\n            \"Gate\": gate,\n            \"Stand\": entry.get(\"Stand\") if entry else pd.NA,\n            \"Date\": slot,\n            \"Flight\": entry.get(\"Flight\") if entry else pd.NA,\n            \"Requires Bus?\": entry.get(\"Requires Bus?\") if entry else pd.NA,\n            \"Time to Reach Stand\": entry.get(\"Time to Reach Stand\") if entry else pd.NA,\n        }\n        for gate in sorted(gate_slots)\n        for slot, entry in sorted(gate_slots[gate].items())\n    ]\n",
+      "source_text": "Include rows for time slots with no assigned flight"
+    },
+    {
+      "id": "3_O3_remote_gate_priority",
+      "kind": "Row-level concept",
+      "node_id": "assign_remote",
+      "op": "script",
+      "source_text": "Flights at remote stands should be assigned next, to minimise bus transport times for passengers",
+      "ref": "    \"remote\": lambda f: sorted(\n            f.accessible_gates, key=lambda g: (remote_time_map[g], g)\n        ),\n",
+      "intent": "Remote flights try ascending remote travel time, then lower gate number."
+    },
+    {
+      "id": "4_O2_availability_as_source_of_truth",
+      "kind": "Single-table reference",
+      "node_id": "assign_setup",
+      "op": "script",
+      "intent": "All three required slots must exist and be unassigned.",
+      "ref": "    gate_slots: Dict[int, Dict[pd.Timestamp, dict]] = {\n        gate: {date: {} for date in group[\"Date\"]}\n        for gate, group in availability_df.groupby(\"Gate\")\n    }\n",
+      "source_text": "Use the Gate Availability dataset as the source of truth"
+    },
+    {
+      "id": "5_O3_flight_processing_order",
+      "kind": "Row-level concept",
+      "node_id": "assign_setup",
+      "op": "script",
+      "source_text": "For any ties that we encounter, lower flight numbers should have priority",
+      "ref": "    flights.sort(key=lambda f: (\n        order_by_category[_category(f)], f.start, f.flight_no))\n",
+      "intent": "Process category first, boarding start next, then lower flight number."
+    },
+    {
+      "id": "6_O2_default_date_for_boarding_time",
+      "kind": "Row-level concept",
+      "node_id": "parse_allocations",
+      "op": "project",
+      "source_text": "In the Stand Allocations dataset, create a date time field for when boarding begins",
+      "ref": "query_full.md: In the Stand Allocations dataset, create a date time field for when boarding begins",
+      "intent": "Interpret HHMM on 2020-02-01, matching the availability dates."
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Scent"
+      ],
+      "columns": {
+        "Scent": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Total Profit": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "New Profit": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Difference": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

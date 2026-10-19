@@ -1,0 +1,41 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Store",
+        "Month"
+      ],
+      "columns": {
+        "Store": {
+          "type": "text_exact",
+          "null_values": [],
+          "aliases": {
+            "Exeter ": "Exeter"
+          }
+        },
+        "Sales": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Target": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Difference": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Month": {
+          "type": "date",
+          "formats": [
+            "%d/%m/%Y"
+          ]
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "ProductName",
+        "Metric",
+        "Time Period"
+      ],
+      "columns": {
+        "ProductName": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Metric": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Time Period": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "This Year": {
+          "type": "integer"
+        },
+        "Last Year": {
+          "type": "integer"
+        },
+        "Target": {
+          "type": "integer"
+        },
+        "% Difference to Last Year": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "% Difference to Target": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

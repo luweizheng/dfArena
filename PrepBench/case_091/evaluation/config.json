@@ -1,0 +1,44 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Origin",
+        "Destination"
+      ],
+      "columns": {
+        "Origin": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Origin Country": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Destination": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Destination Country": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Target Value": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        },
+        "Variance to Target": {
+          "type": "number",
+          "abs_tol": 0,
+          "rel_tol": 0
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

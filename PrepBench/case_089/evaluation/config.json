@@ -1,0 +1,55 @@
+{
+  "files": {
+    "output_01.csv": {
+      "key": [
+        "Gender",
+        "Name"
+      ],
+      "columns": {
+        "Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Gender": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "2019 Rank": {
+          "type": "integer"
+        },
+        "Count": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    },
+    "output_02.csv": {
+      "key": [
+        "Gender",
+        "Month",
+        "Name"
+      ],
+      "columns": {
+        "Name": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Month": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Gender": {
+          "type": "text_exact",
+          "null_values": []
+        },
+        "Rank": {
+          "type": "integer"
+        },
+        "Count": {
+          "type": "integer"
+        }
+      },
+      "ignore_order": true
+    }
+  }
+}

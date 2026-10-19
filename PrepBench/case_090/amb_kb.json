@@ -1,0 +1,49 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_C2_sum_sales_before_pivot",
+      "kind": "Group-level concept",
+      "node_id": "agg_sum",
+      "op": "aggregate",
+      "intent": "Sum truncated per-record amounts by Costume, Country, Currency, Price and fiscal year.",
+      "ref": "query_full.md: Group and sum the whole-number sales amounts",
+      "source_text": "Group and sum the whole-number sales amounts"
+    },
+    {
+      "id": "2_O2_exclude_missing_sales_rows",
+      "kind": "Operation incomplete",
+      "node_id": "dropna_sales",
+      "op": "filter",
+      "intent": "Drop missing sales after unpivot.",
+      "ref": "df_melted = df_melted.dropna(subset=['Sales_Value'])",
+      "source_text": "Exclude records where the sales value is missing."
+    },
+    {
+      "id": "3_O2_currency_token_can_be_multiword_or_symbol",
+      "kind": "Row-level concept",
+      "node_id": "parse_price_currency_amount",
+      "op": "project",
+      "source_text": "Careful, some currencies are described by 2 words.",
+      "ref": "query.md: Careful, some currencies are described by 2 words.",
+      "intent": "Currency may have several words or symbols; separate it from the numeric amount."
+    },
+    {
+      "id": "4_O1_remove_decimal_component_not_round",
+      "kind": "Operation boundary",
+      "node_id": "parse_price_currency_amount",
+      "op": "project",
+      "source_text": "removing the fractional part of each individual sales value before aggregating to fiscal-year totals.",
+      "ref": "df_melted['Sales_Amount'] = df_melted['Sales_Amount'].astype(int)",
+      "intent": "Truncate each sales amount toward zero before aggregation; do not round to nearest."
+    },
+    {
+      "id": "5_O2_fill_missing_fy_sales_with_zero",
+      "kind": "Operation incomplete",
+      "node_id": "pivot_fy",
+      "op": "pivot",
+      "intent": "Fill absent fiscal-year aggregate with zero.",
+      "ref": "result['2019 FY Sales'] = result['2019 FY Sales'].fillna(0).astype('Int64')",
+      "source_text": "If a row has no sales for a given fiscal year"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_duplicate_definition_poem_and_line",
+      "kind": "Row-level concept",
+      "node_id": "n_dedup",
+      "op": "dedup",
+      "source_text": "Wordsworth is very original, so there shouldn't be any duplicate lines in our data set. Filter out any repeated rows",
+      "ref": "df_poems = df_poems.drop_duplicates(subset=['Poem', 'Line'])",
+      "intent": "Deduplicate cleaned Line within Poem, keeping first occurrence."
+    },
+    {
+      "id": "2_drop_lines_with_zero_extracted_words",
+      "kind": "Operation incomplete",
+      "node_id": "n_filter_has_words",
+      "op": "filter",
+      "intent": "Exclude wordless lines without advancing line number.",
+      "ref": "                if not words:\n                    continue",
+      "source_text": "If a line yields zero extracted words"
+    },
+    {
+      "id": "3_exclude_comment_metadata_lines",
+      "kind": "Row-level concept",
+      "node_id": "n_filter_poem",
+      "op": "filter",
+      "intent": "Exclude Written in, Composed in and The next ... poems notes.",
+      "ref": "        comment_patterns = [\n            r'^Written in .+\\.$',\n            r'^Composed in .+\\.$',\n            r'^The next .+ poems .+\\.$'\n        ]\n        for pattern in comment_patterns:\n            if re.match(pattern, cleaned, re.IGNORECASE):\n                return False",
+      "source_text": "Exclude editorial metadata lines"
+    },
+    {
+      "id": "4_exclude_html_css_js_by_patterns",
+      "kind": "Row-level concept",
+      "node_id": "n_filter_poem",
+      "op": "filter",
+      "source_text": "Lines of the poem will not contain any HTML, css or js",
+      "ref": "        if '<' in text or '>' in text:\n            return False\n        \n        html_patterns = [\n            r'<SCRIPT', r'</SCRIPT', r'<STYLE', r'</STYLE', r'<HEAD', r'</HEAD',\n            r'<BODY', r'</BODY', r'<HTML', r'</HTML', r'<BR', r'<DIV', r'<P>',\n            r'STYLE=', r'JAVASCRIPT', r'OBJECT\\(\\)', r'E9=', r'URCHIN', r'ADSBYGOOGLE',\n            r'GOOGLE_AD', r'DATA-AD', r'WINDOW\\.', r'PUSH\\({}\\)', r'_UACCT',\n            r'SIZE =', r'728X90', r'468X60', r'336X280', r'300X250', r'300X600'\n        ]\n        for pattern in html_patterns:\n            if re.search(pattern, text_upper):\n                return False",
+      "intent": "Exclude HTML, CSS and JavaScript using the specified patterns."
+    },
+    {
+      "id": "5_minimum_line_length_three",
+      "kind": "Operation boundary",
+      "node_id": "n_filter_poem",
+      "op": "filter",
+      "intent": "Require cleaned length at least three.",
+      "ref": "        if len(cleaned) < 3:\n            return False",
+      "source_text": "exclude rows where the cleaned text length is less than 3 characters."
+    },
+    {
+      "id": "6_drop_empty_or_na_lines",
+      "kind": "Operation incomplete",
+      "node_id": "n_filter_poem",
+      "op": "filter",
+      "intent": "Skip missing or empty text.",
+      "ref": "        if not text or pd.isna(text):\n            return False",
+      "source_text": "Rows that are empty"
+    },
+    {
+      "id": "7_require_at_least_one_alphabetic_char",
+      "kind": "Operation boundary",
+      "node_id": "n_filter_poem",
+      "op": "filter",
+      "intent": "Require an alphabetic character.",
+      "ref": "        if not any(c.isalpha() for c in cleaned):\n            return False",
+      "source_text": "The cleaned text must contain at least one alphabetic character"
+    },
+    {
+      "id": "8_exclude_equals_when_no_alpha_in_first_20",
+      "kind": "Operation boundary",
+      "node_id": "n_filter_poem",
+      "op": "filter",
+      "intent": "Exclude this assignment-like pattern.",
+      "ref": "        if '=' in cleaned and not any(c.isalpha() for c in cleaned[:20]):\n            return False",
+      "source_text": "Contain an equals sign (`=`) and the first 20 characters contain no alphabetic characters"
+    },
+    {
+      "id": "9_exclude_code_like_multiple_equals_or_semicolon",
+      "kind": "Row-level concept",
+      "node_id": "n_filter_poem",
+      "op": "filter",
+      "intent": "Exclude these code-like patterns.",
+      "ref": "        if cleaned.count('=') > 1 or (cleaned.count(';') > 0 and '=' in cleaned):\n            return False",
+      "source_text": "Contain multiple equals signs, or contain both equals sign and semicolon"
+    },
+    {
+      "id": "10_flag_all_tied_max_scores",
+      "kind": "Operation boundary",
+      "node_id": "n_project_final",
+      "op": "project",
+      "source_text": "Create a flag for the highest scoring word in each poem",
+      "ref": "        poem_max_scores = output_df.groupby('Poem')['Score'].max()\n        \n        def is_highest_scoring(row):\n            poem = row['Poem']\n            max_score = poem_max_scores[poem]\n            return row['Score'] == max_score",
+      "intent": "Flag every word occurrence tied at the poem’s maximum score."
+    },
+    {
+      "id": "11_use_rowid_as_original_order",
+      "kind": "Single-table reference",
+      "node_id": "n_sort",
+      "op": "sort",
+      "intent": "Use RowID for source line order.",
+      "ref": "        poem_df = poem_df.sort_values('RowID').reset_index(drop=True)",
+      "source_text": "using the input’s row ordering field"
+    },
+    {
+      "id": "12_standard_scrabble_letter_values_mapping",
+      "kind": "Row-level concept",
+      "node_id": "n_word_fmt",
+      "op": "project",
+      "source_text": "Split the data into individual letters and combine with the associated Scrabble score",
+      "ref": "query_full.md: Split the data into individual letters and combine with the associated Scrabble score",
+      "intent": "Sum the supplied standard Scrabble score for each letter."
+    },
+    {
+      "id": "13_remove_apostrophes_and_hyphens_before_word_extraction",
+      "kind": "Row-level concept",
+      "node_id": "n_words",
+      "op": "project",
+      "source_text": "Split the data out so there is a line for each word and assign a word number for each line",
+      "ref": "                words_text = line_text.replace(\"'\", \"\").replace(\"-\", \"\")",
+      "intent": "Remove apostrophes and hyphens before tokenization."
+    },
+    {
+      "id": "14_define_words_as_contiguous_alphabetic_sequences",
+      "kind": "Row-level concept",
+      "node_id": "n_words",
+      "op": "project",
+      "source_text": "Split the data out so there is a line for each word and assign a word number for each line",
+      "ref": "                words = re.findall(r'\\b[A-Za-z]+\\b', words_text)",
+      "intent": "Extract alphabetic word tokens and assign one-based position within line."
+    }
+  ]
+}

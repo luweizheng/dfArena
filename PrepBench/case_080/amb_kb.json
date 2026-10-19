@@ -1,0 +1,85 @@
+{
+  "ambiguities": [
+    {
+      "id": "1_O1_round_to_nearest_10_ties_to_even",
+      "kind": "Operation boundary",
+      "node_id": "avg_round",
+      "op": "project",
+      "source_text": "Round this to the nearest 10",
+      "ref": "avg_units_per_day[\"Rounded to 10\"] = (np.round(avg_units_per_day[\"Rounded Up\"] / 10) * 10).astype(int)",
+      "intent": "Round the ceiled daily average to nearest ten, with halfway ties to an even multiple of ten."
+    },
+    {
+      "id": "2_C2_avg_daily_units_mean_over_all_days",
+      "kind": "Group-level concept",
+      "node_id": "avg_units",
+      "op": "aggregate",
+      "source_text": "Calculate the Average Units Sold each day for each Scent",
+      "ref": "avg_units_per_day = daily_sales.groupby(\"Scent Code\")[\"Units Sold\"].mean().reset_index()",
+      "intent": "Average daily units across all available days, by scent."
+    },
+    {
+      "id": "3_C2_units_sold_derived_from_sales_over_price",
+      "kind": "Row-level concept",
+      "node_id": "compute_sales",
+      "op": "project",
+      "intent": "Divide daily revenue by scent price.",
+      "ref": "daily_sales[\"Units Sold\"] = daily_sales[\"Daily Sales\"] / daily_sales[\"Price\"]",
+      "source_text": "`Units Sold = Daily Sales / Price`"
+    },
+    {
+      "id": "4_O1_week_start_wednesday_based_week",
+      "kind": "Row-level concept",
+      "node_id": "compute_sales",
+      "op": "project",
+      "intent": "Each week begins on the most recent Wednesday.",
+      "ref": "query_full.md: weeks run Wednesday–Tuesday",
+      "source_text": "weeks run Wednesday–Tuesday"
+    },
+    {
+      "id": "5_C2_aggregate_profits_by_scent_sum_over_weeks",
+      "kind": "Group-level concept",
+      "node_id": "final_agg",
+      "op": "aggregate",
+      "intent": "Sum original and revised profit across all weeks by scent.",
+      "ref": "query_full.md: one row per `Scent`",
+      "source_text": "one row per `Scent`"
+    },
+    {
+      "id": "6_D2_join_orders_to_weekly_on_week_start_only",
+      "kind": "Multi-table alignment",
+      "node_id": "join_week_orders",
+      "op": "join",
+      "intent": "Orders join on Week Start only.",
+      "ref": "weekly_summary = weekly_summary.merge(units_ordered[[\"Week Start\", \"Units Ordered\"]], on=\"Week Start\", how=\"left\")",
+      "source_text": "this join is only on week, not on scent"
+    },
+    {
+      "id": "7_O1_stockout_adjust_sales_cap_to_ordered_times_price",
+      "kind": "Operation incomplete",
+      "node_id": "new_profit",
+      "op": "project",
+      "source_text": "For negative values, this means we need to adjust our weekly sales as we would have run out of stock",
+      "ref": "query.md: For negative values, this means we need to adjust our weekly sales as we would have run out of stock",
+      "intent": "When demand exceeds new orders, cap sales at new orders times price."
+    },
+    {
+      "id": "8_O1_stockout_waste_cost_set_to_zero",
+      "kind": "Operation incomplete",
+      "node_id": "new_profit",
+      "op": "project",
+      "intent": "Stockout waste cost is zero.",
+      "ref": "query_full.md: Set `New Waste Cost` to 0",
+      "source_text": "Set `New Waste Cost` to 0"
+    },
+    {
+      "id": "9_C2_original_profit_formula_sales_minus_waste_cost",
+      "kind": "Row-level concept",
+      "node_id": "orig_profit",
+      "op": "project",
+      "intent": "Use the task’s existing metric: sales minus waste cost, not a replacement accounting formula.",
+      "ref": "query_full.md: `Original Profit = Weekly Sales - Waste Cost`",
+      "source_text": "`Original Profit = Weekly Sales - Waste Cost`"
+    }
+  ]
+}
