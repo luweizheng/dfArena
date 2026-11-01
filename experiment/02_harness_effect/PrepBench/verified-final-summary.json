@@ -1,0 +1,51 @@
+{
+  "verified_at_utc": "2026-10-27T13:01:49.205872+00:00",
+  "completed": 600,
+  "opencode_passed": 486,
+  "opencode_failed": 114,
+  "opencode_pass_rate": 81.0,
+  "codex_passed": 484,
+  "codex_pass_rate": 80.66666666666667,
+  "difference_percentage_points": 0.3333333333333333,
+  "opencode_only_passed": 15,
+  "codex_only_passed": 13,
+  "same_outcome": 572,
+  "unresolved_infrastructure": 0,
+  "all_mode_locks_verified_free": true,
+  "actual_experiment_processes_verified_absent": true,
+  "docker_running_containers_verified_absent": true,
+  "comparison_sha256": "68e5fe5076e691e79c5f18b74fef303045477868db83d619b98d95cdbd28b03b",
+  "paired_records_sha256": "c4169a341ca587db73035890c16273c26d6652dfe2ed3508b271bd12765c1ef7",
+  "modes": [
+    {
+      "mode": "direct",
+      "opencode_passed": 109,
+      "baseline_passed_matched": 107,
+      "paired_delta_percentage_points": 1.0,
+      "case_cluster_bootstrap_delta_95_percentile_interval": [
+        -3.5,
+        5.5
+      ]
+    },
+    {
+      "mode": "interact",
+      "opencode_passed": 184,
+      "baseline_passed_matched": 185,
+      "paired_delta_percentage_points": -0.5,
+      "case_cluster_bootstrap_delta_95_percentile_interval": [
+        -5.5,
+        4.0
+      ]
+    },
+    {
+      "mode": "clarified",
+      "opencode_passed": 193,
+      "baseline_passed_matched": 192,
+      "paired_delta_percentage_points": 0.5,
+      "case_cluster_bootstrap_delta_95_percentile_interval": [
+        -1.5,
+        3.0
+      ]
+    }
+  ]
+}

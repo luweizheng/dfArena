@@ -1,0 +1,20 @@
+{
+  "resolved_count": 2,
+  "method": "Exact SHA256 lookup in already preserved annotation-history; no annotation or experimental result changed.",
+  "records": [
+    {
+      "sample_id": "astra|clarified|imdb|task9|pandas",
+      "original_source_path": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-09-21\\ni-x\\outputs\\dab-error-classification-20261021\\DAB_ERROR_ANALYSIS.md",
+      "expected_sha256": "944717cd2ce81eb345e5a82b4c5074e6d3242d18a3ca998b8bb62d9ed3414cf8",
+      "resolved_source_path": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-09-21\\ni-x\\outputs\\dab-error-classification-20261021\\annotation-history\\before-round11-answer-mismatch-20261024\\DAB_ERROR_ANALYSIS.md",
+      "portable_path": "03_error_analysis/DAB/evidence/94/944717cd2ce81eb345e5a82b4c5074e6d3242d18a3ca998b8bb62d9ed3414cf8.md"
+    },
+    {
+      "sample_id": "gpt55|clarified|imdb|task3|pyspark",
+      "original_source_path": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-09-21\\ni-x\\outputs\\dab-error-classification-20261021\\DAB_ERROR_ANALYSIS.md",
+      "expected_sha256": "944717cd2ce81eb345e5a82b4c5074e6d3242d18a3ca998b8bb62d9ed3414cf8",
+      "resolved_source_path": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-09-21\\ni-x\\outputs\\dab-error-classification-20261021\\annotation-history\\before-round11-answer-mismatch-20261024\\DAB_ERROR_ANALYSIS.md",
+      "portable_path": "03_error_analysis/DAB/evidence/94/944717cd2ce81eb345e5a82b4c5074e6d3242d18a3ca998b8bb62d9ed3414cf8.md"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "protocol_version": "dfarena-table-v10-utc-nanoseconds",
+  "passed": true,
+  "errors": [],
+  "diff_summary": {},
+  "files": {
+    "output_01.csv": {
+      "content_status": "passed",
+      "order_status": "ignored",
+      "gt_rows": 351,
+      "candidate_rows": 351
+    }
+  },
+  "assets": {
+    "config_sha256": "df61a7d96a5e4291c178155989986538c2b424afc110629c6ed55e5399184634",
+    "gt": {
+      "output_01.csv": "4b8d7c42a443fad5968ad3d794eb7df66c857e6c25deb5af87aa788d1592f3b3"
+    },
+    "candidate": {
+      "output_01.csv": "687f7efed97cb618b5ed4c09ffe5f50657359d43ebbc62638cf5d5ef89404fd6"
+    }
+  }
+}

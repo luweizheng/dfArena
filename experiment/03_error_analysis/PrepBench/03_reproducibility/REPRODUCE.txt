@@ -1,0 +1,6 @@
+在已安装requirements.txt依赖的Python环境中，从包目录运行：
+python 03_reproducibility/make_publication_figures.py --bundle .
+python 03_reproducibility/build_publication_report.py --bundle . --cjk-font /path/to/simsun.ttc
+
+字体：图内Arial，中文阅读版SimSun。字体文件未随包分发；其他平台可提供支持中文的TrueType字体并调整subfontIndex。
+所有绘图数据来自01_data/figure-data.json；不读取外部实验目录、不调用网络或模型。重绘会更新输出，原交付完整性以MANIFEST.sha256为准。

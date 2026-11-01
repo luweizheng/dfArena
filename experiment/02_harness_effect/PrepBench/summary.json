@@ -1,0 +1,48 @@
+{
+  "benchmark": "PrepBench",
+  "unique_tasks": 50,
+  "paired_cells": 600,
+  "model": "gpt-6-astra",
+  "OpenCode": {
+    "passed": 486,
+    "total": 600
+  },
+  "Codex": {
+    "passed": 484,
+    "total": 600
+  },
+  "by_mode": [
+    {
+      "mode": "direct",
+      "opencode_passed": 109,
+      "baseline_passed_matched": 107,
+      "paired_delta_percentage_points": 1.0,
+      "case_cluster_bootstrap_delta_95_percentile_interval": [
+        -3.5,
+        5.5
+      ]
+    },
+    {
+      "mode": "interact",
+      "opencode_passed": 184,
+      "baseline_passed_matched": 185,
+      "paired_delta_percentage_points": -0.5,
+      "case_cluster_bootstrap_delta_95_percentile_interval": [
+        -5.5,
+        4.0
+      ]
+    },
+    {
+      "mode": "clarified",
+      "opencode_passed": 193,
+      "baseline_passed_matched": 192,
+      "paired_delta_percentage_points": 0.5,
+      "case_cluster_bootstrap_delta_95_percentile_interval": [
+        -1.5,
+        3.0
+      ]
+    }
+  ],
+  "comparison_source": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-10-20\\prep1\\outputs\\harness-gpt6-opencode-50-20261027\\final-comparison.json",
+  "scope": "Historical matched comparison; not a pure causal effect or proof of equivalence."
+}

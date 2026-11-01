@@ -1,0 +1,1313 @@
+{
+  "created_at": "2026-10-21T21:20:02.348374+08:00",
+  "status": "applied_and_verified",
+  "scope": "48 final effective stockmarket/task3 answers; all model/mode/backend combinations",
+  "model_calls": 0,
+  "original_experiment_artifacts_modified": false,
+  "validator_target": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\tasks\\task3\\validate.py",
+  "before_sha256": "ad059936ee991c09dabdc38f01ca45de545c32b8ad97053063b0ec0b9ec4e0f1",
+  "after_sha256": "1137f9b71fe32c305c98a5538dce6e6b3ccae12367d3780611932d4718d37fd4",
+  "historical_manifest": "D:\\DataFrameStudy\\dfArena-experiments\\runs\\interact-astra-low-20261011-120720\\manifest.json",
+  "manifest_sha256": "3d1c4ae9c85547d2e9ef37a4a6194c84790cbbebb2adfc754833a7c1ba514ae5",
+  "helper_sha256": "4500d90010b0cec6b92087cc239061efd2fee93a36f4729e4e39c6090b77ea22",
+  "source_index_sha256": "8435ba6df4c68c6082707cf2c2a5535eca8483f51857583f016106f9aaf90ee8",
+  "script_sha256": "83ab77406cf7c2b439e6e71ada1473e27cb7da0d6d7187353d4a5df0dfa4553a",
+  "python_version": "3.12.8 | packaged by conda-forge | (main, Dec  5 2024, 14:06:27) [MSC v.1942 64 bit (AMD64)]",
+  "execution": "Host Python; original pure-Python validator and helper; 120s limit per validator call",
+  "historical_reproduction_matches": 48,
+  "groups": [
+    {
+      "model": "astra",
+      "mode": "clarified",
+      "count": 4,
+      "before_passed": 4,
+      "after_passed": 4
+    },
+    {
+      "model": "astra",
+      "mode": "direct",
+      "count": 4,
+      "before_passed": 4,
+      "after_passed": 4
+    },
+    {
+      "model": "astra",
+      "mode": "interact",
+      "count": 4,
+      "before_passed": 3,
+      "after_passed": 3
+    },
+    {
+      "model": "glm53",
+      "mode": "clarified",
+      "count": 4,
+      "before_passed": 3,
+      "after_passed": 4
+    },
+    {
+      "model": "glm53",
+      "mode": "direct",
+      "count": 4,
+      "before_passed": 3,
+      "after_passed": 3
+    },
+    {
+      "model": "glm53",
+      "mode": "interact",
+      "count": 4,
+      "before_passed": 4,
+      "after_passed": 4
+    },
+    {
+      "model": "gpt55",
+      "mode": "clarified",
+      "count": 4,
+      "before_passed": 4,
+      "after_passed": 4
+    },
+    {
+      "model": "gpt55",
+      "mode": "direct",
+      "count": 4,
+      "before_passed": 4,
+      "after_passed": 4
+    },
+    {
+      "model": "gpt55",
+      "mode": "interact",
+      "count": 4,
+      "before_passed": 3,
+      "after_passed": 4
+    },
+    {
+      "model": "kimi",
+      "mode": "clarified",
+      "count": 4,
+      "before_passed": 2,
+      "after_passed": 4
+    },
+    {
+      "model": "kimi",
+      "mode": "direct",
+      "count": 4,
+      "before_passed": 2,
+      "after_passed": 4
+    },
+    {
+      "model": "kimi",
+      "mode": "interact",
+      "count": 4,
+      "before_passed": 2,
+      "after_passed": 3
+    }
+  ],
+  "task_before_passed": 38,
+  "task_after_passed": 45,
+  "changed_count": 7,
+  "all_results_before_passed": 3182,
+  "all_results_after_passed": 3189,
+  "all_results_count": 4992,
+  "records": [
+    {
+      "sample_id": "astra|interact|stockmarket|task3|pandas",
+      "model": "astra",
+      "mode": "interact",
+      "backend": "pandas",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\pandas\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\pandas\\r001\\result.json",
+      "result_sha256": "b28702fb59b20430393dc3ac512f1af73e09cd6079cb2f3247d7fed257588787",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\pandas\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\pandas\\r001\\solution\\answer.json": "dea735113b46f1278362182d81396aa6f6a7f22a90cb728338edd163082abde3",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\pandas\\r001\\detail\\evaluation.json": "00c6d625a71e2f58d9afc3d81521db36c0a53793dbf5a0e627e765592589d1bd",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\pandas\\r001\\result.json": "b28702fb59b20430393dc3ac512f1af73e09cd6079cb2f3247d7fed257588787"
+      },
+      "original_passed": false,
+      "before": {
+        "passed": false,
+        "message": "No number found near name: Apex Global Brands Inc"
+      },
+      "after": {
+        "passed": false,
+        "message": "No number found near name: Future FinTech Group Inc"
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "astra|clarified|stockmarket|task3|ibis",
+      "model": "astra",
+      "mode": "clarified",
+      "backend": "ibis",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\ibis\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\ibis\\r001\\result.json",
+      "result_sha256": "8fd9800db4d8c4427afccebfad9aeadb3fcdb51eb51bad8d59b8cb0c96a8dfeb",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\ibis\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\ibis\\r001\\solution\\answer.json": "c75caddd7fccc8e9ce53793ab624fb94392c66a1bad2c9833552c434580494a3",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\ibis\\r001\\detail\\evaluation.json": "ee6847341c63f1bfb0d3bccc44f7b654c291e622f6fa861217930f13f78c1313",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\ibis\\r001\\result.json": "8fd9800db4d8c4427afccebfad9aeadb3fcdb51eb51bad8d59b8cb0c96a8dfeb"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "astra|clarified|stockmarket|task3|pandas",
+      "model": "astra",
+      "mode": "clarified",
+      "backend": "pandas",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\pandas\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\pandas\\r001\\result.json",
+      "result_sha256": "f0efcc7a25ed69c410703cde8175dd39267323fca9e30f91ef4546d87ca7ae6b",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\pandas\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\pandas\\r001\\solution\\answer.json": "ebc6c17afa25c679087c4a88a3f503fe6f8c65c0248b38eba382e72dd031be40",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\pandas\\r001\\detail\\evaluation.json": "977fb5a0da2db6c1eaf10f2666279e6e64a3ef686a84e21375bd74302ae02f41",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\pandas\\r001\\result.json": "f0efcc7a25ed69c410703cde8175dd39267323fca9e30f91ef4546d87ca7ae6b"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "astra|clarified|stockmarket|task3|polars",
+      "model": "astra",
+      "mode": "clarified",
+      "backend": "polars",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\polars\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\polars\\r001\\result.json",
+      "result_sha256": "e49cb5df511f8a9ba78c38c73fd02feb1b2edf3c51b207e3a36af0686f577a42",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\polars\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\polars\\r001\\solution\\answer.json": "b50be06984fa6c592e65fc323b427a93a33c778669aceeafc8dc7b7adc7209bd",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\polars\\r001\\detail\\evaluation.json": "46bda90ea4f5036e1c482ff71235e688fbb48c7297d8216afe7943c44ee4382b",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\polars\\r001\\result.json": "e49cb5df511f8a9ba78c38c73fd02feb1b2edf3c51b207e3a36af0686f577a42"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "astra|clarified|stockmarket|task3|pyspark",
+      "model": "astra",
+      "mode": "clarified",
+      "backend": "pyspark",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\pyspark\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\pyspark\\r001\\result.json",
+      "result_sha256": "dd05310495cfefbfe8e2504a36a082c3bf1df4c3e39e92a6663f9d479df6fff4",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\pyspark\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\pyspark\\r001\\solution\\answer.json": "bda8365753e1a057cb4f6f27acc00954ccd5db66e40570ae308dd24fe53f3b1f",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\pyspark\\r001\\detail\\evaluation.json": "bb07c3d2cded01413725fc669e92c42431b91e63bbc6d9fb7f5cc7db5591feec",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_clarified_20261003-160640\\pyspark\\r001\\result.json": "dd05310495cfefbfe8e2504a36a082c3bf1df4c3e39e92a6663f9d479df6fff4"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "astra|direct|stockmarket|task3|ibis",
+      "model": "astra",
+      "mode": "direct",
+      "backend": "ibis",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\ibis\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\ibis\\r001\\result.json",
+      "result_sha256": "f09284cbdf5218f4edc1be215a84b771cb49c7c5a46817ee615f26fb71aa78ed",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\ibis\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\ibis\\r001\\solution\\answer.json": "daa3728605b64f278d83c33a0d2d53cb2d8d506b30ae05e8462274552f8af6aa",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\ibis\\r001\\detail\\evaluation.json": "82fe6bebebd4bb3ce9d679d2d8e7c88a6fdc945fc3d5468516ca015b1315d338",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\ibis\\r001\\result.json": "f09284cbdf5218f4edc1be215a84b771cb49c7c5a46817ee615f26fb71aa78ed"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "astra|direct|stockmarket|task3|pandas",
+      "model": "astra",
+      "mode": "direct",
+      "backend": "pandas",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\pandas\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\pandas\\r001\\result.json",
+      "result_sha256": "d3ca231f132aed492478d7372daaada3940e25614adbb30d7346d9abafaff9d6",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\pandas\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\pandas\\r001\\solution\\answer.json": "7cdc223df8c8ac7ee1fcdcf0f4acfc26b2569976bd01ca3fff21de5c7dfef364",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\pandas\\r001\\detail\\evaluation.json": "e5fa8e27722a1d804136bfa9c08bde07f5e4ee1de233b2ee1f8e0c6a7d23bc7e",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\pandas\\r001\\result.json": "d3ca231f132aed492478d7372daaada3940e25614adbb30d7346d9abafaff9d6"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "astra|direct|stockmarket|task3|polars",
+      "model": "astra",
+      "mode": "direct",
+      "backend": "polars",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\polars\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\polars\\r001\\result.json",
+      "result_sha256": "6092afb25b63f2a21a307e30c3bcc28d6c1804dffb5a9609723e5d3d9f2fbb4e",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\polars\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\polars\\r001\\solution\\answer.json": "a6e18d1483349debe80e8ce59b2f675d23f1e0a55f43e0ca5dbcdcbd98d4fb8b",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\polars\\r001\\detail\\evaluation.json": "e5ebe414243257db87c4ab538453f0f9767b3e9e7343c8128d523dbad569d515",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\polars\\r001\\result.json": "6092afb25b63f2a21a307e30c3bcc28d6c1804dffb5a9609723e5d3d9f2fbb4e"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "astra|direct|stockmarket|task3|pyspark",
+      "model": "astra",
+      "mode": "direct",
+      "backend": "pyspark",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\pyspark\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\pyspark\\r001\\result.json",
+      "result_sha256": "9db1892c7492b566509d162fa26709515ca0f7a630dea4cce6ba7e250b30d392",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\pyspark\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\pyspark\\r001\\solution\\answer.json": "39279c41278399a978679b4f0177b81fa8a09ffaea1dab4df5adc22d229735e1",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\pyspark\\r001\\detail\\evaluation.json": "7a818f80097527c0cb7b5f3a61681d17ba64c074d94e01016d287faf395be1f8",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_direct_20261002-184138\\pyspark\\r001\\result.json": "9db1892c7492b566509d162fa26709515ca0f7a630dea4cce6ba7e250b30d392"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "astra|interact|stockmarket|task3|ibis",
+      "model": "astra",
+      "mode": "interact",
+      "backend": "ibis",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\ibis\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\ibis\\r001\\result.json",
+      "result_sha256": "eb3beb4ffbd00c92787b1dda4d10c863a0fb6b276e504794776efd892e758b8a",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\ibis\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\ibis\\r001\\solution\\answer.json": "d968a1319d724cc660919888cf3e107c68bc97787733431f8c29aa3ed48f81c5",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\ibis\\r001\\detail\\evaluation.json": "c208d376dc3ba1f41f781bcf806654796858f42f04539c32364b21271c9ec465",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\ibis\\r001\\result.json": "eb3beb4ffbd00c92787b1dda4d10c863a0fb6b276e504794776efd892e758b8a"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "astra|interact|stockmarket|task3|polars",
+      "model": "astra",
+      "mode": "interact",
+      "backend": "polars",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\polars\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\polars\\r001\\result.json",
+      "result_sha256": "c67ffae3a8e1fd3d392543f5e92c324d65a87835832cbf9974de344dfa8f4f7b",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\polars\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\polars\\r001\\solution\\answer.json": "d42e01f07ffe58f4c801427d3d7a8b97e32ca44142752fd2384f2d4e84e0bda8",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\polars\\r001\\detail\\evaluation.json": "f98157184be3bfc473dc5f70864f3e115d04b330d3d3691a15fe394cbf70c40e",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\polars\\r001\\result.json": "c67ffae3a8e1fd3d392543f5e92c324d65a87835832cbf9974de344dfa8f4f7b"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "astra|interact|stockmarket|task3|pyspark",
+      "model": "astra",
+      "mode": "interact",
+      "backend": "pyspark",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\pyspark\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\pyspark\\r001\\result.json",
+      "result_sha256": "1cf231b9d62266dd1f9882fa93f2cc7543123cfd4b63ebbcbe79f8f86f011e35",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\pyspark\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\pyspark\\r001\\solution\\answer.json": "679abb9d6a62a2dcc25be6ac4e68ade4636cfcca11dc7938a1b2d2c99777794b",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\pyspark\\r001\\detail\\evaluation.json": "91ce9019388906dc692ac396be5fed10a57cdd3968eca25d839965a7323e8996",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\pyspark\\r001\\result.json": "1cf231b9d62266dd1f9882fa93f2cc7543123cfd4b63ebbcbe79f8f86f011e35"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "glm53|clarified|stockmarket|task3|ibis",
+      "model": "glm53",
+      "mode": "clarified",
+      "backend": "ibis",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\ibis\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\ibis\\r001\\result.json",
+      "result_sha256": "22e2639cbd499e53c20591ac76a7357be7342c7b51f0196e089845d366d5218e",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\ibis\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\ibis\\r001\\solution\\answer.json": "3d0fddd12d7de144e0a09ae78105a1aeccc9de64e1c58640ea6245f78541b361",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\ibis\\r001\\detail\\evaluation.json": "a9835fd24da33b4ca90e69928811984e90e6f109386ed3fcbbcced12d6710f2f",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\ibis\\r001\\result.json": "22e2639cbd499e53c20591ac76a7357be7342c7b51f0196e089845d366d5218e"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "glm53|clarified|stockmarket|task3|pandas",
+      "model": "glm53",
+      "mode": "clarified",
+      "backend": "pandas",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\pandas\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\pandas\\r001\\result.json",
+      "result_sha256": "912e41223cd33f35aead9c80de837fea3359a44f14f605915f369831cd1ba463",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\pandas\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\pandas\\r001\\solution\\answer.json": "720efb6de416632bd871593a32885660250e14d0349c8a9d26750b787e9d0bf7",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\pandas\\r001\\detail\\evaluation.json": "312eab715fe6cba290e19e55f6ba6fad403528d006be7403ab41fe2d4a41fc7f",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\pandas\\r001\\result.json": "912e41223cd33f35aead9c80de837fea3359a44f14f605915f369831cd1ba463"
+      },
+      "original_passed": false,
+      "before": {
+        "passed": false,
+        "message": "No number found near name: Frontier Communications Corporation"
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": true
+    },
+    {
+      "sample_id": "glm53|clarified|stockmarket|task3|polars",
+      "model": "glm53",
+      "mode": "clarified",
+      "backend": "polars",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\polars\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\polars\\r001\\result.json",
+      "result_sha256": "0e8139db66881345fc287c998793b4f99356355b741d94468a9d33f44c73cb43",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\polars\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\polars\\r001\\solution\\answer.json": "31272a1aedd77e3313fb9db572ebd94fe034191250f592266ff88e838d4e2a9f",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\polars\\r001\\detail\\evaluation.json": "f3bddbfb9ee0fcf5be58e0268a7f00c1b752c48ae67cbb4066433f528f289d93",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\polars\\r001\\result.json": "0e8139db66881345fc287c998793b4f99356355b741d94468a9d33f44c73cb43"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "glm53|clarified|stockmarket|task3|pyspark",
+      "model": "glm53",
+      "mode": "clarified",
+      "backend": "pyspark",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\pyspark\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\pyspark\\r001\\result.json",
+      "result_sha256": "461ef1e20829e4b2abb4558faefc91a86450eed5bd392c85cc66a635c07eb6c4",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\pyspark\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\pyspark\\r001\\solution\\answer.json": "9c201c3627e03401e93879dcf0157518212c8ade7989b3a0c27d02fec397939d",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\pyspark\\r001\\detail\\evaluation.json": "4a3ddd5b89282538c7e1d7a3aaddd4b6bc9dd1f6ee998062f1c59760bba01009",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\pyspark\\r001\\result.json": "461ef1e20829e4b2abb4558faefc91a86450eed5bd392c85cc66a635c07eb6c4"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "glm53|direct|stockmarket|task3|ibis",
+      "model": "glm53",
+      "mode": "direct",
+      "backend": "ibis",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\ibis\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\ibis\\r001\\result.json",
+      "result_sha256": "2fbc83361f05bd52f22f57f92db400d9362d35170a0fc38689d470d2984eb918",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\ibis\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\ibis\\r001\\solution\\answer.json": "51d33ec2a9398cab7bb042f393b19f93173ae5e850b4abb05e67869726b96da2",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\ibis\\r001\\detail\\evaluation.json": "582d1771718af96b1777e69dc4518bcf2431d62b78a7cef0e60f8f5821aaa2c2",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\ibis\\r001\\result.json": "2fbc83361f05bd52f22f57f92db400d9362d35170a0fc38689d470d2984eb918"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "glm53|direct|stockmarket|task3|pandas",
+      "model": "glm53",
+      "mode": "direct",
+      "backend": "pandas",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\pandas\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\pandas\\r001\\result.json",
+      "result_sha256": "d845e7bc642bc7f095ec483eab7f9b42e168afdc53ee60c1fbb8e2f51b241c19",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\pandas\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\pandas\\r001\\solution\\answer.json": "73266162811a4f8d31d53f84d6c05e50e31312a86df8438c1185eedb2b5d659a",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\pandas\\r001\\detail\\evaluation.json": "d3d7d2d34460aa0fba5da447ee0e6c1559588a0874f12c47acad4d477de1c6ce",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\pandas\\r001\\result.json": "d845e7bc642bc7f095ec483eab7f9b42e168afdc53ee60c1fbb8e2f51b241c19"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "glm53|direct|stockmarket|task3|polars",
+      "model": "glm53",
+      "mode": "direct",
+      "backend": "polars",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\polars\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\polars\\r001\\result.json",
+      "result_sha256": "5ba988198f1c3fd805db2b878fb4c32f61762d25328d313d46b55d4f2ad4ed67",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\polars\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\polars\\r001\\solution\\answer.json": "92f824b6daa04cecd85267310c47e284b2a3a6c62939fd3e695c28386a69e539",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\polars\\r001\\detail\\evaluation.json": "cf0e91faf468b017ee1138d54cdfb063b7e7eb5fbc25aba3ae55ec38627bef76",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\polars\\r001\\result.json": "5ba988198f1c3fd805db2b878fb4c32f61762d25328d313d46b55d4f2ad4ed67"
+      },
+      "original_passed": false,
+      "before": {
+        "passed": false,
+        "message": "Name not found within 5 edits: 'Synthesis Energy Systems, Inc', closest: 'sunesis pharmaceuticals, inc' (distance=16)"
+      },
+      "after": {
+        "passed": false,
+        "message": "Name not found within 5 edits: 'Synthesis Energy Systems, Inc', closest: 'sunesis pharmaceuticals, inc' (distance=16)"
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "glm53|direct|stockmarket|task3|pyspark",
+      "model": "glm53",
+      "mode": "direct",
+      "backend": "pyspark",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\pyspark\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\pyspark\\r001\\result.json",
+      "result_sha256": "789a9768b64371e42794d7d109ecdb9dac8db8a298a310e064d01feb794927de",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\pyspark\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\pyspark\\r001\\solution\\answer.json": "044a3d832d078afca9d30c8897e8bff695f0bcebfb193b816099cc498766f4bd",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\pyspark\\r001\\detail\\evaluation.json": "2b3777e15228c4dbfcd9a882d8f5e4d491550f7a519705bf041a6a270cb1e060",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\pyspark\\r001\\result.json": "789a9768b64371e42794d7d109ecdb9dac8db8a298a310e064d01feb794927de"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "glm53|interact|stockmarket|task3|ibis",
+      "model": "glm53",
+      "mode": "interact",
+      "backend": "ibis",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\ibis\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\ibis\\r001\\result.json",
+      "result_sha256": "53d9b0614ff7fdeae1f3fb262eb271c8bb8f5442220abe15057ce2302874d6f5",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\ibis\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\ibis\\r001\\solution\\answer.json": "2d3e0217ae51cd22939066745485e07a1df7f7c12b08f70538149bc0891e51c8",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\ibis\\r001\\detail\\evaluation.json": "09bf5e70d4633012b8de4bd8e378aa3dc41bdff46e59bb349f2f371e70d4d6be",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\ibis\\r001\\result.json": "53d9b0614ff7fdeae1f3fb262eb271c8bb8f5442220abe15057ce2302874d6f5"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "glm53|interact|stockmarket|task3|pandas",
+      "model": "glm53",
+      "mode": "interact",
+      "backend": "pandas",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\pandas\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\pandas\\r001\\result.json",
+      "result_sha256": "1b88bb452923607774ddd6b61a9cd892f973d0ddbf3d5fb3c7d89d525dcaf5f2",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\pandas\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\pandas\\r001\\solution\\answer.json": "fcb3bf086b6ed190f217f37a9755d28e731a571aab8553c6b91d4a53bdf2a417",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\pandas\\r001\\detail\\evaluation.json": "31a1f65d72f3b0abecc68c5fe566e38c46d0317f00babe97e0d82d6ecc7abb98",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\pandas\\r001\\result.json": "1b88bb452923607774ddd6b61a9cd892f973d0ddbf3d5fb3c7d89d525dcaf5f2"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "glm53|interact|stockmarket|task3|polars",
+      "model": "glm53",
+      "mode": "interact",
+      "backend": "polars",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\polars\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\polars\\r001\\result.json",
+      "result_sha256": "4cd7db18f50fcde8a7beda5686c98429872e4200b84fccfb79a27f01d1f387e6",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\polars\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\polars\\r001\\solution\\answer.json": "22ee9224d4b1c8ce2c57ad5c89ff25750e204555d3d26084cc65b40c0162d811",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\polars\\r001\\detail\\evaluation.json": "efd5f9ff6926468c450c634d8c9db9c45699472759ddb93e09dd88e36708c813",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\polars\\r001\\result.json": "4cd7db18f50fcde8a7beda5686c98429872e4200b84fccfb79a27f01d1f387e6"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "glm53|interact|stockmarket|task3|pyspark",
+      "model": "glm53",
+      "mode": "interact",
+      "backend": "pyspark",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\pyspark\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\pyspark\\r001\\result.json",
+      "result_sha256": "0097f0194c839ad05148ba96c7cd5ddddedcb91f2a3d9c9faba2243a1dc8a9e5",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\pyspark\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\pyspark\\r001\\solution\\answer.json": "1f3bb45077dd95ac622c7485952e99f3753293a46dfb848398dc880e7abc27e4",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\pyspark\\r001\\detail\\evaluation.json": "0250c0badecfaf20eef4bee1346f0ba273bd03100ce590f5a49314911b861038",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_interact_20261014-165548\\pyspark\\r001\\result.json": "0097f0194c839ad05148ba96c7cd5ddddedcb91f2a3d9c9faba2243a1dc8a9e5"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "gpt55|clarified|stockmarket|task3|ibis",
+      "model": "gpt55",
+      "mode": "clarified",
+      "backend": "ibis",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\ibis\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\ibis\\r001\\result.json",
+      "result_sha256": "832d50a9e4c07339f128e20b273a2f3c84a2b3597a60c253672491f85917cbc0",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\ibis\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\ibis\\r001\\solution\\answer.json": "107faa5324cbb91f2d503d981d8512ef82ef9b89364916627bceb1adc5dbd9bb",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\ibis\\r001\\detail\\evaluation.json": "d772b7a867c4a12a515d0b7aa9f54aa7337dca6b83c3cd7768a0c0f29530f2c8",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\ibis\\r001\\result.json": "832d50a9e4c07339f128e20b273a2f3c84a2b3597a60c253672491f85917cbc0"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "gpt55|clarified|stockmarket|task3|pandas",
+      "model": "gpt55",
+      "mode": "clarified",
+      "backend": "pandas",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\pandas\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\pandas\\r001\\result.json",
+      "result_sha256": "1e289457f5f69a735a91aaf74eadd022d61337318165afa700bce7fb09a2f4c4",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\pandas\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\pandas\\r001\\solution\\answer.json": "2cec61d1ea1cbcaeea70beb5c7287a2cf6738116997593acc8f89e8b41a819de",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\pandas\\r001\\detail\\evaluation.json": "d796e61156acdf99e4544c948555665338d8fd166fdc980a81131e0effb2aa3c",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\pandas\\r001\\result.json": "1e289457f5f69a735a91aaf74eadd022d61337318165afa700bce7fb09a2f4c4"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "gpt55|clarified|stockmarket|task3|polars",
+      "model": "gpt55",
+      "mode": "clarified",
+      "backend": "polars",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\polars\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\polars\\r001\\result.json",
+      "result_sha256": "96eee50a18981cb44cb2f388e4fa49b61c34eeb8fa170bf32843b033d9293bdd",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\polars\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\polars\\r001\\solution\\answer.json": "107faa5324cbb91f2d503d981d8512ef82ef9b89364916627bceb1adc5dbd9bb",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\polars\\r001\\detail\\evaluation.json": "b95abe4b007bdc6f31022ebd1c0c991bc67e9ee2d78f1edc2655b2e42cbdec59",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\polars\\r001\\result.json": "96eee50a18981cb44cb2f388e4fa49b61c34eeb8fa170bf32843b033d9293bdd"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "gpt55|clarified|stockmarket|task3|pyspark",
+      "model": "gpt55",
+      "mode": "clarified",
+      "backend": "pyspark",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\pyspark\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\pyspark\\r001\\result.json",
+      "result_sha256": "2547fbf4235d307a384ca880e35ab867965b541084ac10cb041773db096b126f",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\pyspark\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\pyspark\\r001\\solution\\answer.json": "107faa5324cbb91f2d503d981d8512ef82ef9b89364916627bceb1adc5dbd9bb",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\pyspark\\r001\\detail\\evaluation.json": "492945db8c491245001587a9b9ab62f7d14f05ace69bdaa6304fa4d77f564b6e",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_clarified_20261005-140235\\pyspark\\r001\\result.json": "2547fbf4235d307a384ca880e35ab867965b541084ac10cb041773db096b126f"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "gpt55|direct|stockmarket|task3|ibis",
+      "model": "gpt55",
+      "mode": "direct",
+      "backend": "ibis",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\ibis\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\ibis\\r001\\result.json",
+      "result_sha256": "7f084f1d7da0dee8c21c065e52583346422bfa87c7c657851916f6701680a0d5",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\ibis\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\ibis\\r001\\solution\\answer.json": "2bf7e9044e5198279d3f17e2b881e5a6c09718da99a5a75e7238b4432acef0bd",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\ibis\\r001\\detail\\evaluation.json": "43b2031b4edd6b0afb83a95c7e471ad6610a304ba0d0d03f9ecd0a10c5955193",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\ibis\\r001\\result.json": "7f084f1d7da0dee8c21c065e52583346422bfa87c7c657851916f6701680a0d5"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "gpt55|direct|stockmarket|task3|pandas",
+      "model": "gpt55",
+      "mode": "direct",
+      "backend": "pandas",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\pandas\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\pandas\\r001\\result.json",
+      "result_sha256": "13769a32cc115311ba95a47aa1d918dea3fa8656925053db9af14ac157a3140b",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\pandas\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\pandas\\r001\\solution\\answer.json": "6ac42dd7e8c1c7f6070295ab9448ce95447f851bcbd1d6316e6a3186d38f98f8",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\pandas\\r001\\detail\\evaluation.json": "799cb35bacd597c24c0709560a06f963f86f39282374fb63b267989227453ab2",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\pandas\\r001\\result.json": "13769a32cc115311ba95a47aa1d918dea3fa8656925053db9af14ac157a3140b"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "gpt55|direct|stockmarket|task3|polars",
+      "model": "gpt55",
+      "mode": "direct",
+      "backend": "polars",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\polars\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\polars\\r001\\result.json",
+      "result_sha256": "49e273f8e17c8f52564c0bc2269fe502849c1dcd764c0af1474170565d223c87",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\polars\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\polars\\r001\\solution\\answer.json": "107faa5324cbb91f2d503d981d8512ef82ef9b89364916627bceb1adc5dbd9bb",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\polars\\r001\\detail\\evaluation.json": "8cd7fbae52a700dc1cec82ef0e2e7a1ff4cbe954895afc99e384df00e09eaa68",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\polars\\r001\\result.json": "49e273f8e17c8f52564c0bc2269fe502849c1dcd764c0af1474170565d223c87"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "gpt55|direct|stockmarket|task3|pyspark",
+      "model": "gpt55",
+      "mode": "direct",
+      "backend": "pyspark",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\pyspark\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\pyspark\\r001\\result.json",
+      "result_sha256": "64985b1b9c5744c732ea5370db37fe48d7e20e754c0a9193fa33992993a47aa1",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\pyspark\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\pyspark\\r001\\solution\\answer.json": "7d2fb6eb5a8d5ef2788dab2e1bc130c866ed2989ec3c0ff53de89616b2fdce96",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\pyspark\\r001\\detail\\evaluation.json": "85efe9d33ac87ed4c5c6aa2c2f6c6780adaabf6b8c951aae73a9c42aa6583cec",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_direct_20261004-150529\\pyspark\\r001\\result.json": "64985b1b9c5744c732ea5370db37fe48d7e20e754c0a9193fa33992993a47aa1"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "gpt55|interact|stockmarket|task3|ibis",
+      "model": "gpt55",
+      "mode": "interact",
+      "backend": "ibis",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\ibis\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\ibis\\r001\\result.json",
+      "result_sha256": "1c8e6eb4171a530c512baedb7f0de98c021c303d85c4b45ea5e74c16a5d79897",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\ibis\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\ibis\\r001\\solution\\answer.json": "b15a751affd414fdae0806fab4267d325d0c83d8c12093326bbc29e4cf40cb46",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\ibis\\r001\\detail\\evaluation.json": "6e98e9b3b88ee5f7bfe373cd06dfd7c9c490aacc460683ccb365ba72f1444de4",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\ibis\\r001\\result.json": "1c8e6eb4171a530c512baedb7f0de98c021c303d85c4b45ea5e74c16a5d79897"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "gpt55|interact|stockmarket|task3|pandas",
+      "model": "gpt55",
+      "mode": "interact",
+      "backend": "pandas",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\pandas\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\pandas\\r001\\result.json",
+      "result_sha256": "20ed29cc96575c6d97fae26d8b7a08b571fa5b01394281925f3365df30dd9b6c",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\pandas\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\pandas\\r001\\solution\\answer.json": "4171dc3975dc12746245edefed1dd4a8c7f7dce464953d75f14c9251e3ff7674",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\pandas\\r001\\detail\\evaluation.json": "2737af3d173168c66d35a308852642b765449de582ae26ba3025efc332f930f3",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\pandas\\r001\\result.json": "20ed29cc96575c6d97fae26d8b7a08b571fa5b01394281925f3365df30dd9b6c"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "gpt55|interact|stockmarket|task3|polars",
+      "model": "gpt55",
+      "mode": "interact",
+      "backend": "polars",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\polars\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\polars\\r001\\result.json",
+      "result_sha256": "24f55df2129c33dfad8ccb1027a1ebb5608af46957325f42d3b2cd992b86aa55",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\polars\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\polars\\r001\\solution\\answer.json": "6136337e53d2889ed7e697b6d9dc35b6ccc66e816a47eabcb400271ea7cf6135",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\polars\\r001\\detail\\evaluation.json": "b184c9c40936d30af6f279aa2186d96b464641ee9746049fa1a2deea9f18bf92",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\polars\\r001\\result.json": "24f55df2129c33dfad8ccb1027a1ebb5608af46957325f42d3b2cd992b86aa55"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "gpt55|interact|stockmarket|task3|pyspark",
+      "model": "gpt55",
+      "mode": "interact",
+      "backend": "pyspark",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\pyspark\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\pyspark\\r001\\result.json",
+      "result_sha256": "3add771b28a332ec0c33d1fcf15730338541148277a5d7955d38ba22fc022a23",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\pyspark\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\pyspark\\r001\\solution\\answer.json": "6fc9c4bb1dd46e504d913aaddef6cf3cb80fe268f8dd4f172caa271e90b4fcf2",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\pyspark\\r001\\detail\\evaluation.json": "21d7a162423127736e84737ba5e658218105f042194843992d7b2db2b4003dac",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\pyspark\\r001\\result.json": "3add771b28a332ec0c33d1fcf15730338541148277a5d7955d38ba22fc022a23"
+      },
+      "original_passed": false,
+      "before": {
+        "passed": false,
+        "message": "No number found near name: Apex Global Brands Inc"
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": true
+    },
+    {
+      "sample_id": "kimi|clarified|stockmarket|task3|ibis",
+      "model": "kimi",
+      "mode": "clarified",
+      "backend": "ibis",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_clarified_membership_20261009-141739\\ibis\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_clarified_membership_20261009-141739\\ibis\\r001\\result.json",
+      "result_sha256": "d1799cdc84df6ea5916870b98a28cd43d73e5bf6b5171f35b01946dd73d7ae26",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_clarified_membership_20261009-141739\\ibis\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_clarified_membership_20261009-141739\\ibis\\r001\\solution\\answer.json": "9ad0c6cdc7198ee7629bbb2fd683394da202624ce5cc63e0986a9f8b70bac7dc",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_clarified_membership_20261009-141739\\ibis\\r001\\detail\\evaluation.json": "afd30492d3c17ffa9e30adc4a3ed5e7f41cd192621a68c92996dc39643d03661",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_clarified_membership_20261009-141739\\ibis\\r001\\result.json": "d1799cdc84df6ea5916870b98a28cd43d73e5bf6b5171f35b01946dd73d7ae26"
+      },
+      "original_passed": false,
+      "before": {
+        "passed": false,
+        "message": "No number found near name: Apex Global Brands Inc"
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": true
+    },
+    {
+      "sample_id": "kimi|clarified|stockmarket|task3|pandas",
+      "model": "kimi",
+      "mode": "clarified",
+      "backend": "pandas",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_clarified_membership_20261009-141739\\pandas\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_clarified_membership_20261009-141739\\pandas\\r001\\result.json",
+      "result_sha256": "12d0b7fb9558d4d765a32d3c870797a9fd1f52255d2aafa3e6f5d8ee60188412",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_clarified_membership_20261009-141739\\pandas\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_clarified_membership_20261009-141739\\pandas\\r001\\solution\\answer.json": "107faa5324cbb91f2d503d981d8512ef82ef9b89364916627bceb1adc5dbd9bb",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_clarified_membership_20261009-141739\\pandas\\r001\\detail\\evaluation.json": "2785c423fe7ec23fcf238778528426faceeecf3af5dc7555aba96601e43c7376",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_clarified_membership_20261009-141739\\pandas\\r001\\result.json": "12d0b7fb9558d4d765a32d3c870797a9fd1f52255d2aafa3e6f5d8ee60188412"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "kimi|clarified|stockmarket|task3|polars",
+      "model": "kimi",
+      "mode": "clarified",
+      "backend": "polars",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_clarified_membership_20261009-141739\\polars\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_clarified_membership_20261009-141739\\polars\\r001\\result.json",
+      "result_sha256": "eab89e78c6ee5d599deaa25c6dc99b63bed4954fce6364f69811e26ec77e878a",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_clarified_membership_20261009-141739\\polars\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_clarified_membership_20261009-141739\\polars\\r001\\solution\\answer.json": "2d3e0217ae51cd22939066745485e07a1df7f7c12b08f70538149bc0891e51c8",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_clarified_membership_20261009-141739\\polars\\r001\\detail\\evaluation.json": "cc5d98bff7a7df8f3a3b57b4aec8d9210a23f0d1442c59481f87b37b66234d5b",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_clarified_membership_20261009-141739\\polars\\r001\\result.json": "eab89e78c6ee5d599deaa25c6dc99b63bed4954fce6364f69811e26ec77e878a"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "kimi|clarified|stockmarket|task3|pyspark",
+      "model": "kimi",
+      "mode": "clarified",
+      "backend": "pyspark",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_clarified_pyspark_agentplan_20261012-231706\\pyspark\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_clarified_pyspark_agentplan_20261012-231706\\pyspark\\r001\\result.json",
+      "result_sha256": "cfe5aea21b50f23d0823085daa169ff395dc52a699536c2b9d22c58cce34a2e5",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_clarified_pyspark_agentplan_20261012-231706\\pyspark\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_clarified_pyspark_agentplan_20261012-231706\\pyspark\\r001\\solution\\answer.json": "ae631c8ec998960ff2807e5be971d4a2b9781b89888b65107f51b16972f16a52",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_clarified_pyspark_agentplan_20261012-231706\\pyspark\\r001\\detail\\evaluation.json": "7008426d2aadf1d0bbb85fd6b965edf75122425faf9c42f0895e8383086c4cf3",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_clarified_pyspark_agentplan_20261012-231706\\pyspark\\r001\\result.json": "cfe5aea21b50f23d0823085daa169ff395dc52a699536c2b9d22c58cce34a2e5"
+      },
+      "original_passed": false,
+      "before": {
+        "passed": false,
+        "message": "No number found near name: Apex Global Brands Inc"
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": true
+    },
+    {
+      "sample_id": "kimi|direct|stockmarket|task3|ibis",
+      "model": "kimi",
+      "mode": "direct",
+      "backend": "ibis",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_direct_membership_20261007\\ibis\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_direct_membership_20261007\\ibis\\r001\\result.json",
+      "result_sha256": "2aaf185215a66dfaebb27b3d716aad35207b4bec3aa702aedfd17b927458ad61",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_direct_membership_20261007\\ibis\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_direct_membership_20261007\\ibis\\r001\\solution\\answer.json": "bd8e154f079ac5bfe6aceae80de4eb56bb18f4d863192ac4e2c3ff89fd3a63b1",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_direct_membership_20261007\\ibis\\r001\\detail\\evaluation.json": "9d2537473d51fd82dd160488af98c085c9920c4cf69e62da4cc53c58273c3872",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_direct_membership_20261007\\ibis\\r001\\result.json": "2aaf185215a66dfaebb27b3d716aad35207b4bec3aa702aedfd17b927458ad61"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "kimi|direct|stockmarket|task3|pandas",
+      "model": "kimi",
+      "mode": "direct",
+      "backend": "pandas",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_direct_20261006-204221\\pandas\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_direct_20261006-204221\\pandas\\r001\\result.json",
+      "result_sha256": "97521609f2c8f293898636907fca3c0db400a9912d48d4242c5ab7b9f4060410",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_direct_20261006-204221\\pandas\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_direct_20261006-204221\\pandas\\r001\\solution\\answer.json": "107faa5324cbb91f2d503d981d8512ef82ef9b89364916627bceb1adc5dbd9bb",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_direct_20261006-204221\\pandas\\r001\\detail\\evaluation.json": "97a4027bb5787614636cba754f2478fa966dcb810080b3917ed5846cc2d29fba",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_direct_20261006-204221\\pandas\\r001\\result.json": "97521609f2c8f293898636907fca3c0db400a9912d48d4242c5ab7b9f4060410"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "kimi|direct|stockmarket|task3|polars",
+      "model": "kimi",
+      "mode": "direct",
+      "backend": "polars",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_direct_20261006-204221\\polars\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_direct_20261006-204221\\polars\\r001\\result.json",
+      "result_sha256": "d0aa267546403e1c758c2da5d210332a56733ca62e0bc26ceb8b4ba54fb380fa",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_direct_20261006-204221\\polars\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_direct_20261006-204221\\polars\\r001\\solution\\answer.json": "f6dc396a0ab4af417ccca0c384d46ceb455da7937dc820326c2abcfa1b97b4dc",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_direct_20261006-204221\\polars\\r001\\detail\\evaluation.json": "851fd73075b92d960904505f096e835d7c90fc6914364d626f794c6b9f875b84",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_direct_20261006-204221\\polars\\r001\\result.json": "d0aa267546403e1c758c2da5d210332a56733ca62e0bc26ceb8b4ba54fb380fa"
+      },
+      "original_passed": false,
+      "before": {
+        "passed": false,
+        "message": "No number found near name: Apex Global Brands Inc"
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": true
+    },
+    {
+      "sample_id": "kimi|direct|stockmarket|task3|pyspark",
+      "model": "kimi",
+      "mode": "direct",
+      "backend": "pyspark",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_direct_pyspark_agentplan_20261012-231706\\pyspark\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_direct_pyspark_agentplan_20261012-231706\\pyspark\\r001\\result.json",
+      "result_sha256": "4fc535357fa61e492c0d8263d9ef4dfbc7618452981fb18cc7d6e23df9223ef7",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_direct_pyspark_agentplan_20261012-231706\\pyspark\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_direct_pyspark_agentplan_20261012-231706\\pyspark\\r001\\solution\\answer.json": "ae631c8ec998960ff2807e5be971d4a2b9781b89888b65107f51b16972f16a52",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_direct_pyspark_agentplan_20261012-231706\\pyspark\\r001\\detail\\evaluation.json": "052b66f7580d955773a36cfb76e969e7ed881a60ddd636f4f40b14ca39760814",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_direct_pyspark_agentplan_20261012-231706\\pyspark\\r001\\result.json": "4fc535357fa61e492c0d8263d9ef4dfbc7618452981fb18cc7d6e23df9223ef7"
+      },
+      "original_passed": false,
+      "before": {
+        "passed": false,
+        "message": "No number found near name: Apex Global Brands Inc"
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": true
+    },
+    {
+      "sample_id": "kimi|interact|stockmarket|task3|ibis",
+      "model": "kimi",
+      "mode": "interact",
+      "backend": "ibis",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_interact_membership_20261011-002951\\ibis\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_interact_membership_20261011-002951\\ibis\\r001\\result.json",
+      "result_sha256": "816266a1ba98171bdc354a294d3c683e7b2423ea4ce569af9e6375d7783926e0",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_interact_membership_20261011-002951\\ibis\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_interact_membership_20261011-002951\\ibis\\r001\\solution\\answer.json": "ae631c8ec998960ff2807e5be971d4a2b9781b89888b65107f51b16972f16a52",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_interact_membership_20261011-002951\\ibis\\r001\\detail\\evaluation.json": "f32f000b3a5fe8750949a82ae82dc8ba0f96655d4c1431c2258e9e84b45d9484",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_interact_membership_20261011-002951\\ibis\\r001\\result.json": "816266a1ba98171bdc354a294d3c683e7b2423ea4ce569af9e6375d7783926e0"
+      },
+      "original_passed": false,
+      "before": {
+        "passed": false,
+        "message": "No number found near name: Apex Global Brands Inc"
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": true
+    },
+    {
+      "sample_id": "kimi|interact|stockmarket|task3|pandas",
+      "model": "kimi",
+      "mode": "interact",
+      "backend": "pandas",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_agentplan_20261011-002951\\pandas\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_agentplan_20261011-002951\\pandas\\r001\\result.json",
+      "result_sha256": "01cde76bedb790f147306976c154406221e4a368e22b1adb62f8cf2ee27496d0",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_agentplan_20261011-002951\\pandas\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_agentplan_20261011-002951\\pandas\\r001\\solution\\answer.json": "7b1a052e220539fd7773526224a544a5490893f3ec74dbb5db11717ed1d71f70",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_agentplan_20261011-002951\\pandas\\r001\\detail\\evaluation.json": "faf58394fc3b436dbb9a8ca32660084568fe8f59448c7942a2b17570085fbbbc",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_agentplan_20261011-002951\\pandas\\r001\\result.json": "01cde76bedb790f147306976c154406221e4a368e22b1adb62f8cf2ee27496d0"
+      },
+      "original_passed": false,
+      "before": {
+        "passed": false,
+        "message": "No number found near name: Apex Global Brands Inc"
+      },
+      "after": {
+        "passed": false,
+        "message": "Number near 'Apex Global Brands Inc' does not match rounded 23781"
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "kimi|interact|stockmarket|task3|polars",
+      "model": "kimi",
+      "mode": "interact",
+      "backend": "polars",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_agentplan_20261011-002951\\polars\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_agentplan_20261011-002951\\polars\\r001\\result.json",
+      "result_sha256": "d876ef0d24017e5c991b9a4dc56bd379f6ce8210dea9a9a78ea0687a5296be3d",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_agentplan_20261011-002951\\polars\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_agentplan_20261011-002951\\polars\\r001\\solution\\answer.json": "c84cbe5d233ff0d83e798073ba566493b1680eaaa2e77deed6f00ab2b5cf218a",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_agentplan_20261011-002951\\polars\\r001\\detail\\evaluation.json": "bba06bb8c0c9c3d295eea14e170e3e558bc88a816ac5ad23286562ea98a61b02",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_agentplan_20261011-002951\\polars\\r001\\result.json": "d876ef0d24017e5c991b9a4dc56bd379f6ce8210dea9a9a78ea0687a5296be3d"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    },
+    {
+      "sample_id": "kimi|interact|stockmarket|task3|pyspark",
+      "model": "kimi",
+      "mode": "interact",
+      "backend": "pyspark",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_pyspark_agentplan_20261012-231706\\pyspark\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_pyspark_agentplan_20261012-231706\\pyspark\\r001\\result.json",
+      "result_sha256": "af398d16e8b40d6b100c9256d10c8392528d3875dd51de9c8f3d6ef240029d83",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_pyspark_agentplan_20261012-231706\\pyspark\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_pyspark_agentplan_20261012-231706\\pyspark\\r001\\solution\\answer.json": "df1e5b34ff6c7a4d67e474a1c2292fe0e863228c9cc6e98858c394dded6d3b90",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_pyspark_agentplan_20261012-231706\\pyspark\\r001\\detail\\evaluation.json": "bda7cdd7fe98f74e88b1cb956668bb1543c371ca8dc569eb3a2d87f92b984f1c",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_pyspark_agentplan_20261012-231706\\pyspark\\r001\\result.json": "af398d16e8b40d6b100c9256d10c8392528d3875dd51de9c8f3d6ef240029d83"
+      },
+      "original_passed": true,
+      "before": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": false
+    }
+  ],
+  "verified_at": "2026-10-21T21:22:50.233605+08:00"
+}

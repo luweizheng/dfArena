@@ -1,0 +1,14 @@
+{
+  "unit": "model × mode × dataset/task × backend, one effective result per cell",
+  "primary_failure_scope": "passed is not true including timeout/unscored; never substitute raw_evaluation_passed for revised passed",
+  "merge_identity": [
+    "benchmark",
+    "sample_id",
+    "result_sha256"
+  ],
+  "teacher_new_label_policy": "teacher_label and adjudicated_label are null for the new external-data merge; historical review100 kept in a separate file.",
+  "source_label_policy": "own_primary_label copied from frozen current master after current-failure and result identity join; no relabeling.",
+  "independence": "4992 dependent runs over104tasks; backends, modes, models of same task are related;104 is not a random sample of all real-world tasks.",
+  "human_review_overlay": "master independent_human_review_performed=false is pre-audit metadata, not proof no later human audit occurred; use the separate historical audit file.",
+  "confidence": "Preserve source wording; medium/moderate/medium_high remain distinct and are not calibrated probabilities."
+}

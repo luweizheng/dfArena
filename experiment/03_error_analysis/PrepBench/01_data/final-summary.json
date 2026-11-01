@@ -1,0 +1,179 @@
+{
+  "created_at": "2026-11-01T05:01:57.128479+00:00",
+  "status": "complete",
+  "reruns": [
+    {
+      "sample_id": "gpt6/direct/case_197/ibis",
+      "status": "success",
+      "passed": true,
+      "run": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-10-20\\prep2\\outputs\\capacity7-rerun-20261101\\direct\\runs\\case_197\\ibis\\attempt-002",
+      "subclass": null,
+      "audit": {
+        "source_path": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-10-20\\prep2\\outputs\\capacity7-rerun-20261101\\direct\\runs\\case_197\\ibis\\attempt-002\\audit.json",
+        "source_sha256": "22d48ad39049e919a86456b2077e9ad3b7ebbc29e9a0f02835707ca4ab4922a3",
+        "portable_file": {
+          "path": "03_error_analysis/PrepBench/evidence/22/22d48ad39049e919a86456b2077e9ad3b7ebbc29e9a0f02835707ca4ab4922a3.json",
+          "asset": "experiment-03_error_analysis-PrepBench-context-001.zip",
+          "sha256": "22d48ad39049e919a86456b2077e9ad3b7ebbc29e9a0f02835707ca4ab4922a3",
+          "bytes": 5499,
+          "source_sha256": "22d48ad39049e919a86456b2077e9ad3b7ebbc29e9a0f02835707ca4ab4922a3"
+        }
+      }
+    },
+    {
+      "sample_id": "gpt6/direct/case_270/pandas",
+      "status": "failure",
+      "passed": false,
+      "run": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-10-20\\prep2\\outputs\\capacity7-rerun-20261101\\direct\\runs\\case_270\\pandas\\attempt-002",
+      "subclass": "II1",
+      "audit": {
+        "source_path": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-10-20\\prep2\\outputs\\capacity7-rerun-20261101\\direct\\runs\\case_270\\pandas\\attempt-002\\audit.json",
+        "source_sha256": "a9ff803bc682afba69004da56204e3c1ba8a5d71a9f1e2d2e3291cd320b64b00",
+        "portable_file": {
+          "path": "03_error_analysis/PrepBench/evidence/a9/a9ff803bc682afba69004da56204e3c1ba8a5d71a9f1e2d2e3291cd320b64b00.json",
+          "asset": "experiment-03_error_analysis-PrepBench-context-001.zip",
+          "sha256": "a9ff803bc682afba69004da56204e3c1ba8a5d71a9f1e2d2e3291cd320b64b00",
+          "bytes": 5633,
+          "source_sha256": "a9ff803bc682afba69004da56204e3c1ba8a5d71a9f1e2d2e3291cd320b64b00"
+        }
+      }
+    },
+    {
+      "sample_id": "gpt6/direct/case_297/pyspark",
+      "status": "failure",
+      "passed": false,
+      "run": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-10-20\\prep2\\outputs\\capacity7-rerun-20261101\\direct\\runs\\case_297\\pyspark\\attempt-002",
+      "subclass": "II3",
+      "audit": {
+        "source_path": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-10-20\\prep2\\outputs\\capacity7-rerun-20261101\\direct\\runs\\case_297\\pyspark\\attempt-002\\audit.json",
+        "source_sha256": "d970fe801b6eb5f701919ec24f0418d2e0ab916414a8df7ece81c467eee1cc66",
+        "portable_file": {
+          "path": "03_error_analysis/PrepBench/evidence/d9/d970fe801b6eb5f701919ec24f0418d2e0ab916414a8df7ece81c467eee1cc66.json",
+          "asset": "experiment-03_error_analysis-PrepBench-context-001.zip",
+          "sha256": "d970fe801b6eb5f701919ec24f0418d2e0ab916414a8df7ece81c467eee1cc66",
+          "bytes": 6949,
+          "source_sha256": "d970fe801b6eb5f701919ec24f0418d2e0ab916414a8df7ece81c467eee1cc66"
+        }
+      }
+    },
+    {
+      "sample_id": "gpt6/clarified/case_119/pyspark",
+      "status": "success",
+      "passed": true,
+      "run": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-10-20\\prep2\\outputs\\capacity7-rerun-20261101\\clarified\\runs\\case_119\\pyspark\\attempt-002",
+      "subclass": null,
+      "audit": {
+        "source_path": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-10-20\\prep2\\outputs\\capacity7-rerun-20261101\\clarified\\runs\\case_119\\pyspark\\attempt-002\\audit.json",
+        "source_sha256": "53276f71775da9b6bda6363b59c11ec5909b3ae66ecb5fff99b54bd7d612b9ef",
+        "portable_file": {
+          "path": "03_error_analysis/PrepBench/evidence/53/53276f71775da9b6bda6363b59c11ec5909b3ae66ecb5fff99b54bd7d612b9ef.json",
+          "asset": "experiment-03_error_analysis-PrepBench-context-001.zip",
+          "sha256": "53276f71775da9b6bda6363b59c11ec5909b3ae66ecb5fff99b54bd7d612b9ef",
+          "bytes": 6568,
+          "source_sha256": "53276f71775da9b6bda6363b59c11ec5909b3ae66ecb5fff99b54bd7d612b9ef"
+        }
+      }
+    },
+    {
+      "sample_id": "gpt6/clarified/case_126/polars",
+      "status": "success",
+      "passed": true,
+      "run": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-10-20\\prep2\\outputs\\capacity7-rerun-20261101\\clarified\\runs\\case_126\\polars\\attempt-002",
+      "subclass": null,
+      "audit": {
+        "source_path": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-10-20\\prep2\\outputs\\capacity7-rerun-20261101\\clarified\\runs\\case_126\\polars\\attempt-002\\audit.json",
+        "source_sha256": "0c99fe5afd008dc4ed9dc692aacc7c0601440c9cf58ae1024485fc8d8250f709",
+        "portable_file": {
+          "path": "03_error_analysis/PrepBench/evidence/0c/0c99fe5afd008dc4ed9dc692aacc7c0601440c9cf58ae1024485fc8d8250f709.json",
+          "asset": "experiment-03_error_analysis-PrepBench-context-001.zip",
+          "sha256": "0c99fe5afd008dc4ed9dc692aacc7c0601440c9cf58ae1024485fc8d8250f709",
+          "bytes": 5487,
+          "source_sha256": "0c99fe5afd008dc4ed9dc692aacc7c0601440c9cf58ae1024485fc8d8250f709"
+        }
+      }
+    },
+    {
+      "sample_id": "gpt6/interact/case_143/pandas",
+      "status": "success",
+      "passed": true,
+      "run": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-10-20\\prep2\\outputs\\capacity7-rerun-20261101\\interact\\runs\\case_143\\pandas\\attempt-002",
+      "subclass": null,
+      "audit": {
+        "source_path": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-10-20\\prep2\\outputs\\capacity7-rerun-20261101\\interact\\runs\\case_143\\pandas\\attempt-002\\audit.json",
+        "source_sha256": "ecb084bdd89177218f2274173174647b9bc6f13845135468a9eb265ff244070a",
+        "portable_file": {
+          "path": "03_error_analysis/PrepBench/evidence/ec/ecb084bdd89177218f2274173174647b9bc6f13845135468a9eb265ff244070a.json",
+          "asset": "experiment-03_error_analysis-PrepBench-context-001.zip",
+          "sha256": "ecb084bdd89177218f2274173174647b9bc6f13845135468a9eb265ff244070a",
+          "bytes": 7688,
+          "source_sha256": "ecb084bdd89177218f2274173174647b9bc6f13845135468a9eb265ff244070a"
+        }
+      }
+    },
+    {
+      "sample_id": "gpt6/interact/case_209/polars",
+      "status": "success",
+      "passed": true,
+      "run": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-10-20\\prep2\\outputs\\capacity7-rerun-20261101\\interact\\runs\\case_209\\polars\\attempt-002",
+      "subclass": null,
+      "audit": {
+        "source_path": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-10-20\\prep2\\outputs\\capacity7-rerun-20261101\\interact\\runs\\case_209\\polars\\attempt-002\\audit.json",
+        "source_sha256": "71ab18b8d41d4cccb72312946e742ef1e653c9c0aa4945b8037ec3470c4750ff",
+        "portable_file": {
+          "path": "03_error_analysis/PrepBench/evidence/71/71ab18b8d41d4cccb72312946e742ef1e653c9c0aa4945b8037ec3470c4750ff.json",
+          "asset": "experiment-03_error_analysis-PrepBench-context-001.zip",
+          "sha256": "71ab18b8d41d4cccb72312946e742ef1e653c9c0aa4945b8037ec3470c4750ff",
+          "bytes": 7478,
+          "source_sha256": "71ab18b8d41d4cccb72312946e742ef1e653c9c0aa4945b8037ec3470c4750ff"
+        }
+      }
+    }
+  ],
+  "rerun_passed": 5,
+  "rerun_failed": 2,
+  "formal_results": 10620,
+  "passed": 7196,
+  "failed": 3424,
+  "remaining_environment_exclusions": 0,
+  "historical_capacity_exclusions": 7,
+  "classified_failures": 3424,
+  "class_counts": {
+    "I1": 29,
+    "II1": 1270,
+    "I3": 911,
+    "I5": 186,
+    "II3": 937,
+    "I2": 63,
+    "II4": 23,
+    "I4": 5
+  },
+  "original_files_verified_unchanged": 90,
+  "protected_blind_files_verified_unchanged": 5,
+  "human_blind_agreement": {
+    "user": "96/100",
+    "teacher": "92/100",
+    "scope": "original frozen 100, not re-sampled"
+  },
+  "source_index": {
+    "source_path": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-10-20\\prep2\\outputs\\capacity7-rerun-20261101\\effective-index-with-capacity7.json",
+    "source_sha256": "03cbf815d011b5a08b3ccae0466c7d18b7f62aeb80d884454e961652d3968b85",
+    "portable_file": {
+      "path": "03_error_analysis/PrepBench/evidence/03/03cbf815d011b5a08b3ccae0466c7d18b7f62aeb80d884454e961652d3968b85.json",
+      "asset": "experiment-03_error_analysis-PrepBench-context-001.zip",
+      "sha256": "03cbf815d011b5a08b3ccae0466c7d18b7f62aeb80d884454e961652d3968b85",
+      "bytes": 19447617,
+      "source_sha256": "03cbf815d011b5a08b3ccae0466c7d18b7f62aeb80d884454e961652d3968b85"
+    }
+  },
+  "combined_labels": {
+    "source_path": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-10-20\\prep2\\outputs\\capacity7-rerun-20261101\\ai-labels-with-capacity7.json",
+    "source_sha256": "174aff6483eb889c7ad880b57bb8df0db3537512fdd64593fd0b3b89f0f8d971",
+    "portable_file": {
+      "path": "03_error_analysis/PrepBench/evidence/17/174aff6483eb889c7ad880b57bb8df0db3537512fdd64593fd0b3b89f0f8d971.json",
+      "asset": "experiment-03_error_analysis-PrepBench-context-001.zip",
+      "sha256": "174aff6483eb889c7ad880b57bb8df0db3537512fdd64593fd0b3b89f0f8d971",
+      "bytes": 27338409,
+      "source_sha256": "174aff6483eb889c7ad880b57bb8df0db3537512fdd64593fd0b3b89f0f8d971"
+    }
+  }
+}

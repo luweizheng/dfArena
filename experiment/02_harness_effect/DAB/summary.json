@@ -1,0 +1,14 @@
+{
+  "benchmark": "DAB",
+  "unique_tasks": 30,
+  "paired_cells": 720,
+  "denominator_per_model": 360,
+  "OpenCode": {
+    "glm53": 203,
+    "kimi": 205
+  },
+  "Codex": {
+    "glm53": 198,
+    "kimi": 204
+  }
+}

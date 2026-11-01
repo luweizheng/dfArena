@@ -1,0 +1,387 @@
+[
+  {
+    "name": "experiment-01_initial_results-DAB-astra-001.zip",
+    "group": "01_initial_results/DAB/astra",
+    "bytes": 76499722,
+    "sha256": "45362688842758a088cfd8453e2bd0535bf8432c2adb6f1db718dbfc8571ac1d",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-DAB-astra-001.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-DAB-astra-002.zip",
+    "group": "01_initial_results/DAB/astra",
+    "bytes": 90725415,
+    "sha256": "c5ea0771382c44223c8e57bb680dbf8e2d189e8c7a2d86250d67979ea5ef8462",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-DAB-astra-002.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-DAB-astra-003.zip",
+    "group": "01_initial_results/DAB/astra",
+    "bytes": 45662408,
+    "sha256": "b08b327c6bd1b237b0d187e01022a6e59bdd1f3b76e91bd0e51ca9386cc8f22a",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-DAB-astra-003.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-DAB-glm53-001.zip",
+    "group": "01_initial_results/DAB/glm53",
+    "bytes": 21674827,
+    "sha256": "72ea9ee188f9293e720042fe1e782d0cfdbd2b08fac8c1f8f8425f8b4d1d2edc",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-DAB-glm53-001.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-DAB-glm53-002.zip",
+    "group": "01_initial_results/DAB/glm53",
+    "bytes": 37440608,
+    "sha256": "c70fe39f401db393913c3b882ed65b630ebe95e5a4c1643317317e3d9f47648d",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-DAB-glm53-002.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-DAB-glm53-003.zip",
+    "group": "01_initial_results/DAB/glm53",
+    "bytes": 39769962,
+    "sha256": "cace9071174915a5e2dbc43a6441cbecc8ceaef3a83a7d53bf78b3088d462fe2",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-DAB-glm53-003.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-DAB-gpt55-001.zip",
+    "group": "01_initial_results/DAB/gpt55",
+    "bytes": 277689,
+    "sha256": "8264608014ad8712204fe3e64210a89535a27c32d230953b2a310ec1f7ee6869",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-DAB-gpt55-001.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-DAB-gpt55-002.zip",
+    "group": "01_initial_results/DAB/gpt55",
+    "bytes": 59993478,
+    "sha256": "0d09ddd242649c6ae5eea70e64dbf060de106dc90bee295ec52503116b970760",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-DAB-gpt55-002.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-DAB-gpt55-003.zip",
+    "group": "01_initial_results/DAB/gpt55",
+    "bytes": 68233741,
+    "sha256": "212dc97001227146d7707d0a4a876ede16a2c539ab70253374b29bb9245d3965",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-DAB-gpt55-003.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-DAB-gpt55-004.zip",
+    "group": "01_initial_results/DAB/gpt55",
+    "bytes": 39784452,
+    "sha256": "a7e4cfd2a82d234d34224ea8c42c0b8c72d42ccbbf45c7c02bfdf01566abf25f",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-DAB-gpt55-004.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-DAB-kimi-001.zip",
+    "group": "01_initial_results/DAB/kimi",
+    "bytes": 15343272,
+    "sha256": "349b7817a1d25a235d67a56fb2c58694268d3b3a67be2204042e2769357bb1ae",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-DAB-kimi-001.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-DAB-kimi-002.zip",
+    "group": "01_initial_results/DAB/kimi",
+    "bytes": 28656334,
+    "sha256": "33a99f26ee56ab5ba9583417ae244ac3adae4641db42c947697155b4d2674ea4",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-DAB-kimi-002.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-DAB-kimi-003.zip",
+    "group": "01_initial_results/DAB/kimi",
+    "bytes": 28837938,
+    "sha256": "67ad783c18b6e3fbc62ef77bf3de656337cd032d8d200a473ea513dfdd81c852",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-DAB-kimi-003.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-gpt6-001.zip",
+    "group": "01_initial_results/PrepBench/gpt6",
+    "bytes": 261831,
+    "sha256": "beb4351d43c9057564bb9cb0014bc121d21f7643faac13d0935850504c54abc8",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-gpt6-001.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-gpt6-002.zip",
+    "group": "01_initial_results/PrepBench/gpt6",
+    "bytes": 20461468,
+    "sha256": "70d66bda0cf1b767c5567992735e7b48991e39063eb5538f77b6d6458b804680",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-gpt6-002.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-gpt6-003.zip",
+    "group": "01_initial_results/PrepBench/gpt6",
+    "bytes": 19860813,
+    "sha256": "493c2ecdfe3eafa585507969053373fe2f412e09a341e21e5a431006077415e8",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-gpt6-003.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-gpt6-004.zip",
+    "group": "01_initial_results/PrepBench/gpt6",
+    "bytes": 25086239,
+    "sha256": "c1d12d9e33be497f75adc67b151b90d78d6fd02e6d0bea267ef41fbd62783c4f",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-gpt6-004.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-gpt6-005.zip",
+    "group": "01_initial_results/PrepBench/gpt6",
+    "bytes": 27331180,
+    "sha256": "37785ac7426cbba5deaae0cbebee841f2e5f25780c6ef2d34aa09a3c94da2b0f",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-gpt6-005.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-gpt6-006.zip",
+    "group": "01_initial_results/PrepBench/gpt6",
+    "bytes": 25065608,
+    "sha256": "8edf5edd5b9e5a30abb49224be07f7570845db5922bf5d342a38d0410831e97e",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-gpt6-006.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-gpt6-007.zip",
+    "group": "01_initial_results/PrepBench/gpt6",
+    "bytes": 19301431,
+    "sha256": "8c77da491a9ada76f9e826f2b86b8aa30d708804281fef8fd5ec648f7545f946",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-gpt6-007.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-gpt6-008.zip",
+    "group": "01_initial_results/PrepBench/gpt6",
+    "bytes": 19303908,
+    "sha256": "be065926ee47298cb318e94f356d73a34810ccfe45d241e651caaba40483565a",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-gpt6-008.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-gpt6-009.zip",
+    "group": "01_initial_results/PrepBench/gpt6",
+    "bytes": 1207579,
+    "sha256": "a2007f271a18d913a24e4cb442144b816b3cbd0b22d0cbb9c0ee4a2e2420ca20",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-gpt6-009.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-kimi-001.zip",
+    "group": "01_initial_results/PrepBench/kimi",
+    "bytes": 12316840,
+    "sha256": "387224c30b9dff7c6f558a8265e161302ce6f4a3974f0c0d0561fcac4f6f397a",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-kimi-001.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-kimi-002.zip",
+    "group": "01_initial_results/PrepBench/kimi",
+    "bytes": 12829648,
+    "sha256": "a997e1adf22b39903e6b4275167c31d30193bb1050fa6678c298c2822b9a3570",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-kimi-002.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-kimi-003.zip",
+    "group": "01_initial_results/PrepBench/kimi",
+    "bytes": 16569534,
+    "sha256": "970155225cbaf8b163f920c881f3ded185addbe59865c3ba950d19aa81179774",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-kimi-003.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-kimi-004.zip",
+    "group": "01_initial_results/PrepBench/kimi",
+    "bytes": 19224656,
+    "sha256": "5495060a938697a03a690856f6df6f4c14d880a3a74f655612bb3b30e62409bd",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-kimi-004.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-kimi-005.zip",
+    "group": "01_initial_results/PrepBench/kimi",
+    "bytes": 17238506,
+    "sha256": "37ce2d0e6e5d372740c65d8f7c4766c9356f66bc37f389bdb164badd0d8c052f",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-kimi-005.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-kimi-006.zip",
+    "group": "01_initial_results/PrepBench/kimi",
+    "bytes": 12852024,
+    "sha256": "7d4863348a5a46062f1881cba4326d0b853d714e221f59112bcc2a618273904c",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-kimi-006.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-kimi-007.zip",
+    "group": "01_initial_results/PrepBench/kimi",
+    "bytes": 12937193,
+    "sha256": "70b6590eee2e0f489a48409db3eee55af5977e990f502c465f32f356273e271a",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-kimi-007.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-kimi-008.zip",
+    "group": "01_initial_results/PrepBench/kimi",
+    "bytes": 2013246,
+    "sha256": "ab80d7f890a3b1b6f511cb69e70d71542f4a4d83a8e7c1e8120671be2ca1f5a5",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-kimi-008.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-glm-001.zip",
+    "group": "01_initial_results/PrepBench/glm",
+    "bytes": 14588768,
+    "sha256": "6b90dec7db37d0e112e313606175d598763d43a1f8c8e451bcc78c4e6d924d9e",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-glm-001.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-glm-002.zip",
+    "group": "01_initial_results/PrepBench/glm",
+    "bytes": 16328093,
+    "sha256": "e7ffcea746b72a2ca89cc381c68b26a451c02a48558359b1c5b3f552c75f11c1",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-glm-002.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-glm-003.zip",
+    "group": "01_initial_results/PrepBench/glm",
+    "bytes": 20081448,
+    "sha256": "fc51b655d5405cf23c4cc033f3e9edaa2374564d2cf7fc51b5045f9b0b86e8cb",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-glm-003.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-glm-004.zip",
+    "group": "01_initial_results/PrepBench/glm",
+    "bytes": 24113300,
+    "sha256": "b0bba8191a33c3c38b3c0a824d5aae2ff83efe56acdabd9d9e23d8bcdf63cfb0",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-glm-004.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-glm-005.zip",
+    "group": "01_initial_results/PrepBench/glm",
+    "bytes": 21767912,
+    "sha256": "f2f3ea15484d5ed689ec1e658f373221f696a77bbdfbb5f8bc2b381d4e2bd715",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-glm-005.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-glm-006.zip",
+    "group": "01_initial_results/PrepBench/glm",
+    "bytes": 16114247,
+    "sha256": "4056e1784e7c56f0415aacab907ca93bd9c62c0b5722e0094ccae72caed39b63",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-glm-006.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-glm-007.zip",
+    "group": "01_initial_results/PrepBench/glm",
+    "bytes": 15805751,
+    "sha256": "b03b84856a0512cc9936ebcf796760af2089754a36e22ae2052c6b2597542d05",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-glm-007.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-glm-008.zip",
+    "group": "01_initial_results/PrepBench/glm",
+    "bytes": 3795873,
+    "sha256": "652c9dc3fb6fb4d5f471c8cd9c4535040a410b108485770921cea0e3080da4d1",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-glm-008.zip"
+  },
+  {
+    "name": "experiment-02_harness_effect-DAB-Codex-001.zip",
+    "group": "02_harness_effect/DAB/Codex",
+    "bytes": 74188768,
+    "sha256": "318ce25bf70e00d044d2151bd3df2b877e15bae0139f8459e95420b281fa5b05",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-02_harness_effect-DAB-Codex-001.zip"
+  },
+  {
+    "name": "experiment-02_harness_effect-DAB-Codex-002.zip",
+    "group": "02_harness_effect/DAB/Codex",
+    "bytes": 29150723,
+    "sha256": "7ab152d91b1d63f1cfe362d433b4d08374bdc8e594adace4252da2f6e5ae069d",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-02_harness_effect-DAB-Codex-002.zip"
+  },
+  {
+    "name": "experiment-02_harness_effect-DAB-OpenCode-001.zip",
+    "group": "02_harness_effect/DAB/OpenCode",
+    "bytes": 9894579,
+    "sha256": "6fe824a2a6cb99840be185370ab9a8f0013e0433c1bbfcc9a6d7dc1f82d77652",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-02_harness_effect-DAB-OpenCode-001.zip"
+  },
+  {
+    "name": "experiment-02_harness_effect-DAB-OpenCode-002.zip",
+    "group": "02_harness_effect/DAB/OpenCode",
+    "bytes": 27019280,
+    "sha256": "1c0cc674f3a95e5f1cd25a7c91a864a6857df6a693373a74a06e75beb6a8c8d9",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-02_harness_effect-DAB-OpenCode-002.zip"
+  },
+  {
+    "name": "experiment-02_harness_effect-DAB-OpenCode-003.zip",
+    "group": "02_harness_effect/DAB/OpenCode",
+    "bytes": 2865614,
+    "sha256": "77c70cea91c2fa63ee4a3631d71ebddd386fdcf8b001bfa52484e443997ecbf1",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-02_harness_effect-DAB-OpenCode-003.zip"
+  },
+  {
+    "name": "experiment-02_harness_effect-PrepBench-Codex-001.zip",
+    "group": "02_harness_effect/PrepBench/Codex",
+    "bytes": 20539847,
+    "sha256": "888e086f75fc4ad0ed6fdbd467d67a53279dbc357f68f41510944b72919a123c",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-02_harness_effect-PrepBench-Codex-001.zip"
+  },
+  {
+    "name": "experiment-02_harness_effect-PrepBench-Codex-002.zip",
+    "group": "02_harness_effect/PrepBench/Codex",
+    "bytes": 5802758,
+    "sha256": "35f83323c4e52f23e336bd91d7aaf21f90e5ae1a96670fcc13f8c70974676b70",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-02_harness_effect-PrepBench-Codex-002.zip"
+  },
+  {
+    "name": "experiment-02_harness_effect-PrepBench-OpenCode-001.zip",
+    "group": "02_harness_effect/PrepBench/OpenCode",
+    "bytes": 12764892,
+    "sha256": "2eb55d8761a5e4cbeafd407f9c2f1aea76f83345b9ce3e4309049cb884740f38",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-02_harness_effect-PrepBench-OpenCode-001.zip"
+  },
+  {
+    "name": "experiment-02_harness_effect-PrepBench-OpenCode-002.zip",
+    "group": "02_harness_effect/PrepBench/OpenCode",
+    "bytes": 8467973,
+    "sha256": "eb60be05cb7b55b9372e620f91ef89ba9c0e2e516c4aade5c7ae7d3b3f6d3592",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-02_harness_effect-PrepBench-OpenCode-002.zip"
+  },
+  {
+    "name": "experiment-03_error_analysis-DAB-context-001.zip",
+    "group": "03_error_analysis/DAB/context",
+    "bytes": 84394751,
+    "sha256": "46957fc87f8fe24ece9f5e63c9e2974b6453a51ee0e336e9e9001c63cbea7ad8",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-03_error_analysis-DAB-context-001.zip"
+  },
+  {
+    "name": "experiment-03_error_analysis-PrepBench-context-001.zip",
+    "group": "03_error_analysis/PrepBench/context",
+    "bytes": 93400716,
+    "sha256": "5d88212866e3a52fbe1a5013e4dea3eeac57436dbaf5f2f09bbaf2b407af8943",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-03_error_analysis-PrepBench-context-001.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-DAB-revisions-001.zip",
+    "group": "01_initial_results/DAB/revisions",
+    "bytes": 35545,
+    "sha256": "2b70043292938161915de6e29a0fae119098987c5ef8f42a16e7ed3eb32bc1e5",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-DAB-revisions-001.zip"
+  },
+  {
+    "name": "experiment-01_initial_results-PrepBench-revisions-001.zip",
+    "group": "01_initial_results/PrepBench/revisions",
+    "bytes": 4044975,
+    "sha256": "d16856de6de1b9ee88da762d3aa6ff04046aed2811cbd21475a546018558208f",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-01_initial_results-PrepBench-revisions-001.zip"
+  },
+  {
+    "name": "experiment-02_harness_effect-DAB-revisions-001.zip",
+    "group": "02_harness_effect/DAB/revisions",
+    "bytes": 1027,
+    "sha256": "a213cfa063f88d6f5596063fcf0d9bdbe168c6e6066772f3d0801777b33808e0",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-02_harness_effect-DAB-revisions-001.zip"
+  },
+  {
+    "name": "experiment-03_error_analysis-DAB-historical-reference-001.zip",
+    "group": "03_error_analysis/DAB/historical_reference",
+    "sha256": "fa8df7ede7b0941a43995e6858e60e40de887a35408aae2f857be6cfa212371e",
+    "bytes": 41687,
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-03_error_analysis-DAB-historical-reference-001.zip"
+  },
+  {
+    "name": "experiment-02_harness_effect-DAB-protocol-checks-001.zip",
+    "group": "02_harness_effect/DAB/protocol_checks",
+    "sha256": "2cd1418125e5ae30371f782b65b07b7658c28918a2cb352285dec6b1042cfc38",
+    "bytes": 3202,
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-02_harness_effect-DAB-protocol-checks-001.zip"
+  },
+  {
+    "name": "experiment-index.zip",
+    "group": "index_and_analysis",
+    "bytes": 74647767,
+    "sha256": "a4cd7d9f58fe6ceb5abcb9e80276f3e934d267cc797df043a4d8c64a943593b3",
+    "download_url": "https://github.com/luweizheng/dfArena/releases/download/experiment-evidence-20261101/experiment-index.zip"
+  }
+]

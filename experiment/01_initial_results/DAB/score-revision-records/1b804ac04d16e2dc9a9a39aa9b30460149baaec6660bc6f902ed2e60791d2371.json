@@ -1,0 +1,103 @@
+{
+  "created_at": "2026-10-21T21:26:14.904845+08:00",
+  "status": "applied_and_verified",
+  "scope": "Only the three stockmarket/task3 answers still failing the 200-character revision",
+  "user_policy": "Keep the 45 previous passes; do not rescore them",
+  "model_calls": 0,
+  "actual_answer_evaluations": 3,
+  "previous_passes_not_rescored": 45,
+  "before_sha256": "1137f9b71fe32c305c98a5538dce6e6b3ccae12367d3780611932d4718d37fd4",
+  "after_sha256": "64254b48a542d34845fb0f4fb21b0f400b07476fd700e6ca3de9f40e896bfbf2",
+  "validator_target": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\tasks\\task3\\validate.py",
+  "source_index_sha256": "83905e85677b04d6bff8dd80d230f2231f0e48929f32dab40cdce712d321f113",
+  "previous_rescore_sha256": "a90faf39d8b3f9bbbbdc954d7cb24ac6bc1383015f53b661c4addf4e6b820679",
+  "helper_sha256": "4500d90010b0cec6b92087cc239061efd2fee93a36f4729e4e39c6090b77ea22",
+  "worker_script_sha256": "83ab77406cf7c2b439e6e71ada1473e27cb7da0d6d7187353d4a5df0dfa4553a",
+  "script_sha256": "4938dbb2d4abffbdc19fe22270ca64a71bb20c0dfa54b2e9a32ff06c3a641f67",
+  "changed_count": 2,
+  "records": [
+    {
+      "sample_id": "astra|interact|stockmarket|task3|pandas",
+      "model": "astra",
+      "mode": "interact",
+      "backend": "pandas",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\pandas\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\pandas\\r001\\result.json",
+      "result_sha256": "b28702fb59b20430393dc3ac512f1af73e09cd6079cb2f3247d7fed257588787",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\pandas\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\pandas\\r001\\solution\\answer.json": "dea735113b46f1278362182d81396aa6f6a7f22a90cb728338edd163082abde3",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\pandas\\r001\\detail\\evaluation.json": "00c6d625a71e2f58d9afc3d81521db36c0a53793dbf5a0e627e765592589d1bd",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\pandas\\r001\\result.json": "b28702fb59b20430393dc3ac512f1af73e09cd6079cb2f3247d7fed257588787"
+      },
+      "original_passed": false,
+      "before": {
+        "passed": false,
+        "message": "No number found near name: Future FinTech Group Inc"
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": true,
+      "previous_revision_record": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-09-21\\ni-x\\outputs\\dab-error-classification-20261021\\rescore-stockmarket-task3-window200\\rescored-results.json"
+    },
+    {
+      "sample_id": "glm53|direct|stockmarket|task3|polars",
+      "model": "glm53",
+      "mode": "direct",
+      "backend": "polars",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\polars\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\polars\\r001\\result.json",
+      "result_sha256": "5ba988198f1c3fd805db2b878fb4c32f61762d25328d313d46b55d4f2ad4ed67",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\polars\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\polars\\r001\\solution\\answer.json": "92f824b6daa04cecd85267310c47e284b2a3a6c62939fd3e695c28386a69e539",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\polars\\r001\\detail\\evaluation.json": "cf0e91faf468b017ee1138d54cdfb063b7e7eb5fbc25aba3ae55ec38627bef76",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_direct_20261014-165548\\polars\\r001\\result.json": "5ba988198f1c3fd805db2b878fb4c32f61762d25328d313d46b55d4f2ad4ed67"
+      },
+      "original_passed": false,
+      "before": {
+        "passed": false,
+        "message": "Name not found within 5 edits: 'Synthesis Energy Systems, Inc', closest: 'sunesis pharmaceuticals, inc' (distance=16)"
+      },
+      "after": {
+        "passed": false,
+        "message": "Name not found within 5 edits: 'Synthesis Energy Systems, Inc', closest: 'sunesis pharmaceuticals, inc' (distance=16)"
+      },
+      "changed": false,
+      "previous_revision_record": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-09-21\\ni-x\\outputs\\dab-error-classification-20261021\\rescore-stockmarket-task3-window200\\rescored-results.json"
+    },
+    {
+      "sample_id": "kimi|interact|stockmarket|task3|pandas",
+      "model": "kimi",
+      "mode": "interact",
+      "backend": "pandas",
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_agentplan_20261011-002951\\pandas\\r001",
+      "result_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_agentplan_20261011-002951\\pandas\\r001\\result.json",
+      "result_sha256": "01cde76bedb790f147306976c154406221e4a368e22b1adb62f8cf2ee27496d0",
+      "answer_path": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_agentplan_20261011-002951\\pandas\\r001\\solution\\answer.json",
+      "original_artifact_sha256": {
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_agentplan_20261011-002951\\pandas\\r001\\solution\\answer.json": "7b1a052e220539fd7773526224a544a5490893f3ec74dbb5db11717ed1d71f70",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_agentplan_20261011-002951\\pandas\\r001\\detail\\evaluation.json": "faf58394fc3b436dbb9a8ca32660084568fe8f59448c7942a2b17570085fbbbc",
+        "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_agentplan_20261011-002951\\pandas\\r001\\result.json": "01cde76bedb790f147306976c154406221e4a368e22b1adb62f8cf2ee27496d0"
+      },
+      "original_passed": false,
+      "before": {
+        "passed": false,
+        "message": "Number near 'Apex Global Brands Inc' does not match rounded 23781"
+      },
+      "after": {
+        "passed": true,
+        "message": "All names (exact or ≤5 edits) and rounded numbers matched."
+      },
+      "changed": true,
+      "previous_revision_record": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-09-21\\ni-x\\outputs\\dab-error-classification-20261021\\rescore-stockmarket-task3-window200\\rescored-results.json"
+    }
+  ],
+  "original_artifacts_unchanged": true,
+  "task_before_passed": 45,
+  "task_after_passed": 47,
+  "all_results_before_passed": 3189,
+  "all_results_after_passed": 3191
+}

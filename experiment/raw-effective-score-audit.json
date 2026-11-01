@@ -1,0 +1,154 @@
+{
+  "checked": 15612,
+  "difference_count": 10,
+  "all_differences_explained": true,
+  "model_runs": 0,
+  "rescoring_performed": false,
+  "original_results_modified": false,
+  "note": "原始 result.json 保持不变；此表仅核对已有评分修订，解释其与当前有效裁定的差异。",
+  "differences": [
+    {
+      "sample_id": "astra|interact|stockmarket|task3|pandas",
+      "benchmark": "DAB",
+      "raw_passed": false,
+      "effective_passed": true,
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-6-astra-low_interact_20261011-120720\\pandas\\r001",
+      "raw_result_sha256": "b28702fb59b20430393dc3ac512f1af73e09cd6079cb2f3247d7fed257588787",
+      "revision": "stockmarket-task3-window500-failures-only",
+      "revision_record": "01_initial_results/DAB/score-revision-records/1b804ac04d16e2dc9a9a39aa9b30460149baaec6660bc6f902ed2e60791d2371.json",
+      "revision_record_sample_id": "astra|interact|stockmarket|task3|pandas",
+      "verified": true
+    },
+    {
+      "sample_id": "glm53|clarified|stockmarket|task3|pandas",
+      "benchmark": "DAB",
+      "raw_passed": false,
+      "effective_passed": true,
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_glm-5.3-low_clarified_20261014-165548\\pandas\\r001",
+      "raw_result_sha256": "912e41223cd33f35aead9c80de837fea3359a44f14f605915f369831cd1ba463",
+      "revision": "stockmarket-task3-window200",
+      "revision_record": "01_initial_results/DAB/score-revision-records/a90faf39d8b3f9bbbbdc954d7cb24ac6bc1383015f53b661c4addf4e6b820679.json",
+      "revision_record_sample_id": "glm53|clarified|stockmarket|task3|pandas",
+      "verified": true
+    },
+    {
+      "sample_id": "gpt55|interact|stockmarket|task3|pyspark",
+      "benchmark": "DAB",
+      "raw_passed": false,
+      "effective_passed": true,
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\codex_gpt-5.5-low_interact_20261007-145348\\pyspark\\r001",
+      "raw_result_sha256": "3add771b28a332ec0c33d1fcf15730338541148277a5d7955d38ba22fc022a23",
+      "revision": "stockmarket-task3-window200",
+      "revision_record": "01_initial_results/DAB/score-revision-records/a90faf39d8b3f9bbbbdc954d7cb24ac6bc1383015f53b661c4addf4e6b820679.json",
+      "revision_record_sample_id": "gpt55|interact|stockmarket|task3|pyspark",
+      "verified": true
+    },
+    {
+      "sample_id": "kimi|clarified|stockmarket|task3|ibis",
+      "benchmark": "DAB",
+      "raw_passed": false,
+      "effective_passed": true,
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_clarified_membership_20261009-141739\\ibis\\r001",
+      "raw_result_sha256": "d1799cdc84df6ea5916870b98a28cd43d73e5bf6b5171f35b01946dd73d7ae26",
+      "revision": "stockmarket-task3-window200",
+      "revision_record": "01_initial_results/DAB/score-revision-records/a90faf39d8b3f9bbbbdc954d7cb24ac6bc1383015f53b661c4addf4e6b820679.json",
+      "revision_record_sample_id": "kimi|clarified|stockmarket|task3|ibis",
+      "verified": true
+    },
+    {
+      "sample_id": "kimi|clarified|stockmarket|task3|pyspark",
+      "benchmark": "DAB",
+      "raw_passed": false,
+      "effective_passed": true,
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_clarified_pyspark_agentplan_20261012-231706\\pyspark\\r001",
+      "raw_result_sha256": "cfe5aea21b50f23d0823085daa169ff395dc52a699536c2b9d22c58cce34a2e5",
+      "revision": "stockmarket-task3-window200",
+      "revision_record": "01_initial_results/DAB/score-revision-records/a90faf39d8b3f9bbbbdc954d7cb24ac6bc1383015f53b661c4addf4e6b820679.json",
+      "revision_record_sample_id": "kimi|clarified|stockmarket|task3|pyspark",
+      "verified": true
+    },
+    {
+      "sample_id": "kimi|direct|stockmarket|task3|polars",
+      "benchmark": "DAB",
+      "raw_passed": false,
+      "effective_passed": true,
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_direct_20261006-204221\\polars\\r001",
+      "raw_result_sha256": "d0aa267546403e1c758c2da5d210332a56733ca62e0bc26ceb8b4ba54fb380fa",
+      "revision": "stockmarket-task3-window200",
+      "revision_record": "01_initial_results/DAB/score-revision-records/a90faf39d8b3f9bbbbdc954d7cb24ac6bc1383015f53b661c4addf4e6b820679.json",
+      "revision_record_sample_id": "kimi|direct|stockmarket|task3|polars",
+      "verified": true
+    },
+    {
+      "sample_id": "kimi|direct|stockmarket|task3|pyspark",
+      "benchmark": "DAB",
+      "raw_passed": false,
+      "effective_passed": true,
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_direct_pyspark_agentplan_20261012-231706\\pyspark\\r001",
+      "raw_result_sha256": "4fc535357fa61e492c0d8263d9ef4dfbc7618452981fb18cc7d6e23df9223ef7",
+      "revision": "stockmarket-task3-window200",
+      "revision_record": "01_initial_results/DAB/score-revision-records/a90faf39d8b3f9bbbbdc954d7cb24ac6bc1383015f53b661c4addf4e6b820679.json",
+      "revision_record_sample_id": "kimi|direct|stockmarket|task3|pyspark",
+      "verified": true
+    },
+    {
+      "sample_id": "kimi|interact|stockmarket|task3|ibis",
+      "benchmark": "DAB",
+      "raw_passed": false,
+      "effective_passed": true,
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_k3-low_interact_membership_20261011-002951\\ibis\\r001",
+      "raw_result_sha256": "816266a1ba98171bdc354a294d3c683e7b2423ea4ce569af9e6375d7783926e0",
+      "revision": "stockmarket-task3-window200",
+      "revision_record": "01_initial_results/DAB/score-revision-records/a90faf39d8b3f9bbbbdc954d7cb24ac6bc1383015f53b661c4addf4e6b820679.json",
+      "revision_record_sample_id": "kimi|interact|stockmarket|task3|ibis",
+      "verified": true
+    },
+    {
+      "sample_id": "kimi|interact|stockmarket|task3|pandas",
+      "benchmark": "DAB",
+      "raw_passed": false,
+      "effective_passed": true,
+      "run": "D:\\DataFrameStudy\\dfArena-experiments\\DataAgentBench\\stockmarket\\output\\task3\\opencode_kimi-k3-low_interact_agentplan_20261011-002951\\pandas\\r001",
+      "raw_result_sha256": "01cde76bedb790f147306976c154406221e4a368e22b1adb62f8cf2ee27496d0",
+      "revision": "stockmarket-task3-window500-failures-only",
+      "revision_record": "01_initial_results/DAB/score-revision-records/1b804ac04d16e2dc9a9a39aa9b30460149baaec6660bc6f902ed2e60791d2371.json",
+      "revision_record_sample_id": "kimi|interact|stockmarket|task3|pandas",
+      "verified": true
+    },
+    {
+      "sample_id": "gpt6/clarified/case_168/polars",
+      "benchmark": "PrepBench",
+      "raw_passed": false,
+      "effective_passed": true,
+      "run": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-10-20\\prep1\\outputs\\formal-gpt6-clarified\\runs\\case_168\\polars\\attempt-001",
+      "raw_result_sha256": "d75fd60ac07c68e328b67b88640cb2551f5d4517208a63c9913b49aa07e8197e",
+      "revision": "evaluation-corrections-20261101",
+      "revision_record": "01_initial_results/PrepBench/score-revision-records/b6d32beb94109621d00712447bcb3891005f340f1fc8d0cf50f8492c92f9302c.json",
+      "revision_record_sample_id": "gpt6/clarified/case_168/polars",
+      "verified": true
+    }
+  ],
+  "revision_sources": [
+    {
+      "source": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-09-21\\ni-x\\outputs\\dab-error-classification-20261021\\rescore-stockmarket-task3-window500\\rescored-results.json",
+      "source_sha256": "1b804ac04d16e2dc9a9a39aa9b30460149baaec6660bc6f902ed2e60791d2371",
+      "export_path": "01_initial_results/DAB/score-revision-records/1b804ac04d16e2dc9a9a39aa9b30460149baaec6660bc6f902ed2e60791d2371.json",
+      "export_sha256": "1b804ac04d16e2dc9a9a39aa9b30460149baaec6660bc6f902ed2e60791d2371",
+      "redacted": false
+    },
+    {
+      "source": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-09-21\\ni-x\\outputs\\dab-error-classification-20261021\\rescore-stockmarket-task3-window200\\rescored-results.json",
+      "source_sha256": "a90faf39d8b3f9bbbbdc954d7cb24ac6bc1383015f53b661c4addf4e6b820679",
+      "export_path": "01_initial_results/DAB/score-revision-records/a90faf39d8b3f9bbbbdc954d7cb24ac6bc1383015f53b661c4addf4e6b820679.json",
+      "export_sha256": "a90faf39d8b3f9bbbbdc954d7cb24ac6bc1383015f53b661c4addf4e6b820679",
+      "redacted": false
+    },
+    {
+      "source": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-10-20\\prep2\\outputs\\evaluation-corrections-20261101\\reports\\gpt6\\clarified\\case_168\\polars\\evaluation.json",
+      "source_sha256": "b6d32beb94109621d00712447bcb3891005f340f1fc8d0cf50f8492c92f9302c",
+      "export_path": "01_initial_results/PrepBench/score-revision-records/b6d32beb94109621d00712447bcb3891005f340f1fc8d0cf50f8492c92f9302c.json",
+      "export_sha256": "b6d32beb94109621d00712447bcb3891005f340f1fc8d0cf50f8492c92f9302c",
+      "redacted": false
+    }
+  ]
+}

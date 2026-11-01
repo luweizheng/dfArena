@@ -1,0 +1,13 @@
+{
+  "compact_prep_records_with_evidence_relinked": 3430,
+  "full_index_used": "01_initial_results/PrepBench/effective-results-with-revisions.json",
+  "frozen_protocol_fingerprints_marked_as_provenance": 3057,
+  "protocol_smoke_reports_exported": [
+    "D:\\DataFrameStudy\\harness-glm-codex-20261022\\smoke\\direct-latest.json",
+    "D:\\DataFrameStudy\\harness-glm-codex-20261022\\smoke\\interact-latest.json",
+    "D:\\DataFrameStudy\\harness-round1-20261023\\kimi-smoke\\direct-latest.json",
+    "D:\\DataFrameStudy\\harness-round1-20261023\\kimi-smoke\\interact-latest.json"
+  ],
+  "scores_or_classifications_changed": false,
+  "capacity_replacement_histories_relinked": 7
+}

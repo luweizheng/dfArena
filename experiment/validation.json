@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "errors": [],
+  "run_entries": 18252,
+  "section_counts": {
+    "01_initial_results/DAB": 4992,
+    "01_initial_results/PrepBench": 10620,
+    "02_harness_effect/DAB/Codex": 720,
+    "02_harness_effect/DAB/OpenCode": 720,
+    "02_harness_effect/PrepBench/Codex": 600,
+    "02_harness_effect/PrepBench/OpenCode": 600
+  },
+  "classified_failures": {
+    "DAB": 1801,
+    "PrepBench": 3424
+  },
+  "archive_objects": 227974,
+  "uncompressed_bytes_scanned": 5939770385,
+  "portable_references_verified": 984931,
+  "coverage_exceptions": 225,
+  "generated_output_files_exported": 0,
+  "raw_effective_scores_compared": 15612,
+  "existing_score_revisions_verified": 10,
+  "original_experiments_modified": false,
+  "checks": [
+    "exact run identity and section coverage",
+    "all failed main runs classified",
+    "ZIP member CRC and content SHA256",
+    "source hashes checked during export",
+    "every portable evidence reference resolves",
+    "generated outputs excluded including hash-named copies",
+    "credential patterns scanned",
+    "all raw/effective score differences explained by existing revisions",
+    "figure data agrees with effective scores and failure classifications"
+  ]
+}

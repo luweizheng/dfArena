@@ -1,0 +1,192 @@
+{
+  "generated_at": "2026-10-27T12:47:19.859301+00:00",
+  "all_complete": true,
+  "new_units_planned": 600,
+  "valid_completed": 600,
+  "queues": [
+    {
+      "mode": "direct",
+      "planned": 200,
+      "valid_completed": 200,
+      "status_counts": {
+        "success": 109,
+        "failure": 91
+      },
+      "state": "queue_complete",
+      "extra_attempts": 8,
+      "transport_regime_counts": {
+        "initial_default_container_network": 30,
+        "existing_user_system_proxy": 170
+      },
+      "workers_per_mode_counts": {
+        "1": 75,
+        "2": 125
+      },
+      "baseline_passed_matched": 107,
+      "opencode_passed": 109,
+      "opencode_only_passed": 6,
+      "codex_only_passed": 4,
+      "baseline_pass_rate_percent": 53.5,
+      "opencode_pass_rate_percent": 54.5,
+      "paired_delta_percentage_points": 1.0,
+      "backends": {
+        "pandas": {
+          "matched_units": 50,
+          "baseline_passed": 28,
+          "opencode_passed": 28
+        },
+        "polars": {
+          "matched_units": 50,
+          "baseline_passed": 28,
+          "opencode_passed": 28
+        },
+        "ibis": {
+          "matched_units": 50,
+          "baseline_passed": 27,
+          "opencode_passed": 29
+        },
+        "pyspark": {
+          "matched_units": 50,
+          "baseline_passed": 24,
+          "opencode_passed": 24
+        }
+      },
+      "generation_elapsed_median_seconds": 70.33838792100005,
+      "token_total_known_units": 200,
+      "token_total_known": 13393742,
+      "baseline_generation_elapsed_median_seconds": 63.8798199400006,
+      "baseline_token_total_known_units": 200,
+      "baseline_token_total_known": 20432513,
+      "case_cluster_bootstrap_delta_95_percentile_interval": [
+        -3.5,
+        5.5
+      ]
+    },
+    {
+      "mode": "interact",
+      "planned": 200,
+      "valid_completed": 200,
+      "status_counts": {
+        "success": 184,
+        "failure": 16
+      },
+      "state": "queue_complete",
+      "extra_attempts": 21,
+      "transport_regime_counts": {
+        "initial_default_container_network": 7,
+        "existing_user_system_proxy": 193
+      },
+      "workers_per_mode_counts": {
+        "1": 25,
+        "2": 175
+      },
+      "baseline_passed_matched": 185,
+      "opencode_passed": 184,
+      "opencode_only_passed": 7,
+      "codex_only_passed": 8,
+      "baseline_pass_rate_percent": 92.5,
+      "opencode_pass_rate_percent": 92.0,
+      "paired_delta_percentage_points": -0.5,
+      "backends": {
+        "pandas": {
+          "matched_units": 50,
+          "baseline_passed": 48,
+          "opencode_passed": 48
+        },
+        "polars": {
+          "matched_units": 50,
+          "baseline_passed": 44,
+          "opencode_passed": 46
+        },
+        "ibis": {
+          "matched_units": 50,
+          "baseline_passed": 46,
+          "opencode_passed": 46
+        },
+        "pyspark": {
+          "matched_units": 50,
+          "baseline_passed": 47,
+          "opencode_passed": 44
+        }
+      },
+      "generation_elapsed_median_seconds": 124.16147674849981,
+      "token_total_known_units": 200,
+      "token_total_known": 20458351,
+      "baseline_generation_elapsed_median_seconds": 94.39798338449964,
+      "baseline_token_total_known_units": 199,
+      "baseline_token_total_known": 27121037,
+      "case_cluster_bootstrap_delta_95_percentile_interval": [
+        -5.5,
+        4.0
+      ]
+    },
+    {
+      "mode": "clarified",
+      "planned": 200,
+      "valid_completed": 200,
+      "status_counts": {
+        "success": 193,
+        "failure": 7
+      },
+      "state": "queue_complete",
+      "extra_attempts": 9,
+      "transport_regime_counts": {
+        "initial_default_container_network": 33,
+        "existing_user_system_proxy": 167
+      },
+      "workers_per_mode_counts": {
+        "1": 81,
+        "2": 119
+      },
+      "baseline_passed_matched": 192,
+      "opencode_passed": 193,
+      "opencode_only_passed": 2,
+      "codex_only_passed": 1,
+      "baseline_pass_rate_percent": 96.0,
+      "opencode_pass_rate_percent": 96.5,
+      "paired_delta_percentage_points": 0.5,
+      "backends": {
+        "pandas": {
+          "matched_units": 50,
+          "baseline_passed": 50,
+          "opencode_passed": 50
+        },
+        "polars": {
+          "matched_units": 50,
+          "baseline_passed": 47,
+          "opencode_passed": 47
+        },
+        "ibis": {
+          "matched_units": 50,
+          "baseline_passed": 48,
+          "opencode_passed": 48
+        },
+        "pyspark": {
+          "matched_units": 50,
+          "baseline_passed": 47,
+          "opencode_passed": 48
+        }
+      },
+      "generation_elapsed_median_seconds": 67.35852104850028,
+      "token_total_known_units": 200,
+      "token_total_known": 12669750,
+      "baseline_generation_elapsed_median_seconds": 61.41247088149885,
+      "baseline_token_total_known_units": 200,
+      "baseline_token_total_known": 19316045,
+      "case_cluster_bootstrap_delta_95_percentile_interval": [
+        -1.5,
+        3.0
+      ]
+    }
+  ],
+  "issues": [],
+  "protocol_sha256": "1fbb4aad276cf61c212bcfdeb4b097f6c5041b0c25b2d145d0f112a91efcdb01",
+  "operational_amendment_sha256": "c479953949df9a3975cf72defd2d898e346b490499fb6628e2d6ea2f1a7dadf7",
+  "progress_snapshots": {
+    "direct": "321fe5e7b99b0ec3186c1a262f38947c88816238e440563545424c1287c745a2",
+    "interact": "e96a9dafc0ef5347b3d7e02c1cb0bd3e36a8011c2202d699b14c253a0b84a6ba",
+    "clarified": "e9232d3d9ac3402f3ccb3f89e22eff439a376b50d8325021f80a3e976deb46dd"
+  },
+  "comparison_scope": "Paired by case, backend and mode; report discordant outcomes and case-cluster uncertainty. Same benchmark task prompt, data, evaluator, image, timeout and requested model/effort. Agent-internal system instructions, tools and execution strategy belong to the harness treatment. Historical runs are not contemporaneous; stochasticity, backend model updates and runtime concurrency can confound differences.",
+  "bootstrap": "10,000 resamples of 50 whole cases; four backend outcomes per case retained together in each mode; seeded 20261027. Interval is exploratory and does not remove temporal or stochastic confounds."
+}

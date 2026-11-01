@@ -1,0 +1,36 @@
+{
+  "created_at": "2026-10-26T14:26:53.487353+00:00",
+  "all_checks_passed": true,
+  "source_sha256": {
+    "effective_index": "6058b7d4e6772e0f743aa4bf8910e58fa1f44ac72fd7883182a2b9bd8bf97a55",
+    "annotations": "ef5efa9d56a825eb9fd5822d2af9d58542e51144f8ab3810b95a63bf4f048a86",
+    "taxonomy": "0568bcf9788ba0d1cdf900ad8205456c4bbb3dacac29832917ce9402cd67eed7"
+  },
+  "source_hashes_unchanged_after_render": true,
+  "unique_effective_runs": 4992,
+  "unique_tasks": 104,
+  "datasets": 17,
+  "effective_failures": 1801,
+  "annotation_records": 1803,
+  "excluded_historical_passes": 2,
+  "label_join_mismatches": 0,
+  "matched_pairs_per_model_and_comparison": 416,
+  "blind_review_labels_overrode_primary_annotations": false,
+  "actual_budget_seconds": {
+    "600.0": 3206,
+    "1800.0": 1786
+  },
+  "source_kinds": {
+    "original": 4739,
+    "timeout_rerun": 242,
+    "environment_rerun": 11
+  },
+  "font": "Arial",
+  "font_path": "C:\\Windows\\Fonts\\arial.ttf",
+  "png_dpi": 400,
+  "pdf_embedded_font_type": 42,
+  "svg_text_editable": true,
+  "inference": "Descriptive census only; no independence assumption or significance claims",
+  "script_sha256": "b448d63451bb6990462b10c5a0495bf9e3068836f08ccb6a6ba02f4a1559a68e",
+  "matplotlib_version": "3.10.6"
+}
