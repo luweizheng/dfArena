@@ -1,0 +1,51 @@
+{
+  "raw_unmatched": 309,
+  "normalized_unmatched": 0,
+  "examples": [
+    [
+      "08882143",
+      "8882143"
+    ],
+    [
+      "00973472",
+      "973472"
+    ],
+    [
+      "03180528",
+      "3180528"
+    ],
+    [
+      "00325777",
+      "325777"
+    ],
+    [
+      "09588159",
+      "9588159"
+    ]
+  ],
+  "method": "Standard-library CSV read; compare split/trimmed holder IDs by literal string and by decimal integer identity. No solution execution or scoring.",
+  "inputs": [
+    {
+      "source_path": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-10-20\\prep2\\work\\frozen-source-d6edbdb07496\\PrepBench\\case_210\\inputs\\input_01.csv",
+      "source_sha256": "3106ce0bcb3344cc4244b2858be75eb8ac9386eb6f892affedbb480adf180f80",
+      "portable_file": {
+        "path": "03_error_analysis/PrepBench/evidence/31/3106ce0bcb3344cc4244b2858be75eb8ac9386eb6f892affedbb480adf180f80.csv",
+        "asset": "experiment-03_error_analysis-PrepBench-context-001.zip",
+        "sha256": "3106ce0bcb3344cc4244b2858be75eb8ac9386eb6f892affedbb480adf180f80",
+        "bytes": 201411,
+        "source_sha256": "3106ce0bcb3344cc4244b2858be75eb8ac9386eb6f892affedbb480adf180f80"
+      }
+    },
+    {
+      "source_path": "C:\\Users\\Lenovo\\Documents\\Codex\\2026-10-20\\prep2\\work\\frozen-source-d6edbdb07496\\PrepBench\\case_210\\inputs\\input_02.csv",
+      "source_sha256": "30a3598bf587c0b22bf32b1980c25fb3810422be99263b001d233067697b61ec",
+      "portable_file": {
+        "path": "03_error_analysis/PrepBench/evidence/30/30a3598bf587c0b22bf32b1980c25fb3810422be99263b001d233067697b61ec.csv",
+        "asset": "experiment-03_error_analysis-PrepBench-context-001.zip",
+        "sha256": "30a3598bf587c0b22bf32b1980c25fb3810422be99263b001d233067697b61ec",
+        "bytes": 129342,
+        "source_sha256": "30a3598bf587c0b22bf32b1980c25fb3810422be99263b001d233067697b61ec"
+      }
+    }
+  ]
+}
