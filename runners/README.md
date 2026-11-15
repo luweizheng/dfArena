@@ -26,7 +26,7 @@ After container shutdown, the runner copies Codex or Claude Code session files o
 
 Generation metrics go to `detail/generation.json`; evaluation has its own timing and status in `detail/evaluation.json`. `result.json` combines both records. When evaluation invokes an external validator, its stdout and stderr are combined in `logs/evaluation.log`.
 
-Codex usage comes from `turn.completed.usage`; OpenCode usage comes from `step_finish.part.tokens`, deduplicated by session ID and part ID. Claude Code usage comes from the final `result.usage` event. The shared `token_usage` fields use inclusive counts:
+Codex usage comes from `turn.completed.usage`; OpenCode usage comes from `step_finish.part.tokens`, deduplicated by session ID and part ID. Claude Code usage comes from the final `result.usage` event. Token accounting for non-Anthropic models may be unreliable; verify provider usage before using these counts for cost analysis. The shared `token_usage` fields use inclusive counts:
 
 | Field | Meaning |
 |---|---|
@@ -62,8 +62,6 @@ To add an agent, implement and register an adapter, install its CLI in the image
 ## Configuration
 
 Local settings live in `configs/codex/config.toml`, `configs/opencode/opencode.json`, and `configs/claude/settings.json`. Start from the [Codex example](configs/codex/config.example.toml), [OpenCode example](configs/opencode/opencode.example.json), or [Claude Code example](configs/claude/settings.example.json), then set the provider, model, reasoning effort, and credentials. Examples are shareable; actual configuration and authentication files are Git-ignored.
-
-In our Claude Code smoke tests, input and output token counts were reported for a Claude model, but GPT requests through a third-party provider reported zero output tokens despite generating content. Token accounting for non-Anthropic models may be unreliable; verify provider usage before using these counts for cost analysis.
 
 The host-side clarification simulator has a separate shared configuration at `configs/simulator/simulator.env`, based on [simulator.example.env](configs/simulator/simulator.example.env). Both benchmarks read its `SIMULATOR_*` settings in interactive mode; their `--simulator-env` option can select another file. Keep this configuration separate from coding-agent model settings.
 
