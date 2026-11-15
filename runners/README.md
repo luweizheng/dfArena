@@ -1,32 +1,32 @@
 # Shared coding-agent runners
 
-Each `<benchmark>` runner supports `--agent codex|opencode`. Runners use isolated Docker runs and preserve generation and evaluation records separately.
+Each `<benchmark>` runner supports `--agent codex|opencode|claude`. Runners use isolated Docker runs and preserve generation and evaluation records separately.
 
 ## Session archives
 
 Each run saves both the CLI event stream and the agent's native session archive:
 
-| Artifact | Codex | OpenCode |
-|---|---|---|
-| Session archive | `detail/codex_sessions/` | `detail/opencode_sessions/opencode.db` |
-| CLI events | `logs/agent_events.jsonl` | `logs/agent_events.jsonl` |
-| CLI stderr | `logs/agent_stderr.log` | `logs/agent_stderr.log` |
+| Artifact | Codex | OpenCode | Claude Code |
+|---|---|---|---|
+| Session archive | `detail/codex_sessions/` | `detail/opencode_sessions/opencode.db` | `detail/claude_sessions/` |
+| CLI events | `logs/agent_events.jsonl` | `logs/agent_events.jsonl` | `logs/agent_events.jsonl` |
+| CLI stderr | `logs/agent_stderr.log` | `logs/agent_stderr.log` | `logs/agent_stderr.log` |
 
 Paths are relative to a run directory under `<benchmark>`. `agent_log_paths(run_dir)` in `runners/agents/` defines the shared CLI log paths. Historical runs retain their original names; use their recorded `artifacts.agent_log` path.
 
 CLI events support token extraction and execution analysis. Native archives preserve additional session context. Both retain their original formats; paths are recorded in `artifacts.agent_log` and `artifacts.sessions`.
 
-After container shutdown, the runner copies Codex session files or backs up OpenCode's SQLite database, including committed WAL data. Credentials and provider configuration are excluded. Failed and timed-out runs also attempt archiving. Resuming requires the corresponding workspace and configuration, not just the archive.
+After container shutdown, the runner copies Codex or Claude Code session files or backs up OpenCode's SQLite database, including committed WAL data. Credentials and provider configuration are excluded. Failed and timed-out runs also attempt archiving. Resuming requires the corresponding workspace and configuration, not just the archive.
 
 ## Timing and token usage
 
 `detail/agent_exec_timing.json` records UTC `started_at` / `finished_at` and monotonic `elapsed_seconds`. It measures the agent process inside Docker, including exploration, tool execution, repairs, and simulator waits. Docker startup, session archiving, and evaluation are excluded.
 
-`runners/timed_process.py` is the in-container execution wrapper, not a test. The runner mounts this script into the container and invokes it as the container command; the wrapper starts Codex or OpenCode, forwards its standard input/output/error, waits for completion, and writes the timing report. On timeout it terminates the agent's process group before recording the final status and exit code.
+`runners/timed_process.py` is the in-container execution wrapper, not a test. The runner mounts this script into the container and invokes it as the container command; the wrapper starts the selected agent, forwards its standard input/output/error, waits for completion, and writes the timing report. On timeout it terminates the agent's process group before recording the final status and exit code.
 
 Generation metrics go to `detail/generation.json`; evaluation has its own timing and status in `detail/evaluation.json`. `result.json` combines both records. When evaluation invokes an external validator, its stdout and stderr are combined in `logs/evaluation.log`.
 
-Codex usage comes from `turn.completed.usage`; OpenCode usage comes from `step_finish.part.tokens`, deduplicated by session ID and part ID. The shared `token_usage` fields use inclusive counts:
+Codex usage comes from `turn.completed.usage`; OpenCode usage comes from `step_finish.part.tokens`, deduplicated by session ID and part ID. Claude Code usage comes from the final `result.usage` event. The shared `token_usage` fields use inclusive counts:
 
 | Field | Meaning |
 |---|---|
@@ -50,6 +50,7 @@ runners/
     base.py           # AgentAdapter interface
     codex.py          # Codex configuration, command, archive, usage parser
     opencode.py       # OpenCode configuration, command, archive, usage parser
+    claude.py         # Claude Code configuration, command, archive, usage parser
   results.py          # Stage persistence and result summary
   timed_process.py    # Agent process timing and timeout handling
 ```
@@ -60,19 +61,10 @@ To add an agent, implement and register an adapter, install its CLI in the image
 
 ## Configuration
 
-Local settings live in `configs/codex/config.toml` and `configs/opencode/opencode.json`. Start from the [Codex example](configs/codex/config.example.toml) or [OpenCode example](configs/opencode/opencode.example.json), then set the provider, model, reasoning effort, and credentials. Examples are shareable; actual configuration and authentication files are Git-ignored.
+Local settings live in `configs/codex/config.toml`, `configs/opencode/opencode.json`, and `configs/claude/settings.json`. Start from the [Codex example](configs/codex/config.example.toml), [OpenCode example](configs/opencode/opencode.example.json), or [Claude Code example](configs/claude/settings.example.json), then set the provider, model, reasoning effort, and credentials. Claude Code requires an Anthropic Messages-compatible provider. Examples are shareable; actual configuration and authentication files are Git-ignored.
 
 The host-side clarification simulator has a separate shared configuration at `configs/simulator/simulator.env`, based on [simulator.example.env](configs/simulator/simulator.example.env). Both benchmarks read its `SIMULATOR_*` settings in interactive mode; their `--simulator-env` option can select another file. Keep this configuration separate from coding-agent model settings.
 
-Defaults resolve relative to this repository. Override them with `--codex-config-dir`, `--opencode-config`, or `--opencode-auth`. Missing local configuration does not fall back to global settings.
+Defaults resolve relative to this repository. Override them with `--codex-config-dir`, `--opencode-config`, `--opencode-auth`, or `--claude-config`. Missing local configuration does not fall back to global settings.
 
-Interactive runners inject their local clarification MCP through `AgentAdapter.configure_local_mcp()`, after preparing isolated agent settings. The benchmark owns the command, environment and mounts; Codex/OpenCode adapters serialize native configuration. Codex retains separate startup/tool timeouts in seconds and `required=true`. OpenCode exposes one `timeout` in milliseconds, mapped from the tool budget; the startup timeout has no separate mapping. This does not assert identical startup or failure behavior. Existing provider settings and other explicitly injected servers are preserved; duplicate server names are rejected. Host MCP settings are not imported.
-
-## Claude Code
-
-Claude Code is also supported as a Docker-based runner via `--agent claude`.
-Copy `runners/configs/claude/settings.example.json` to
-`runners/configs/claude/settings.json` and configure an Anthropic-compatible
-provider. Use `--model` to select the model and `--claude-config` to override
-the configuration path. It uses the same clarification, trajectory recording,
-and evaluation pipeline as the other runners.
+Interactive runners inject their local clarification MCP through `AgentAdapter.configure_local_mcp()`, after preparing isolated agent settings. The benchmark owns the command, environment and mounts; agent adapters serialize native configuration. Codex retains separate startup/tool timeouts in seconds and `required=true`. OpenCode exposes one `timeout` in milliseconds, mapped from the tool budget; the startup timeout has no separate mapping. This does not assert identical startup or failure behavior. Existing provider settings and other explicitly injected servers are preserved; duplicate server names are rejected. Host MCP settings are not imported.
