@@ -26,7 +26,7 @@ After container shutdown, the runner copies Codex or Claude Code session files o
 
 Generation metrics go to `detail/generation.json`; evaluation has its own timing and status in `detail/evaluation.json`. `result.json` combines both records. When evaluation invokes an external validator, its stdout and stderr are combined in `logs/evaluation.log`.
 
-Codex usage comes from `turn.completed.usage`; OpenCode usage comes from `step_finish.part.tokens`, deduplicated by session ID and part ID. Claude Code usage comes from the final `result.usage` event. Token accounting for non-Anthropic models may be unreliable; verify provider usage before using these counts for cost analysis. The shared `token_usage` fields use inclusive counts:
+Codex usage comes from `turn.completed.usage`; OpenCode usage comes from `step_finish.part.tokens`, deduplicated by session ID and part ID. Claude Code usage comes from the final `result.usage` event. When using Claude Code, token accounting for non-Anthropic models may be unreliable; verify provider usage before using these counts for cost analysis. The shared `token_usage` fields use inclusive counts:
 
 | Field | Meaning |
 |---|---|
