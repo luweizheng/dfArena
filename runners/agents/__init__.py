@@ -8,10 +8,11 @@ import re
 
 from .base import AgentAdapter
 from .codex import CodexAgent
+from .claude import ClaudeAgent
 from .opencode import OpenCodeAgent
 
 AGENTS: dict[str, AgentAdapter] = {
-    adapter.name: adapter for adapter in (CodexAgent(), OpenCodeAgent())
+    adapter.name: adapter for adapter in (CodexAgent(), OpenCodeAgent(), ClaudeAgent())
 }
 
 
