@@ -20,7 +20,7 @@ def utc_now():
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--agent', choices=['codex', 'opencode'], default='codex')
+    parser.add_argument('--agent', choices=['codex', 'opencode', 'claude'], default='codex')
     parser.add_argument('--report', required=True, type=Path)
     parser.add_argument('--timeout', required=True, type=float)
     parser.add_argument('command', nargs=argparse.REMAINDER)

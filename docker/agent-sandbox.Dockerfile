@@ -25,8 +25,10 @@ RUN ARCH="$(dpkg --print-architecture)" && \
     tar -xJf /tmp/node.tar.xz -C /usr/local --strip-components=1 && \
     rm -f /tmp/node.tar.xz
 
-RUN npm install -g @openai/codex opencode-ai && \
-    opencode --version
+RUN npm install -g @openai/codex opencode-ai @anthropic-ai/claude-code@2.1.260 && \
+    opencode --version && claude --version
+
+ENV IS_SANDBOX=1
 
 COPY docker/requirements.txt /tmp/requirements.txt
 

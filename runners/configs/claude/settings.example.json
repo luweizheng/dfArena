@@ -1,0 +1,8 @@
+{
+  "model": "PROVIDER_MODEL_ID",
+  "effortLevel": "low",
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://nowcoding.ai",
+    "ANTHROPIC_AUTH_TOKEN": "REPLACE_WITH_PROVIDER_TOKEN"
+  }
+}

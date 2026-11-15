@@ -67,3 +67,34 @@ The host-side clarification simulator has a separate shared configuration at `co
 Defaults resolve relative to this repository. Override them with `--codex-config-dir`, `--opencode-config`, or `--opencode-auth`. Missing local configuration does not fall back to global settings.
 
 Interactive runners inject their local clarification MCP through `AgentAdapter.configure_local_mcp()`, after preparing isolated agent settings. The benchmark owns the command, environment and mounts; Codex/OpenCode adapters serialize native configuration. Codex retains separate startup/tool timeouts in seconds and `required=true`. OpenCode exposes one `timeout` in milliseconds, mapped from the tool budget; the startup timeout has no separate mapping. This does not assert identical startup or failure behavior. Existing provider settings and other explicitly injected servers are preserved; duplicate server names are rejected. Host MCP settings are not imported.
+
+## Claude Code (experimental)
+
+The `claude` adapter runs Claude Code inside the same isolated Docker workspace
+used by the other agents. Build `docker/agent-sandbox.Dockerfile` to include
+Claude Code 2.1.260. Permission bypass is enabled only inside this sandbox.
+Copy `runners/configs/claude/settings.example.json` to `runners/configs/claude/settings.json`
+and configure an **Anthropic Messages-compatible** provider and its actual
+model ID. An OpenAI-only model endpoint cannot be used directly by Claude Code.
+The local settings file is ignored by Git; keep its permissions at `0600`.
+
+```bash
+.venv/bin/python PrepBench/scripts/run_benchmark.py \
+  --case 001 --mode clarified --backend pandas --agent claude \
+  --model PROVIDER_MODEL_ID --timeout 1800
+```
+
+`--claude-config PATH` selects a different settings file. Only provider auth,
+base URL, selected model and effort are copied into temporary configuration;
+host hooks, MCP servers, history and personal instructions are not imported.
+Interactive runs inject only the benchmark's clarification MCP server.
+Native stream events and project session traces are retained. Usage uses the
+final result event, including cached input tokens; timed-out runs without a
+result event report unavailable usage. Provider-reported cost is retained but
+is not assumed to be the third-party provider's actual invoice. Correctness
+still comes from the separate benchmark evaluator, not the Claude exit code.
+
+A provider reporting zero output tokens despite generated assistant content is
+marked as partial usage. Do not use such counters for complete cost estimates.
+The clarified pandas smoke test passed with nowcoding.ai and `gpt-6.1-sol`;
+an interactive pandas smoke test also passed with two successful clarification calls.

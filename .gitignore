@@ -27,3 +27,6 @@ runs/
 *.pem
 *.key
 *.log
+!/runners/configs/claude/
+/runners/configs/claude/*
+!/runners/configs/claude/settings.example.json
