@@ -21,12 +21,12 @@ runs/
 !/runners/configs/codex/
 /runners/configs/codex/*
 !/runners/configs/codex/config.example.toml
+!/runners/configs/claude/
+/runners/configs/claude/*
+!/runners/configs/claude/settings.example.json
 !/runners/configs/simulator/
 /runners/configs/simulator/*
 !/runners/configs/simulator/simulator.example.env
 *.pem
 *.key
 *.log
-!/runners/configs/claude/
-/runners/configs/claude/*
-!/runners/configs/claude/settings.example.json
